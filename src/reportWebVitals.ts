@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/named
 import { ReportHandler } from 'web-vitals';
 
 const reportWebVitals = (onPerfEntry?: ReportHandler) => {

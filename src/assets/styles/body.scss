@@ -1,0 +1,20 @@
+$font_color: white;
+$font_family: 'NanumBarunGothic', 'serif';
+$font_size: 16px;
+
+@mixin btn {
+  border: none;
+  width: 100px;
+  height: 25px;
+  background-color: #ffffff;
+  margin-left: 10px;
+  font-size: 18px;
+}
+
+body {
+  color: $font_color;
+  font: {
+    size: $font_size;
+    family: $font_family;
+  }
+}

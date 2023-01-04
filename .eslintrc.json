@@ -1,0 +1,89 @@
+{
+  // 전역변수 환경 설정
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+
+  // npm을 통해 설치한 외부 ESLint 설정 등록 (eslint-config-{name}으로 설치)
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+
+  // ESLint에 지원할 JavaScript 옵션 설정
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "createDefaultProgram": true,
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+
+  // parser 등록
+  "parser": "@typescript-eslint/parser",
+
+  // 사용자 규칙 추가할 플러그인 (eslint-plugin-{name}으로 설치)
+  "plugins": [
+    "@typescript-eslint",
+    "prettier",
+    "import",
+    "react",
+    "react-hooks"
+  ],
+
+  // 플러그인을 통해 설치한 것 외에 규칙 설정
+  "rules": {
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "semi": ["warn", "always"],
+    // "quotes": ["warn", "single"],
+    // "jsx-quotes": ["warn", "prefer-single"],
+    "no-unused-vars": [
+      "warn",
+      { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
+    ],
+    "prettier/prettier": [
+      "warn",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    // import할때 파일 확장자 설정
+    "import/extensions": [
+      "warn",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never",
+        "json": "never",
+        "mjs": "never"
+      }
+    ],
+    // 코드 한줄 최대길이
+    "max-len": ["warn", { "code": 80 }],
+    "react-hooks/rules-of-hooks": "warn",
+    "react-hooks/exhaustive-deps": "warn",
+    //추측 jsx문법을 .tsx에서도 사용할 수 있도록 해주는거 같음(?)
+    "react/jsx-filename-extension": [
+      "warn",
+      { "extensions": [".tsx", ".jsx", ".ts"] }
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  }
+}
