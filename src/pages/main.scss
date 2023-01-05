@@ -1,46 +1,67 @@
 @import '../assets/styles/body.scss';
 
+@mixin carouselBtn {
+  @include btn;
+  cursor: pointer;
+  width: 60px;
+  height: 200px;
+  font-size: 100px;
+  color: #000000;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+  top: 50%;
+  transform: translate(0, -50%);
+}
+
+@mixin carouselEle {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+@mixin carouselList {
+  width: 100%;
+  display: flex;
+  transform: translate();
+  transition: transform 0.5s ease-in-out;
+}
+
+@mixin carouselLeftBtn {
+  left: 0;
+}
+@mixin carouselRighttBtn {
+  right: 0;
+  margin: 0;
+}
+
 .spreet-row {
+  margin: auto;
   height: 500px;
   position: relative;
   border: 1px solid black;
   box-sizing: border-box;
   .spreet-row__button {
-    @include btn;
-    width: 60px;
-    height: 200px;
-    font-size: 100px;
-    color: #000000;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 99;
-    top: 50%;
-    transform: translate(0, -50%);
-    cursor: pointer;
+    @include carouselBtn;
     &.btn--right {
-      right: 0;
-      margin: 0;
+      @include carouselRighttBtn;
     }
 
     &.btn--left {
-      left: 0;
+      @include carouselLeftBtn;
     }
   }
   .spreet-row__carousel {
-    width: 100%;
-    height: 100%;
-    position: relative;
+    @include carouselEle;
     .spreet-row__list {
-      width: 100%;
-      display: flex;
-      transform: translate();
-      transition: transform 0.5s ease-in-out;
+      @include carouselList;
       .spreet-item-wrapper {
         display: flex;
         .spreet-item__container {
-          width: 1200px;
+          width: 1440px;
           height: 500px;
           border: 5px solid gray;
         }
@@ -61,6 +82,60 @@
       border: none;
       border-radius: 100%;
       color: black;
+    }
+  }
+}
+
+.main-content {
+  width: 1440px;
+  margin: auto;
+  .main-inner {
+    margin: 50px;
+    height: 800px;
+    background-color: #373636;
+    .rap-row {
+      height: 300px;
+      position: relative;
+      border: 1px solid black;
+      box-sizing: border-box;
+      .rap-row__carousel {
+        @include carouselEle;
+        background-color: gray;
+        .rap-row__button {
+          @include carouselBtn();
+          &.btn--right {
+            @include carouselRighttBtn;
+          }
+
+          &.btn--left {
+            @include carouselLeftBtn;
+          }
+        }
+        .rap-row__list {
+          @include carouselList;
+          .rap-item__wrapper {
+            display: flex;
+            .rap-item__container {
+              width: 250px;
+              height: 250px;
+              margin-left: 20px;
+              border: 3px solid yellow;
+            }
+          }
+        }
+      }
+    }
+    .feed-content {
+      margin-top: 100px;
+      .feed-wrapper {
+        text-align: center;
+        font-size: 32px;
+        overflow: auto;
+        height: 400px;
+        h1 {
+          opacity: 0.3;
+        }
+      }
     }
   }
 }

@@ -13,6 +13,9 @@
 //   }
 // };
 
+// export const getHeroes = () => {
+//     return axios.get('http://localhost:4000/superheroes');
+//   };
 // export const postSignup = async (post) => {
 //   try {
 //     const data = await instance.post("/api/signup", post);

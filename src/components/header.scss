@@ -11,14 +11,19 @@ body {
     align-items: center;
     height: 140px;
     background-color: black;
-    .header_logo {
-      flex: 1;
-      margin-left: 20px;
-    }
-    > .header_btn {
-      margin-right: 30px;
-      > button {
-        @include btn;
+    .header_inner {
+      display: flex;
+      width: 1440px;
+      margin: auto;
+      .header_logo {
+        flex: 1;
+        margin-left: 20px;
+      }
+      .header_btn {
+        margin-right: 30px;
+        button {
+          @include btn;
+        }
       }
     }
   }
