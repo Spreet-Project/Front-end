@@ -13,17 +13,19 @@ export const getHeroes = () => {
   return axios.get('http://localhost:4000/superheroes');
 };
 
-const Main = () => {
-  // const { isLoading, isError, error, isFetching } = useQuery(
+const Main = (): JSX.Element => {
+  // const { isLoading, isError, data, error, isFetching } = useQuery(
   //   'super-hero', //쿼리 키
   //   getHeroes, //비동기 처리함수(서버에 요청),
   //   {
-  //     cacheTime: 5000, //캐시를 몇초까지 저장해줄건지? 기본 5분?
-  //     staleTime: 3000, //재검색을 트리거? 기존에 있던 데이터처리를 어떻게할건지?
-  //     refetchOnMount: true, //쿼리데이터가 오래되었는지 확인하는여부?
-  //     refetchOnWindowFocus: true, //기본값 true 데이터가 변경되었다면 변경된 값에따라 화면새로겝반영?
+  //     // cacheTime: 5000, //캐시를 몇초까지 저장해줄건지? 기본 5분?
+  //     staleTime: 5000, //재검색을 트리거? 기존에 있던 데이터처리를 어떻게할건지?
+  //     // refetchOnMount: true, //쿼리데이터가 오래되었는지 확인하는여부?
+  //     // refetchOnWindowFocus: true, //기본값 true 데이터가 변경되었다면 변경된 값에따라 화면새로겝반영?
+  //     suspense: true,
   //   },
   // );
+
   const isUpScrollNum = useRef(0); //게시글 부분 스크롤 위로가는 경우 확인해주는숫자
   const feedRef = useRef<HTMLDivElement>(null); //게시글 스크롤에 사용될 ref
   const rapRef: any = useRef(); //상단 슬라이드 ref;
@@ -133,8 +135,8 @@ const Main = () => {
       if (currTagerIndex === 0) {
         entry.target.style.opacity = 1;
         current.childNodes[currTagerIndex + 1].style.opacity = 0.9;
-        current.childNodes[currTagerIndex + 2].style.opacity = 0.8;
-        current.childNodes[currTagerIndex + 3].style.opacity = 0.7;
+        current.childNodes[currTagerIndex + 2].style.opacity = 0.7;
+        current.childNodes[currTagerIndex + 3].style.opacity = 0.5;
         return;
       }
 

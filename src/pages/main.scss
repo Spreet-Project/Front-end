@@ -87,8 +87,7 @@
 }
 
 .main-content {
-  width: 1440px;
-  margin: auto;
+  @include contentSector;
   .main-inner {
     margin: 50px;
     height: 800px;
@@ -128,6 +127,7 @@
     .feed-content {
       margin-top: 100px;
       .feed-wrapper {
+        color: white;
         text-align: center;
         font-size: 32px;
         overflow: auto;

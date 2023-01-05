@@ -1,12 +1,12 @@
 @import '../assets/styles/body.scss';
 
 body {
-  color: $font_color;
-  font: {
-    size: $font_size;
-    family: $font_family;
-  }
   .header {
+    font: {
+      size: $font_size;
+      family: $font_family;
+    }
+    color: $font_color;
     display: flex;
     align-items: center;
     height: 140px;
