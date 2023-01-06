@@ -8,7 +8,14 @@ const Header = (): JSX.Element => {
     <>
       <div className="header">
         <div className="header_inner">
-          <h1 className="header_logo">Spreet</h1>
+          <h1
+            className="header_logo"
+            onClick={() => {
+              navigate('/');
+            }}
+          >
+            Spreet
+          </h1>
           <div className="header_btn">
             <button>알림</button>
             <button
@@ -19,7 +26,13 @@ const Header = (): JSX.Element => {
               쇼츠
             </button>
             <button>행사</button>
-            <button>로그인</button>
+            <button
+              onClick={() => {
+                navigate('/login');
+              }}
+            >
+              로그인
+            </button>
             <button>마이페이지</button>
           </div>
         </div>

@@ -44,8 +44,7 @@
     "react/prop-types": "off",
     "react/react-in-jsx-scope": "off",
     "semi": ["warn", "always"],
-    // "quotes": ["warn", "single"],
-    // "jsx-quotes": ["warn", "prefer-single"],
+    "quotes": ["warn", "single"],
     "no-unused-vars": [
       "warn",
       { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }
@@ -55,6 +54,15 @@
       {
         "endOfLine": "auto"
       }
+    ],
+    // 코드 한줄 최대길이
+    "max-len": ["warn", { "code": 80 }],
+    "react-hooks/rules-of-hooks": "warn",
+    "react-hooks/exhaustive-deps": "warn",
+    //추측 jsx문법을 .tsx에서도 사용할 수 있도록 해주는거 같음(?)
+    "react/jsx-filename-extension": [
+      "warn",
+      { "extensions": [".tsx", ".jsx", ".ts"] }
     ],
     // import할때 파일 확장자 설정
     "import/extensions": [
@@ -68,15 +76,6 @@
         "json": "never",
         "mjs": "never"
       }
-    ],
-    // 코드 한줄 최대길이
-    "max-len": ["warn", { "code": 80 }],
-    "react-hooks/rules-of-hooks": "warn",
-    "react-hooks/exhaustive-deps": "warn",
-    //추측 jsx문법을 .tsx에서도 사용할 수 있도록 해주는거 같음(?)
-    "react/jsx-filename-extension": [
-      "warn",
-      { "extensions": [".tsx", ".jsx", ".ts"] }
     ]
   },
   "settings": {

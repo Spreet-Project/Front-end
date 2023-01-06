@@ -49,6 +49,7 @@ const Main = (): JSX.Element => {
   const [spreetTransX, setspreetTransX] = useState(0);
   const post: string[] = ['red', 'blue', 'green', 'black', 'purple'];
   const sldiesDomLength = useRef(post.length);
+
   useLayoutEffect(() => {
     const getSpreetCordinate = () => {
       const listLeft = spreetRef.current.getBoundingClientRect().left;

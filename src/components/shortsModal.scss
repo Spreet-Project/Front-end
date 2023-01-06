@@ -4,15 +4,15 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  @include positonCenter;
   background-color: rgba(27, 26, 26, 0.8);
   @include flexCenter;
+  @include positonCenter;
   .modal-video {
     width: 500px;
     height: 600px;
-    border: 5px solid black;
+
     margin-right: 30px;
-    margin-top: 50px;
+    margin-top: 80px;
     border-radius: 30px;
     background-color: gray;
   }
@@ -20,11 +20,10 @@
     position: relative;
     background-color: white;
     margin-left: 30px;
-    margin-bottom: 50px;
+    margin-bottom: 80px;
     width: 500px;
     height: 600px;
-    border: 5px solid black;
-    border-radius: 30px;
+    border-radius: 10px;
     .modal-comment-wrapper {
       margin: 30px;
       width: 550px;
@@ -48,6 +47,14 @@
         top: 50%;
         transform: translate(0, -50%);
       }
+    }
+    .modal-triangle {
+      position: absolute;
+      bottom: -40px;
+      width: 0px;
+      height: 0px;
+      border-right: 50px solid transparent;
+      border-top: 60px solid white;
     }
   }
 

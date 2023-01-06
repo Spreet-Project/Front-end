@@ -1,4 +1,4 @@
-import React, { useRef, useState, useLayoutEffect } from 'react';
+import React from 'react';
 import './shortsModal.scss';
 
 const ShortsModal = ({ setIsShowModal }): JSX.Element => {
@@ -8,7 +8,6 @@ const ShortsModal = ({ setIsShowModal }): JSX.Element => {
     '세번째 댓글',
     '네번째 댓글',
   ];
-  // const [isShowModal, setIsShowModal] = useState(false);
 
   return (
     <div className="modal-content">
@@ -31,6 +30,7 @@ const ShortsModal = ({ setIsShowModal }): JSX.Element => {
           <input type="text" />
           <button className="comment-btn__post">Post</button>
         </div>
+        <div className="modal-triangle"></div>
       </div>
       <button
         className="modal-btn__close"

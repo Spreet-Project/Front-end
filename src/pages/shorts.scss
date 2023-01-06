@@ -12,10 +12,14 @@
     width: 300px;
     background-color: rgb(56, 54, 54);
     .shorts-category {
+      cursor: pointer;
       height: 400px;
       margin-top: 80px;
       li {
         margin: 30px auto;
+        &:hover {
+          background-color: #c94e4b;
+        }
       }
     }
   }
@@ -32,9 +36,7 @@
       scroll-snap-align: start;
       width: 600px;
       height: 600px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      @include flexCenter;
       color: white;
       .shorts-item__btn {
         cursor: pointer;
@@ -42,9 +44,7 @@
         bottom: 30px;
         right: 20px;
         .shorts-btn {
-          display: flex;
-          justify-content: center;
-          align-items: center;
+          @include flexCenter;
           width: 40px;
           height: 40px;
           background-color: gray;
@@ -71,72 +71,6 @@
       &:nth-of-type(4) {
         background: #8360a6;
       }
-    }
-  }
-  .modal-content {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(27, 26, 26, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .modal-video {
-      width: 500px;
-      height: 600px;
-      border: 5px solid black;
-      margin-right: 30px;
-      margin-top: 50px;
-      border-radius: 30px;
-      background-color: gray;
-    }
-    .modal-comment {
-      position: relative;
-      background-color: white;
-      margin-left: 30px;
-      margin-bottom: 50px;
-      width: 500px;
-      height: 600px;
-      border: 5px solid black;
-      border-radius: 30px;
-      .modal-comment-wrapper {
-        margin: 30px;
-        width: 550px;
-        overflow: auto;
-      }
-      .modal-comment-write {
-        position: absolute;
-        bottom: 20px;
-        left: 50%;
-        transform: translate(-50%, 0);
-        input {
-          width: 420px;
-          height: 40px;
-          border-radius: 10px;
-        }
-        .comment-btn__post {
-          @include btn;
-          position: absolute;
-          width: 50px;
-          right: 20px;
-          top: 50%;
-          transform: translate(0, -50%);
-        }
-      }
-    }
-
-    .modal-btn__close {
-      @include btn;
-      color: white;
-      width: 0;
-      background-color: rgb(27, 26, 26);
-      position: absolute;
-      right: 120px;
-      bottom: 80px;
-      font-size: 32px;
     }
   }
 }

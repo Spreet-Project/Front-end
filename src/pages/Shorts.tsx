@@ -11,21 +11,20 @@ const Shorts = () => {
     '네번째 댓글',
   ];
   const [isShowModal, setIsShowModal] = useState(false);
-  console.log(isShowModal);
   return (
     <div className="shorts-cotent">
       <div className="shorts-sidebar">
         <div className="shorts-category">
-          <p>쇼츠</p>
           <ul>
+            <li>전체</li>
             <li>랩</li>
             <li>스트릿댄스</li>
             <li>DJ</li>
             <li>그래피티</li>
             <li>비트박스</li>
             <li>기타</li>
+            <li>게시글</li>
           </ul>
-          <p>게시글</p>
         </div>
       </div>
       <div className="shorts-scroll">
