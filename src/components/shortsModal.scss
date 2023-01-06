@@ -1,0 +1,71 @@
+@import '../assets/styles/body.scss';
+
+.modal-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(27, 26, 26, 0.8);
+  @include flexCenter;
+  @include positonCenter;
+  .modal-video {
+    width: 500px;
+    height: 600px;
+
+    margin-right: 30px;
+    margin-top: 80px;
+    border-radius: 30px;
+    background-color: gray;
+  }
+  .modal-comment {
+    position: relative;
+    background-color: white;
+    margin-left: 30px;
+    margin-bottom: 80px;
+    width: 500px;
+    height: 600px;
+    border-radius: 10px;
+    .modal-comment-wrapper {
+      margin: 30px;
+      width: 550px;
+      overflow: auto;
+    }
+    .modal-comment-write {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translate(-50%, 0);
+      input {
+        width: 420px;
+        height: 40px;
+        border-radius: 10px;
+      }
+      .comment-btn__post {
+        @include btn;
+        position: absolute;
+        width: 50px;
+        right: 20px;
+        top: 50%;
+        transform: translate(0, -50%);
+      }
+    }
+    .modal-triangle {
+      position: absolute;
+      bottom: -40px;
+      width: 0px;
+      height: 0px;
+      border-right: 50px solid transparent;
+      border-top: 60px solid white;
+    }
+  }
+
+  .modal-btn__close {
+    @include btn;
+    color: white;
+    width: 0;
+    background-color: rgb(27, 26, 26);
+    position: absolute;
+    right: 120px;
+    bottom: 80px;
+    font-size: 32px;
+  }
+}

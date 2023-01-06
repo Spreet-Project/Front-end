@@ -2,7 +2,20 @@ $font_color: white;
 $font_family: 'NanumBarunGothic', 'serif';
 $font_size: 16px;
 
+@mixin positonCenter {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@mixin flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @mixin btn {
+  cursor: pointer;
   border: none;
   width: 100px;
   height: 25px;
@@ -11,9 +24,14 @@ $font_size: 16px;
   font-size: 18px;
 }
 
+@mixin contentSector {
+  width: 1440px;
+  margin: auto;
+}
+
 body {
-  color: $font_color;
   font: {
+    color: $font_color;
     size: $font_size;
     family: $font_family;
   }

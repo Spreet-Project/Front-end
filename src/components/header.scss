@@ -1,24 +1,30 @@
 @import '../assets/styles/body.scss';
 
 body {
-  color: $font_color;
-  font: {
-    size: $font_size;
-    family: $font_family;
-  }
   .header {
+    font: {
+      size: $font_size;
+      family: $font_family;
+    }
+    color: $font_color;
     display: flex;
     align-items: center;
     height: 140px;
     background-color: black;
-    .header_logo {
-      flex: 1;
-      margin-left: 20px;
-    }
-    > .header_btn {
-      margin-right: 30px;
-      > button {
-        @include btn;
+    .header_inner {
+      display: flex;
+      width: 1440px;
+      margin: auto;
+      .header_logo {
+        cursor: pointer;
+        flex: 1;
+        margin-left: 20px;
+      }
+      .header_btn {
+        margin-right: 30px;
+        button {
+          @include btn;
+        }
       }
     }
   }

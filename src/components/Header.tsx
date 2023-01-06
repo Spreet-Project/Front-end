@@ -1,18 +1,40 @@
 import React from 'react';
 import './header.scss';
-// import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const Header = (): JSX.Element => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="header">
-        <h1 className="header_logo">Spreet</h1>
-        <div className="header_btn">
-          <button>알림</button>
-          <button>소츠</button>
-          <button>행사</button>
-          <button>로그인</button>
-          <button>마이페이지</button>
+        <div className="header_inner">
+          <h1
+            className="header_logo"
+            onClick={() => {
+              navigate('/');
+            }}
+          >
+            Spreet
+          </h1>
+          <div className="header_btn">
+            <button>알림</button>
+            <button
+              onClick={() => {
+                navigate('/shorts');
+              }}
+            >
+              쇼츠
+            </button>
+            <button>행사</button>
+            <button
+              onClick={() => {
+                navigate('/login');
+              }}
+            >
+              로그인
+            </button>
+            <button>마이페이지</button>
+          </div>
         </div>
       </div>
     </>

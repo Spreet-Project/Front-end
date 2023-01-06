@@ -1,0 +1,40 @@
+@import '../assets/styles/body.scss';
+
+.write-content {
+  width: 1440px;
+  margin: 50px auto;
+  @include flexCenter;
+  .write-showFile-box {
+    width: 600px;
+    height: 600px;
+    margin-right: 50px;
+    border: 3px solid black;
+  }
+  .write-inform-box {
+    width: 400px;
+    height: 600px;
+    border: 3px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    p {
+      font-size: 32px;
+      margin: 15px;
+    }
+    input {
+      margin-left: 15px;
+      margin-bottom: 10px;
+    }
+    .title-input {
+      height: 30px;
+      width: 350px;
+    }
+    textarea {
+      margin-left: 15px;
+      font-size: 22px;
+      width: 350px;
+      height: 250px;
+      resize: none;
+    }
+  }
+}
