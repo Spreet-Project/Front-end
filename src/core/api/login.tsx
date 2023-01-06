@@ -1,15 +1,15 @@
-// import sweetAlert from "../utils/sweetAlert";
-// import { instance } from "../axios/axios";
+// import sweetAlert from '../utils/sweetAlert';
+// import { instance } from '../axios/axios';
 
-// export const postLogin = async (post) => {
+// export const postLogin = async post => {
 //   try {
-//     const data = await instance.post("/api/login", post);
+//     const data = await instance.post('/api/login', post);
 //     if (data.data.statusCode === 200) {
-//       sweetAlert(1000, "success", "로그인 성공");
+//       sweetAlert(1000, 'success', '로그인 성공');
 //     }
 //     return data;
 //   } catch (error) {
-//     sweetAlert(1000, "error", "로그인 실패");
+//     sweetAlert(1000, 'error', '로그인 실패');
 //   }
 // };
 

@@ -1,0 +1,82 @@
+@import '../assets/styles/body.scss';
+
+//인풋창 버튼창 가로 차이, 마진값
+//ㄴ 인풋이나 버튼 width 100% 주고 box-sizing: border-box 주면 어떤지
+// input,button { box-sizing: border-box;}
+
+//margin auto 는 주어야 하는지
+//중복되는 내용들 묶는 기준
+//소셜로그인 버튼 위치
+//소셜로그인 보통 네이버 로그인,카카오 로그인 으로 지칭하여 변경 사항 공지사항 참조!
+//중간 구분선 주는 방법
+//반응형?처럼 화면 줄이거나 커질때 비례하게 하는 법
+//헤더부분 -> 레이아웃 하나 더??
+//피그마 와 수치적인 차이가 나는이유??
+//ex) 인풋 세로 값 등
+//1주차 고쳐야할 것
+//placeholdder 띄어쓰기
+//인풋창 좌우 대칭
+
+.login_containerWrap {
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  position: relative;
+
+  width: 610px;
+  height: 648px;
+
+  background: #d7d7d7;
+  border-radius: 5px;
+  margin: 30px auto;
+}
+
+.login_form_input > input {
+  display: flex;
+  flex-direction: row;
+  padding: 14px 16px 14px 16px;
+  align-items: flex-start;
+
+  width: 510px;
+  height: 30px;
+
+  background: #ffffff;
+  border: 1px solid #b1b1b1;
+  border-radius: 5px;
+  margin: 30px;
+  cursor: text;
+}
+
+.login_btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 14px 16px 14px 16px;
+
+  width: 547px;
+  height: 48px;
+
+  background: #878787;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 30px;
+}
+
+.login_social_btn > button {
+  display: flex;
+  flex-direction: row;
+  padding: 14px 16px 14px 16px;
+  justify-content: center;
+  align-items: flex-start;
+
+  width: 547px;
+  height: 48px;
+
+  background: #b3b3b3;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 30px;
+}
