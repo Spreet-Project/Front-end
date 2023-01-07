@@ -56,7 +56,7 @@
       }
     ],
     // 코드 한줄 최대길이
-    "max-len": ["warn", { "code": 80 }],
+    "max-len": ["warn", { "code": 100 }],
     "react-hooks/rules-of-hooks": "warn",
     "react-hooks/exhaustive-deps": "warn",
     //추측 jsx문법을 .tsx에서도 사용할 수 있도록 해주는거 같음(?)

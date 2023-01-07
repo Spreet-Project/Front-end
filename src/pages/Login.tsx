@@ -2,14 +2,23 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postLogin } from '../core/api/login';
 import './login.scss';
+import sweetAlert from '../core/utils/sweetAlert';
 
 const Login = () => {
   const navigate = useNavigate();
-  const [loginId, setLoginId] = useState();
-  const [password, setPassword] = useState();
+  const [loginId, setLoginId] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
   const onClickLogin = e => {
     e.preventDefault();
+    const blankExp = /[\s]/g;
+    if (!blankExp.test(loginId) && loginId.length === 0) {
+      return sweetAlert(1000, 'error', '아이디를 입력해주세요');
+    }
+    if (!blankExp.test(password) && password.length === 0) {
+      return sweetAlert(1000, 'error', '비밀번호를 입력해주세요');
+    }
+
     // postLogin({
     //   loginId: loginId,
     //   password: password,
@@ -17,6 +26,7 @@ const Login = () => {
     //   localStorage.setItem('id', res.headers.authorization);
     //   navigate('/');
     // });
+    sweetAlert(1000, 'success', '회원가입 완료');
   };
 
   const onChangeLoginId = e => {
@@ -45,7 +55,9 @@ const Login = () => {
             onChange={onChangePassword}
           />
         </div>
-        <button className="login_btn">로그인</button>
+        <button className="login_btn" onClick={onClickLogin}>
+          로그인
+        </button>
       </form>
       <hr />
       <div className="login_social_btn">
