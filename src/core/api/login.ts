@@ -1,30 +1,31 @@
-// import sweetAlert from '../utils/sweetAlert';
-// import { instance } from '../axios/axios';
+import sweetAlert from '../utils/sweetAlert';
+import { instance } from '../axios/axios';
+import axios from 'axios';
 
-// export const postLogin = async post => {
-//   try {
-//     const data = await instance.post('/api/login', post);
-//     if (data.data.statusCode === 200) {
-//       sweetAlert(1000, 'success', '로그인 성공');
-//     }
-//     return data;
-//   } catch (error) {
-//     sweetAlert(1000, 'error', '로그인 실패');
-//   }
-// };
+export const postLogin = async post => {
+  try {
+    const data = await instance.post('/api/login', post);
+    if (data.data.statusCode === 200) {
+      sweetAlert(1000, 'success', '로그인 성공');
+    }
+    return data;
+  } catch (error) {
+    sweetAlert(1000, 'error', '로그인 실패');
+  }
+};
 
-// export const getHeroes = () => {
-//     return axios.get('http://localhost:4000/superheroes');
-//   };
-// export const postSignup = async (post) => {
-//   try {
-//     const data = await instance.post("/api/signup", post);
-//     sweetAlert(1000, "success", "회원가입 성공");
-//     return data;
-//   } catch (error) {
-//     sweetAlert(1000, "error", "회원가입 실패");
-//   }
-// };
+export const getHeroes = () => {
+  return axios.get('http://localhost:4000/superheroes');
+};
+export const postSignup = async post => {
+  try {
+    const data = await instance.post('/api/signup', post);
+    sweetAlert(1000, 'success', '회원가입 성공');
+    return data;
+  } catch (error) {
+    sweetAlert(1000, 'error', '회원가입 실패');
+  }
+};
 
 // export const postLogout = async (post) => {
 //   try {

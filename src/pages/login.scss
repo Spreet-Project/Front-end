@@ -21,6 +21,7 @@
   display: flex;
   flex-direction: column;
   padding: 50px;
+  gap: 25px;
   position: relative;
 
   width: 610px;
@@ -32,51 +33,33 @@
 }
 
 .login_form_input > input {
-  display: flex;
-  flex-direction: row;
-  padding: 14px 16px 14px 16px;
-  align-items: flex-start;
-
   width: 510px;
-  height: 30px;
+  height: 48px;
 
   background: #ffffff;
   border: 1px solid #b1b1b1;
   border-radius: 5px;
-  margin: 30px;
-  cursor: text;
+  margin: 20px 20px 20px 30px;
 }
 
 .login_btn {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 14px 16px 14px 16px;
-
-  width: 547px;
+  width: 510px;
   height: 48px;
 
   background: #878787;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
-  cursor: pointer;
   margin: 30px;
+  cursor: pointer;
 }
 
 .login_social_btn > button {
-  display: flex;
-  flex-direction: row;
-  padding: 14px 16px 14px 16px;
-  justify-content: center;
-  align-items: flex-start;
-
-  width: 547px;
+  width: 510px;
   height: 48px;
 
   background: #b3b3b3;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
+  margin: 20px;
   cursor: pointer;
-  margin: 30px;
 }

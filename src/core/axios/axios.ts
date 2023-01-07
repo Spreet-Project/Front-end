@@ -1,22 +1,22 @@
-// import axios from "axios";
+import axios from 'axios';
 
-// export const instance = axios.create({
-//   baseURL: process.env.REACT_APP_AKIJAKI,
-//   headers: {
-//     "Content-type": "application/json",
-//     "Access-Control-Allow-Origin": "*",
-//   },
-//   // withCredentials: true,
-// });
+export const instance = axios.create({
+  baseURL: process.env.REACT_APP_AKIJAKI,
+  headers: {
+    'Content-type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  },
+  // withCredentials: true,
+});
 
-// export const baseURL = axios.create({
-//   baseURL: process.env.REACT_APP_AKIJAKI,
-//   headers: {
-//     "Content-type": "application/json",
-//     "Access-Control-Allow-Origin": "*",
-//   },
-//   // withCredentials: true,
-// });
+export const baseURL = axios.create({
+  baseURL: process.env.REACT_APP_AKIJAKI,
+  headers: {
+    'Content-type': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  },
+  // withCredentials: true,
+});
 
 // export const subURL = axios.create({
 //   baseURL: process.env.REACT_APP_AKIJAKI,
