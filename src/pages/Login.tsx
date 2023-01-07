@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { postLogin } from '../../core/api/login';
+import { postLogin } from '../core/api/login';
 import './login.scss';
 
 const Login = () => {
