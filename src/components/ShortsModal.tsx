@@ -1,5 +1,5 @@
 import React from 'react';
-import './shortsModal.scss';
+import '../assets/styles/scss/shortsModal.scss';
 
 const ShortsModal = ({ setIsShowModal }): JSX.Element => {
   const commentList: string[] = [
