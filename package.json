@@ -31,7 +31,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "sass:build && react-scripts build",
+    "sass": "yarn sass --watch src/styles/scss:src/styles/css",
+    "sass:build": "sass --update src/styles/scss:src/styles/css",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "server-json": "json-server --watch db.json --port 4000"
   },

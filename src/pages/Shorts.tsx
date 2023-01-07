@@ -1,5 +1,5 @@
 import React, { useRef, useState, useLayoutEffect } from 'react';
-import './shorts.scss';
+import '../assets/styles/scss/shorts.scss';
 import ShortsModal from '../components/ShortsModal';
 
 const Shorts = () => {

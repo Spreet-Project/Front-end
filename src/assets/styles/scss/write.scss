@@ -1,4 +1,4 @@
-@import '../assets/styles/body.scss';
+@import './body.scss';
 
 .write-content {
   width: 1440px;
@@ -35,6 +35,20 @@
       width: 350px;
       height: 250px;
       resize: none;
+    }
+  }
+  .write-btn-box {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    button {
+      @include btn;
+      font-size: 32px;
+      width: 250px;
+    }
+    .write-btn__goback {
+      margin-left: 50px;
     }
   }
 }

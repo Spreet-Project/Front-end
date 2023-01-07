@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import { useQuery } from 'react-query';
 import axios from 'axios';
-import './main.scss';
+import '../assets/styles/scss/main.scss';
 
 export const getHeroes = () => {
   return axios.get('http://localhost:4000/superheroes');
@@ -121,11 +121,10 @@ const Main = (): JSX.Element => {
     let currTagerIndex: number; //현재 타켓이 되는 게시글index
     const lastIndex = current.childNodes.length - 1;
     const lastTargetEle = current.childNodes[lastIndex];
-    console.log('entry', entry);
     if (entry.isIntersecting) {
       let firstEleNum: number; //한번에 보여질 게시글 수
       // console.log(entry, '객체');
-      console.log(entry.target, '현재타겟');
+      // console.log(entry.target, '현재타겟');
       current.childNodes.forEach((item: any, index: number) => {
         if (item === entry.target) {
           currTagerIndex = index;
@@ -181,8 +180,7 @@ const Main = (): JSX.Element => {
         rootMargin: '-30px',
       });
 
-      feedRef.current.childNodes.forEach((childNode, index) => {
-        // console.log(childNode);
+      feedRef.current.childNodes.forEach(childNode => {
         observer.observe(childNode);
       });
     }

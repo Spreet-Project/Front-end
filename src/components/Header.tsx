@@ -1,5 +1,5 @@
 import React from 'react';
-import './header.scss';
+import '../assets/styles/scss/header.scss';
 import { useNavigate } from 'react-router-dom';
 
 const Header = (): JSX.Element => {
