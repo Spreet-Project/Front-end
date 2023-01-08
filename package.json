@@ -31,7 +31,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "yarn sass:build ç&& react-scripts build",
+    "build": "react-scripts build",
     "sass": "yarn sass --watch src/styles/scss:src/styles/css",
     "sass:build": "yarn sass --update src/styles/scss:src/styles/css",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
