@@ -2,13 +2,14 @@
 
 .signUp_containerWrap {
   display: flex;
+  justify-content: center;
   flex-direction: column;
   padding: 50px;
   gap: 25px;
   position: relative;
 
   width: 610px;
-  height: 648px;
+  height: 810px;
 
   background: #d7d7d7;
   border-radius: 5px;
@@ -60,7 +61,7 @@
 
   border: 1px solid #b1b1b1;
   border-radius: 5px;
-  margin: 20px 20px 35px 20px;
+  margin: 15px 20px 30px 20px;
   cursor: text;
 }
 
@@ -79,7 +80,7 @@
 .signUp_p {
   font-size: 13px;
   color: black;
-  margin: 5px 20px;
+  margin: 5px 20px 10px 20px;
 }
 
 .signUp_btn {
