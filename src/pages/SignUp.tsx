@@ -195,7 +195,9 @@ const SignUp = () => {
             onChange={onChangeEmail}
           />
           <button>이메일 인증</button>
-          {isRegEmailCheck ? null : <p>이메일 형식에 맞지 않습니다.</p>}
+          {isRegEmailCheck ? null : (
+            <p className="signUp_p">이메일 형식에 맞지 않습니다.</p>
+          )}
         </div>
         <div className="signUp_id">
           <input
@@ -207,7 +209,9 @@ const SignUp = () => {
           />
           <button>중복확인</button>
           {!isRegIdlCheck && (
-            <p>아이디는 5~20자 영문으로 시작, 영문 숫자로 입력</p>
+            <p className="signUp_p">
+              아이디는 5~20자 영문으로 시작, 영문 숫자로 입력
+            </p>
           )}
         </div>
         <div className="signUp_pw">
@@ -219,7 +223,9 @@ const SignUp = () => {
             onChange={onChangeRegPassword}
           />
           {!isRegPasswordCheck && (
-            <p>비밀번호 6~15자, 영문,숫자,특수문자 조합으로 입력해주세요</p>
+            <p className="signUp_p">
+              비밀번호 6~15자, 영문,숫자,특수문자 조합으로 입력해주세요
+            </p>
           )}
           <input
             type="password"
@@ -228,7 +234,9 @@ const SignUp = () => {
             value={passwordCheck || ''}
             onChange={onChangeCheckPassword}
           />
-          {isPasswordCheck ? null : <p>비밀번호가 일치하지 않습니다.</p>}
+          {isPasswordCheck ? null : (
+            <p className="signUp_p">비밀번호가 일치하지 않습니다.</p>
+          )}
           {/* {crewCheck === true ?  소속팀 : 닉네임} */}
           {crewCheck ? (
             <input
@@ -248,10 +256,14 @@ const SignUp = () => {
             />
           )}
           {!crewCheck && !isRegNickNameCheck && (
-            <p>닉네임 2~10자 알파벳,한글로,숫자로 입력해주세요</p>
+            <p className="signUp_p">
+              닉네임 2~10자 알파벳,한글로,숫자로 입력해주세요
+            </p>
           )}
           {crewCheck && !isRegCrewCheck && (
-            <p>크루명은 2~10자 알파벳,한글로,숫자로 입력해주세요</p>
+            <p className="signUp_p">
+              크루명은 2~10자 알파벳,한글로,숫자로 입력해주세요
+            </p>
           )}
         </div>
         <div className="signUp_crew">
@@ -271,8 +283,8 @@ const SignUp = () => {
             [선택] 크루 회원입니다.
           </label>
           <p className="signUp_p">
-            크루 회원임을 선택할 경우 인증 절차를 통하여 크루 회원 확인 시 행사
-            게시물을 작성할 수 있습니다.
+            크루 회원임을 선택할 경우 인증 절차를 통하여 행사 게시물을 작성할 수
+            있습니다.
           </p>
         </div>
       </form>

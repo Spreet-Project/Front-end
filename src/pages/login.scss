@@ -19,6 +19,7 @@
 
 .login_containerWrap {
   display: flex;
+  justify-content: center;
   flex-direction: column;
   padding: 50px;
   gap: 25px;
@@ -39,7 +40,7 @@
   background: #ffffff;
   border: 1px solid #b1b1b1;
   border-radius: 5px;
-  margin: 20px 20px 20px 30px;
+  margin: 20px;
 }
 
 .login_btn {
@@ -49,7 +50,7 @@
   background: #878787;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
-  margin: 30px;
+  margin: 20px;
   cursor: pointer;
 }
 
