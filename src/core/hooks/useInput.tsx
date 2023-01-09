@@ -1,11 +1,48 @@
-// import { useState } from "react";
+import { useState } from 'react';
 
-// export const useInput = () => {
-//   const [value, setValue] = useState("");
+interface UseInputs {
+  userEmail: string;
+  userId: string;
+  password: string;
+  nickName: string;
+  feedTitle: string;
+  feedContent: string;
+}
 
-//   const handler = (event) => {
-//     setValue(event.target.value);
-//   };
-//   return [value, handler];
-// };
-//
+export const useInputs = () => {
+  const [inputs, setInputs] = useState<UseInputs | null>({
+    userEmail: '',
+    userId: '',
+    password: '',
+    nickName: '',
+    feedTitle: '',
+    feedContent: '',
+  });
+
+  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = event.target;
+
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+  };
+
+  const clearInput = (): void => {
+    setInputs({
+      userEmail: '',
+      userId: '',
+      password: '',
+      nickName: '',
+      feedTitle: '',
+      feedContent: '',
+    });
+  };
+
+  return [inputs, onChangeInput, clearInput, setInputs] as [
+    UseInputs,
+    () => void,
+    () => void,
+    () => void,
+  ];
+};
