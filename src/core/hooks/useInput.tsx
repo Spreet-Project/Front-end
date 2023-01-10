@@ -9,7 +9,7 @@ interface UseInputs {
   feedContent: string;
 }
 
-export const useInputs = () => {
+export const useInputs = (): any => {
   const [inputs, setInputs] = useState<UseInputs | null>({
     userEmail: '',
     userId: '',

@@ -7,6 +7,7 @@ import Shorts from '../pages/Shorts';
 import Feed from '../pages/Feed';
 import Layout from './Layout';
 import React from 'react';
+import ModifyShorts from '../pages/ModifyShorts';
 
 const Router = () => {
   return (
@@ -17,7 +18,7 @@ const Router = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/write" element={<Write />} />
         <Route path="/shorts" element={<Shorts />} />
-        <Route path="/feed" element={<Feed />} />
+        <Route path="/modify/:id" element={<ModifyShorts />} />
         <Route path="*" element={<div>이거 404 페이지요</div>} />
       </Routes>
     </Layout>

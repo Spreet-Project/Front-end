@@ -3,23 +3,36 @@ import axios from 'axios';
 import '../assets/styles/scss/write.scss';
 import imageCompression from 'browser-image-compression';
 import { useInputs } from '../core/hooks/useInput';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useMutation, useQuery } from 'react-query';
+import { getDetailShorts, updateShorts } from '../core/api/shorts';
 
-export const postShorts = async payload => {
-  return await axios.post('http://localhost:4000/shorts', payload);
-};
-
-const Write = () => {
+const ModifyShorts = (): JSX.Element => {
+  const id = useParams();
+  const shortsId = Number(id.id);
   const navigate = useNavigate();
-  const [inputs, onChangeInput, clearInput] = useInputs();
+  const [inputs, onChangeInput, clearInput, setInputs] = useInputs();
   const [file, setFile] = useState(null);
   const [fileUrl, setFileUrl] = useState('');
+  console.log(shortsId);
+
+  const { data, isLoading, isError, error } = useQuery(
+    ['shortsDetail', shortsId],
+    getDetailShorts,
+  );
 
   const { feedTitle, feedContent } = inputs;
 
   useEffect(() => {
-    clearInput();
+    if (!isLoading) {
+      setInputs({
+        feedTitle: data.data.title,
+        feedContent: data.data.content,
+      });
+    }
   }, []);
+
+  console.log(data);
 
   const onChangeFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const targetFile = e.target.files[0];
@@ -42,18 +55,14 @@ const Write = () => {
     }
   };
 
-  const onFeedSubmit = () => {
-    const newFeed = {
-      id: 10,
+  const updateMutation = useMutation(() => {
+    const newShorts = {
+      id: shortsId,
       title: feedTitle,
       content: feedContent,
     };
-    // const feedData = new FormData();
-    // feedData.append('file', fileUrl);
-    // console.log(fileUrl);
-    postShorts(newFeed);
-    navigate('/');
-  };
+    return updateShorts(newShorts);
+  });
 
   return (
     <div className="write-content">
@@ -83,7 +92,12 @@ const Write = () => {
         ></textarea>
       </div>
       <div className="write-btn-box">
-        <button className="write-btn__submit" onClick={onFeedSubmit}>
+        <button
+          className="write-btn__submit"
+          onClick={() => {
+            updateMutation.mutate();
+          }}
+        >
           확인
         </button>
         <button className="write-btn__goback">이전으로</button>
@@ -92,4 +106,4 @@ const Write = () => {
   );
 };
 
-export default Write;
+export default ModifyShorts;

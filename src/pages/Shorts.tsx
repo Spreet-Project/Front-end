@@ -3,6 +3,7 @@ import '../assets/styles/scss/shorts.scss';
 import ShortsModal from '../components/ShortsModal';
 
 const Shorts = () => {
+  const [shortsId, setShortsId] = useState<number>(0);
   const shortsList: string[] = ['첫번째글', '두번째글', '세번째글', '네번째글'];
   const commentList: string[] = [
     '첫번째 댓글',
@@ -59,7 +60,9 @@ const Shorts = () => {
             );
           })}
       </div>
-      {isShowModal && <ShortsModal setIsShowModal={setIsShowModal} />}
+      {isShowModal && (
+        <ShortsModal setIsShowModal={setIsShowModal} shortsId={shortsId} />
+      )}
     </div>
   );
 };

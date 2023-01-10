@@ -33,7 +33,13 @@ const Header = (): JSX.Element => {
             >
               로그인
             </button>
-            <button>마이페이지</button>
+            <button
+              onClick={() => {
+                navigate('/write');
+              }}
+            >
+              마이페이지
+            </button>
           </div>
         </div>
       </div>

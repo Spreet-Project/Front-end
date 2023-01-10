@@ -1,6 +1,7 @@
 @import './body.scss';
 
 .write-content {
+  position: relative;
   width: 1440px;
   margin: 50px auto;
   @include flexCenter;
@@ -39,7 +40,7 @@
   }
   .write-btn-box {
     position: absolute;
-    bottom: -200px;
+    bottom: -100px;
     left: 50%;
     transform: translate(-50%, 0);
     button {
