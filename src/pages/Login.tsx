@@ -26,7 +26,6 @@ const Login = () => {
       localStorage.setItem('id', res.headers.authorization);
       // navigate('/');
     });
-    sweetAlert(1000, 'success', '회원가입 완료');
   };
 
   const onChangeLoginId = e => {

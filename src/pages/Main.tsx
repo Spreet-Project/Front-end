@@ -150,7 +150,7 @@ const Main = (): JSX.Element => {
     return () => observer && observer.disconnect();
   }, [isLoading, feedRef.current, onScroll]);
 
-  const onPaiginBtn = (index: number): void => {
+  const onPaigingBtn = (index: number): void => {
     // spreetRef.current.childNodes[0].getBoundingClientRect().width;
     if (!spreetChidRef) return;
     const spreetRef_NodeWidth: number =
@@ -193,9 +193,9 @@ const Main = (): JSX.Element => {
     }
     if (direction === 'right') {
       const calculationValue = (slideDistance / dataList.length) * slideNum;
+      // console.log(calculationValue);
       calculate_distance = currentX - calculationValue;
       // console.log('현재calculate_distance', calculate_distance);
-      // console.log('현재sectoreRef', sectorRef);
       // if (-slideDistance > calculate_distance) {
       //   calculate_distance = 0;
       // }
@@ -251,7 +251,7 @@ const Main = (): JSX.Element => {
                   key={index}
                   className="carousel-paging__btn"
                   onClick={() => {
-                    onPaiginBtn(index);
+                    onPaigingBtn(index);
                   }}
                 ></button>
               );
@@ -265,7 +265,7 @@ const Main = (): JSX.Element => {
               <button
                 className="rap-row__button btn--left"
                 onClick={() => {
-                  handleClickSlide('left', data.data, rapRef, 2);
+                  handleClickSlide('left', data.data.data, rapRef, 2);
                 }}
               >
                 {'<'}
@@ -273,7 +273,7 @@ const Main = (): JSX.Element => {
               <button
                 className="rap-row__button btn--right"
                 onClick={() => {
-                  handleClickSlide('right', data.data, rapRef, 1);
+                  handleClickSlide('right', data.data.data, rapRef, 1);
                 }}
               >
                 {'>'}

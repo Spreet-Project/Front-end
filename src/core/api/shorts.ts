@@ -5,6 +5,10 @@ export const postShorts = async payload => {
   console.log(payload);
   return await subURL.post('/shorts', payload);
 };
+export const postFeed = async payload => {
+  console.log(payload);
+  return await subURL.post('/feed', payload);
+};
 
 export const updateShorts = async payload => {
   const { id } = payload;

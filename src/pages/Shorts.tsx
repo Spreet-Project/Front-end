@@ -51,7 +51,6 @@ const Shorts = () => {
                     width="600px"
                     height="600px"
                     src={shorts.videoUrl}
-                    allow="autoplay;"
                   ></iframe>
                   <div className="shorts-item__info">
                     <p>제목:{shorts.title}</p>
