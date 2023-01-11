@@ -81,7 +81,6 @@ const Main = (): JSX.Element => {
 
   const onScroll = useCallback(([entry]: any) => {
     const { current }: any = feedRef;
-    console.log(current);
     let currTagerIndex: number; //현재 타켓이 되는 게시글index
     const lastIndex = current.childNodes.length - 1;
     const lastTargetEle = current.childNodes[lastIndex];
@@ -145,7 +144,6 @@ const Main = (): JSX.Element => {
     });
 
     feedRef.current.childNodes.forEach(childNode => {
-      console.log(childNode);
       observer.observe(childNode);
     });
 
@@ -198,12 +196,12 @@ const Main = (): JSX.Element => {
       calculate_distance = currentX - calculationValue;
       // console.log('현재calculate_distance', calculate_distance);
       // console.log('현재sectoreRef', sectorRef);
-      if (-slideDistance > calculate_distance) {
-        calculate_distance = 0;
-      }
-      // if (-slideDistance > calculate_distance - calculationValue) {
+      // if (-slideDistance > calculate_distance) {
       //   calculate_distance = 0;
       // }
+      if (-slideDistance > calculate_distance - calculationValue) {
+        calculate_distance = 0;
+      }
     }
     sectorRef.current.style.transform = `translateX(${calculate_distance}px)`;
   };
@@ -267,7 +265,7 @@ const Main = (): JSX.Element => {
               <button
                 className="rap-row__button btn--left"
                 onClick={() => {
-                  handleClickSlide('left', data.data, rapRef, 8);
+                  handleClickSlide('left', data.data, rapRef, 2);
                 }}
               >
                 {'<'}
@@ -275,7 +273,7 @@ const Main = (): JSX.Element => {
               <button
                 className="rap-row__button btn--right"
                 onClick={() => {
-                  handleClickSlide('right', data.data, rapRef, 8);
+                  handleClickSlide('right', data.data, rapRef, 1);
                 }}
               >
                 {'>'}
