@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { postSignup } from '../core/api/login';
+import {
+  postEmailCheck,
+  postEmailConfirm,
+  postIdCheck,
+  postNicknameCheck,
+  postSignup,
+} from '../core/api/login';
 import './signUp.scss';
 import sweetAlert from '../core/utils/sweetAlert';
 const SignUp = () => {
@@ -17,6 +23,11 @@ const SignUp = () => {
   const [isRegNickNameCheck, setIsRegNickNameCheck] = useState(false);
   const [isRegPasswordCheck, setIsRegPasswordCheck] = useState(false);
   const [isRegCrewCheck, setIsRegCrewCheck] = useState(false);
+  const [code, setCode] = useState();
+  const [longinIdCheck, setLoginIdCheck] = useState(false);
+  const [emailConfirm, setEmailCofirm] = useState(false);
+  const [emailCheck, setEmailCheck] = useState(false);
+  const [nicknameCheck, setNicknameCheck] = useState(false);
 
   const navigate = useNavigate();
 
@@ -99,7 +110,7 @@ const SignUp = () => {
     return result;
   };
 
-  const onClickSignUp = e => {
+  const onSubmitSignUp = e => {
     e.preventDefault();
     if (!isRegEmailCheck) {
       return sweetAlert(1000, 'error', '이메일을 확인해주세요');
@@ -127,15 +138,51 @@ const SignUp = () => {
       }
     }
     sweetAlert(1000, 'success', '회원가입 완료');
-    // postSignup({
-    //   loginId: loginId,
-    //   nickname: nickname,
-    //   password: password,
-    //   email: email,
-    //   crewCheck: crewCheck,
-    // }).then(res => {
-    //   // navigate('/login');
-    // });
+    postSignup({
+      loginId: loginId,
+      nickname: nickname,
+      password: password,
+      email: email,
+      crewCheck: crewCheck,
+    }).then(res => {
+      // navigate('/login');
+    });
+  };
+
+  const onClickIdCheck = e => {
+    e.preventDefault();
+    postIdCheck({
+      loginId: loginId,
+    }).then(res => {
+      setLoginIdCheck(true);
+    });
+  };
+
+  const onClickEmailConfirm = e => {
+    e.preventDefault();
+    postEmailConfirm({
+      email: email,
+    }).then(res => {
+      setEmailCofirm(true);
+    });
+  };
+
+  const onClickEmailCheck = e => {
+    e.preventDefault();
+    postEmailCheck({
+      code: code,
+    }).then(res => {
+      setEmailCheck(true);
+    });
+  };
+
+  const onClickNicknameCheck = e => {
+    e.preventDefault();
+    postNicknameCheck({
+      nickname: nickname,
+    }).then(res => {
+      setNicknameCheck(true);
+    });
   };
 
   const onChangeLoginId = e => {
@@ -176,38 +223,57 @@ const SignUp = () => {
     const isCheckEmail = is_userEmail(e.target.value);
     isCheckEmail ? setisRegEmailCheck(true) : setisRegEmailCheck(false);
   };
+  const onChangeEmailCheck = e => {
+    console.log(onChangeEmailCheck);
+    setEmail(e.target.value);
+    const isCheckEmail = is_userEmail(e.target.value);
+    isCheckEmail ? setisRegEmailCheck(true) : setisRegEmailCheck(false);
+  };
 
   const onChangeCrewName = e => {
-    setCrewName(e.target.calue);
+    setCrewName(e.target.value);
     const isCheckCrewName = is_crewName(e.target.value);
     isCheckCrewName ? setIsRegCrewCheck(true) : setIsRegCrewCheck(false);
   };
 
   return (
     <div className="signUp_containerWrap">
-      <form onSubmit={onClickSignUp}>
-        <div className="signUp_email">
+      <form onSubmit={onSubmitSignUp}>
+        <div className="signUp_inputBtn">
           <input
             type="email"
-            id="email"
+            name="email"
             placeholder="이메일"
             value={email || ''}
             onChange={onChangeEmail}
           />
-          <button>이메일 인증</button>
+          <button type="button" onClick={onClickEmailConfirm}>
+            이메일 인증
+          </button>
           {isRegEmailCheck ? null : (
             <p className="signUp_p">이메일 형식에 맞지 않습니다.</p>
           )}
-        </div>
-        <div className="signUp_id">
+
+          <input
+            type="email"
+            name="email"
+            placeholder="이메일 인증번호 입력"
+            onChange={onChangeEmailCheck}
+          />
+          <button type="button" onClick={onClickEmailCheck}>
+            확인
+          </button>
+          {/* <p className="signUp_p">이메일 인증번호를 입력해 주세요.</p> */}
           <input
             type="text"
-            id="text"
+            name="text"
             placeholder="아이디"
             value={loginId || ''}
             onChange={onChangeLoginId}
           />
-          <button>중복확인</button>
+          <button type="button" onClick={onClickIdCheck}>
+            중복확인
+          </button>
           {!isRegIdlCheck && (
             <p className="signUp_p">
               아이디는 5~20자 영문으로 시작, 영문 숫자로 입력
@@ -217,7 +283,7 @@ const SignUp = () => {
         <div className="signUp_pw">
           <input
             type="password"
-            id="password"
+            name="password"
             placeholder="비밀번호"
             value={password || ''}
             onChange={onChangeRegPassword}
@@ -229,7 +295,7 @@ const SignUp = () => {
           )}
           <input
             type="password"
-            id="password"
+            name="password"
             placeholder="비밀번호 확인"
             value={passwordCheck || ''}
             onChange={onChangeCheckPassword}
@@ -238,23 +304,26 @@ const SignUp = () => {
             <p className="signUp_p">비밀번호가 일치하지 않습니다.</p>
           )}
           {/* {crewCheck === true ?  소속팀 : 닉네임} */}
-          {crewCheck ? (
-            <input
-              type="text"
-              id="text"
-              placeholder="소속팀"
-              value={crewName}
-              onChange={onChangeCrewName}
-            />
-          ) : (
-            <input
-              type="text"
-              id="text"
-              placeholder="닉네임"
-              value={nickname || ''}
-              onChange={onChangeNickname}
-            />
-          )}
+          <div className="signUp_inputBtn">
+            {crewCheck ? (
+              <input
+                type="text"
+                name="text"
+                placeholder="소속팀"
+                value={crewName}
+                onChange={onChangeCrewName}
+              />
+            ) : (
+              <input
+                type="text"
+                name="text"
+                placeholder="닉네임"
+                value={nickname || ''}
+                onChange={onChangeNickname}
+              />
+            )}
+            <button onClick={onClickNicknameCheck}>중복확인</button>
+          </div>
           {!crewCheck && !isRegNickNameCheck && (
             <p className="signUp_p">
               닉네임 2~10자 알파벳,한글로,숫자로 입력해주세요
@@ -269,7 +338,7 @@ const SignUp = () => {
         <div className="signUp_crew">
           <input
             type="checkbox"
-            id="crew"
+            name="crew"
             onChange={e => {
               setCrewCheck(e.target.checked);
               if (crewCheck) {
@@ -287,11 +356,9 @@ const SignUp = () => {
             있습니다.
           </p>
         </div>
+        <hr className="signUp_hr" />
+        <button className="signUp_btn">회원가입</button>
       </form>
-      <hr />
-      <button className="signUp_btn" onClick={onClickSignUp}>
-        회원가입
-      </button>
     </div>
   );
 };
