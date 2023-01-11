@@ -1,30 +1,36 @@
 @import './body.scss';
 
+.shorts-sidebar {
+  position: absolute;
+  left: 0;
+  text-align: center;
+  font-size: 32px;
+  color: $font_color;
+  width: 300px;
+  height: 100vh;
+  background-color: rgb(56, 54, 54);
+  .shorts-category {
+    cursor: pointer;
+    height: 400px;
+    margin-top: 80px;
+    li {
+      margin: 30px auto;
+      &:hover {
+        background-color: #c94e4b;
+      }
+    }
+  }
+}
 .shorts-cotent {
   width: 1440px;
   margin: auto;
   display: flex;
   position: relative;
-  .shorts-sidebar {
-    text-align: center;
-    font-size: 32px;
-    color: $font_color;
-    width: 300px;
-    background-color: rgb(56, 54, 54);
-    .shorts-category {
-      cursor: pointer;
-      height: 400px;
-      margin-top: 80px;
-      li {
-        margin: 30px auto;
-        &:hover {
-          background-color: #c94e4b;
-        }
-      }
-    }
-  }
   .shorts-scroll {
-    margin: 50px auto;
+    position: absolute;
+    left: 50%;
+    top: 50px;
+    transform: translate(-40%, 0);
     width: 600px;
     height: 600px;
     border-radius: 10px;
@@ -38,10 +44,20 @@
       height: 600px;
       @include flexCenter;
       color: white;
+      .shorts-item__info {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        p {
+          text-align: start;
+          font-size: 20px;
+          margin-bottom: 10px;
+        }
+      }
       .shorts-item__btn {
         cursor: pointer;
         position: absolute;
-        bottom: 30px;
+        bottom: 0px;
         right: 20px;
         .shorts-btn {
           @include flexCenter;
@@ -54,22 +70,6 @@
           margin-top: 5px;
           margin-bottom: 10px;
         }
-      }
-
-      &:nth-of-type(1) {
-        background: #49b293;
-      }
-
-      &:nth-of-type(2) {
-        background: #c94e4b;
-      }
-
-      &:nth-of-type(3) {
-        background: #4cc1be;
-      }
-
-      &:nth-of-type(4) {
-        background: #8360a6;
       }
     }
   }

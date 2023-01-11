@@ -19,13 +19,13 @@ const Login = () => {
       return sweetAlert(1000, 'error', '비밀번호를 입력해주세요');
     }
 
-    // postLogin({
-    //   loginId: loginId,
-    //   password: password,
-    // }).then(res => {
-    //   localStorage.setItem('id', res.headers.authorization);
-    //   navigate('/');
-    // });
+    postLogin({
+      loginId: loginId,
+      password: password,
+    }).then(res => {
+      localStorage.setItem('id', res.headers.authorization);
+      // navigate('/');
+    });
     sweetAlert(1000, 'success', '회원가입 완료');
   };
 

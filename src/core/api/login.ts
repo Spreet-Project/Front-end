@@ -4,7 +4,7 @@ import axios from 'axios';
 
 export const postLogin = async post => {
   try {
-    const data = await instance.post('/api/login', post);
+    const data = await instance.post('/user/login', post);
     if (data.data.statusCode === 200) {
       sweetAlert(1000, 'success', '로그인 성공');
     }
@@ -14,14 +14,7 @@ export const postLogin = async post => {
   }
 };
 
-export const getHeroes = () => {
-  return axios.get('http://localhost:4000/superheroes');
-};
-
 export const postSignup = async post => {
-  try {
-    console.log(post, 'axios post 보내기 전');
-
     const data = await instance.post('/user/signup', post);
     sweetAlert(1000, 'success', '회원가입 성공');
     return data;

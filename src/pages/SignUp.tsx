@@ -47,13 +47,11 @@ const SignUp = () => {
     if (blankExp.test(asValue)) {
       return sweetAlert(1000, 'error', '공백을 제거해주세요');
     }
-    console.log(asValue);
     const regIdExp =
       // eslint-disable-next-line
       /^[a-z]+[a-z0-9]{6,20}$/g;
     // 영문자로 시작하는 영문자 또는 숫자 6~20자
     const result: boolean = regIdExp.test(asValue);
-    console.log(result);
     return result;
   };
 

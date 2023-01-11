@@ -5,6 +5,19 @@
   width: 1440px;
   margin: 50px auto;
   @include flexCenter;
+  .write-checkFeed {
+    position: absolute;
+    top: -50px;
+    right: 20px;
+    width: 200px;
+    input[type='checkbox'] {
+      width: 30px;
+      height: 30px;
+    }
+    label {
+      font-size: 20px;
+    }
+  }
   .write-showFile-box {
     width: 600px;
     height: 600px;
@@ -18,6 +31,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    .write-category {
+      width: 200px;
+      height: 30px;
+      margin-left: 15px;
+    }
     p {
       font-size: 32px;
       margin: 15px;
