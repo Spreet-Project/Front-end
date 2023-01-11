@@ -3,6 +3,7 @@
     "jsx": "react",
     "allowJs": true,
     "target": "ES5",
+    "downlevelIteration": true, // for of문 사용을 위한
     "outDir": "./dist",
     "moduleResolution": "Node",
     "lib": ["ES2015", "DOM", "DOM.Iterable"],

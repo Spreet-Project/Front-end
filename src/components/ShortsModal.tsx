@@ -13,9 +13,9 @@ const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
   const { data, isLoading, isError, error } = useQuery(
     ['shortsDetail', shortsId],
     getDetailShorts,
-    // {
-    //   suspense: true,
-    // },
+    {
+      // suspense: true,
+    },
   );
 
   const commentList: string[] = [
@@ -36,6 +36,8 @@ const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
   if (deleteMutation.isSuccess) {
     sweetAlert(1000, 'success', '해당 게시글이 삭제되었습니다.');
   }
+
+  if (isLoading) return;
   if (!data) {
     return;
   }
@@ -47,9 +49,15 @@ const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
       <div className="modal-content">
         <div className="modal-video">
           <div className="modal-userInform">
+            <iframe
+              width="450px"
+              height="450px"
+              src={data.data.data.videoUrl}
+            ></iframe>
             <p className="modal-userInform__title">
-              글번호: {shortsId} 글제목: {data.data.title} 내용:
-              {data.data.content}
+              <p>글번호: {shortsId}</p>
+              <p>글제목: {data.data.data.title}</p>
+              <p> 내용:{data.data.data.content}</p>
             </p>
             <p className="modal-userInform__author">작성자:닉네임 </p>
           </div>

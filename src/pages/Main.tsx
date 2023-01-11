@@ -6,18 +6,10 @@ import React, {
   useCallback,
 } from 'react';
 import { useQuery } from 'react-query';
-import axios from 'axios';
 import '../assets/styles/scss/main.scss';
 import ShortsModal from '../components/ShortsModal';
 import { useNavigate } from 'react-router-dom';
-
-export const getFeeds = () => {
-  return axios.get('http://localhost:4000/feed');
-};
-
-export const getShorts = () => {
-  return axios.get('http://localhost:4000/shorts');
-};
+import { getFeed, getShorts } from '../core/api/shorts';
 
 // {
 //   // cacheTime: 5000, //캐시를 몇초까지 저장해줄건지? 기본 5분?
@@ -36,7 +28,10 @@ const Main = (): JSX.Element => {
     'shorts', //쿼리 키
     getShorts, //비동기 처리함수(서버에 요청),
     {
-      suspense: true,
+      // suspense: true,
+      cacheTime: 5000, //캐시를 몇초까지 저장해줄건지? 기본 5분?
+      staleTime: 5000, //재검색을 트리거? 기존에 있던 데이터처리를 어떻게할건지?
+      refetchOnMount: true, //쿼리데이터가 오래되었는지 확인하는여부?
     },
   );
 
@@ -48,24 +43,45 @@ const Main = (): JSX.Element => {
   const spreetChidRef = useRef<HTMLDivElement>(null); //상단 페이징 버튼위한 ref
   const [spreetTransX, setspreetTransX] = useState(0);
   const post: string[] = ['red', 'blue', 'green', 'black', 'purple'];
+  const feedList = [
+    '첫번째글',
+    '두번째글',
+    '3번째글',
+    '4번째글',
+    '5반째글',
+    '6번째글',
+    '7번째글',
+    '8번째글',
+    '9번째글',
+    '10번째글',
+    '11번째글',
+    '12번째글',
+    '13번째글',
+    '14번째글',
+    '15번째글',
+    '16번째글',
+  ];
   const sldiesDomLength = useRef(post.length);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const getSpreetCordinate = () => {
+      if (!spreetRef.current) return;
       const listLeft = spreetRef.current.getBoundingClientRect().left;
       setspreetTransX(listLeft);
     };
     const getFeedCordinate = () => {
+      if (!rapRef.current) return;
       const rapLeft = rapRef.current.getBoundingClientRect().left;
       setFeedTransX(rapLeft);
     };
 
     getSpreetCordinate();
     getFeedCordinate();
-  }, [rapRef, spreetRef]);
+  }, []);
 
   const onScroll = useCallback(([entry]: any) => {
     const { current }: any = feedRef;
+    console.log(current);
     let currTagerIndex: number; //현재 타켓이 되는 게시글index
     const lastIndex = current.childNodes.length - 1;
     const lastTargetEle = current.childNodes[lastIndex];
@@ -120,26 +136,25 @@ const Main = (): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    let observer: any;
+    if (isLoading) return;
+    if (!feedRef.current) return;
 
-    if (feedRef.current) {
-      observer = new IntersectionObserver(onScroll, {
-        threshold: 0.4,
-        rootMargin: '-30px',
-      });
+    const observer: any = new IntersectionObserver(onScroll, {
+      threshold: 0.4,
+      rootMargin: '-30px',
+    });
 
-      feedRef.current.childNodes.forEach(childNode => {
-        observer.observe(childNode);
-      });
-    }
+    feedRef.current.childNodes.forEach(childNode => {
+      console.log(childNode);
+      observer.observe(childNode);
+    });
 
     return () => observer && observer.disconnect();
-  }, [onScroll]);
-
-  if (isLoading) return;
+  }, [isLoading, feedRef.current, onScroll]);
 
   const onPaiginBtn = (index: number): void => {
     // spreetRef.current.childNodes[0].getBoundingClientRect().width;
+    if (!spreetChidRef) return;
     const spreetRef_NodeWidth: number =
       post.length > 0 ? spreetChidRef.current.getBoundingClientRect().width : 0;
     const calculationValue: number =
@@ -153,6 +168,7 @@ const Main = (): JSX.Element => {
     sectorRef: any,
     slideNum: number,
   ): void => {
+    if (!sectorRef) return;
     const currentX = sectorRef.current.getBoundingClientRect().x;
     const listRef_NodeWidth =
       sectorRef.current.childNodes[0].getBoundingClientRect().width;
@@ -192,10 +208,9 @@ const Main = (): JSX.Element => {
     sectorRef.current.style.transform = `translateX(${calculate_distance}px)`;
   };
 
-  if (!data) {
-    return;
-  }
-
+  if (isLoading) return;
+  if (!data) return;
+  console.log(data);
   return (
     <>
       {isLoading || (isFetching && <div> 로딩중이요</div>)}
@@ -269,16 +284,21 @@ const Main = (): JSX.Element => {
               <div className="rap-row__list" ref={rapRef}>
                 <div className="rap-item__wrapper">
                   {data.data &&
-                    data.data.map(item => {
+                    data.data.data.map(item => {
                       return (
                         <div
-                          key={item.id}
+                          key={item.shortsId}
                           className="rap-item__container"
                           onClick={() => {
                             setIsShowModal(true);
                             setShortsId(item.id);
                           }}
                         >
+                          <iframe
+                            width="350px"
+                            height="450px"
+                            src={item.videoUrl}
+                          ></iframe>
                           <div className="rap-item__shorts-title">
                             제목:
                             {item.title.length > 10
@@ -300,16 +320,16 @@ const Main = (): JSX.Element => {
           </div>
           <div className="feed-content">
             <div className="feed-wrapper" ref={feedRef}>
-              {data &&
-                data.data.map(data => {
+              {feedList &&
+                feedList.map((item, index) => {
                   return (
                     <h1
-                      key={data.id}
-                      onClick={() => {
-                        navigate(`/feed/:id=${data.id}`);
-                      }}
+                      key={index}
+                      // onClick={() => {
+                      //   navigate(`/feed/:id=${data.id}`);
+                      // }}
                     >
-                      {data.title}
+                      {item}
                     </h1>
                   );
                 })}

@@ -5,8 +5,8 @@ interface UseInputs {
   userId: string;
   password: string;
   nickName: string;
-  feedTitle: string;
-  feedContent: string;
+  title: string;
+  content: string;
 }
 
 export const useInputs = (): any => {
@@ -15,8 +15,8 @@ export const useInputs = (): any => {
     userId: '',
     password: '',
     nickName: '',
-    feedTitle: '',
-    feedContent: '',
+    title: '',
+    content: '',
   });
 
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,8 +34,8 @@ export const useInputs = (): any => {
       userId: '',
       password: '',
       nickName: '',
-      feedTitle: '',
-      feedContent: '',
+      title: '',
+      content: '',
     });
   };
 
