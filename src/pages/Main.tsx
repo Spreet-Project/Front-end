@@ -25,7 +25,7 @@ const Main = (): JSX.Element => {
   const [shortsId, setShortsId] = useState<number>(0); //모달창넘어갈때 넘겨줄 shorts번호
 
   const { isLoading, isError, data, error, isFetching } = useQuery(
-    'shorts', //쿼리 키
+    ['shorts', 'RAP'], //쿼리 키
     getShorts, //비동기 처리함수(서버에 요청),
     {
       // suspense: true,
@@ -34,6 +34,13 @@ const Main = (): JSX.Element => {
       refetchOnMount: true, //쿼리데이터가 오래되었는지 확인하는여부?
     },
   );
+
+  const feedResponse = useQuery('feed', getFeed, {
+    // suspense: true,
+    cacheTime: 5000, //캐시를 몇초까지 저장해줄건지? 기본 5분?
+    staleTime: 5000, //재검색을 트리거? 기존에 있던 데이터처리를 어떻게할건지?
+    refetchOnMount: true, //쿼리데이터가 오래되었는지 확인하는여부?
+  });
 
   const isUpScrollNum = useRef(0); //게시글 부분 스크롤 위로가는 경우 확인해주는숫자
   const feedRef = useRef<HTMLDivElement>(null); //게시글 스크롤에 사용될 ref
@@ -61,6 +68,7 @@ const Main = (): JSX.Element => {
     '15번째글',
     '16번째글',
   ];
+
   const sldiesDomLength = useRef(post.length);
 
   useEffect(() => {

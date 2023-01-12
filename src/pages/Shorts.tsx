@@ -1,13 +1,30 @@
-import React, { useRef, useState, useLayoutEffect } from 'react';
+import React, { useRef, useState, useLayoutEffect, useEffect } from 'react';
 import '../assets/styles/scss/shorts.scss';
 import ShortsModal from '../components/ShortsModal';
 import { getShorts } from '../core/api/shorts';
 import { useQuery } from 'react-query';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Shorts = () => {
+  const naviagate = useNavigate();
   const [shortsId, setShortsId] = useState<number>(0);
+  const [currentCate, setCurrentCate] = useState('RAP');
+  const categoryList = [
+    { category: '랩', value: 'RAP' },
+    { category: '스트릿 댄스', value: 'STREET_DANCE' },
+    { category: 'DJ', value: 'DJ' },
+    { category: '그래피티', value: 'GRAFFITI' },
+    { category: '비트박스', value: 'BEAT_BOX' },
+    { category: '기타', value: 'ETC' },
+    { category: '게시글', value: 'feed' },
+  ];
+
+  const onClickCate = cate => {
+    setCurrentCate(cate);
+  };
+
   const { isLoading, isError, data, error, isFetching } = useQuery(
-    'shorts', //쿼리 키
+    ['shorts', currentCate], //쿼리 키
     getShorts, //비동기 처리함수(서버에 요청),
     {
       // suspense: true,
@@ -20,30 +37,37 @@ const Shorts = () => {
   const [isShowModal, setIsShowModal] = useState(false);
 
   if (isLoading) return;
+  if (isFetching) return;
   if (!data) {
     return;
   }
-  console.log(data);
+  // console.log(data);
   return (
     <>
-      {isLoading && <div> 로딩중입니다</div>}
+      {isLoading || (isFetching && <div> 로딩중입니다</div>)}
       <div className="shorts-sidebar">
         <div className="shorts-category">
           <ul>
-            <li>전체</li>
-            <li>랩</li>
-            <li>스트릿댄스</li>
-            <li>DJ</li>
-            <li>그래피티</li>
-            <li>비트박스</li>
-            <li>기타</li>
-            <li>게시글</li>
+            {categoryList &&
+              categoryList.map((item, index) => {
+                return (
+                  <li
+                    key={index}
+                    onClick={() => {
+                      console.log(item.value);
+                      onClickCate(item.value);
+                    }}
+                  >
+                    {item.category}
+                  </li>
+                );
+              })}
           </ul>
         </div>
       </div>
       <div className="shorts-cotent">
         <div className="shorts-scroll">
-          {data &&
+          {data.data.data ? (
             data.data.data.map(shorts => {
               return (
                 <div key={shorts.shortsId} className="shorts-item__scroll">
@@ -51,10 +75,11 @@ const Shorts = () => {
                     width="600px"
                     height="600px"
                     src={shorts.videoUrl}
+                    className="shorts-iframe"
                   ></iframe>
                   <div className="shorts-item__info">
-                    <p>제목:{shorts.title}</p>
-                    <p>닉네임:{shorts.nickname}</p>
+                    <p>{shorts.title}</p>
+                    <p>{shorts.nickname}</p>
                   </div>
 
                   <div className="shorts-item__btn">
@@ -83,7 +108,10 @@ const Shorts = () => {
                   </div>
                 </div>
               );
-            })}
+            })
+          ) : (
+            <div className="">게시물이 없네요 ㅠㅠ</div>
+          )}
         </div>
       </div>
       {isShowModal && (

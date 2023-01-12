@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { postShorts, postFeed } from '../core/api/shorts';
 import sweetAlert from '../core/utils/sweetAlert';
 
-const Write = () => {
+const Write = (): JSX.Element => {
   const navigate = useNavigate();
   const [inputs, onChangeInput, clearInput] = useInputs();
   const [file, setFile] = useState(null);
@@ -44,7 +44,6 @@ const Write = () => {
   };
 
   const onChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value);
     setShortsCate(e.target.value);
   };
 
@@ -64,7 +63,6 @@ const Write = () => {
   const onChangeVideoFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const videoFile = e.target.files[0];
     const videoUrl = URL.createObjectURL(videoFile);
-    console.log(videoUrl);
     setFile(e.target.files[0]);
     setFileUrl(videoUrl);
   };
@@ -97,7 +95,6 @@ const Write = () => {
       setDetailImages([]);
     }
     const fileArr = e.target.files;
-    console.log(e.target.files, 'targetFiles');
 
     const feedImageLength = fileArr.length;
     if (feedImageLength > 5) {
@@ -132,12 +129,17 @@ const Write = () => {
     shortsData.append('title', title);
     shortsData.append('content', content);
     shortsData.append('category', shortsCate);
+    console.log(shortsCate);
     postShorts(shortsData)
       .then(res => {
         // navigate('/');
         sweetAlert(1000, 'success', '쇼츠 작성 성공!');
       })
       .catch(error => {
+        if (error.response.data.statusCode === 400) {
+          sweetAlert(1000, 'error', '죄송합니다. 로그인을 다시해주세요.');
+          return navigate('/login');
+        }
         sweetAlert(1000, 'error', '쇼츠 작성 실패');
       });
   };
@@ -152,16 +154,10 @@ const Write = () => {
     if (content.length === 0) {
       sweetAlert(1000, 'error', '내용을 입력해주세요');
     }
-    const newFeed = {
-      title: title,
-      file: postImages,
-      content: content,
-    };
     const feedData: any = new FormData();
     for (const feed of Array.from(postImages)) {
       feedData.append('file', feed);
     }
-    // feedData.append('file', postImages);
     feedData.append('title', title);
     feedData.append('content', content);
     postFeed(feedData)
@@ -229,7 +225,7 @@ const Write = () => {
             <option value="RAP">랩</option>
             <option value="DJ">디제잉</option>
             <option value="BEAT_BOX">비트박스</option>
-            <option value="STEET_DANCE">스트릿 댄스</option>
+            <option value="STREET_DANCE">스트릿 댄스</option>
             <option value="GRAFFITI">그래피티</option>
             <option value="ETC">기타</option>
           </select>

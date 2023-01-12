@@ -8,6 +8,7 @@ import Feed from '../pages/Feed';
 import Layout from './Layout';
 import React from 'react';
 import ModifyShorts from '../pages/ModifyShorts';
+import ModifyFeed from '../pages/ModfiyFeed';
 
 const Router = () => {
   return (
@@ -18,7 +19,8 @@ const Router = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/write" element={<Write />} />
         <Route path="/shorts" element={<Shorts />} />
-        <Route path="/modify/:id" element={<ModifyShorts />} />
+        <Route path="/modifyShorts/:id" element={<ModifyShorts />} />
+        <Route path="/modifyFeed/:id" element={<ModifyFeed />} />
         <Route path="*" element={<div>이거 404 페이지요</div>} />
       </Routes>
     </Layout>
