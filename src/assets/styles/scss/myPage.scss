@@ -1,0 +1,23 @@
+@import './body.scss';
+
+.mypage-sidebar {
+  position: absolute;
+  left: 0;
+  text-align: center;
+  font-size: 32px;
+  color: $font_color;
+  width: 300px;
+  height: 100vh;
+  background-color: rgb(56, 54, 54);
+  .mypage-category {
+    cursor: pointer;
+    height: 400px;
+    margin-top: 80px;
+    li {
+      margin: 150px auto;
+      &:hover {
+        background-color: #c94e4b;
+      }
+    }
+  }
+}
