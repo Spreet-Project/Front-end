@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { instance, baseURL, subURL } from '../axios/axios';
 import sweetAlert from '../utils/sweetAlert';
 
@@ -28,10 +27,20 @@ export const updateShorts = async payload => {
 };
 
 export const getShorts = async payload => {
-  const { queryKey } = payload;
-  const category = queryKey[1];
-  //shorts카테고리별 게시물조회조회
-  return await instance.get(`/shorts?category=${category}&page=1&size=10`);
+  try {
+    const { queryKey } = payload;
+    const { category, token } = queryKey[1];
+    console.log(payload, 'payload');
+    //shorts카테고리별 게시물조회조회
+    if (token) {
+      return await baseURL.get(`/shorts?category=${category}&page=1&size=10`);
+    }
+    return await instance.get(`/shorts?category=${category}&page=1&size=10`);
+  } catch (error) {
+    if (error.response.request.status === 401) {
+      return sweetAlert(1000, 'error', '로그인이 필요합니다!');
+    }
+  }
 };
 
 export const getFeed = async () => {
@@ -87,5 +96,18 @@ export const modifyShortsComment = async payload => {
     });
   } catch (error) {
     sweetAlert(1000, 'error', '댓글 수정 오류!');
+  }
+};
+
+export const postShortLike = async shortsId => {
+  //모달창에서 댓글 수정
+  try {
+    console.log(shortsId);
+    return await baseURL.post(`/shorts/like/${shortsId}`);
+  } catch (error) {
+    if (error.response.request.status === 401) {
+      return sweetAlert(1000, 'error', '로그인이 필요합니다!');
+    }
+    sweetAlert(1000, 'error', '좋아요 기능 오류!');
   }
 };

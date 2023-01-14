@@ -5,7 +5,7 @@ import { useInputs } from '../core/hooks/useInput';
 import { useNavigate, useParams } from 'react-router-dom';
 import sweetAlert from '../core/utils/sweetAlert';
 import { useMutation, useQuery } from 'react-query';
-import { getDetailFeed } from '../core/api/shorts';
+import { getDetailFeed, postShortLike } from '../core/api/shorts';
 
 interface Feed {
   id: number;
