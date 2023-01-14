@@ -8,6 +8,9 @@ import Feed from '../pages/Feed';
 import Layout from './Layout';
 import React from 'react';
 import ModifyShorts from '../pages/ModifyShorts';
+import EventWrite from '../pages/EventWrite';
+import KakaoLogin from '../pages/KakaoLogin';
+import MyPage from '../pages/MyPage';
 
 const Router = () => {
   return (
@@ -16,9 +19,12 @@ const Router = () => {
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/api/user/kakao/callback/*" element={<KakaoLogin />} />
         <Route path="/write" element={<Write />} />
         <Route path="/shorts" element={<Shorts />} />
+        <Route path="/eventWrite" element={<EventWrite />} />
         <Route path="/modify/:id" element={<ModifyShorts />} />
+        <Route path="/mypage" element={<MyPage />} />
         <Route path="*" element={<div>이거 404 페이지요</div>} />
       </Routes>
     </Layout>

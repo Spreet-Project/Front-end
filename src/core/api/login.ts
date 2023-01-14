@@ -27,18 +27,18 @@ export const postSignup = async post => {
 export const postEmailConfirm = async post => {
   try {
     console.log(post, 'axios email 인증 보내기 전');
-    const data = await instance.post('/user/email-confirm', post);
+    const data = await instance.post(`/user/send-email?email=${post.email}`);
     sweetAlert(1000, 'success', '인증번호 전송완료');
     return data;
   } catch (error) {
-    sweetAlert(1000, 'error', '');
+    sweetAlert(1000, 'error', '인증 에러');
   }
 };
 
 export const postEmailCheck = async post => {
   try {
     console.log(post, 'axios email 인증확인 보내기 전');
-    const data = await instance.post('/user/email-check', post);
+    const data = await instance.post('/user/confirm-email', post);
     sweetAlert(1000, 'success', '이메일 인증 확인완료');
     return data;
   } catch (error) {
@@ -60,11 +60,24 @@ export const postIdCheck = async post => {
 export const postNicknameCheck = async post => {
   try {
     console.log(post, 'axios 닉네임 중복확인 보내기 전');
-    const data = await instance.post('/user', post);
+    const data = await instance.post(
+      `/user/nickname-check?nickname=${post.nickname}`,
+    );
     sweetAlert(1000, 'success', '중복확인 완료');
     return data;
   } catch (error) {
-    sweetAlert(1000, 'error', '');
+    sweetAlert(1000, 'error', '닉네임이 중복되었습니다.');
+  }
+};
+
+export const getKakaoLogin = async code => {
+  try {
+    console.log(code, 'axios code 확인');
+    const data = await instance.get(`/user/kakao/callback?code=${code.code}`);
+    sweetAlert(1000, 'success', '카카오 로그인 완료');
+    return data;
+  } catch (error) {
+    sweetAlert(1000, 'error', '카카오 로그인 실패');
   }
 };
 

@@ -7,7 +7,7 @@ import {
   postNicknameCheck,
   postSignup,
 } from '../core/api/login';
-import './signUp.scss';
+import '../assets/styles/scss/signUp.scss';
 import sweetAlert from '../core/utils/sweetAlert';
 const SignUp = () => {
   const [loginId, setLoginId] = useState();
@@ -23,7 +23,7 @@ const SignUp = () => {
   const [isRegNickNameCheck, setIsRegNickNameCheck] = useState(false);
   const [isRegPasswordCheck, setIsRegPasswordCheck] = useState(false);
   const [isRegCrewCheck, setIsRegCrewCheck] = useState(false);
-  const [code, setCode] = useState();
+  const [confirmCode, setConfirmCode] = useState();
   const [longinIdCheck, setLoginIdCheck] = useState(false);
   const [emailConfirm, setEmailCofirm] = useState(false);
   const [emailCheck, setEmailCheck] = useState(false);
@@ -156,6 +156,7 @@ const SignUp = () => {
     });
   };
 
+  // 이일 중복확인 버튼
   const onClickEmailConfirm = e => {
     e.preventDefault();
     postEmailConfirm({
@@ -165,15 +166,18 @@ const SignUp = () => {
     });
   };
 
+  // 이메일 인증확인 버튼
   const onClickEmailCheck = e => {
     e.preventDefault();
     postEmailCheck({
-      code: code,
+      email: email,
+      confirmCode: confirmCode,
     }).then(res => {
       setEmailCheck(true);
     });
   };
 
+  // 닉네임 중복확인 버튼
   const onClickNicknameCheck = e => {
     e.preventDefault();
     postNicknameCheck({
@@ -208,6 +212,7 @@ const SignUp = () => {
     }
   };
 
+  //닉네임
   const onChangeNickname = e => {
     setNickname(e.target.value);
     const isCheckNickName = is_userNickName(e.target.value);
@@ -216,18 +221,22 @@ const SignUp = () => {
       : setIsRegNickNameCheck(false);
   };
 
+  //이메일
   const onChangeEmail = e => {
     setEmail(e.target.value);
     const isCheckEmail = is_userEmail(e.target.value);
     isCheckEmail ? setisRegEmailCheck(true) : setisRegEmailCheck(false);
   };
+
+  //이메일 인증 확인
   const onChangeEmailCheck = e => {
     console.log(onChangeEmailCheck);
-    setEmail(e.target.value);
-    const isCheckEmail = is_userEmail(e.target.value);
-    isCheckEmail ? setisRegEmailCheck(true) : setisRegEmailCheck(false);
+    setConfirmCode(e.target.value);
+    // const isCheckEmail = is_userEmail(e.target.value);
+    // isCheckEmail ? setisRegEmailCheck(true) : setisRegEmailCheck(false);
   };
 
+  //크루
   const onChangeCrewName = e => {
     setCrewName(e.target.value);
     const isCheckCrewName = is_crewName(e.target.value);
@@ -240,7 +249,6 @@ const SignUp = () => {
         <div className="signUp_inputBtn">
           <input
             type="email"
-            name="email"
             placeholder="이메일"
             value={email || ''}
             onChange={onChangeEmail}
@@ -253,8 +261,7 @@ const SignUp = () => {
           )}
 
           <input
-            type="email"
-            name="email"
+            type="text"
             placeholder="이메일 인증번호 입력"
             onChange={onChangeEmailCheck}
           />
@@ -264,7 +271,6 @@ const SignUp = () => {
           {/* <p className="signUp_p">이메일 인증번호를 입력해 주세요.</p> */}
           <input
             type="text"
-            name="text"
             placeholder="아이디"
             value={loginId || ''}
             onChange={onChangeLoginId}
@@ -281,7 +287,6 @@ const SignUp = () => {
         <div className="signUp_pw">
           <input
             type="password"
-            name="password"
             placeholder="비밀번호"
             value={password || ''}
             onChange={onChangeRegPassword}
@@ -293,7 +298,6 @@ const SignUp = () => {
           )}
           <input
             type="password"
-            name="password"
             placeholder="비밀번호 확인"
             value={passwordCheck || ''}
             onChange={onChangeCheckPassword}
@@ -306,7 +310,6 @@ const SignUp = () => {
             {crewCheck ? (
               <input
                 type="text"
-                name="text"
                 placeholder="소속팀"
                 value={crewName}
                 onChange={onChangeCrewName}
@@ -314,7 +317,6 @@ const SignUp = () => {
             ) : (
               <input
                 type="text"
-                name="text"
                 placeholder="닉네임"
                 value={nickname || ''}
                 onChange={onChangeNickname}
@@ -335,8 +337,8 @@ const SignUp = () => {
         </div>
         <div className="signUp_crew">
           <input
+            className="signUp_checkbox"
             type="checkbox"
-            name="crew"
             onChange={e => {
               setCrewCheck(e.target.checked);
               if (crewCheck) {
