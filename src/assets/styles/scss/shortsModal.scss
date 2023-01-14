@@ -37,11 +37,34 @@
     width: 500px;
     height: 600px;
     border-radius: 10px;
-    .modal-comment-wrapper {
-      margin: 30px;
-      width: 550px;
+    .modal-comment__comment-box {
+      height: 500px;
       overflow: auto;
+      .modal-comment-wrapper {
+        margin: 30px;
+        overflow: auto;
+        .modify-input {
+          width: 300px;
+          height: 25px;
+        }
+        .modal-comment__user-author {
+          .modal-comment__date {
+            font-size: 12px;
+            color: gray;
+          }
+        }
+        .modal-comment__btn {
+          @include btn;
+          width: 70px;
+          font-size: 14px;
+          color: darkgray;
+          &:hover {
+            color: #c94e4b;
+          }
+        }
+      }
     }
+
     .modal-comment-write {
       position: absolute;
       bottom: 20px;

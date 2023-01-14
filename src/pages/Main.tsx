@@ -10,35 +10,31 @@ import '../assets/styles/scss/main.scss';
 import ShortsModal from '../components/ShortsModal';
 import { useNavigate } from 'react-router-dom';
 import { getFeed, getShorts } from '../core/api/shorts';
-
-// {
-//   // cacheTime: 5000, //캐시를 몇초까지 저장해줄건지? 기본 5분?
-//   // staleTime: 5000, //재검색을 트리거? 기존에 있던 데이터처리를 어떻게할건지?
-//   // refetchOnMount: true, //쿼리데이터가 오래되었는지 확인하는여부?
-//   // refetchOnWindowFocus: true, //기본값 true 데이터가 변경되었다면 변경된 값에따라 화면새로겝반영?
-// suspense: true,
-// },
+import handleClickSlide from '../core/utils/mainCarousel';
+import MainCarousel from '../components/MainCarousel';
 
 const Main = (): JSX.Element => {
   const navigate = useNavigate();
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
   const [shortsId, setShortsId] = useState<number>(0); //모달창넘어갈때 넘겨줄 shorts번호
+  const token = localStorage.getItem('id');
 
   const { isLoading, isError, data, error, isFetching } = useQuery(
-    'shorts', //쿼리 키
+    ['shorts', { category: 'STREET_DANCE', token: token }], //쿼리 키
     getShorts, //비동기 처리함수(서버에 요청),
     {
       // suspense: true,
       cacheTime: 5000, //캐시를 몇초까지 저장해줄건지? 기본 5분?
       staleTime: 5000, //재검색을 트리거? 기존에 있던 데이터처리를 어떻게할건지?
       refetchOnMount: true, //쿼리데이터가 오래되었는지 확인하는여부?
+      // refetchOnWindowFocus: true, //기본값 true 데이터가 변경되었다면 변경된 값에따라 화면새로겝반영?
     },
   );
 
   const isUpScrollNum = useRef(0); //게시글 부분 스크롤 위로가는 경우 확인해주는숫자
   const feedRef = useRef<HTMLDivElement>(null); //게시글 스크롤에 사용될 ref
   const rapRef = useRef<HTMLDivElement>(null); //하단 메인 슬라이드 ref;
-  const [feedTransX, setFeedTransX] = useState(0);
+  const [shortsTransX, setShortsTransX] = useState(0);
   const spreetRef = useRef<HTMLDivElement>(null); //상단 슬라이드 ref;
   const spreetChidRef = useRef<HTMLDivElement>(null); //상단 페이징 버튼위한 ref
   const [spreetTransX, setspreetTransX] = useState(0);
@@ -61,6 +57,7 @@ const Main = (): JSX.Element => {
     '15번째글',
     '16번째글',
   ];
+
   const sldiesDomLength = useRef(post.length);
 
   useEffect(() => {
@@ -69,14 +66,14 @@ const Main = (): JSX.Element => {
       const listLeft = spreetRef.current.getBoundingClientRect().left;
       setspreetTransX(listLeft);
     };
-    const getFeedCordinate = () => {
-      if (!rapRef.current) return;
-      const rapLeft = rapRef.current.getBoundingClientRect().left;
-      setFeedTransX(rapLeft);
-    };
+    // const getFeedCordinate = () => {
+    //   if (!rapRef.current) return;
+    //   const rapLeft = rapRef.current.getBoundingClientRect().left;
+    //   setShortsTransX(rapLeft);
+    // };
 
     getSpreetCordinate();
-    getFeedCordinate();
+    // getFeedCordinate();
   }, []);
 
   const onScroll = useCallback(([entry]: any) => {
@@ -150,7 +147,7 @@ const Main = (): JSX.Element => {
     return () => observer && observer.disconnect();
   }, [isLoading, feedRef.current, onScroll]);
 
-  const onPaiginBtn = (index: number): void => {
+  const onPaigingBtn = (index: number): void => {
     // spreetRef.current.childNodes[0].getBoundingClientRect().width;
     if (!spreetChidRef) return;
     const spreetRef_NodeWidth: number =
@@ -158,52 +155,6 @@ const Main = (): JSX.Element => {
     const calculationValue: number =
       -(spreetRef_NodeWidth / sldiesDomLength.current) * index;
     spreetRef.current.style.transform = `translateX(${calculationValue}px)`;
-  };
-
-  const handleClickSlide = (
-    direction: 'left' | 'right',
-    dataList: string[],
-    sectorRef: any,
-    slideNum: number,
-  ): void => {
-    if (!sectorRef) return;
-    const currentX = sectorRef.current.getBoundingClientRect().x;
-    const listRef_NodeWidth =
-      sectorRef.current.childNodes[0].getBoundingClientRect().width;
-    //슬라이드에 넣은 데이터 배열의 길이가 0보다 크다면
-    //ref속성으로 이어진 돔요소 spreetRef에 childNode에 제일 첫번째?
-    //요소의 넓이값을 세팅
-    // console.log(
-    //   '노드의 넓이값',
-    //   sectorRef.current.childNodes[0].getBoundingClientRect().width,
-    // );
-    // 슬라이드 되는 박스 하나의 넓이값 * 3 (전체 넓이?를 제한하는 값?)
-    const slideDistance = listRef_NodeWidth * 1;
-    //버튼으로 눌렀을때 변화하는 현재넓이제한값?
-    let calculate_distance = 0;
-    // console.log('슬라이드 전체넓이 값?', slideDistance);
-    if (direction === 'left') {
-      calculate_distance =
-        currentX + (slideDistance / dataList.length) * slideNum;
-      // console.log('현재calculate_distance', calculate_distance);
-      if (feedTransX < calculate_distance) {
-        calculate_distance = 0;
-      }
-      // console.log('left버튼 차일드노드"', sectorRef.current);
-    }
-    if (direction === 'right') {
-      const calculationValue = (slideDistance / dataList.length) * slideNum;
-      calculate_distance = currentX - calculationValue;
-      // console.log('현재calculate_distance', calculate_distance);
-      // console.log('현재sectoreRef', sectorRef);
-      // if (-slideDistance > calculate_distance) {
-      //   calculate_distance = 0;
-      // }
-      if (-slideDistance > calculate_distance - calculationValue) {
-        calculate_distance = 0;
-      }
-    }
-    sectorRef.current.style.transform = `translateX(${calculate_distance}px)`;
   };
 
   if (isLoading) return;
@@ -216,13 +167,17 @@ const Main = (): JSX.Element => {
         <div className="spreet-row__carousel">
           <button
             className="spreet-row__button btn--left"
-            onClick={() => handleClickSlide('left', post, spreetRef, 1)}
+            onClick={() =>
+              handleClickSlide('left', post, spreetRef, 1, spreetTransX)
+            }
           >
             {'<'}
           </button>
           <button
             className="spreet-row__button btn--right"
-            onClick={() => handleClickSlide('right', post, spreetRef, 1)}
+            onClick={() =>
+              handleClickSlide('right', post, spreetRef, 1, spreetTransX)
+            }
           >
             {'>'}
           </button>
@@ -251,21 +206,29 @@ const Main = (): JSX.Element => {
                   key={index}
                   className="carousel-paging__btn"
                   onClick={() => {
-                    onPaiginBtn(index);
+                    onPaigingBtn(index);
                   }}
                 ></button>
               );
             })}
         </div>
       </div>
+
       <div className="main-content">
         <div className="main-inner">
-          <div className="rap-row">
+          <MainCarousel data={data} />
+          {/* <div className="rap-row">
             <div className="rap-row__carousel">
               <button
                 className="rap-row__button btn--left"
                 onClick={() => {
-                  handleClickSlide('left', data.data, rapRef, 2);
+                  handleClickSlide(
+                    'left',
+                    data.data.data,
+                    rapRef,
+                    1,
+                    shortsTransX,
+                  );
                 }}
               >
                 {'<'}
@@ -273,7 +236,13 @@ const Main = (): JSX.Element => {
               <button
                 className="rap-row__button btn--right"
                 onClick={() => {
-                  handleClickSlide('right', data.data, rapRef, 1);
+                  handleClickSlide(
+                    'right',
+                    data.data.data,
+                    rapRef,
+                    1,
+                    shortsTransX,
+                  );
                 }}
               >
                 {'>'}
@@ -315,7 +284,8 @@ const Main = (): JSX.Element => {
                 )}
               </div>
             </div>
-          </div>
+          </div> */}
+
           <div className="feed-content">
             <div className="feed-wrapper" ref={feedRef}>
               {feedList &&

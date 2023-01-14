@@ -18,12 +18,24 @@ body {
       .header_logo {
         cursor: pointer;
         flex: 1;
-        margin-left: 20px;
+        width: 100px;
+        margin-left: 100px;
+        font-size: 42px;
+        font-weight: 800;
+        &:hover {
+          color: red;
+        }
       }
       .header_btn {
         margin-right: 30px;
         button {
           @include btn;
+          color: white;
+          background-color: #111;
+          margin-top: 30px;
+          &:hover {
+            color: red;
+          }
         }
       }
     }

@@ -9,7 +9,7 @@
     "lib": ["ES2015", "DOM", "DOM.Iterable"],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
-    // "strictNullChecks": true,
+    // "strictNullChecks": true
     // noImplicitAny:true,
     // "strictFunctionTypes": true,
     // declaration:true,

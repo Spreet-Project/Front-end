@@ -4,18 +4,22 @@ import { useNavigate } from 'react-router-dom';
 
 const Header = (): JSX.Element => {
   const navigate = useNavigate();
+  const token = localStorage.getItem('id');
+  const onLogout = () => {
+    localStorage.removeItem('id');
+  };
   return (
     <>
       <div className="header">
         <div className="header_inner">
-          <h1
+          <p
             className="header_logo"
             onClick={() => {
               navigate('/');
             }}
           >
             Spreet
-          </h1>
+          </p>
           <div className="header_btn">
             <button>알림</button>
             <button
@@ -26,13 +30,18 @@ const Header = (): JSX.Element => {
               쇼츠
             </button>
             <button>행사</button>
-            <button
-              onClick={() => {
-                navigate('/login');
-              }}
-            >
-              로그인
-            </button>
+            {token ? (
+              <button onClick={onLogout}>로그아웃</button>
+            ) : (
+              <button
+                onClick={() => {
+                  navigate('/login');
+                }}
+              >
+                로그인
+              </button>
+            )}
+
             <button
               onClick={() => {
                 navigate('/write');

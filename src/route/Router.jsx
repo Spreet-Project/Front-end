@@ -8,6 +8,8 @@ import Feed from '../pages/Feed';
 import Layout from './Layout';
 import React from 'react';
 import ModifyShorts from '../pages/ModifyShorts';
+import ModifyFeed from '../pages/ModfiyFeed';
+import KaKaoMap from '../pages/KaKaoMap';
 import EventWrite from '../pages/EventWrite';
 import KakaoLogin from '../pages/KakaoLogin';
 import MyPage from '../pages/MyPage';
@@ -22,6 +24,9 @@ const Router = () => {
         <Route path="/api/user/kakao/callback/*" element={<KakaoLogin />} />
         <Route path="/write" element={<Write />} />
         <Route path="/shorts" element={<Shorts />} />
+        <Route path="/modifyShorts/:id" element={<ModifyShorts />} />
+        <Route path="/modifyFeed/:id" element={<ModifyFeed />} />
+        <Route path="/kakaoMap" element={<KaKaoMap />} />
         <Route path="/eventWrite" element={<EventWrite />} />
         <Route path="/modify/:id" element={<ModifyShorts />} />
         <Route path="/mypage" element={<MyPage />} />
