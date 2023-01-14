@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postLogin } from '../core/api/login';
-import './login.scss';
+import '../assets/styles/scss/login.scss';
 import sweetAlert from '../core/utils/sweetAlert';
 
 const Login = () => {

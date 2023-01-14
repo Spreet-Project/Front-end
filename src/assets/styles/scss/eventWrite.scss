@@ -1,0 +1,56 @@
+@import './body.scss';
+
+.eventWrite-content {
+  position: relative;
+  width: 1440px;
+  margin: 50px auto;
+  @include flexCenter;
+}
+
+.eventWrite-showFile-box {
+  width: 600px;
+  height: 700px;
+  margin-right: 50px;
+  border: 3px solid black;
+  border-radius: 50px;
+}
+
+.eventWrite-inform-box {
+  width: 400px;
+  height: 700px;
+  border: 3px solid black;
+  border-radius: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+p {
+  font-size: 25px;
+  margin: 15px;
+}
+input {
+  margin-left: 15px;
+  margin-bottom: 10px;
+  height: 30px;
+  width: 350px;
+}
+
+textarea {
+  margin-left: 15px;
+  font-size: 22px;
+  width: 350px;
+  height: 250px;
+  resize: none;
+}
+
+.evnetWrite-btn-box {
+  position: absolute;
+  bottom: -70px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  button {
+    @include btn;
+    font-size: 25px;
+    width: 250px;
+  }
+}
