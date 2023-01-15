@@ -1,40 +1,40 @@
-import React, {
-  useRef,
-  useState,
-  useLayoutEffect,
-  useEffect,
-  useCallback,
-} from 'react';
-import { useQuery } from 'react-query';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { useQuery, useQueries } from 'react-query';
 import '../assets/styles/scss/main.scss';
 import ShortsModal from '../components/ShortsModal';
 import { useNavigate } from 'react-router-dom';
 import { getFeed, getShorts } from '../core/api/shorts';
-import handleClickSlide from '../core/utils/mainCarousel';
+import handleClickSlide from '../core/utils/handleClickSlide';
 import MainCarousel from '../components/MainCarousel';
+import sweetAlert from '../core/utils/sweetAlert';
 
 const Main = (): JSX.Element => {
   const navigate = useNavigate();
-  const [isShowModal, setIsShowModal] = useState<boolean>(false);
-  const [shortsId, setShortsId] = useState<number>(0); //모달창넘어갈때 넘겨줄 shorts번호
   const token = localStorage.getItem('id');
+  const categoryList = [
+    { category: '랩', value: 'RAP' },
+    { category: '스트릿 댄스', value: 'STREET_DANCE' },
+    { category: 'DJ', value: 'DJ' },
+    { category: '그래피티', value: 'GRAFFITI' },
+    { category: '비트박스', value: 'BEAT_BOX' },
+    { category: '기타', value: 'ETC' },
+  ];
 
-  const { isLoading, isError, data, error, isFetching } = useQuery(
-    ['shorts', { category: 'STREET_DANCE', token: token }], //쿼리 키
-    getShorts, //비동기 처리함수(서버에 요청),
-    {
-      // suspense: true,
-      cacheTime: 5000, //캐시를 몇초까지 저장해줄건지? 기본 5분?
-      staleTime: 5000, //재검색을 트리거? 기존에 있던 데이터처리를 어떻게할건지?
-      refetchOnMount: true, //쿼리데이터가 오래되었는지 확인하는여부?
-      // refetchOnWindowFocus: true, //기본값 true 데이터가 변경되었다면 변경된 값에따라 화면새로겝반영?
-    },
+  const res: any = useQueries(
+    categoryList.map(categroy => {
+      return {
+        queryKey: ['shortsList', { category: categroy.value, token: token }],
+        queryFn: getShorts,
+        cacheTime: 5000,
+        staleTime: 5000,
+        refetchOnMount: true,
+      };
+    }),
   );
+  const resFeed: any = useQuery(['getFeed'], getFeed);
 
   const isUpScrollNum = useRef(0); //게시글 부분 스크롤 위로가는 경우 확인해주는숫자
   const feedRef = useRef<HTMLDivElement>(null); //게시글 스크롤에 사용될 ref
-  const rapRef = useRef<HTMLDivElement>(null); //하단 메인 슬라이드 ref;
-  const [shortsTransX, setShortsTransX] = useState(0);
   const spreetRef = useRef<HTMLDivElement>(null); //상단 슬라이드 ref;
   const spreetChidRef = useRef<HTMLDivElement>(null); //상단 페이징 버튼위한 ref
   const [spreetTransX, setspreetTransX] = useState(0);
@@ -66,14 +66,8 @@ const Main = (): JSX.Element => {
       const listLeft = spreetRef.current.getBoundingClientRect().left;
       setspreetTransX(listLeft);
     };
-    // const getFeedCordinate = () => {
-    //   if (!rapRef.current) return;
-    //   const rapLeft = rapRef.current.getBoundingClientRect().left;
-    //   setShortsTransX(rapLeft);
-    // };
 
     getSpreetCordinate();
-    // getFeedCordinate();
   }, []);
 
   const onScroll = useCallback(([entry]: any) => {
@@ -132,7 +126,6 @@ const Main = (): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    if (isLoading) return;
     if (!feedRef.current) return;
 
     const observer: any = new IntersectionObserver(onScroll, {
@@ -145,7 +138,7 @@ const Main = (): JSX.Element => {
     });
 
     return () => observer && observer.disconnect();
-  }, [isLoading, feedRef.current, onScroll]);
+  }, [feedRef.current, onScroll]);
 
   const onPaigingBtn = (index: number): void => {
     // spreetRef.current.childNodes[0].getBoundingClientRect().width;
@@ -157,12 +150,19 @@ const Main = (): JSX.Element => {
     spreetRef.current.style.transform = `translateX(${calculationValue}px)`;
   };
 
-  if (isLoading) return;
-  if (!data) return;
-  console.log(data);
+  // res.map(response => {
+  //   if (response.isSuccess && response.data.response.data.statusCode === 400) {
+  //     sweetAlert(1000, 'error', '죄송합니다.  다시 로그인 해주세요.');
+  //     localStorage.removeItem('id');
+  //     return navigate('/login');
+  //   }
+  // });
+
+  if (!res || resFeed.isLoading) return;
+
+  // console.log(resFeed, 'resFeed');
   return (
     <>
-      {isLoading || (isFetching && <div> 로딩중이요</div>)}
       <div className="spreet-row">
         <div className="spreet-row__carousel">
           <button
@@ -216,88 +216,28 @@ const Main = (): JSX.Element => {
 
       <div className="main-content">
         <div className="main-inner">
-          <MainCarousel data={data} />
-          {/* <div className="rap-row">
-            <div className="rap-row__carousel">
-              <button
-                className="rap-row__button btn--left"
-                onClick={() => {
-                  handleClickSlide(
-                    'left',
-                    data.data.data,
-                    rapRef,
-                    1,
-                    shortsTransX,
-                  );
-                }}
-              >
-                {'<'}
-              </button>
-              <button
-                className="rap-row__button btn--right"
-                onClick={() => {
-                  handleClickSlide(
-                    'right',
-                    data.data.data,
-                    rapRef,
-                    1,
-                    shortsTransX,
-                  );
-                }}
-              >
-                {'>'}
-              </button>
-              <div className="rap-item__title"> 랩</div>
-              <div className="rap-row__list" ref={rapRef}>
-                <div className="rap-item__wrapper">
-                  {data.data &&
-                    data.data.data.map(item => {
-                      return (
-                        <div
-                          key={item.shortsId}
-                          className="rap-item__container"
-                          onClick={() => {
-                            setIsShowModal(true);
-                            setShortsId(item.id);
-                          }}
-                        >
-                          <iframe
-                            width="350px"
-                            height="450px"
-                            src={item.videoUrl}
-                          ></iframe>
-                          <div className="rap-item__shorts-title">
-                            제목:
-                            {item.title.length > 10
-                              ? item.title.slice(0, 30) + '...'
-                              : item.title}
-                          </div>
-                        </div>
-                      );
-                    })}
-                </div>
-                {isShowModal && (
-                  <ShortsModal
-                    setIsShowModal={setIsShowModal}
-                    shortsId={shortsId}
-                  />
-                )}
-              </div>
-            </div>
-          </div> */}
-
+          {res.map((result, index) => {
+            if (result.isLoading) return;
+            return (
+              <MainCarousel
+                key={index}
+                data={result.data}
+                category={categoryList[index].category}
+              />
+            );
+          })}
           <div className="feed-content">
             <div className="feed-wrapper" ref={feedRef}>
-              {feedList &&
-                feedList.map((item, index) => {
+              {resFeed.data.data.data.content &&
+                resFeed.data.data.data.content.map((item, index) => {
                   return (
                     <h1
-                      key={index}
+                      key={item.feedId}
                       // onClick={() => {
                       //   navigate(`/feed/:id=${data.id}`);
                       // }}
                     >
-                      {item}
+                      {item.title}
                     </h1>
                   );
                 })}

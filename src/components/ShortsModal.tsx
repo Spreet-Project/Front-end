@@ -11,6 +11,7 @@ import {
   postShortsComment,
   deleteShortsComment,
   modifyShortsComment,
+  getShortsComment,
 } from '../core/api/shorts';
 
 const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
@@ -25,11 +26,13 @@ const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
   const { data, isLoading, isError, error, isFetching } = useQuery(
     ['shortsDetail', shortsId],
     getDetailShorts,
-    {
-      // suspense: true,
-      refetchOnMount: 'always',
-    },
+    // {
+    //   // suspense: true,
+    //   refetchOnMount: 'always',
+    // },
   );
+
+  const resultCommnet = useQuery(['shortsComment', shortsId], getShortsComment);
 
   const onCancleModifyComment = () => {
     setIsCommentModify(false);
@@ -51,13 +54,19 @@ const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
     () => postShortsComment({ shortsId: shortsId, content: comment }),
     {
       onSettled: () =>
-        queryClient.invalidateQueries(['shortsDetail', shortsId]),
+        queryClient.invalidateQueries(['shortsComment', shortsId]),
     },
   );
-  const deleteShortsMutation = useMutation(shortsId => deleteShorts(shortsId));
+  const deleteShortsMutation = useMutation(shortsId => deleteShorts(shortsId), {
+    // onSettled: () => queryClient.invalidateQueries(['shortsDetail', shortsId]),
+  });
 
-  const deleteCommentMutation = useMutation(shortsId =>
-    deleteShortsComment(shortsId),
+  const deleteCommentMutation = useMutation(
+    shortsId => deleteShortsComment(shortsId),
+    {
+      onSettled: () =>
+        queryClient.invalidateQueries(['shortsComment', shortsId]),
+    },
   );
 
   const modifyCommentMutation = useMutation(
@@ -74,23 +83,16 @@ const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
     sweetAlert(1000, 'success', '해당 게시글이 삭제되었습니다.');
   }
 
-  if (deleteCommentMutation.isSuccess) {
-    sweetAlert(1000, 'success', '해당 게시글이 삭제되었습니다.');
-  }
-  if (postCommentMutation.isSuccess) {
-    sweetAlert(1000, 'success', '댓글 작성 성공');
-  }
+  // if (deleteCommentMutation.isSuccess) {
+  //   sweetAlert(1000, 'success', '해당 댓글이 삭제되었습니다.');
+  // }
 
-  if (modifyCommentMutation.isSuccess) {
-    sweetAlert(1000, 'success', '댓글 수정 성공');
-  }
+  // if (modifyCommentMutation.isSuccess) {
+  //   sweetAlert(1000, 'success', '댓글 수정 성공');
+  // }
 
-  if (isLoading) return;
-  if (!data) {
-    return;
-  }
-
-  console.log(data);
+  if (isLoading || resultCommnet.isLoading) return;
+  if (!data || !resultCommnet) return;
   return (
     <>
       {isLoading && <div> 로딩중입니다</div>}
@@ -99,14 +101,14 @@ const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
           <div className="modal-userInform">
             <iframe
               width="450px"
-              height="450px"
+              height="350px"
               src={data.data.data.videoUrl}
             ></iframe>
-            <p className="modal-userInform__title">
+            <div className="modal-userInform__title">
               <p>글번호: {shortsId}</p>
               <p>글제목: {data.data.data.title}</p>
               <p> 내용:{data.data.data.content}</p>
-            </p>
+            </div>
             <p className="modal-userInform__author">
               작성자:{data.data.data.nickname}
             </p>
@@ -114,8 +116,9 @@ const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
         </div>
         <div className="modal-comment">
           <div className="modal-comment__comment-box">
-            {data.data.data.shortsCommentList &&
-              data.data.data.shortsCommentList.map(comment => {
+            {resultCommnet.data.data.data &&
+              resultCommnet.data.data.data.map(comment => {
+                // console.log(comment);
                 {
                   return isCommentModify &&
                     comment.shortsCommentId === modifyCommentId ? (

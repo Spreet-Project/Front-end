@@ -351,11 +351,11 @@ const SignUp = () => {
           <label htmlFor="crew" className="signUp_label">
             [선택] 크루 회원입니다.
           </label>
-          <p className="signUp_p">
-            크루 회원임을 선택할 경우 인증 절차를 통하여 행사 게시물을 작성할 수
-            있습니다.
-          </p>
         </div>
+        <p className="signUp_p">
+          크루 회원임을 선택할 경우 인증 절차를 통하여 행사 게시물을 작성할 수
+          있습니다.
+        </p>
         <hr className="signUp_hr" />
         <button className="signUp_btn">회원가입</button>
       </form>

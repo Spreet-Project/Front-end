@@ -1,12 +1,15 @@
 import React from 'react';
 import '../assets/styles/scss/header.scss';
 import { useNavigate } from 'react-router-dom';
+import sweetAlert from '../core/utils/sweetAlert';
 
 const Header = (): JSX.Element => {
   const navigate = useNavigate();
   const token = localStorage.getItem('id');
   const onLogout = () => {
     localStorage.removeItem('id');
+    sweetAlert(1000, 'success', '로그아웃 되었습니다');
+    navigate('/');
   };
   return (
     <>
@@ -44,10 +47,14 @@ const Header = (): JSX.Element => {
 
             <button
               onClick={() => {
+                if (!localStorage.getItem('id')) {
+                  sweetAlert(1000, 'error', '로그인 해주세요!');
+                  return navigate('/login');
+                }
                 navigate('/write');
               }}
             >
-              마이페이지
+              글작성하기
             </button>
           </div>
         </div>

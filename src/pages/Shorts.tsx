@@ -5,6 +5,7 @@ import { getShorts, postShortLike } from '../core/api/shorts';
 import { useQueryClient, useMutation, useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import sweetAlert from '../core/utils/sweetAlert';
+import ShortsScroll from '../components/ShortsScroll';
 
 const Shorts = () => {
   const naviagate = useNavigate();
@@ -37,12 +38,6 @@ const Shorts = () => {
     },
   );
 
-  // const postShortsLikeMutation = useMutation(
-  //   shortsId => postShortLike(shortsId),
-  //   {
-  //     onSettled: () => queryClient.invalidateQueries(['shorts', currentCate]),
-  //   },
-  // );
   const onPostShortsLike = shortsId => {
     postShortLike(shortsId)
       .then(res => {
@@ -60,12 +55,12 @@ const Shorts = () => {
 
   const [isShowModal, setIsShowModal] = useState(false);
 
-  if (isLoading) return;
-  if (isFetching) return;
-  if (!data) {
-    return;
+  if (isLoading || isFetching || !data) return;
+  console.log(data);
+  if (data.response && data.response.request.status === 401) {
+    localStorage.removeItem('id');
   }
-  // console.log(data);
+
   return (
     <>
       {isLoading || (isFetching && <div> 로딩중입니다</div>)}
@@ -94,58 +89,13 @@ const Shorts = () => {
           {data.data.data ? (
             data.data.data.map(shorts => {
               return (
-                <div key={shorts.shortsId} className="shorts-item__scroll">
-                  <iframe
-                    width="600px"
-                    height="600px"
-                    src={shorts.videoUrl}
-                    className="shorts-iframe"
-                  ></iframe>
-                  <div className="shorts-item__info">
-                    <p>{shorts.title}</p>
-                    <p>{shorts.nickname}</p>
-                    <p>♥︎ {shorts.likeCount}</p>
-                  </div>
-
-                  <div className="shorts-item__btn">
-                    <div
-                      className="shorts-btn btn__like"
-                      onClick={() => {
-                        onPostShortsLike(shorts.shortsId);
-                      }}
-                    >
-                      {shorts.like ? (
-                        <span
-                          className="material-icons"
-                          style={{ color: 'black' }}
-                        >
-                          thumb_up
-                        </span>
-                      ) : (
-                        <span className="material-icons">thumb_up</span>
-                      )}
-                    </div>
-                    <p className="shorts-btn-text text__like">Like</p>
-                    <div
-                      className="shorts-btn btn__detail"
-                      onClick={() => {
-                        setShortsId(shorts.shortsId);
-                        setIsShowModal(true);
-                      }}
-                    >
-                      <span className="material-icons">article</span>
-                    </div>
-                    <p
-                      className="shorts-btn-text text__detail"
-                      onClick={() => {
-                        setShortsId(shorts.shortsId);
-                        setIsShowModal(true);
-                      }}
-                    >
-                      Detail
-                    </p>
-                  </div>
-                </div>
+                <ShortsScroll
+                  key={shorts.shortsId}
+                  shorts={shorts}
+                  onPostShortsLike={onPostShortsLike}
+                  setShortsId={setShortsId}
+                  setIsShowModal={setIsShowModal}
+                />
               );
             })
           ) : (

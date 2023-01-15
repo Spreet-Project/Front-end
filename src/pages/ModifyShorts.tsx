@@ -53,6 +53,10 @@ const ModifyShorts = (): JSX.Element => {
   };
 
   const updateMutation = useMutation(() => {
+    if (!file) {
+      sweetAlert(1000, 'error', '영상파일을 추가해주세요.');
+      return;
+    }
     const newShorts: Shorts = {
       id: shortsId,
       title: title,
@@ -60,13 +64,14 @@ const ModifyShorts = (): JSX.Element => {
       category: shortsCate,
       file: file,
     };
-    console.log(shortsCate);
+
+    console.log(newShorts);
     return updateShorts(newShorts);
   });
 
-  // if (updateMutation.isSuccess) {
-  //   sweetAlert(1000, 'success', '해당 게시글이 수정되었습니다.');
-  // }
+  if (updateMutation.isSuccess) {
+    sweetAlert(1000, 'success', '해당 게시글이 수정되었습니다.');
+  }
 
   return (
     <div className="write-content">

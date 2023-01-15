@@ -39,7 +39,6 @@
 
   width: 510px;
   height: 48px;
-
   border: 1px solid #b1b1b1;
   border-radius: 5px;
   margin: 20px 20px;
@@ -48,6 +47,13 @@
 
 .signUp_crew {
   margin: 30px 20px;
+  display: flex;
+  .signUp_checkbox {
+    margin: 0;
+    &[type='checkbox'] {
+      width: 20px;
+    }
+  }
 }
 
 .signUp_label {

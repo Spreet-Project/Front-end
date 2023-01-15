@@ -92,53 +92,59 @@
 
 .main-content {
   @include contentSector;
+  background-color: #111;
   .main-inner {
-    margin: 50px;
-    background-color: #373636;
-    .rap-row {
+    // background-color: #373636;
+    .slide-row {
       position: relative;
+      margin-top: 50px;
       border: 1px solid black;
       box-sizing: border-box;
-      .rap-row__carousel {
+      .slide-row__carousel {
         @include carouselEle;
-        background-color: gray;
-        .rap-row__button {
+        .slide-row__button {
           @include carouselBtn();
           &.btn--right {
+            color: gray;
             @include carouselRighttBtn;
           }
 
           &.btn--left {
+            color: gray;
             @include carouselLeftBtn;
           }
         }
-        .rap-row__list {
+        .slide-item__title {
+          position: absolute;
+          top: 5px;
+          left: 50px;
+          font-size: 32px;
+          color: white;
+        }
+        .slide-item__list {
           @include carouselList;
-          .rap-item__title {
-            position: absolute;
-            top: 5px;
-            left: 50px;
-            font-size: 32px;
-            color: white;
-          }
-          .rap-item__wrapper {
-            height: 550px;
+          .slide-item__wrapper {
+            height: 600px;
             display: flex;
             align-items: center;
-            .rap-item__container {
+            .slide-item__container {
               position: relative;
-              width: 350px;
+              width: 300px;
               height: 450px;
               margin-left: 50px;
-              border: 3px solid yellow;
+
               iframe {
                 border: none;
+                width: 300px;
+                border-radius: 10px;
               }
-              .rap-item__shorts-title {
+              .slide-item__shorts-title {
                 position: absolute;
-                bottom: 0;
-                font-size: 24px;
                 color: white;
+                p {
+                  bottom: -30px;
+                  font-size: 18px;
+                }
               }
             }
           }

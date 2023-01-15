@@ -1,5 +1,4 @@
 @import './body.scss';
-
 .shorts-sidebar {
   position: absolute;
   left: 0;
@@ -22,6 +21,7 @@
   }
 }
 .shorts-cotent {
+  background-color: wheat;
   width: 1440px;
   margin: auto;
   display: flex;
@@ -45,7 +45,6 @@
       @include flexCenter;
       color: white;
       .shorts-iframe {
-        // margin-bottom: 100px;
       }
       .shorts-item__info {
         position: absolute;
@@ -60,17 +59,19 @@
       .shorts-item__btn {
         cursor: pointer;
         position: absolute;
-        bottom: 0px;
+        bottom: -10px;
         right: 20px;
+        @include flexCenter;
+        flex-direction: column;
         .shorts-btn {
           @include flexCenter;
-          width: 40px;
-          height: 40px;
+          width: 35px;
+          height: 35px;
           background-color: gray;
           border-radius: 100%;
         }
         .shorts-btn-text {
-          margin-top: 5px;
+          margin-top: 3px;
           margin-bottom: 10px;
         }
       }
