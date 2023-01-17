@@ -7,7 +7,6 @@ export const postShorts = async payload => {
 };
 
 export const postFeed = async payload => {
-  console.log(payload);
   return await subURL.post('/feed', payload);
 };
 
@@ -39,14 +38,21 @@ export const getShorts = async payload => {
   } catch (error) {
     if (error.response.request.status === 401) {
       sweetAlert(1000, 'error', '죄송합니다 로그인해주세요!');
-      return error;
     }
+    return error;
   }
 };
 
 export const getFeed = async () => {
   //Feed 최신 게시물 조회
-  return await baseURL.get('/feed/recent?page=1&size=10');
+  try {
+    return await instance.get('/feed/recent?page=1&size=10');
+  } catch (error) {
+    if (error.response.request.status === 401) {
+      sweetAlert(1000, 'error', '로그인이 필요합니다!');
+    }
+    return error;
+  }
 };
 
 export const getDetailFeed = async payload => {
@@ -54,6 +60,13 @@ export const getDetailFeed = async payload => {
   const { queryKey } = payload;
   const id = queryKey[1];
   return await baseURL.get(`/feed/${id}`);
+};
+
+export const getFeedComment = async payload => {
+  //모달창에서 필요한 피드상세 댓글 조회
+  const { queryKey } = payload;
+  const id = queryKey[1];
+  return await instance.get(`/feed/${id}/comment`);
 };
 
 export const deleteShorts = async shortsId => {
@@ -96,7 +109,7 @@ export const postShortsComment = async payload => {
 };
 
 export const deleteShortsComment = async payload => {
-  //모달창에서 댓글 작성
+  //모달창에서 댓글 삭제
   try {
     console.log('payload', payload);
     return await baseURL.delete(`/shorts/comment/${payload}`);
@@ -118,7 +131,7 @@ export const modifyShortsComment = async payload => {
 };
 
 export const postShortLike = async shortsId => {
-  //모달창에서 댓글 수정
+  //모달창에서 쇼츠 좋아요
   try {
     // console.log(shortsId);
     return await baseURL.post(`/shorts/like/${shortsId}`);

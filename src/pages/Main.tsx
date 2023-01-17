@@ -7,17 +7,18 @@ import { getFeed, getShorts } from '../core/api/shorts';
 import handleClickSlide from '../core/utils/handleClickSlide';
 import MainCarousel from '../components/MainCarousel';
 import sweetAlert from '../core/utils/sweetAlert';
+import { AxiosError } from 'axios';
 
 const Main = (): JSX.Element => {
   const navigate = useNavigate();
   const token = localStorage.getItem('id');
   const categoryList = [
-    { category: '랩', value: 'RAP' },
-    { category: '스트릿 댄스', value: 'STREET_DANCE' },
-    { category: 'DJ', value: 'DJ' },
-    { category: '그래피티', value: 'GRAFFITI' },
-    { category: '비트박스', value: 'BEAT_BOX' },
-    { category: '기타', value: 'ETC' },
+    { category: '랩', value: 'RAP', color: '#D10536' },
+    { category: '스트릿 댄스', value: 'STREET_DANCE', color: '#CA6100' },
+    { category: 'DJ', value: 'DJ', color: '#CAC200' },
+    { category: '그래피티', value: 'GRAFFITI', color: '#12A443' },
+    { category: '비트박스', value: 'BEAT_BOX', color: '#153BFF' },
+    { category: '기타', value: 'ETC', color: '#7E0479' },
   ];
 
   const res: any = useQueries(
@@ -31,6 +32,7 @@ const Main = (): JSX.Element => {
       };
     }),
   );
+
   const resFeed: any = useQuery(['getFeed'], getFeed);
 
   const isUpScrollNum = useRef(0); //게시글 부분 스크롤 위로가는 경우 확인해주는숫자
@@ -39,24 +41,6 @@ const Main = (): JSX.Element => {
   const spreetChidRef = useRef<HTMLDivElement>(null); //상단 페이징 버튼위한 ref
   const [spreetTransX, setspreetTransX] = useState(0);
   const post: string[] = ['red', 'blue', 'green', 'black', 'purple'];
-  const feedList = [
-    '첫번째글',
-    '두번째글',
-    '3번째글',
-    '4번째글',
-    '5반째글',
-    '6번째글',
-    '7번째글',
-    '8번째글',
-    '9번째글',
-    '10번째글',
-    '11번째글',
-    '12번째글',
-    '13번째글',
-    '14번째글',
-    '15번째글',
-    '16번째글',
-  ];
 
   const sldiesDomLength = useRef(post.length);
 
@@ -141,7 +125,6 @@ const Main = (): JSX.Element => {
   }, [feedRef.current, onScroll]);
 
   const onPaigingBtn = (index: number): void => {
-    // spreetRef.current.childNodes[0].getBoundingClientRect().width;
     if (!spreetChidRef) return;
     const spreetRef_NodeWidth: number =
       post.length > 0 ? spreetChidRef.current.getBoundingClientRect().width : 0;
@@ -150,17 +133,25 @@ const Main = (): JSX.Element => {
     spreetRef.current.style.transform = `translateX(${calculationValue}px)`;
   };
 
-  // res.map(response => {
-  //   if (response.isSuccess && response.data.response.data.statusCode === 400) {
-  //     sweetAlert(1000, 'error', '죄송합니다.  다시 로그인 해주세요.');
-  //     localStorage.removeItem('id');
-  //     return navigate('/login');
-  //   }
-  // });
+  res.map(response => {
+    if (response.isSuccess && response.data.status === 200) {
+      return;
+    }
+    if (response.isSuccess && response.data.response.data.statusCode === 400) {
+      sweetAlert(1000, 'error', '죄송합니다.  다시 로그인 해주세요.');
+      localStorage.removeItem('id');
+      return navigate('/login');
+    }
+  });
 
+  // if (resFeed.response.status === 401) {
+  //   sweetAlert(1000, 'error', '죄송합니다.  다시 로그인 해주세요.');
+  //   localStorage.removeItem('id');
+  //   navigate('/login');
+  // }
   if (!res || resFeed.isLoading) return;
+  // console.log(resFeed);
 
-  // console.log(resFeed, 'resFeed');
   return (
     <>
       <div className="spreet-row">
@@ -223,13 +214,14 @@ const Main = (): JSX.Element => {
                 key={index}
                 data={result.data}
                 category={categoryList[index].category}
+                color={categoryList[index].color}
               />
             );
           })}
           <div className="feed-content">
             <div className="feed-wrapper" ref={feedRef}>
-              {resFeed.data.data.data.content &&
-                resFeed.data.data.data.content.map((item, index) => {
+              {resFeed.data.data.data &&
+                resFeed.data.data.data.map((item, index) => {
                   return (
                     <h1
                       key={item.feedId}

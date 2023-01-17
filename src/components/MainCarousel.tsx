@@ -4,7 +4,7 @@ import ShortsModal from '../components/ShortsModal';
 import { getShorts, postShortLike } from '../core/api/shorts';
 import handleClickSlide from '../core/utils/handleClickSlide';
 
-const MainCarousel = ({ data, category }): JSX.Element => {
+const MainCarousel = ({ data, category, color }): JSX.Element => {
   const [shortsId, setShortsId] = useState<number>(0); //모달창넘어갈때 넘겨줄 shorts번호
   const [isShowModal, setIsShowModal] = useState<boolean>(false); //쇼츠 클릭해서 모달창 보여줄지
   const rapRef = useRef<HTMLDivElement>(null); //하단 메인 슬라이드 ref;
@@ -39,34 +39,43 @@ const MainCarousel = ({ data, category }): JSX.Element => {
         >
           {'>'}
         </button>
-        <div className="slide-item__title"> {category}</div>
+        <div className="slide-item__title" style={{ color: `${color}` }}>
+          {category}
+        </div>
         <div className="slide-item__list" ref={rapRef}>
           <div className="slide-item__wrapper">
             {data.data &&
               data.data.data.map(item => {
                 return (
-                  <div
-                    key={item.shortsId}
-                    className="slide-item__container"
-                    onClick={() => {
-                      setIsShowModal(true);
-                      setShortsId(item.id);
-                    }}
-                  >
-                    <iframe
-                      width="350px"
-                      height="450px"
-                      src={item.videoUrl}
-                    ></iframe>
-                    <div className="slide-item__shorts-title">
-                      <p>
-                        {item.title.length > 10
-                          ? item.title.slice(0, 30) + '...'
-                          : item.title}
-                      </p>
-                      <p> {item.nickname}</p>
+                  <>
+                    <div
+                      key={item.shortsId}
+                      className="slide-item__container"
+                      onClick={() => {
+                        setIsShowModal(true);
+                        setShortsId(item.id);
+                      }}
+                    >
+                      <div
+                        key={item.shortsId}
+                        className="slide-item__bg"
+                        style={{ background: `${color}` }}
+                      ></div>
+                      <iframe
+                        width="350px"
+                        height="450px"
+                        src={item.videoUrl}
+                      ></iframe>
+                      <div className="slide-item__shorts-title">
+                        <p>
+                          {item.title.length > 10
+                            ? item.title.slice(0, 30) + '...'
+                            : item.title}
+                        </p>
+                        <p> {item.nickname}</p>
+                      </div>
                     </div>
-                  </div>
+                  </>
                 );
               })}
           </div>

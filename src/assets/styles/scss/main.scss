@@ -36,10 +36,12 @@
 
 @mixin carouselLeftBtn {
   left: 45px;
+  pointer-events: visible;
 }
 @mixin carouselRighttBtn {
   right: 0px;
   margin: 0;
+  pointer-events: visible;
 }
 
 .spreet-row {
@@ -132,8 +134,8 @@
               width: 300px;
               height: 450px;
               margin-left: 50px;
-
               iframe {
+                position: absolute;
                 border: none;
                 width: 300px;
                 border-radius: 10px;
@@ -141,10 +143,19 @@
               .slide-item__shorts-title {
                 position: absolute;
                 color: white;
+                bottom: 0px;
+                pointer-events: none;
                 p {
-                  bottom: -30px;
                   font-size: 18px;
                 }
+              }
+              .slide-item__bg {
+                position: absolute;
+                width: 300px;
+                height: 450px;
+                z-index: 1;
+                opacity: 0.1;
+                pointer-events: none;
               }
             }
           }

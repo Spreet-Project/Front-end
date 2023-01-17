@@ -4,7 +4,7 @@ import Login from '../pages/Login';
 import SignUp from '../pages/SignUp';
 import Write from '../pages/Write';
 import Shorts from '../pages/Shorts';
-import Feed from '../pages/Feed';
+import Feed from '../pages/FeedShorts';
 import Layout from './Layout';
 import React from 'react';
 import ModifyShorts from '../pages/ModifyShorts';
@@ -13,6 +13,7 @@ import KaKaoMap from '../pages/KaKaoMap';
 import EventWrite from '../pages/EventWrite';
 import KakaoLogin from '../pages/KakaoLogin';
 import MyPage from '../pages/MyPage';
+import FeedShorts from '../pages/FeedShorts';
 
 const Router = () => {
   return (
@@ -24,6 +25,7 @@ const Router = () => {
         <Route path="/api/user/kakao/callback/*" element={<KakaoLogin />} />
         <Route path="/write" element={<Write />} />
         <Route path="/shorts" element={<Shorts />} />
+        <Route path="/feeds" element={<FeedShorts />} />
         <Route path="/modifyShorts/:id" element={<ModifyShorts />} />
         <Route path="/modifyFeed/:id" element={<ModifyFeed />} />
         <Route path="/kakaoMap" element={<KaKaoMap />} />
