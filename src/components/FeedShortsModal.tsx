@@ -72,11 +72,8 @@ const FeedShortsModal = ({ setIsShowModal, feedId }): JSX.Element => {
     // onSettled: () => queryClient.invalidateQueries(['shortsDetail', shortsId]),
   });
 
-  const deleteCommentMutation = useMutation(
-    feedId => deleteFeedComment(feedId),
-    // {
-    //   onSettled: () => queryClient.invalidateQueries(['feedComment', feedId]),
-    // },
+  const deleteCommentMutation = useMutation(feedId =>
+    deleteFeedComment(feedId),
   );
 
   const modifyCommentMutation = useMutation(
