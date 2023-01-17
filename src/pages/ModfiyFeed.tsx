@@ -5,7 +5,7 @@ import { useInputs } from '../core/hooks/useInput';
 import { useNavigate, useParams } from 'react-router-dom';
 import sweetAlert from '../core/utils/sweetAlert';
 import { useMutation, useQuery } from 'react-query';
-import { getDetailFeed, postShortLike } from '../core/api/shorts';
+import { getDetailFeed, updateFeed } from '../core/api/feed';
 
 interface Feed {
   id: number;
@@ -32,6 +32,7 @@ const ModifyFeed = (): JSX.Element => {
   );
 
   useEffect(() => {
+    console.log(data);
     if (!isLoading) {
       setInputs({
         title: data.data.data.title,
@@ -49,7 +50,6 @@ const ModifyFeed = (): JSX.Element => {
   }, [isLoading]);
 
   if (isLoading) return;
-  console.log(data);
 
   const onPaigingBtn = (index: number): void => {
     if (!feedChildRef) return;
@@ -110,6 +110,8 @@ const ModifyFeed = (): JSX.Element => {
   };
 
   const onFeedSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    console.log(postImages);
+    // console.log(dettailImages);
     if (title.length === 0) {
       sweetAlert(1000, 'error', '제목을 확인해주세요(공백제거)');
     }
@@ -121,17 +123,15 @@ const ModifyFeed = (): JSX.Element => {
     }
     const feedData: any = new FormData();
     for (const feed of Array.from(postImages)) {
+      console.log(feed);
       feedData.append('file', feed);
     }
     feedData.append('title', title);
     feedData.append('content', content);
-    // postFeed(feedData)
-    //   .then(res => {
-    //     sweetAlert(1000, 'success', '피드 작성 성공!');
-    //   })
-    //   .catch(error => {
-    //     sweetAlert(1000, 'error', '피드 작성 실패');
-    //   });
+    updateFeed(feedData, feedId).then(res => {
+      console.log(res);
+      sweetAlert(1000, 'success', '피드 수정 성공!');
+    });
     // navigate('/');
   };
 

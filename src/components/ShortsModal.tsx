@@ -63,19 +63,19 @@ const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
 
   const deleteCommentMutation = useMutation(
     shortsId => deleteShortsComment(shortsId),
-    {
-      onSettled: () =>
-        queryClient.invalidateQueries(['shortsComment', shortsId]),
-    },
+    // {
+    //   onSettled: () =>
+    //     queryClient.invalidateQueries(['shortsComment', shortsId]),
+    // },
   );
 
   const modifyCommentMutation = useMutation(
     commentId =>
       modifyShortsComment({ commentId: commentId, content: modifyComment }),
-    // {
-    //   onSettled: () =>
-    //     queryClient.invalidateQueries(['shortsDetail', shortsId]),
-    // },
+    {
+      onSettled: () =>
+        queryClient.invalidateQueries(['shortsComment', shortsId]),
+    },
   );
 
   //여기서 useMutaion객체는 변이함수를 반환하게 된다?

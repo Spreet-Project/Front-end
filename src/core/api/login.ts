@@ -76,6 +76,7 @@ export const postKakaoLogin = async code => {
     sweetAlert(1000, 'success', '카카오 로그인 완료');
     return data;
   } catch (error) {
+    console.log(error);
     sweetAlert(1000, 'error', '카카오 로그인 실패');
   }
 };

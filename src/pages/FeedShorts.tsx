@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import '../assets/styles/scss/shorts.scss';
 import FeedsScroll from '../components/FeedsScroll';
-import { getFeed } from '../core/api/shorts';
 import { useQueryClient, useMutation, useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import sweetAlert from '../core/utils/sweetAlert';
 import FeedShortsModal from '../components/FeedShortsModal';
+import { postFeedLike, getFeed } from '../core/api/feed';
 
 const FeedShorts = () => {
   const naviagate = useNavigate();
@@ -24,10 +24,6 @@ const FeedShorts = () => {
     { category: '게시글', value: 'feed' },
   ];
 
-  useEffect(() => {
-    console.log(isShowModal, '모달상태');
-  }, [isShowModal]);
-
   const onClickCate = cate => {
     if (cate !== 'feed') {
       naviagate('/shorts');
@@ -35,7 +31,7 @@ const FeedShorts = () => {
   };
 
   const { isLoading, isError, data, error, isFetching } = useQuery(
-    ['feeds'],
+    ['feeds', token],
     getFeed,
     {
       //     // suspense: true,
@@ -45,19 +41,12 @@ const FeedShorts = () => {
     },
   );
 
-  const onPostShortsLike = shortsId => {
-    // postShortLike(shortsId)
-    //   .then(res => {
-    //     // console.log(res, 'res');
-    //     // sweetAlert(1000, 'success', '좋아요가 반영되었습니다.');
-    //     queryClient.invalidateQueries([
-    //       'shorts',
-    //       { category: currentCate, token: token },
-    //     ]);
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
+  const onPostFeedLike = feedId => {
+    postFeedLike(feedId).then(res => {
+      // console.log(res, 'res');
+      // sweetAlert(1000, 'success', '좋아요가 반영되었습니다.');
+      queryClient.invalidateQueries(['feeds', token]);
+    });
   };
 
   if (isLoading || isFetching || !data) return;
@@ -95,7 +84,7 @@ const FeedShorts = () => {
               <FeedsScroll
                 key={feed.feedId}
                 feed={feed}
-                onPostShortsLike={onPostShortsLike}
+                onPostFeedLike={onPostFeedLike}
                 setFeedId={setFeedId}
                 setIsShowModal={setIsShowModal}
               />

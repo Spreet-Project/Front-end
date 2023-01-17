@@ -4,9 +4,9 @@ import sweetAlert from '../core/utils/sweetAlert';
 
 const FeedsScroll = ({
   feed,
-  onPostShortsLike,
   setFeedId,
   setIsShowModal,
+  onPostFeedLike,
 }): JSX.Element => {
   // console.log(feed, 'props로 받음');
 
@@ -31,7 +31,7 @@ const FeedsScroll = ({
     }
     return false;
   };
-
+  console.log(feed.like, '좋아요현황');
   return (
     <div key={feed.feedId} className="shorts-item__scroll">
       <div className="feed-image__row">
@@ -70,14 +70,14 @@ const FeedsScroll = ({
       <div className="shorts-item__info">
         <p>{feed.title}</p>
         <p>{feed.nickname}</p>
-        <p>♥︎ {feed.likeCount}</p>
+        <p>♥︎ {feed.feedLike}</p>
       </div>
 
       <div className="shorts-item__btn">
         <div
           className="shorts-btn btn__like"
           onClick={() => {
-            onPostShortsLike(feed.feedId);
+            onPostFeedLike(feed.feedId);
           }}
         >
           {feed.like ? (
@@ -92,7 +92,7 @@ const FeedsScroll = ({
         <div
           className="shorts-btn btn__detail"
           onClick={() => {
-            if (chckLoign()) return;
+            // if (chckLoign()) return;
             setFeedId(feed.feedId);
             setIsShowModal(true);
           }}
@@ -102,7 +102,7 @@ const FeedsScroll = ({
         <p
           className="shorts-btn-text text__detail"
           onClick={() => {
-            if (chckLoign()) return;
+            // if (chckLoign()) return;
             setFeedId(feed.feedId);
             setIsShowModal(true);
           }}

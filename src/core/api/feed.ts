@@ -10,9 +10,17 @@ export const postFeed = async payload => {
   return await subURL.post('/feed', payload);
 };
 
-export const getFeed = async () => {
+export const getFeed = async payload => {
   //Feed 최신 게시물 조회
   try {
+    console.log(payload, 'payload');
+    const { queryKey } = payload;
+    // console.log(payload, 'payload');
+    //shorts카테고리별 게시물조회조회
+    if (queryKey[1]) {
+      console.log('token있음');
+      return await baseURL.get(`/feed/recent?&page=1&size=10`);
+    }
     return await instance.get('/feed/recent?page=1&size=10');
   } catch (error) {
     if (error.response.request.status === 401) {
@@ -26,7 +34,7 @@ export const getDetailFeed = async payload => {
   //Feed 상세 게시물 조회
   const { queryKey } = payload;
   const id = queryKey[1];
-  return await baseURL.get(`/feed/${id}`);
+  return await instance.get(`/feed/${id}`);
 };
 
 export const getFeedComment = async payload => {
@@ -45,10 +53,11 @@ export const deleteFeed = async feedId => {
   }
 };
 
-export const updateFeed = async payload => {
+export const updateFeed = async (payload, feedId) => {
   try {
     //payload에서 feed게시물 id받기
-    return await subURL.put(`/feed/${payload.id}`, payload);
+    console.log(payload, feedId);
+    return await subURL.put(`/feed/${feedId}`, payload);
   } catch (error) {
     sweetAlert(1000, 'error', '쇼츠 수정중 에러');
   }
