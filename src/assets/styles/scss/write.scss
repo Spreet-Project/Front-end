@@ -1,6 +1,7 @@
 @import './body.scss';
 @import './main.scss';
 .write-content {
+  background-color: white;
   position: relative;
   width: 1440px;
   margin: 50px auto;
@@ -10,6 +11,7 @@
     top: -50px;
     right: 20px;
     width: 200px;
+    color: white;
     input[type='checkbox'] {
       width: 30px;
       height: 30px;
@@ -103,6 +105,7 @@
     transform: translate(-50%, 0);
     button {
       @include btn;
+      height: 50px;
       font-size: 32px;
       width: 250px;
     }

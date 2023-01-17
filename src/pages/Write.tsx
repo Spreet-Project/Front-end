@@ -61,6 +61,8 @@ const Write = (): JSX.Element => {
   };
 
   const onChangeVideoFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFile(null);
+    setFileUrl(null);
     const videoFile = e.target.files[0];
     const videoUrl = URL.createObjectURL(videoFile);
     setFile(e.target.files[0]);
@@ -117,12 +119,15 @@ const Write = (): JSX.Element => {
   const onShortsSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (title.length === 0) {
       sweetAlert(1000, 'error', '제목을 확인해주세요(공백제거)');
+      return;
     }
-    if (file.length === 0) {
+    if (!file) {
       sweetAlert(1000, 'error', '영상을 추가해주세요');
+      return;
     }
     if (content.length === 0) {
       sweetAlert(1000, 'error', '내용을 입력해주세요');
+      return;
     }
     const shortsData = new FormData();
     shortsData.append('file', file);
@@ -132,11 +137,11 @@ const Write = (): JSX.Element => {
     console.log(shortsCate);
     postShorts(shortsData)
       .then(res => {
-        // navigate('/');
         sweetAlert(1000, 'success', '쇼츠 작성 성공!');
+        // navigate('/');
       })
       .catch(error => {
-        if (error.response.data.statusCode === 400) {
+        if (error.response.data.statusCode === 401) {
           sweetAlert(1000, 'error', '죄송합니다. 로그인을 다시해주세요.');
           return navigate('/login');
         }

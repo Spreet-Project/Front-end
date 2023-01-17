@@ -1,6 +1,5 @@
 import sweetAlert from '../utils/sweetAlert';
 import { instance } from '../axios/axios';
-import axios from 'axios';
 
 export const postLogin = async post => {
   try {

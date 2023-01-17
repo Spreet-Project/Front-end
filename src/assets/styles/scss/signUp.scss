@@ -51,8 +51,16 @@
   cursor: text;
 }
 
-.signUp-crew {
-  margin: 3px;
+
+.signUp_crew {
+  margin: 30px 20px;
+  display: flex;
+  .signUp_checkbox {
+    margin: 0;
+    &[type='checkbox'] {
+      width: 20px;
+    }
+  }
 }
 
 .signUp-label {

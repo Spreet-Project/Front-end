@@ -1,87 +1,95 @@
-import React, { useEffect, useState } from 'react';
-import '../assets/styles/scss/shortsModal.scss';
-import axios from 'axios';
+import React, { useEffect, useState, useRef } from 'react';
+import '../assets/styles/scss/feedShortsModal.scss';
 import { useQueryClient, useMutation, useQuery } from 'react-query';
 import sweetAlert from '../core/utils/sweetAlert';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import {
-  deleteShorts,
-  getDetailShorts,
-  postShortsComment,
-  deleteShortsComment,
-  modifyShortsComment,
-  getShortsComment,
-} from '../core/api/shorts';
+  getDetailFeed,
+  getFeedComment,
+  postFeedComment,
+  deleteFeedComment,
+} from '../core/api/feed';
 
-const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
+const FeedShortsModal = ({ setIsShowModal, feedId }): JSX.Element => {
   const navigate = useNavigate();
   const [isCommentModify, setIsCommentModify] = useState(false);
   const [modifyCommentId, setModifyCommentId] = useState(0);
   const [comment, setComment] = useState(''); //댓글 인풋
   const [modifyComment, setModifyComment] = useState(''); //수정 댓글 인풋
   const queryClient = useQueryClient();
+  const feedChildRef = useRef<HTMLDivElement>(null);
+  const feedRef = useRef<HTMLDivElement>(null);
 
   queryClient.invalidateQueries(['shortsDetail'], { exact: true });
   const { data, isLoading, isError, error, isFetching } = useQuery(
-    ['shortsDetail', shortsId],
-    getDetailShorts,
+    ['feedDetail', feedId],
+    getDetailFeed,
     // {
     //   // suspense: true,
     //   refetchOnMount: 'always',
     // },
   );
 
-  const resultCommnet = useQuery(['shortsComment', shortsId], getShortsComment);
+  const resultCommnet = useQuery(['feedComment', feedId], getFeedComment);
+
+  const onPaigingBtn = (index: number): void => {
+    if (!feedChildRef) return;
+    const feedRef_NodeWidth: number =
+      data.data.data.imageUrlList.length > 0
+        ? feedChildRef.current.getBoundingClientRect().width
+        : 0;
+    const calculationValue: number =
+      -(feedRef_NodeWidth / data.data.data.imageUrlList.length) * index;
+    feedRef.current.style.transform = `translateX(${calculationValue}px)`;
+  };
 
   const onCancleModifyComment = () => {
     setIsCommentModify(false);
   };
 
-  const onCheckCommentModify = (commentId, content) => {
-    if (!window.confirm('해당 댓글을 수정하시겠습니까?')) return;
-    setModifyComment(content);
-    setIsCommentModify(true);
-    setModifyCommentId(commentId);
-  };
+  // const onCheckCommentModify = (commentId, content) => {
+  //   if (!window.confirm('해당 댓글을 수정하시겠습니까?')) return;
+  //   setModifyComment(content);
+  //   setIsCommentModify(true);
+  //   setModifyCommentId(commentId);
+  // };
 
-  const onClickModify = () => {
-    if (!window.confirm('해당 글을 수정하시겠습니까?')) return;
-    navigate(`/modifyShorts/${shortsId}`);
-  };
+  // const onClickModify = () => {
+  //   if (!window.confirm('해당 글을 수정하시겠습니까?')) return;
+  //   navigate(`/modifyShorts/${shortsId}`);
+  // };
 
   const postCommentMutation = useMutation(
-    () => postShortsComment({ shortsId: shortsId, content: comment }),
+    () => postFeedComment({ feedId: feedId, content: comment }),
     {
-      onSettled: () =>
-        queryClient.invalidateQueries(['shortsComment', shortsId]),
+      onSettled: () => queryClient.invalidateQueries(['feedComment', feedId]),
     },
   );
-  const deleteShortsMutation = useMutation(shortsId => deleteShorts(shortsId), {
-    // onSettled: () => queryClient.invalidateQueries(['shortsDetail', shortsId]),
-  });
+  // const deleteShortsMutation = useMutation(shortsId => deleteShorts(shortsId), {
+  //   // onSettled: () => queryClient.invalidateQueries(['shortsDetail', shortsId]),
+  // });
 
   const deleteCommentMutation = useMutation(
-    shortsId => deleteShortsComment(shortsId),
+    feedId => deleteFeedComment(feedId),
     {
-      onSettled: () =>
-        queryClient.invalidateQueries(['shortsComment', shortsId]),
+      onSettled: () => queryClient.invalidateQueries(['feedComment', feedId]),
     },
   );
 
-  const modifyCommentMutation = useMutation(
-    commentId =>
-      modifyShortsComment({ commentId: commentId, content: modifyComment }),
-    // {
-    //   onSettled: () =>
-    //     queryClient.invalidateQueries(['shortsDetail', shortsId]),
-    // },
-  );
+  // const modifyCommentMutation = useMutation(
+  //   commentId =>
+  //     modifyShortsComment({ commentId: commentId, content: modifyComment }),
+  //   // {
+  //   //   onSettled: () =>
+  //   //     queryClient.invalidateQueries(['shortsDetail', shortsId]),
+  //   // },
+  // );
 
   //여기서 useMutaion객체는 변이함수를 반환하게 된다?
-  if (deleteShortsMutation.isSuccess) {
-    sweetAlert(1000, 'success', '해당 게시글이 삭제되었습니다.');
-  }
+  // if (deleteShortsMutation.isSuccess) {
+  //   sweetAlert(1000, 'success', '해당 게시글이 삭제되었습니다.');
+  // }
 
   // if (deleteCommentMutation.isSuccess) {
   //   sweetAlert(1000, 'success', '해당 댓글이 삭제되었습니다.');
@@ -91,21 +99,47 @@ const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
   //   sweetAlert(1000, 'success', '댓글 수정 성공');
   // }
 
-  if (isLoading || resultCommnet.isLoading) return;
-  if (!data || !resultCommnet) return;
+  if (isLoading || !data) return;
+  console.log(resultCommnet);
+
   return (
     <>
       {isLoading && <div> 로딩중입니다</div>}
       <div className="modal-content">
-        <div className="modal-video">
+        <div className="feed-image__row">
+          <div className="feed-image__carousel">
+            <div className="feed-image__list" ref={feedRef}>
+              <div className="feed-image__wrapper" ref={feedChildRef}>
+                {data.data.data.imageUrlList &&
+                  data.data.data.imageUrlList.map((item, index) => {
+                    return (
+                      <img
+                        key={index}
+                        src={item}
+                        className="feed-image__container"
+                      />
+                    );
+                  })}
+              </div>
+            </div>
+            <div className="feed-image__paiging">
+              {data.data.data.imageUrlList &&
+                data.data.data.imageUrlList.map((item, index) => {
+                  return (
+                    <button
+                      key={index}
+                      className="carousel-paging__btn"
+                      onClick={() => {
+                        onPaigingBtn(index);
+                      }}
+                    ></button>
+                  );
+                })}
+            </div>
+          </div>
           <div className="modal-userInform">
-            <iframe
-              width="450px"
-              height="350px"
-              src={data.data.data.videoUrl}
-            ></iframe>
             <div className="modal-userInform__title">
-              <p>글번호: {shortsId}</p>
+              <p>글번호: {feedId}</p>
               <p>글제목: {data.data.data.title}</p>
               <p> 내용:{data.data.data.content}</p>
             </div>
@@ -114,6 +148,7 @@ const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
             </p>
           </div>
         </div>
+
         <div className="modal-comment">
           <div className="modal-comment__comment-box">
             {resultCommnet.data.data.data &&
@@ -121,9 +156,9 @@ const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
                 // console.log(comment);
                 {
                   return isCommentModify &&
-                    comment.shortsCommentId === modifyCommentId ? (
+                    comment.commentId === modifyCommentId ? (
                     <div
-                      key={comment.shortsCommentId}
+                      key={comment.commentId}
                       className="modal-comment-wrapper"
                     >
                       <div className="modal-comment__user-author">
@@ -149,12 +184,12 @@ const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
                         </button>
                         <button
                           className="modal-comment__btn btn-modify"
-                          onClick={() => {
-                            setIsCommentModify(false);
-                            return modifyCommentMutation.mutate(
-                              comment.shortsCommentId,
-                            );
-                          }}
+                          // onClick={() => {
+                          //   setIsCommentModify(false);
+                          //   return modifyCommentMutation.mutate(
+                          //     comment.shortsCommentId,
+                          //   );
+                          // }}
                         >
                           수정 하기
                         </button>
@@ -162,7 +197,7 @@ const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
                     </div>
                   ) : (
                     <div
-                      key={comment.shortsCommentId}
+                      key={comment.commentId}
                       className="modal-comment-wrapper"
                     >
                       <div className="modal-comment__user-author">
@@ -184,19 +219,19 @@ const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
                             )
                           )
                             return;
-                          deleteCommentMutation.mutate(comment.shortsCommentId);
+                          deleteCommentMutation.mutate(comment.commentId);
                         }}
                       >
                         댓글 삭제
                       </button>
                       <button
                         className="modal-comment__btn btn-modify"
-                        onClick={() => {
-                          onCheckCommentModify(
-                            comment.shortsCommentId,
-                            comment.content,
-                          );
-                        }}
+                        // onClick={() => {
+                        //   onCheckCommentModify(
+                        //     comment.shortsCommentId,
+                        //     comment.content,
+                        //   );
+                        // }}
                       >
                         댓글 수정
                       </button>
@@ -235,24 +270,14 @@ const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
         >
           X
         </button>
-        <button className="modal-btn__modify" onClick={onClickModify}>
-          글 수정하기
-        </button>
-        {deleteShortsMutation.isError && (
+        <button className="modal-btn__modify">글 수정하기</button>
+        {/* {deleteShortsMutation.isError && (
           <div style={{ color: 'red' }}> mutaion 에러</div>
-        )}
-        <button
-          className="modal-btn__delete"
-          onClick={() => {
-            if (!window.confirm('정말 해당 게시글을 삭제하시겠습니까?')) return;
-            deleteShortsMutation.mutate(shortsId);
-          }}
-        >
-          글 삭제하기
-        </button>
+        )} */}
+        <button className="modal-btn__delete">글 삭제하기</button>
       </div>
     </>
   );
 };
 
-export default ShortsModal;
+export default FeedShortsModal;
