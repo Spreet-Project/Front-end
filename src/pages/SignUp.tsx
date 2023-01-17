@@ -244,9 +244,9 @@ const SignUp = () => {
   };
 
   return (
-    <div className="signUp_containerWrap">
-      <form onSubmit={onSubmitSignUp}>
-        <div className="signUp_inputBtn">
+    <div className="signUp-containerWrap">
+      <form className="signUp-form" onSubmit={onSubmitSignUp}>
+        <div className="signUp-inputBtn">
           <input
             type="email"
             placeholder="이메일"
@@ -257,7 +257,7 @@ const SignUp = () => {
             이메일 인증
           </button>
           {isRegEmailCheck ? null : (
-            <p className="signUp_p">이메일 형식에 맞지 않습니다.</p>
+            <p className="signUp-p">이메일 형식에 맞지 않습니다.</p>
           )}
 
           <input
@@ -279,12 +279,12 @@ const SignUp = () => {
             중복확인
           </button>
           {!isRegIdlCheck && (
-            <p className="signUp_p">
+            <p className="signUp-p">
               아이디는 5~20자 영문으로 시작, 영문 숫자로 입력
             </p>
           )}
         </div>
-        <div className="signUp_pw">
+        <div className="signUp-pw">
           <input
             type="password"
             placeholder="비밀번호"
@@ -292,7 +292,7 @@ const SignUp = () => {
             onChange={onChangeRegPassword}
           />
           {!isRegPasswordCheck && (
-            <p className="signUp_p">
+            <p className="signUp-p">
               비밀번호 6~15자, 영문,숫자,특수문자 조합으로 입력해주세요
             </p>
           )}
@@ -303,10 +303,10 @@ const SignUp = () => {
             onChange={onChangeCheckPassword}
           />
           {isPasswordCheck ? null : (
-            <p className="signUp_p">비밀번호가 일치하지 않습니다.</p>
+            <p className="signUp-p">비밀번호가 일치하지 않습니다.</p>
           )}
           {/* {crewCheck === true ?  소속팀 : 닉네임} */}
-          <div className="signUp_inputBtn">
+          <div className="signUp-inputBtn">
             {crewCheck ? (
               <input
                 type="text"
@@ -325,19 +325,19 @@ const SignUp = () => {
             <button onClick={onClickNicknameCheck}>중복확인</button>
           </div>
           {!crewCheck && !isRegNickNameCheck && (
-            <p className="signUp_p">
+            <p className="signUp-p">
               닉네임 2~10자 알파벳,한글로,숫자로 입력해주세요
             </p>
           )}
           {crewCheck && !isRegCrewCheck && (
-            <p className="signUp_p">
+            <p className="signUp-p">
               크루명은 2~10자 알파벳,한글로,숫자로 입력해주세요
             </p>
           )}
         </div>
-        <div className="signUp_crew">
+        <div className="signUp-crew">
           <input
-            className="signUp_checkbox"
+            className="signUp-checkbox"
             type="checkbox"
             onChange={e => {
               setCrewCheck(e.target.checked);
@@ -348,16 +348,16 @@ const SignUp = () => {
               }
             }}
           />
-          <label htmlFor="crew" className="signUp_label">
+          <label htmlFor="crew" className="signUp-label">
             [선택] 크루 회원입니다.
           </label>
+          <p className="signUp-p">
+            크루 회원임을 선택할 경우 인증 절차를 통하여 행사 게시물을 작성할 수
+            있습니다.
+          </p>
         </div>
-        <p className="signUp_p">
-          크루 회원임을 선택할 경우 인증 절차를 통하여 행사 게시물을 작성할 수
-          있습니다.
-        </p>
-        <hr className="signUp_hr" />
-        <button className="signUp_btn">회원가입</button>
+        <hr className="signUp-hr" />
+        <button className="signUp-btn">회원가입</button>
       </form>
     </div>
   );

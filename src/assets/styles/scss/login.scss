@@ -1,66 +1,111 @@
 @import './body.scss';
 
-//인풋창 버튼창 가로 차이, 마진값
-//ㄴ 인풋이나 버튼 width 100% 주고 box-sizing: border-box 주면 어떤지
-// input,button { box-sizing: border-box;}
+//소셜로그인 버튼 로고 크기에 맞게 버튼 사이즈 줄이기
 
-//margin auto 는 주어야 하는지
-//중복되는 내용들 묶는 기준
-//소셜로그인 버튼 위치
-//소셜로그인 보통 네이버 로그인,카카오 로그인 으로 지칭하여 변경 사항 공지사항 참조!
-//중간 구분선 주는 방법
-//반응형?처럼 화면 줄이거나 커질때 비례하게 하는 법
-//헤더부분 -> 레이아웃 하나 더??
-//피그마 와 수치적인 차이가 나는이유??
-//ex) 인풋 세로 값 등
-//1주차 고쳐야할 것
-//placeholdder 띄어쓰기
-//인풋창 좌우 대칭
-
-.login_containerWrap {
+.login-containerWrap {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  padding: 50px;
-  gap: 25px;
   position: relative;
-
-  width: 610px;
-  height: 648px;
-
-  background: #d7d7d7;
+  padding: 50px;
+  width: 586px;
+  height: 485px;
+  background: #eaeafe;
   border-radius: 5px;
-  margin: 30px auto;
+  margin: 100px auto;
 }
 
-.login_form_input > input {
-  width: 510px;
-  height: 48px;
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
 
+.login-form > input {
+  width: 486px;
+  height: 48px;
   background: #ffffff;
-  border: 1px solid #b1b1b1;
+  border: 1px solid rgba(97, 99, 254, 0.8);
   border-radius: 5px;
   margin: 20px;
 }
 
-.login_btn {
-  width: 510px;
+.login-btn {
+  width: 486px;
   height: 48px;
-
-  background: #878787;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: #6163fe;
   border-radius: 5px;
+  border: none;
   margin: 20px;
+  color: #dfe0ff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-size: 17px;
   cursor: pointer;
+  &:hover {
+    color: black;
+  }
 }
 
-.login_social_btn > button {
-  width: 510px;
+.login-signup-btn {
+  width: 486px;
   height: 48px;
-
-  background: #b3b3b3;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: #6163fe;
   border-radius: 5px;
+  border: none;
+  color: #dfe0ff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   margin: 20px;
+  font-size: 17px;
   cursor: pointer;
+  &:hover {
+    color: black;
+  }
+}
+
+.login-social-btn {
+  display: flex;
+}
+
+.login-social-btn > button {
+  width: 235px;
+  height: 48px;
+  border: none;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.login-p {
+  width: 480px;
+  font-size: 12px;
+  color: rgba(97, 99, 254, 0.8);
+  margin: 3px;
+}
+
+.login-hr {
+  width: 486px;
+  border: 0.5px solid rgba(97, 99, 254, 0.8);
+  margin: 10px;
+}
+.login-kakao {
+  background-image: url('../../../../public/kakao.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  &:hover {
+    border: solid 2px #6163fe;
+  }
+}
+
+.login-naver {
+  background-image: url('../../../../public/naver.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  &:hover {
+    border: solid 2px #6163fe;
+  }
 }
