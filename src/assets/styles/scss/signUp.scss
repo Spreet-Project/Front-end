@@ -1,15 +1,13 @@
 @import './body.scss';
+
 .signUp-containerWrap {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
   position: relative;
   padding: 50px;
   width: 586px;
-  height: 688px;
-  background: #eaeafe;
+  height: 750px;
+  background: #ececec;
   border-radius: 5px;
-  margin: 100px auto;
+  margin: 75px auto;
 }
 
 .signup-form {
@@ -20,42 +18,47 @@
   margin: auto;
 }
 
-.signUp-inputBtn > input {
-  width: 380px;
+.signUp-input {
+  width: 330px;
   height: 48px;
-
-  border: 1px solid #b1b1b1;
+  border: 1px solid #9c9c9c;
   border-radius: 5px;
+  margin: 0px 0px 15px 40px;
 }
-.signUp-inputBtn > button {
-  width: 114px;
+.signUp-input-btn {
+  width: 140px;
   height: 48px;
-
-  color: #d7d7d7;
-  background-color: #6163fe;
-  border: 1px solid #b1b1b1;
+  color: #ffffff;
+  font-size: 15px;
+  background-color: #717171;
   border-radius: 5px;
+  border: none;
   cursor: pointer;
+  margin: 0px 0px 0px 15px;
   &:hover {
     color: black;
   }
 }
 
-.signUp-pw > input {
+.signUp-inputPw {
   display: flex;
   flex-direction: row;
-  width: 510px;
+  justify-content: center;
+  align-items: center;
+  width: 486px;
   height: 48px;
-  border: 1px solid #b1b1b1;
+  border: 1px solid #9c9c9c;
   border-radius: 5px;
+  margin: 10px 10px 15px 40px;
   cursor: text;
 }
 
-
-.signUp_crew {
-  margin: 30px 20px;
+.signUp-crew {
+  margin: 30px 40px;
   display: flex;
-  .signUp_checkbox {
+  flex-wrap: wrap;
+  align-items: center;
+  .signUp-checkbox {
     margin: 0;
     &[type='checkbox'] {
       width: 20px;
@@ -67,27 +70,38 @@
   font-size: 16px;
   font-weight: bold;
   color: black;
+  margin-left: 10px;
 
   cursor: pointer;
+}
+
+.signUp-confirm {
+  font-size: 12px;
+  color: black;
+  margin: 10px 10px 15px 40px;
 }
 
 .signUp-p {
   font-size: 13px;
   color: black;
-  margin: 5px 23px;
+  margin: 5px 30px;
 }
 
 .signUp-hr {
-  margin: 3px;
+  width: 510px;
+  border: 1px solid #9c9c9c;
+  margin: 20px;
 }
 
 .signUp-btn {
-  width: 510px;
+  width: 486px;
   height: 48px;
-
-  background: #b3b3b3;
+  background: #d10536;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
-
+  border: none;
+  color: #ffffff;
+  font-size: 17px;
+  margin: 20px 40px;
   cursor: pointer;
 }
