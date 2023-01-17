@@ -53,7 +53,7 @@ const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
   const postCommentMutation = useMutation(
     () => postShortsComment({ shortsId: shortsId, content: comment }),
     {
-      onSettled: () =>
+      onSuccess: () =>
         queryClient.invalidateQueries(['shortsComment', shortsId]),
     },
   );
@@ -73,7 +73,7 @@ const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
     commentId =>
       modifyShortsComment({ commentId: commentId, content: modifyComment }),
     {
-      onSettled: () =>
+      onSuccess: () =>
         queryClient.invalidateQueries(['shortsComment', shortsId]),
     },
   );

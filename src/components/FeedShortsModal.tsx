@@ -65,7 +65,7 @@ const FeedShortsModal = ({ setIsShowModal, feedId }): JSX.Element => {
   const postCommentMutation = useMutation(
     () => postFeedComment({ feedId: feedId, content: comment }),
     {
-      onSettled: () => queryClient.invalidateQueries(['feedComment', feedId]),
+      onSuccess: () => queryClient.invalidateQueries(['feedComment', feedId]),
     },
   );
   const deleteShortsMutation = useMutation(feedId => deleteFeed(feedId), {
@@ -83,7 +83,7 @@ const FeedShortsModal = ({ setIsShowModal, feedId }): JSX.Element => {
     commentId =>
       modifyFeedComment({ commentId: commentId, content: modifyComment }),
     {
-      onSettled: () => queryClient.invalidateQueries(['feedComment', feedId]),
+      onSuccess: () => queryClient.invalidateQueries(['feedComment', feedId]),
     },
   );
 

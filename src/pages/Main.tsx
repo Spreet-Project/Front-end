@@ -24,9 +24,9 @@ const Main = (): JSX.Element => {
       return {
         queryKey: ['shortsList', { category: categroy.value, token: token }],
         queryFn: getShorts,
-        cacheTime: 5000,
-        staleTime: 5000,
-        refetchOnMount: true,
+        // cacheTime: 5000,
+        // staleTime: 5000,
+        // refetchOnMount: true,
       };
     }),
   );
