@@ -1,13 +1,11 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useQuery, useQueries } from 'react-query';
 import '../assets/styles/scss/main.scss';
-import ShortsModal from '../components/ShortsModal';
 import { useNavigate } from 'react-router-dom';
 import { getFeed, getShorts } from '../core/api/shorts';
 import handleClickSlide from '../core/utils/handleClickSlide';
 import MainCarousel from '../components/MainCarousel';
 import sweetAlert from '../core/utils/sweetAlert';
-import { AxiosError } from 'axios';
 
 const Main = (): JSX.Element => {
   const navigate = useNavigate();

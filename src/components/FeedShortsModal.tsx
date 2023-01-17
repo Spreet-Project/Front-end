@@ -6,9 +6,11 @@ import { useNavigate } from 'react-router-dom';
 
 import {
   getDetailFeed,
+  deleteFeed,
   getFeedComment,
   postFeedComment,
   deleteFeedComment,
+  modifyFeedComment,
 } from '../core/api/feed';
 
 const FeedShortsModal = ({ setIsShowModal, feedId }): JSX.Element => {
@@ -48,17 +50,17 @@ const FeedShortsModal = ({ setIsShowModal, feedId }): JSX.Element => {
     setIsCommentModify(false);
   };
 
-  // const onCheckCommentModify = (commentId, content) => {
-  //   if (!window.confirm('해당 댓글을 수정하시겠습니까?')) return;
-  //   setModifyComment(content);
-  //   setIsCommentModify(true);
-  //   setModifyCommentId(commentId);
-  // };
+  const onCheckCommentModify = (commentId, content) => {
+    if (!window.confirm('해당 댓글을 수정하시겠습니까?')) return;
+    setModifyComment(content);
+    setIsCommentModify(true);
+    setModifyCommentId(commentId);
+  };
 
-  // const onClickModify = () => {
-  //   if (!window.confirm('해당 글을 수정하시겠습니까?')) return;
-  //   navigate(`/modifyShorts/${shortsId}`);
-  // };
+  const onClickModify = () => {
+    if (!window.confirm('해당 글을 수정하시겠습니까?')) return;
+    navigate(`/modifyFeed/${feedId}`);
+  };
 
   const postCommentMutation = useMutation(
     () => postFeedComment({ feedId: feedId, content: comment }),
@@ -66,33 +68,28 @@ const FeedShortsModal = ({ setIsShowModal, feedId }): JSX.Element => {
       onSettled: () => queryClient.invalidateQueries(['feedComment', feedId]),
     },
   );
-  // const deleteShortsMutation = useMutation(shortsId => deleteShorts(shortsId), {
-  //   // onSettled: () => queryClient.invalidateQueries(['shortsDetail', shortsId]),
-  // });
+  const deleteShortsMutation = useMutation(feedId => deleteFeed(feedId), {
+    // onSettled: () => queryClient.invalidateQueries(['shortsDetail', shortsId]),
+  });
 
   const deleteCommentMutation = useMutation(
     feedId => deleteFeedComment(feedId),
+    // {
+    //   onSettled: () => queryClient.invalidateQueries(['feedComment', feedId]),
+    // },
+  );
+
+  const modifyCommentMutation = useMutation(
+    commentId =>
+      modifyFeedComment({ commentId: commentId, content: modifyComment }),
     {
       onSettled: () => queryClient.invalidateQueries(['feedComment', feedId]),
     },
   );
 
-  // const modifyCommentMutation = useMutation(
-  //   commentId =>
-  //     modifyShortsComment({ commentId: commentId, content: modifyComment }),
-  //   // {
-  //   //   onSettled: () =>
-  //   //     queryClient.invalidateQueries(['shortsDetail', shortsId]),
-  //   // },
-  // );
-
   //여기서 useMutaion객체는 변이함수를 반환하게 된다?
   // if (deleteShortsMutation.isSuccess) {
   //   sweetAlert(1000, 'success', '해당 게시글이 삭제되었습니다.');
-  // }
-
-  // if (deleteCommentMutation.isSuccess) {
-  //   sweetAlert(1000, 'success', '해당 댓글이 삭제되었습니다.');
   // }
 
   // if (modifyCommentMutation.isSuccess) {
@@ -100,7 +97,7 @@ const FeedShortsModal = ({ setIsShowModal, feedId }): JSX.Element => {
   // }
 
   if (isLoading || !data) return;
-  console.log(resultCommnet);
+  // console.log(resultCommnet);
 
   return (
     <>
@@ -184,12 +181,12 @@ const FeedShortsModal = ({ setIsShowModal, feedId }): JSX.Element => {
                         </button>
                         <button
                           className="modal-comment__btn btn-modify"
-                          // onClick={() => {
-                          //   setIsCommentModify(false);
-                          //   return modifyCommentMutation.mutate(
-                          //     comment.shortsCommentId,
-                          //   );
-                          // }}
+                          onClick={() => {
+                            setIsCommentModify(false);
+                            return modifyCommentMutation.mutate(
+                              comment.commentId,
+                            );
+                          }}
                         >
                           수정 하기
                         </button>
@@ -226,12 +223,12 @@ const FeedShortsModal = ({ setIsShowModal, feedId }): JSX.Element => {
                       </button>
                       <button
                         className="modal-comment__btn btn-modify"
-                        // onClick={() => {
-                        //   onCheckCommentModify(
-                        //     comment.shortsCommentId,
-                        //     comment.content,
-                        //   );
-                        // }}
+                        onClick={() => {
+                          onCheckCommentModify(
+                            comment.commentId,
+                            comment.content,
+                          );
+                        }}
                       >
                         댓글 수정
                       </button>
@@ -270,11 +267,21 @@ const FeedShortsModal = ({ setIsShowModal, feedId }): JSX.Element => {
         >
           X
         </button>
-        <button className="modal-btn__modify">글 수정하기</button>
+        <button className="modal-btn__modify" onClick={onClickModify}>
+          글 수정하기
+        </button>
         {/* {deleteShortsMutation.isError && (
           <div style={{ color: 'red' }}> mutaion 에러</div>
         )} */}
-        <button className="modal-btn__delete">글 삭제하기</button>
+        <button
+          className="modal-btn__delete"
+          onClick={() => {
+            if (!window.confirm('정말 해당 게시글을 삭제하시겠습니까?')) return;
+            deleteShortsMutation.mutate(feedId);
+          }}
+        >
+          글 삭제하기
+        </button>
       </div>
     </>
   );

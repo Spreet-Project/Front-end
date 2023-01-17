@@ -44,7 +44,7 @@ export const getShorts = async payload => {
 };
 
 export const getFeed = async () => {
-  //Feed 최신 게시물 조회
+  //Feed 메인페이지 최신 게시물 조회
   try {
     return await instance.get('/feed/recent?page=1&size=10');
   } catch (error) {
