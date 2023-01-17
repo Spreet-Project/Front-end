@@ -70,10 +70,10 @@ export const postNicknameCheck = async post => {
   }
 };
 
-export const getKakaoLogin = async code => {
+export const postKakaoLogin = async code => {
   try {
     console.log(code, 'axios code 확인');
-    const data = await instance.get(`/user/kakao/callback?code=${code.code}`);
+    const data = await instance.post(`/user/kakao/callback?code=${code.code}`);
     sweetAlert(1000, 'success', '카카오 로그인 완료');
     return data;
   } catch (error) {
