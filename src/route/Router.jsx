@@ -14,6 +14,7 @@ import EventWrite from '../pages/EventWrite';
 import KakaoLogin from '../pages/KakaoLogin';
 import MyPage from '../pages/MyPage';
 import FeedShorts from '../pages/FeedShorts';
+import NaverLogin from '../pages/NaverLogin';
 
 const Router = () => {
   return (
@@ -23,6 +24,7 @@ const Router = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/api/user/kakao/callback/*" element={<KakaoLogin />} />
+        <Route path="/api/user/naver/callback/*" element={<NaverLogin />} />
         <Route path="/write" element={<Write />} />
         <Route path="/shorts" element={<Shorts />} />
         <Route path="/feeds" element={<FeedShorts />} />
