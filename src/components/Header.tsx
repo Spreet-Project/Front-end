@@ -8,6 +8,7 @@ const Header = (): JSX.Element => {
   const token = localStorage.getItem('id');
   const onLogout = () => {
     localStorage.removeItem('id');
+    localStorage.removeItem('nickname');
     sweetAlert(1000, 'success', '로그아웃 되었습니다');
     navigate('/');
   };

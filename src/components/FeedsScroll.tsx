@@ -8,8 +8,6 @@ const FeedsScroll = ({
   setIsShowModal,
   onPostFeedLike,
 }): JSX.Element => {
-  // console.log(feed, 'props로 받음');
-
   const feedChildRef = useRef<HTMLDivElement>(null);
   const feedRef = useRef<HTMLDivElement>(null);
 
@@ -24,14 +22,6 @@ const FeedsScroll = ({
     feedRef.current.style.transform = `translateX(${calculationValue}px)`;
   };
 
-  const chckLoign = () => {
-    if (localStorage.getItem('id') === null || undefined) {
-      sweetAlert(1000, 'error', '로그인이 필요합니다!');
-      return true;
-    }
-    return false;
-  };
-  console.log(feed.like, '좋아요현황');
   return (
     <div key={feed.feedId} className="shorts-item__scroll">
       <div className="feed-image__row">
@@ -92,7 +82,6 @@ const FeedsScroll = ({
         <div
           className="shorts-btn btn__detail"
           onClick={() => {
-            // if (chckLoign()) return;
             setFeedId(feed.feedId);
             setIsShowModal(true);
           }}
@@ -102,7 +91,6 @@ const FeedsScroll = ({
         <p
           className="shorts-btn-text text__detail"
           onClick={() => {
-            // if (chckLoign()) return;
             setFeedId(feed.feedId);
             setIsShowModal(true);
           }}
