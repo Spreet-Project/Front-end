@@ -141,7 +141,9 @@ const SignUp = () => {
       nickname: nickname,
       password: password,
       email: email,
-      crewCheck: crewCheck,
+      userRole: crewCheck ? 'ROLE_CREW' : 'ROLE_USER',
+      //crewCheck가 true라면 ROLE_CREW false라면 ROLE_USER
+      // crewCheck === true ? ROLE_CREW : ROLE_USER
     }).then(res => {
       // navigate('/login');
     });

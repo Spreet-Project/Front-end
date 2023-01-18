@@ -15,6 +15,8 @@ export const postLogin = async post => {
 
 export const postSignup = async post => {
   try {
+    console.log(post);
+
     const data = await instance.post('/user/signup', post);
     sweetAlert(1000, 'success', '회원가입 성공');
     return data;
@@ -37,7 +39,7 @@ export const postEmailConfirm = async post => {
 export const postEmailCheck = async post => {
   try {
     console.log(post, 'axios email 인증확인 보내기 전');
-    const data = await instance.post(`/user/send-email?email=${post}`);
+    const data = await instance.post(`/user/send-email?email=${post.email}`);
     sweetAlert(1000, 'success', '이메일 인증 확인완료');
     return data;
   } catch (error) {
@@ -48,7 +50,7 @@ export const postEmailCheck = async post => {
 export const postIdCheck = async post => {
   try {
     console.log(post, 'axios 아이디 중복확인 보내기 전');
-    const data = await instance.post('/user', post);
+    const data = await instance.post(`/user/id-check?loginId=${post.loginId}`);
     sweetAlert(1000, 'success', '중복확인 완료');
     return data;
   } catch (error) {
@@ -80,6 +82,18 @@ export const postKakaoLogin = async code => {
     sweetAlert(1000, 'error', '카카오 로그인 실패');
   }
 };
+
+// export const getNaverLogin = async code => {
+//   try {
+//     console.log(code, 'axios code 확인');
+//     const data = await instance.get(`/user/naver/callback?code=${code.code}`);
+//     sweetAlert(1000, 'success', '네이버 로그인 완료');
+//     return data;
+//   } catch (error) {
+//     console.log(error);
+//     sweetAlert(1000, 'error', '네이버 로그인 실패');
+//   }
+// };
 
 // export const postLogout = async (post) => {
 //   try {
