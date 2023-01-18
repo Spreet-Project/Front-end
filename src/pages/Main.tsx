@@ -6,10 +6,13 @@ import { getFeed, getShorts } from '../core/api/shorts';
 import handleClickSlide from '../core/utils/handleClickSlide';
 import MainCarousel from '../components/MainCarousel';
 import sweetAlert from '../core/utils/sweetAlert';
+import FeedShortsModal from '../components/FeedShortsModal';
 
 const Main = (): JSX.Element => {
   const navigate = useNavigate();
   const token = localStorage.getItem('id');
+  const feedId = useRef<number>(0);
+  const [isShowModal, setIsShowModal] = useState(false);
   const categoryList = [
     { category: '랩', value: 'RAP', color: '#D10536' },
     { category: '스트릿 댄스', value: 'STREET_DANCE', color: '#CA6100' },
@@ -148,8 +151,6 @@ const Main = (): JSX.Element => {
   //   navigate('/login');
   // }
   if (!res || resFeed.isLoading) return;
-  console.log(resFeed);
-  console.log(res);
 
   return (
     <>
@@ -224,9 +225,11 @@ const Main = (): JSX.Element => {
                   return (
                     <h1
                       key={item.feedId}
-                      // onClick={() => {
-                      //   navigate(`/feed/:id=${data.id}`);
-                      // }}
+                      onClick={() => {
+                        feedId.current = item.feedId;
+                        setIsShowModal(true);
+                        console.log(feedId);
+                      }}
                     >
                       {item.title}
                     </h1>
@@ -234,6 +237,12 @@ const Main = (): JSX.Element => {
                 })}
             </div>
           </div>
+          {isShowModal && (
+            <FeedShortsModal
+              setIsShowModal={setIsShowModal}
+              feedId={feedId.current}
+            />
+          )}
         </div>
       </div>
     </>

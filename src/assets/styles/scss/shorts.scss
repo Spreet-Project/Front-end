@@ -1,4 +1,31 @@
 @import './body.scss';
+
+@mixin shorts-item__info {
+  position: absolute;
+  bottom: 0px;
+  left: 10px;
+  pointer-events: none;
+  p {
+    text-align: start;
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+}
+
+@mixin user-profile {
+  display: flex;
+  align-items: center;
+}
+
+@mixin user-image {
+  width: 35px;
+  height: 35px;
+  border: 1px solid;
+  border-radius: 100%;
+  margin-right: 5px;
+  margin-left: 10px;
+}
+
 .shorts-sidebar {
   position: absolute;
   left: 0;
@@ -21,7 +48,6 @@
   }
 }
 .shorts-cotent {
-  background-color: wheat;
   width: 1440px;
   margin: auto;
   display: flex;
@@ -44,16 +70,13 @@
       height: 600px;
       @include flexCenter;
       color: white;
-      .shorts-iframe {
-      }
       .shorts-item__info {
-        position: absolute;
-        bottom: 50px;
-        left: 20px;
-        p {
-          text-align: start;
-          font-size: 20px;
-          margin-bottom: 10px;
+        @include shorts-item__info;
+        .user-profile {
+          @include user-profile;
+          .user-image {
+            @include user-image;
+          }
         }
       }
       .shorts-item__btn {

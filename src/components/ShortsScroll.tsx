@@ -17,7 +17,12 @@ const ShortsScroll = ({
       ></iframe>
       <div className="shorts-item__info">
         <p>{shorts.title}</p>
-        <p>{shorts.nickname}</p>
+        <div className="user-profile">
+          <div className="user-image">
+            <img />
+          </div>
+          <p>{shorts.nickname}</p>
+        </div>
         <p>♥︎ {shorts.likeCount}</p>
       </div>
 

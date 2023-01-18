@@ -59,7 +59,13 @@ const FeedsScroll = ({
 
       <div className="shorts-item__info">
         <p>{feed.title}</p>
-        <p>{feed.nickname}</p>
+        <div className="user-profile">
+          <div className="user-image">
+            <img />
+          </div>
+          <p>{feed.nickname}</p>
+        </div>
+
         <p>♥︎ {feed.feedLike}</p>
       </div>
 

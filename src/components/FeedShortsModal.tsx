@@ -86,7 +86,7 @@ const FeedShortsModal = ({ setIsShowModal, feedId }): JSX.Element => {
   // }
 
   if (isLoading || !data) return;
-
+  console.log(data);
   return (
     <>
       {isLoading && <div> 로딩중입니다</div>}

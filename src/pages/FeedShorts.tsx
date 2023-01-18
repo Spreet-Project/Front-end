@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../assets/styles/scss/shorts.scss';
+import '../assets/styles/scss/feedShorts.scss';
 import FeedsScroll from '../components/FeedsScroll';
 import { useQueryClient, useMutation, useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';

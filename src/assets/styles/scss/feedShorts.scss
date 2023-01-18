@@ -1,5 +1,7 @@
 @import './body.scss';
 @import './main.scss';
+@import './shorts.scss';
+
 .shorts-sidebar {
   position: absolute;
   left: 0;
@@ -85,14 +87,6 @@
         }
       }
       .shorts-item__info {
-        position: absolute;
-        bottom: 50px;
-        left: 20px;
-        p {
-          text-align: start;
-          font-size: 20px;
-          margin-bottom: 10px;
-        }
       }
       .shorts-item__btn {
         cursor: pointer;

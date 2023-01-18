@@ -110,6 +110,7 @@ const SignUp = () => {
 
   const onSubmitSignUp = e => {
     e.preventDefault();
+
     if (!isRegEmailCheck) {
       return sweetAlert(1000, 'error', '이메일을 확인해주세요');
     }
@@ -119,12 +120,14 @@ const SignUp = () => {
     if (!isRegPasswordCheck) {
       return sweetAlert(1000, 'error', '비밀번호를 확인해주세요');
     }
-    if (!isPasswordCheck) {
-      return sweetAlert(
-        1000,
-        'error',
-        '비밀번호 확인 창의 비밀번호를 확인해주세요.',
-      );
+    if (!longinIdCheck) {
+      return sweetAlert(1000, 'error', '아이디 중복확인을 확인해주세요');
+    }
+    if (!emailConfirm) {
+      return sweetAlert(1000, 'error', '이메일 중복확인을 확인해주세요');
+    }
+    if (!emailCheck) {
+      return sweetAlert(1000, 'error', '이메일 인증번호를 입력해주세요');
     }
     if (crewCheck) {
       if (!isRegCrewCheck) {
@@ -135,10 +138,22 @@ const SignUp = () => {
         return sweetAlert(1000, 'error', '닉네임을 확인해주세요');
       }
     }
+    if (!nicknameCheck) {
+      return sweetAlert(1000, 'error', '닉네임 중복확인을 확인해주세요');
+    }
+
+    if (!isPasswordCheck) {
+      return sweetAlert(
+        1000,
+        'error',
+        '비밀번호 확인 창의 비밀번호를 확인해주세요.',
+      );
+    }
+
     sweetAlert(1000, 'success', '회원가입 완료');
     postSignup({
       loginId: loginId,
-      nickname: nickname,
+      nickname: crewCheck ? crewName : nickname,
       password: password,
       email: email,
       userRole: crewCheck ? 'ROLE_CREW' : 'ROLE_USER',
@@ -149,42 +164,88 @@ const SignUp = () => {
     });
   };
 
+  // 아이디 중복확인 버튼
   const onClickIdCheck = e => {
+    if (!isRegIdlCheck)
+      return sweetAlert(1000, 'error', '아이디를 확인해주세요.');
+    if (longinIdCheck)
+      return sweetAlert(1000, 'error', '이미 중복확인 처리되었습니다.');
     e.preventDefault();
     postIdCheck({
       loginId: loginId,
     }).then(res => {
+      if (!res) return;
       setLoginIdCheck(true);
     });
   };
 
-  // 이일 중복확인 버튼
-  const onClickEmailConfirm = e => {
+  // 이메일 중복확인 버튼
+  const onClickEmailCheck = e => {
     e.preventDefault();
-    postEmailConfirm({
+    if (!isRegEmailCheck)
+      return sweetAlert(1000, 'error', '이메일을 확인해주세요');
+    if (confirmCode)
+      return sweetAlert(1000, 'error', '이미 중복확인 처리되었습니다.');
+
+    postEmailCheck({
       email: email,
     }).then(res => {
-      setEmailCofirm(true);
+      if (!res) return;
+      setEmailCheck(true);
     });
   };
 
-  // 이메일 인증확인 버튼
-  const onClickEmailCheck = e => {
+  // 이메일 인증번호  버튼
+  const onClickEmailConfirm = e => {
     e.preventDefault();
-    postEmailCheck({
+    if (emailConfirm)
+      return sweetAlert(1000, 'error', '이미 중복확인 처리되었습니다.');
+    postEmailConfirm({
       email: email,
       confirmCode: confirmCode,
     }).then(res => {
-      setEmailCheck(true);
+      if (!res) return;
+      setEmailCofirm(true);
     });
   };
 
   // 닉네임 중복확인 버튼
   const onClickNicknameCheck = e => {
     e.preventDefault();
+    if (!crewCheck) {
+      if (!isRegNickNameCheck) {
+        console.log('isRegNickNameCheck', isRegNickNameCheck);
+        return sweetAlert(1000, 'error', '닉네임을 확인해주세요');
+      }
+      if (nicknameCheck) {
+        console.log('nicknameCheck', nicknameCheck);
+        return sweetAlert(1000, 'error', '이미 중복확인 처리되었습니다.');
+      }
+    }
+
     postNicknameCheck({
       nickname: nickname,
     }).then(res => {
+      if (!res) return;
+      setNicknameCheck(true);
+    });
+  };
+
+  const onClickCrewnameCheck = e => {
+    e.preventDefault();
+    if (!isRegCrewCheck) {
+      console.log('isRegNickNameCheck', isRegNickNameCheck);
+      return sweetAlert(1000, 'error', '닉네임을 확인해주세요');
+    }
+    if (nicknameCheck) {
+      console.log('nicknameCheck', nicknameCheck);
+      return sweetAlert(1000, 'error', '이미 중복확인 처리되었습니다.');
+    }
+
+    postNicknameCheck({
+      nickname: crewName,
+    }).then(res => {
+      if (!res) return;
       setNicknameCheck(true);
     });
   };
@@ -232,7 +293,7 @@ const SignUp = () => {
 
   //이메일 인증 확인
   const onChangeEmailCheck = e => {
-    console.log(onChangeEmailCheck);
+    console.log(e.target.value);
     setConfirmCode(e.target.value);
     // const isCheckEmail = is_userEmail(e.target.value);
     // isCheckEmail ? setisRegEmailCheck(true) : setisRegEmailCheck(false);
@@ -248,45 +309,85 @@ const SignUp = () => {
   return (
     <div className="signUp-containerWrap">
       <form className="signUp-form" onSubmit={onSubmitSignUp}>
-        <input
-          type="email"
-          placeholder="이메일"
-          className="signUp-input"
-          value={email || ''}
-          onChange={onChangeEmail}
-        />
-        <button
-          type="button"
-          className="signUp-input-btn"
-          onClick={onClickEmailConfirm}
-        >
-          이메일 인증
-        </button>
-        {isRegEmailCheck ? null : (
-          <p className="signUp-confirm">이메일 형식에 맞지 않습니다.</p>
+        {emailConfirm ? (
+          <input
+            type="email"
+            placeholder="이메일"
+            className="signUp-input"
+            value={email || ''}
+            readOnly
+            style={{ background: 'darkgray' }}
+          />
+        ) : (
+          <input
+            type="email"
+            placeholder="이메일"
+            className="signUp-input"
+            value={email || ''}
+            onChange={onChangeEmail}
+          />
         )}
 
-        <input
-          type="text"
-          placeholder="이메일 인증번호 입력"
-          className="signUp-input"
-          onChange={onChangeEmailCheck}
-        />
         <button
           type="button"
           className="signUp-input-btn"
           onClick={onClickEmailCheck}
         >
-          확인
+          이메일 인증
         </button>
-        {/* <p className="signUp_p">이메일 인증번호를 입력해 주세요.</p> */}
-        <input
-          type="text"
-          placeholder="아이디"
-          className="signUp-input"
-          value={loginId || ''}
-          onChange={onChangeLoginId}
-        />
+
+        {isRegEmailCheck ? null : (
+          <p className="signUp-confirm">이메일 형식에 맞지 않습니다.</p>
+        )}
+        {emailCheck && (
+          <input
+            type="text"
+            placeholder="이메일 인증번호 입력"
+            className="signUp-input"
+            value={confirmCode || ''}
+            onChange={onChangeEmailCheck}
+          />
+        )}
+        {emailConfirm && (
+          <input
+            type="text"
+            placeholder="이메일 인증번호 입력"
+            className="signUp-input"
+            value={confirmCode || ''}
+            readOnly
+            style={{ background: 'darkgray' }}
+          />
+        )}
+
+        {emailCheck && (
+          <button
+            type="button"
+            className="signUp-input-btn"
+            onClick={onClickEmailConfirm}
+          >
+            확인
+          </button>
+        )}
+
+        {longinIdCheck ? (
+          <input
+            type="text"
+            placeholder="아이디"
+            className="signUp-input"
+            value={loginId || ''}
+            readOnly
+            style={{ background: 'darkgray' }}
+          />
+        ) : (
+          <input
+            type="text"
+            placeholder="아이디"
+            className="signUp-input"
+            value={loginId || ''}
+            onChange={onChangeLoginId}
+          />
+        )}
+
         <button
           type="button"
           className="signUp-input-btn"
@@ -294,6 +395,7 @@ const SignUp = () => {
         >
           중복확인
         </button>
+
         {!isRegIdlCheck && (
           <p className="signUp-confirm">
             아이디는 5~20자 영문으로 시작, 영문 숫자로 입력
@@ -324,25 +426,62 @@ const SignUp = () => {
           )}
           {/* {crewCheck === true ?  소속팀 : 닉네임} */}
           {crewCheck ? (
-            <input
-              type="text"
-              placeholder="소속팀"
-              className="signUp-input"
-              value={crewName}
-              onChange={onChangeCrewName}
-            />
+            <>
+              {nicknameCheck ? (
+                <input
+                  type="text"
+                  placeholder="소속팀"
+                  className="signUp-input"
+                  value={crewName}
+                  readOnly
+                  style={{ background: 'darkgray' }}
+                />
+              ) : (
+                <input
+                  type="text"
+                  placeholder="소속팀"
+                  className="signUp-input"
+                  value={crewName}
+                  onChange={onChangeCrewName}
+                />
+              )}
+
+              <button
+                className="signUp-input-btn"
+                onClick={onClickCrewnameCheck}
+              >
+                중복확인
+              </button>
+            </>
           ) : (
-            <input
-              type="text"
-              placeholder="닉네임"
-              className="signUp-input"
-              value={nickname || ''}
-              onChange={onChangeNickname}
-            />
+            <>
+              {nicknameCheck ? (
+                <input
+                  type="text"
+                  placeholder="닉네임"
+                  className="signUp-input"
+                  value={nickname || ''}
+                  readOnly
+                  style={{ background: 'darkgray' }}
+                />
+              ) : (
+                <input
+                  type="text"
+                  placeholder="닉네임"
+                  className="signUp-input"
+                  value={nickname || ''}
+                  onChange={onChangeNickname}
+                />
+              )}
+
+              <button
+                className="signUp-input-btn"
+                onClick={onClickNicknameCheck}
+              >
+                중복확인
+              </button>
+            </>
           )}
-          <button className="signUp-input-btn" onClick={onClickNicknameCheck}>
-            중복확인
-          </button>
         </div>
         {!crewCheck && !isRegNickNameCheck && (
           <p className="signUp-confirm">
@@ -365,6 +504,7 @@ const SignUp = () => {
               } else {
                 setCrewName('');
               }
+              setNicknameCheck(false);
             }}
           />
           <label htmlFor="crew" className="signUp-label">
