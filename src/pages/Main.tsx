@@ -148,7 +148,8 @@ const Main = (): JSX.Element => {
   //   navigate('/login');
   // }
   if (!res || resFeed.isLoading) return;
-  // console.log(resFeed);
+  console.log(resFeed);
+  console.log(res);
 
   return (
     <>
