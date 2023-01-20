@@ -2,15 +2,25 @@
 
 .event-modal {
   display: flex;
-  width: 350px;
-  height: 200px;
+  width: 300px;
+  height: 250px;
   text-align: center;
   padding: 6px 0;
+  // opacity: 1;
+  // &:hover {
+  //   width: 350px;
+  //   height: 200px;
+  //   opacity: 1;
+  // }
   .event-modal__eventimage {
-    width: 10px;
+    width: 100px;
     height: 100px;
+    margin: auto;
   }
   .event-modal__inform {
+    text-align: center;
+    margin: auto;
+    font-size: 22px;
     .event-modal__userform {
       display: flex;
       .event-modal__profileimg {
