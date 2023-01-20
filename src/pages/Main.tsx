@@ -182,7 +182,9 @@ const Main = (): JSX.Element => {
                         <MainVideo
                           width={'100%'}
                           height={'500px'}
-                          src={'videos/spreetintro.mp4'}
+                          src={
+                            'https://dev.d2hev55rb01409.amplifyapp.com/videos/spreetintro.mp4'
+                          }
                         />
                       ) : (
                         <div
