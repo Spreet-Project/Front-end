@@ -154,11 +154,6 @@ const Main = (): JSX.Element => {
   console.log(res, 'res');
   return (
     <div className="mainsector">
-      <>
-        {!res && <div>데이터가없네요</div>}
-        {!resFeed && <div>데이터가없네요</div>}
-      </>
-
       <div className="spreet-row">
         <div className="spreet-row__carousel">
           <button
@@ -187,7 +182,7 @@ const Main = (): JSX.Element => {
                         <MainVideo
                           width={'100%'}
                           height={'500px'}
-                          src={process.env.PUBLIC_URL + '/Spreetintro.mp4'}
+                          src={'video/Spreetintro.mp4'}
                         />
                       ) : (
                         <div
