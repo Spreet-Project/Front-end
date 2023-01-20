@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/styles/scss/eventWrite.scss';
-import { postEventWrite } from '../core/api/feed';
+import { postEventWrite } from '../core/api/event';
 import { useInputs } from '../core/hooks/useInput';
 import sweetAlert from '../core/utils/sweetAlert';
 
@@ -10,7 +10,9 @@ const EventWrite = () => {
   const [inputs, onChangeInput, clearInput] = useInputs();
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
-  const [file, setFile] = useState(null);
+  const [date, setDate] = useState();
+  const [time, setTime] = useState();
+  const [eventImage, setEventImage] = useState(null);
   const [location, setLocation] = useState();
   const [fileUrl, setFileUrl] = useState('');
 
@@ -19,16 +21,20 @@ const EventWrite = () => {
   }, []);
 
   const onEventWriteSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     const eventWriteData = new FormData();
     // 이미지 여러개 들어가야함 -> for문 필요
-    eventWriteData.append('file', file);
+    console.log(typeof date, typeof time, typeof eventImage);
     eventWriteData.append('title', title);
     eventWriteData.append('content', content);
     eventWriteData.append('location', location);
-    console.log(eventWriteData);
-    for (const value of eventWriteData.values()) {
-      console.log(value);
-    }
+    eventWriteData.append('date', date);
+    eventWriteData.append('time', time);
+    eventWriteData.append('file', eventImage);
+    // console.log(eventWriteData);
+    // for (const value of eventWriteData.values()) {
+    //   console.log(value);
+    // }
     postEventWrite(eventWriteData)
       .then(res => {
         // navigate('/');
@@ -39,28 +45,44 @@ const EventWrite = () => {
       });
   };
 
-  const onChangeImgFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const targetFile = e.target.files[0];
-    const options = {
-      maxSizeMB: 10,
-      maxWidthOrHeight: 600,
-    };
-  };
-
-  //제목
+  // 제목
   const onChangeTitle = e => {
     setTitle(e.target.value);
   };
 
-  //위치
+  // 내용
+  const onChangeContent = e => {
+    setContent(e.target.value);
+  };
+
+  // 날짜
+  const onchangeDate = e => {
+    setDate(e.target.value);
+  };
+
+  // 시간
+  const onChangeTime = e => {
+    setTime(e.target.value);
+  };
+
+  // 위치
   const onChangeLocation = e => {
     setLocation(e.target.value);
   };
 
-  //내용
-  const onChangeContent = e => {
-    setContent(e.target.value);
+  // 이미지
+  const onChangeEventImage = e => {
+    setEventImage(e.target.value);
   };
+
+  //이미지 리사이징
+  // const onChangeEventImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const targetFile = e.target.files[0];
+  //   const options = {
+  //     maxSizeMB: 10,
+  //     maxWidthOrHeight: 600,
+  //   };
+  // };
 
   return (
     <div className="eventWrite-content">
@@ -81,10 +103,20 @@ const EventWrite = () => {
           onChange={onChangeLocation}
         />
         <input
+          type="date"
+          className="eventWrite-input-date"
+          onChange={onchangeDate}
+        />
+        <input
+          type="time"
+          className="eventWrite-input-time"
+          onChange={onChangeTime}
+        />
+        <input
           type="file"
           accept="image/jpg, image/png, image/jpeg, image/gif"
-          className="eventWrite-inputImg"
-          onChange={onChangeImgFile}
+          className="eventWrite-input-file"
+          onChange={onChangeEventImage}
         />
         <textarea
           name="content"
@@ -97,7 +129,6 @@ const EventWrite = () => {
           <button className="eventWrite-btn" onClick={onEventWriteSubmit}>
             저장
           </button>
-          {/* <button>이전으로</button> */}
         </div>
       </form>
     </div>

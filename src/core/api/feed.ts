@@ -1,11 +1,6 @@
 import sweetAlert from '../utils/sweetAlert';
 import { instance, baseURL, subURL } from '../axios/axios';
 
-export const postEventWrite = async payload => {
-  console.log(payload);
-  return await subURL.post('/eventWrite', payload);
-};
-
 export const postFeed = async payload => {
   return await subURL.post('/feed', payload);
 };
