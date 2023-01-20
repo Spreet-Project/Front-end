@@ -10,6 +10,7 @@ interface IProps {
 }
 
 const MainVideo: React.FC<IProps> = ({ src }) => {
+  console.log(src);
   const [nowPlaying, setNowPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [showControl, setShowControl] = useState(false);
