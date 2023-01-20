@@ -44,9 +44,8 @@
   margin: 0;
   pointer-events: visible;
 }
-
 .spreet-row {
-  margin: auto;
+  margin: auto 160px;
   height: 650px;
   position: relative;
   border: 1px solid black;
@@ -63,10 +62,13 @@
   }
   .spreet-row__carousel {
     @include carouselEle;
+    width: 1440px;
     .spreet-row__list {
       @include carouselList;
+
       .spreet-item-wrapper {
         display: flex;
+
         .spreet-item__container {
           width: 1440px;
           height: 660px;
@@ -100,8 +102,6 @@
     // background-color: #373636;
     .slide-row {
       position: relative;
-      margin-top: 50px;
-      border: 1px solid black;
       box-sizing: border-box;
       .slide-row__carousel {
         @include carouselEle;
@@ -127,20 +127,14 @@
         .slide-item__list {
           @include carouselList;
           .slide-item__wrapper {
-            height: 600px;
+            height: 700px;
             display: flex;
             align-items: center;
             .slide-item__container {
               position: relative;
-              width: 300px;
-              height: 450px;
+              width: 400px;
+              height: 500px;
               margin-left: 50px;
-              iframe {
-                position: absolute;
-                border: none;
-                width: 300px;
-                border-radius: 10px;
-              }
               .slide-item__bg {
                 position: absolute;
                 width: 300px;
@@ -150,9 +144,9 @@
                 pointer-events: none;
               }
               .slide-item__shorts-title {
-                position: absolute;
                 color: white;
                 bottom: -80px;
+                // left: 30px;
                 pointer-events: none;
                 p {
                   font-size: 18px;
@@ -161,15 +155,6 @@
                   display: flex;
                   align-items: center;
                   .user-image {
-                    // width: 40px;
-                    // height: 40px;
-                    // margin-right: 10px;
-                    // border-radius: 100%;
-                    // img {
-                    //   width: 40px;
-                    //   height: 40px;
-                    //   border-radius: 100%;
-                    // }
                     @include user-image;
                   }
                 }

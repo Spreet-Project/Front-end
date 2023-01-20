@@ -1,7 +1,6 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
 
 import '../assets/styles/scss/video.scss';
-import Controlbar from './Controlbar';
 
 interface IProps {
   className?: string;

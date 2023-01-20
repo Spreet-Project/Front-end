@@ -13,7 +13,7 @@ export const postFeed = async payload => {
 export const getFeed = async payload => {
   //Feed 최신 게시물 조회
   try {
-    // console.log(payload, 'payload');
+    console.log(payload, 'payload');
     const { queryKey } = payload;
     // console.log(payload, 'payload');
     //shorts카테고리별 게시물조회조회

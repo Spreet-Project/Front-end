@@ -33,7 +33,13 @@ const Header = (): JSX.Element => {
             >
               쇼츠
             </button>
-            <button>행사</button>
+            <button
+              onClick={() => {
+                navigate('/event');
+              }}
+            >
+              행사
+            </button>
             {token ? (
               <button onClick={onLogout}>로그아웃</button>
             ) : (

@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router-dom';
 import { getFeed, getMainShorts } from '../core/api/shorts';
 import handleClickSlide from '../core/utils/handleClickSlide';
 import MainCarousel from '../components/MainCarousel';
-import sweetAlert from '../core/utils/sweetAlert';
 import FeedShortsModal from '../components/FeedShortsModal';
 import MainVideo from '../components/MainVideo';
 
@@ -152,7 +151,7 @@ const Main = (): JSX.Element => {
   //   navigate('/login');
   // }
   if (!res || resFeed.isLoading) return;
-  console.log(res, 'res');
+  // console.log(res, 'res');
   return (
     <>
       <div className="spreet-row">
@@ -181,9 +180,11 @@ const Main = (): JSX.Element => {
                     <>
                       {index === 0 ? (
                         <MainVideo
-                          width={'1440px'}
+                          width={'100%'}
                           height={'500px'}
-                          src={'video/Spreetintro.mp4'}
+                          src={
+                            process.env.PUBLIC_URL + '/video/Spreetintro.mp4'
+                          }
                         />
                       ) : (
                         <div
