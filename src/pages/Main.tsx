@@ -2,11 +2,12 @@ import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useQuery, useQueries } from 'react-query';
 import '../assets/styles/scss/main.scss';
 import { useNavigate } from 'react-router-dom';
-import { getFeed, getShorts } from '../core/api/shorts';
+import { getFeed, getMainShorts } from '../core/api/shorts';
 import handleClickSlide from '../core/utils/handleClickSlide';
 import MainCarousel from '../components/MainCarousel';
 import sweetAlert from '../core/utils/sweetAlert';
 import FeedShortsModal from '../components/FeedShortsModal';
+import MainVideo from '../components/MainVideo';
 
 const Main = (): JSX.Element => {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ const Main = (): JSX.Element => {
     categoryList.map(categroy => {
       return {
         queryKey: ['shortsList', { category: categroy.value, token: token }],
-        queryFn: getShorts,
+        queryFn: getMainShorts,
         // cacheTime: 5000,
         // staleTime: 5000,
         // refetchOnMount: true,
@@ -74,28 +75,28 @@ const Main = (): JSX.Element => {
       if (currTagerIndex === 0) {
         entry.target.style.opacity = 1;
         current.childNodes[currTagerIndex + 1].style.opacity = 0.9;
-        current.childNodes[currTagerIndex + 2].style.opacity = 0.7;
-        current.childNodes[currTagerIndex + 3].style.opacity = 0.5;
+        current.childNodes[currTagerIndex + 2].style.opacity = 0.6;
+        current.childNodes[currTagerIndex + 3].style.opacity = 0.3;
         return;
       }
 
       // console.log('current', currTagerIndex, 'isUpscroll', isUpScrollNum);
       if (currTagerIndex < isUpScrollNum.current) {
-        current.childNodes[currTagerIndex + 1].style.opacity = 0.6;
-        current.childNodes[currTagerIndex + 2].style.opacity = 1;
-        current.childNodes[currTagerIndex + 3].style.opacity = 0.6;
+        current.childNodes[currTagerIndex + 1].style.opacity = 0.5;
+        current.childNodes[currTagerIndex + 2].style.opacity = 0.9;
+        current.childNodes[currTagerIndex + 3].style.opacity = 0.5;
         // return;
       }
       // console.log('첫번째타켓인덱스', current.childNodes[firstEleNum]);
       // console.log(currTagerIndex, '현재 인덱스');
       current.childNodes[firstEleNum].style.opacity = 0.3;
-      current.childNodes[firstEleNum + 1].style.opacity = 0.5;
+      current.childNodes[firstEleNum + 1].style.opacity = 0.4;
       current.childNodes[firstEleNum + 2].style.opacity = 0.6;
       current.childNodes[firstEleNum + 3].style.opacity = 1;
       current.childNodes[firstEleNum + 4].style.opacity = 0.6;
 
       if (entry.target === lastTargetEle) {
-        current.childNodes[firstEleNum].style.opacity = 0.5;
+        current.childNodes[firstEleNum].style.opacity = 0.6;
         current.childNodes[lastIndex].style.opacity = 1;
         current.childNodes[lastIndex - 1].style.opacity = 0.8;
         current.childNodes[lastIndex - 2].style.opacity = 0.7;
@@ -134,16 +135,16 @@ const Main = (): JSX.Element => {
     spreetRef.current.style.transform = `translateX(${calculationValue}px)`;
   };
 
-  res.map(response => {
-    if (response.isSuccess && response.data.status === 200) {
-      return;
-    }
-    if (response.isSuccess && response.data.response.data.statusCode === 400) {
-      sweetAlert(1000, 'error', '죄송합니다.  다시 로그인 해주세요.');
-      localStorage.removeItem('id');
-      return navigate('/login');
-    }
-  });
+  // res.map(response => {
+  //   if (response.isSuccess && response.data.status === 200) {
+  //     return;
+  //   }
+  //   if (response.isSuccess && response.data.response.data.statusCode === 400) {
+  //     sweetAlert(1000, 'error', '죄송합니다.  다시 로그인 해주세요.');
+  //     localStorage.removeItem('id');
+  //     return navigate('/login');
+  //   }
+  // });
 
   // if (resFeed.response.status === 401) {
   //   sweetAlert(1000, 'error', '죄송합니다.  다시 로그인 해주세요.');
@@ -151,7 +152,7 @@ const Main = (): JSX.Element => {
   //   navigate('/login');
   // }
   if (!res || resFeed.isLoading) return;
-
+  console.log(res, 'res');
   return (
     <>
       <div className="spreet-row">
@@ -177,13 +178,23 @@ const Main = (): JSX.Element => {
               {post &&
                 post.map((item, index) => {
                   return (
-                    <div
-                      key={index}
-                      className="spreet-item__container"
-                      style={{ backgroundColor: item }}
-                    >
-                      {item}박스입니다.
-                    </div>
+                    <>
+                      {index === 0 ? (
+                        <MainVideo
+                          width={'1440px'}
+                          height={'500px'}
+                          src={'video/Spreetintro.mp4'}
+                        />
+                      ) : (
+                        <div
+                          key={index}
+                          className="spreet-item__container"
+                          style={{ backgroundColor: item }}
+                        >
+                          {item}박스입니다.
+                        </div>
+                      )}
+                    </>
                   );
                 })}
             </div>
@@ -228,7 +239,6 @@ const Main = (): JSX.Element => {
                       onClick={() => {
                         feedId.current = item.feedId;
                         setIsShowModal(true);
-                        console.log(feedId);
                       }}
                     >
                       {item.title}

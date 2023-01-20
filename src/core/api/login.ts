@@ -39,7 +39,7 @@ export const postEmailCheck = async post => {
 export const postEmailConfirm = async post => {
   try {
     console.log(post, 'axios email 인증번호 보내기 전');
-    const data = await instance.get('/user/confirm-email', post);
+    const data = await instance.post('/user/confirm-email', post);
     sweetAlert(1000, 'success', '인증번호 전송완료');
     return data;
   } catch (error) {

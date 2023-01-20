@@ -20,7 +20,7 @@ const handleClickSlide = (
   const slideDistance = listRef_NodeWidth * 1;
   //버튼으로 눌렀을때 변화하는 현재넓이제한값?
   let calculate_distance = 0;
-  console.log('슬라이드 전체넓이 값?', slideDistance);
+  // console.log('슬라이드 전체넓이 값?', slideDistance);
   if (direction === 'left') {
     calculate_distance =
       currentX + (slideDistance / dataList.length) * slideNum;
@@ -34,7 +34,7 @@ const handleClickSlide = (
     const calculationValue = (slideDistance / dataList.length) * slideNum;
     // console.log(calculationValue);
     calculate_distance = currentX - calculationValue;
-    console.log('현재calculate_distance', calculate_distance);
+    // console.log('현재calculate_distance', calculate_distance);
     if (-slideDistance > calculate_distance) {
       calculate_distance = 0;
     }
@@ -43,7 +43,7 @@ const handleClickSlide = (
     // }
   }
   sectorRef.current.style.transform = `translateX(${calculate_distance}px)`;
-  console.log(sectorRef.current.style.transform);
+  // console.log(sectorRef.current.style.transform);
 };
 
 export default handleClickSlide;

@@ -1,7 +1,5 @@
 @import './body.scss';
 @import './main.scss';
-@import './shorts.scss';
-
 .shorts-sidebar {
   position: absolute;
   left: 0;
@@ -23,13 +21,12 @@
     }
   }
 }
-.shorts-cotent {
-  background-color: wheat;
+.feed-shorts-cotent {
   width: 1440px;
   margin: auto;
   display: flex;
   position: relative;
-  .shorts-scroll {
+  .feed-shorts-scroll {
     position: absolute;
     left: 50%;
     top: 50px;
@@ -39,7 +36,7 @@
     border-radius: 10px;
     overflow: auto;
     scroll-snap-type: y mandatory;
-    .shorts-item__scroll {
+    .feed-shorts-item__scroll {
       text-align: center;
       position: relative;
       scroll-snap-align: start;
@@ -87,6 +84,14 @@
         }
       }
       .shorts-item__info {
+        position: absolute;
+        bottom: 50px;
+        left: 20px;
+        p {
+          text-align: start;
+          font-size: 20px;
+          margin-bottom: 10px;
+        }
       }
       .shorts-item__btn {
         cursor: pointer;

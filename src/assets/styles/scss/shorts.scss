@@ -2,7 +2,7 @@
 
 @mixin shorts-item__info {
   position: absolute;
-  bottom: 0px;
+  bottom: 50px;
   left: 10px;
   pointer-events: none;
   p {
@@ -57,8 +57,8 @@
     left: 50%;
     top: 50px;
     transform: translate(-40%, 0);
-    width: 600px;
-    height: 600px;
+    width: 500px;
+    height: 650px;
     border-radius: 10px;
     overflow: auto;
     scroll-snap-type: y mandatory;
@@ -66,8 +66,8 @@
       text-align: center;
       position: relative;
       scroll-snap-align: start;
-      width: 600px;
-      height: 600px;
+      width: 500px;
+      height: 650px;
       @include flexCenter;
       color: white;
       .shorts-item__info {
@@ -82,8 +82,8 @@
       .shorts-item__btn {
         cursor: pointer;
         position: absolute;
-        bottom: -10px;
-        right: 20px;
+        bottom: 50px;
+        right: 10px;
         @include flexCenter;
         flex-direction: column;
         .shorts-btn {

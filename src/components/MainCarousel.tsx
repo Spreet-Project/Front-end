@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import '../assets/styles/scss/shorts.scss';
 import { getShorts, postShortLike } from '../core/api/shorts';
 import handleClickSlide from '../core/utils/handleClickSlide';
+import Video from './Video';
 
 const MainCarousel = ({ data, category, color }): JSX.Element => {
   const rapRef = useRef<HTMLDivElement>(null); //하단 메인 슬라이드 ref;
@@ -46,16 +47,12 @@ const MainCarousel = ({ data, category, color }): JSX.Element => {
                 return (
                   <>
                     <div key={item.shortsId} className="slide-item__container">
-                      <div
-                        key={item.shortsId}
-                        className="slide-item__bg"
-                        // style={{ background: `${color}` }}
-                      ></div>
-                      <iframe
-                        width="350px"
-                        height="450px"
+                      <div key={item.shortsId} className="slide-item__bg"></div>
+                      <Video
+                        width={'300px'}
+                        height={'450px'}
                         src={item.videoUrl}
-                      ></iframe>
+                      />
                       <div className="slide-item__shorts-title">
                         <p>
                           {item.title.length > 10

@@ -77,8 +77,8 @@ const FeedShorts = () => {
           </ul>
         </div>
       </div>
-      <div className="shorts-cotent">
-        <div className="shorts-scroll">
+      <div className="feed-shorts-cotent">
+        <div className="feed-shorts-scroll">
           {data.data.data.map(feed => {
             return (
               <FeedsScroll

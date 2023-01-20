@@ -7,7 +7,7 @@
   width: 60px;
   height: 100px;
   font-size: 100px;
-  color: #000000;
+  color: white;
   position: absolute;
   display: flex;
   justify-content: center;
@@ -46,7 +46,7 @@
 
 .spreet-row {
   margin: auto;
-  height: 500px;
+  height: 650px;
   position: relative;
   border: 1px solid black;
   box-sizing: border-box;
@@ -68,7 +68,7 @@
         display: flex;
         .spreet-item__container {
           width: 1440px;
-          height: 500px;
+          height: 660px;
           border: 5px solid gray;
         }
       }
@@ -77,14 +77,14 @@
   .spreet-row__paiging {
     position: absolute;
     left: 50%;
-    bottom: 0;
+    bottom: 10vh;
     transform: translate(-50%, 0);
     .carousel-paging__btn {
       cursor: pointer;
       margin-left: 10px;
       background-color: black;
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
       border: none;
       border-radius: 100%;
       color: black;
@@ -174,11 +174,12 @@
       }
     }
     .feed-content {
+      cursor: pointer;
       margin-top: 100px;
       .feed-wrapper {
-        color: white;
+        color: #6163fe;
         text-align: center;
-        font-size: 32px;
+        font-size: 42px;
         overflow: auto;
         height: 400px;
         h1 {

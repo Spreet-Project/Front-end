@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import '../assets/styles/scss/feedShorts.scss';
 import sweetAlert from '../core/utils/sweetAlert';
 
@@ -23,7 +23,7 @@ const FeedsScroll = ({
   };
 
   return (
-    <div key={feed.feedId} className="shorts-item__scroll">
+    <div key={feed.feedId} className="feed-shorts-item__scroll">
       <div className="feed-image__row">
         <div className="feed-image__carousel">
           <div className="feed-image__list" ref={feedRef}>
@@ -59,13 +59,7 @@ const FeedsScroll = ({
 
       <div className="shorts-item__info">
         <p>{feed.title}</p>
-        <div className="user-profile">
-          <div className="user-image">
-            <img />
-          </div>
-          <p>{feed.nickname}</p>
-        </div>
-
+        <p>{feed.nickname}</p>
         <p>♥︎ {feed.feedLike}</p>
       </div>
 
