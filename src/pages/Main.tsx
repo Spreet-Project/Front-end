@@ -182,7 +182,9 @@ const Main = (): JSX.Element => {
                         <MainVideo
                           width={'100%'}
                           height={'500px'}
-                          src={process.env.PUBLIC_URL + 'video/Spreetintro.mp4'}
+                          src={
+                            process.env.PUBLIC_URL + '/video/Spreetintro.mp4'
+                          }
                         />
                       ) : (
                         <div

@@ -64,9 +64,9 @@ export default function Event() {
             // 인포윈도우로 장소에 대한 설명을 표시합니다
             const infowindow = new window.kakao.maps.InfoWindow({
               content: `<div class=event-modal>
-                <img src='${event.eventImageUrl}' class=event-modal__eventimage/>
+                <img src='${event.eventImageUrl}' class=event-modal__eventimage />
                 <div class=event-modal__inform>
-                  <p>행사이름:${event.title}</p> 
+                  <p>행사제목:${event.title}</p> 
                   <p>날짜:${event.date}</p>
                   <p>시간:${event.time}</p>
                   <div class=event-modal__userform >

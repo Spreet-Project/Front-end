@@ -52,18 +52,17 @@
   }
 }
 .shorts-cotent {
-  width: 1440px;
-  margin: auto;
   display: flex;
+  position: relative;
   .shorts-scroll {
     position: absolute;
-    left: 50%;
-    top: 25%;
-    transform: translate(-40%, 0);
+    left: 55%;
+    margin-top: 5%;
+    transform: translate(-50%, 0);
     width: 650px;
     height: 750px;
     border-radius: 10px;
-    overflow: auto;
+    // overflow: auto;
     scroll-snap-type: y mandatory;
     overflow-x: 'hidden';
     .shorts-item__scroll {

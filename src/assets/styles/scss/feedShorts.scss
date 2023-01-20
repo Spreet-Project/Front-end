@@ -22,18 +22,17 @@
   }
 }
 .feed-shorts-cotent {
-  width: 1440px;
-  margin: auto;
   display: flex;
+  position: relative;
   .feed-shorts-scroll {
     position: absolute;
     left: 50%;
-    top: 25%;
+    margin-top: 5%;
     transform: translate(-40%, 0);
     width: 650px;
     height: 750px;
     border-radius: 10px;
-    overflow: auto;
+    // overflow: auto;
     scroll-snap-type: y mandatory;
     overflow-x: hidden;
     .feed-shorts-item__scroll {
