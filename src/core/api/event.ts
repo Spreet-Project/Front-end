@@ -1,7 +1,6 @@
 import sweetAlert from '../utils/sweetAlert';
 import { instance, baseURL, subURL } from '../axios/axios';
 
-
 export const getEvent = async () => {
   //Feed 최신 게시물 조회
   try {
@@ -14,11 +13,20 @@ export const getEvent = async () => {
     }
     return error;
   }
+};
 
 export const postEventWrite = async payload => {
-  for (const value of payload.values()) {
-    console.log(value);
-  }
-  console.log(payload, '확인');
-  return await subURL.post('/event', payload);
+  console.log(payload);
+  const { title, content, location, date, time, file } = payload;
+  const evenData = new FormData();
+  evenData.append('title', title);
+  evenData.append('content', content);
+  evenData.append('location', location);
+  evenData.append('date', date);
+  evenData.append('time', time);
+  evenData.append('file', file);
+  // for (const value of evenData.values()) {
+  //   console.log(value);
+  // }
+  return await subURL.post('/event', evenData);
 };

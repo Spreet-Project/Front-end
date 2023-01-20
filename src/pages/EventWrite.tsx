@@ -16,27 +16,37 @@ const EventWrite = () => {
   const [location, setLocation] = useState();
   const [fileUrl, setFileUrl] = useState('');
 
-  useEffect(() => {
-    clearInput();
-  }, []);
+  // useEffect(() => {
+  // clearInput();
+  // }, []);
 
   const onEventWriteSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const eventWriteData = new FormData();
-    // 이미지 여러개 들어가야함 -> for문 필요
-    console.log(typeof date, typeof time, typeof eventImage);
-    eventWriteData.append('title', title);
-    eventWriteData.append('content', content);
-    eventWriteData.append('location', location);
-    eventWriteData.append('date', date);
-    eventWriteData.append('time', time);
-    eventWriteData.append('file', eventImage);
+    const newEnvet = {
+      title: title,
+      content: content,
+      location: location,
+      date: date,
+      time: time,
+      file: eventImage,
+    };
+
+    // const eventWriteData = new FormData();
+
+    // console.log(typeof date, typeof time, typeof eventImage);
+    // eventWriteData.append('title', title);
+    // eventWriteData.append('content', content);
+    // eventWriteData.append('location', location);
+    // eventWriteData.append('date', date);
+    // eventWriteData.append('time', time);
+    // eventWriteData.append('file', eventImage);
     // console.log(eventWriteData);
     // for (const value of eventWriteData.values()) {
     //   console.log(value);
     // }
-    postEventWrite(eventWriteData)
+    postEventWrite(newEnvet)
       .then(res => {
+        console.log(res, 'res');
         // navigate('/');
         sweetAlert(1000, 'success', '행사 게시글 작성 성공!');
       })
@@ -87,7 +97,7 @@ const EventWrite = () => {
   return (
     <div className="eventWrite-content">
       <img src={fileUrl} className="eventWrite-showFile-box" />
-      <form className="eventWrite-form-box">
+      <div className="eventWrite-form-box">
         <input
           type="text"
           name="title"
@@ -130,7 +140,7 @@ const EventWrite = () => {
             저장
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 };
