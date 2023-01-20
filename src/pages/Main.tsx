@@ -182,7 +182,7 @@ const Main = (): JSX.Element => {
                         <MainVideo
                           width={'100%'}
                           height={'500px'}
-                          src={'/public/videos/spreetintro.mp4'}
+                          src={'videos/spreetintro.mp4'}
                         />
                       ) : (
                         <div
