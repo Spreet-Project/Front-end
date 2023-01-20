@@ -16,7 +16,7 @@ const NaverLogin = () => {
   );
 
   useEffect(() => {
-    if (code) {
+    if (code && state) {
       getNaverLogin({
         code: code,
         state: state,
@@ -30,7 +30,7 @@ const NaverLogin = () => {
           console.log(error);
         });
     }
-  }, [code]);
+  }, [code, state]);
 
   return <div>네이버 로그인 진행중...!</div>;
 };
