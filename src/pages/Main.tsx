@@ -183,7 +183,7 @@ const Main = (): JSX.Element => {
                           width={'100%'}
                           height={'500px'}
                           src={
-                            'https://dev.d2hev55rb01409.amplifyapp.com/videos/spreetintro.mp4'
+                            process.env.PUBLIC_URL + '/videos/spreetintro.mp4'
                           }
                         />
                       ) : (
