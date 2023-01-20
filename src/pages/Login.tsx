@@ -72,7 +72,7 @@ const Login = () => {
             className="login-naver"
             onClick={() => {
               window.location.href =
-                'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=eF_JzIGRrOBli_bLicf5&redirect_uri=http://localhost:3000/api/user/naver/callback&state=hello';
+                'https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=eF_JzIGRrOBli_bLicf5&redirect_uri=https://dev.d2hev55rb01409.amplifyapp.com/api/user/naver/callback&state=hello';
             }}
           ></button>
           <button
