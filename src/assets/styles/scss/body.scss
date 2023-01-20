@@ -30,6 +30,7 @@ $font_size: 16px;
 }
 
 body {
+  position: relative;
   background-color: black;
   font: {
     color: $font_color;

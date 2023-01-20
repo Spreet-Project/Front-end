@@ -44,118 +44,122 @@
   margin: 0;
   pointer-events: visible;
 }
-.spreet-row {
-  margin: auto 160px;
-  height: 650px;
+.mainsector {
+  width: 1440px;
   position: relative;
-  border: 1px solid black;
-  box-sizing: border-box;
-  .spreet-row__button {
-    @include carouselBtn;
-    &.btn--right {
-      @include carouselRighttBtn;
+  margin: auto;
+  .spreet-row {
+    height: 650px;
+    position: relative;
+    border: 1px solid black;
+    box-sizing: border-box;
+    .spreet-row__button {
+      @include carouselBtn;
+      &.btn--right {
+        @include carouselRighttBtn;
+      }
+
+      &.btn--left {
+        @include carouselLeftBtn;
+      }
     }
+    .spreet-row__carousel {
+      @include carouselEle;
+      width: 1440px;
+      .spreet-row__list {
+        @include carouselList;
 
-    &.btn--left {
-      @include carouselLeftBtn;
-    }
-  }
-  .spreet-row__carousel {
-    @include carouselEle;
-    width: 1440px;
-    .spreet-row__list {
-      @include carouselList;
+        .spreet-item-wrapper {
+          display: flex;
 
-      .spreet-item-wrapper {
-        display: flex;
-
-        .spreet-item__container {
-          width: 1440px;
-          height: 660px;
-          border: 5px solid gray;
+          .spreet-item__container {
+            width: 1440px;
+            height: 660px;
+            border: 5px solid gray;
+          }
         }
       }
     }
-  }
-  .spreet-row__paiging {
-    position: absolute;
-    left: 50%;
-    bottom: 10vh;
-    transform: translate(-50%, 0);
-    .carousel-paging__btn {
-      cursor: pointer;
-      margin-left: 10px;
-      background-color: black;
-      width: 30px;
-      height: 30px;
-      border: none;
-      border-radius: 100%;
-      color: black;
+    .spreet-row__paiging {
+      position: absolute;
+      left: 50%;
+      bottom: 10vh;
+      transform: translate(-50%, 0);
+      .carousel-paging__btn {
+        cursor: pointer;
+        margin-left: 10px;
+        background-color: black;
+        width: 30px;
+        height: 30px;
+        border: none;
+        border-radius: 100%;
+        color: black;
+      }
     }
   }
-}
 
-.main-content {
-  @include contentSector;
-  background-color: #111;
-  .main-inner {
-    // background-color: #373636;
-    .slide-row {
-      position: relative;
-      box-sizing: border-box;
-      .slide-row__carousel {
-        @include carouselEle;
-        .slide-row__button {
-          @include carouselBtn();
-          &.btn--right {
-            color: gray;
-            @include carouselRighttBtn;
-          }
+  .main-content {
+    @include contentSector;
+    background-color: #111;
+    .main-inner {
+      // background-color: #373636;
+      .slide-row {
+        position: relative;
+        box-sizing: border-box;
+        .slide-row__carousel {
+          @include carouselEle;
+          .slide-row__button {
+            @include carouselBtn();
+            &.btn--right {
+              color: gray;
+              @include carouselRighttBtn;
+            }
 
-          &.btn--left {
-            color: gray;
-            @include carouselLeftBtn;
+            &.btn--left {
+              color: gray;
+              @include carouselLeftBtn;
+            }
           }
-        }
-        .slide-item__title {
-          position: absolute;
-          top: 5px;
-          left: 50px;
-          font-size: 32px;
-          color: white;
-        }
-        .slide-item__list {
-          @include carouselList;
-          .slide-item__wrapper {
-            height: 700px;
-            display: flex;
-            align-items: center;
-            .slide-item__container {
-              position: relative;
-              width: 400px;
-              height: 500px;
-              margin-left: 50px;
-              .slide-item__bg {
-                position: absolute;
-                width: 300px;
-                height: 450px;
-                z-index: 1;
-                opacity: 0.2;
-                pointer-events: none;
-              }
-              .slide-item__shorts-title {
-                color: white;
-                bottom: -80px;
-                // left: 30px;
-                pointer-events: none;
-                p {
-                  font-size: 18px;
+          .slide-item__title {
+            position: absolute;
+            top: 5px;
+            left: 50px;
+            font-size: 32px;
+            color: white;
+          }
+          .slide-item__list {
+            @include carouselList;
+            .slide-item__wrapper {
+              height: 700px;
+              display: flex;
+              align-items: center;
+              .slide-item__container {
+                position: relative;
+                width: 400px;
+                height: 500px;
+                margin-left: 50px;
+                .slide-item__bg {
+                  position: absolute;
+                  width: 300px;
+                  height: 450px;
+                  z-index: 1;
+                  opacity: 0.2;
+                  pointer-events: none;
                 }
-                .user-profile {
-                  display: flex;
-                  align-items: center;
-                  .user-image {
-                    @include user-image;
+                .slide-item__shorts-title {
+                  color: white;
+                  bottom: -80px;
+                  // left: 30px;
+                  pointer-events: none;
+                  p {
+                    font-size: 18px;
+                  }
+                  .user-profile {
+                    display: flex;
+                    align-items: center;
+                    .user-image {
+                      @include user-image;
+                    }
                   }
                 }
               }
@@ -163,18 +167,18 @@
           }
         }
       }
-    }
-    .feed-content {
-      cursor: pointer;
-      margin-top: 100px;
-      .feed-wrapper {
-        color: #6163fe;
-        text-align: center;
-        font-size: 42px;
-        overflow: auto;
-        height: 400px;
-        h1 {
-          opacity: 0.3;
+      .feed-content {
+        cursor: pointer;
+        margin-top: 100px;
+        .feed-wrapper {
+          color: #6163fe;
+          text-align: center;
+          font-size: 42px;
+          overflow: auto;
+          height: 400px;
+          h1 {
+            opacity: 0.3;
+          }
         }
       }
     }
