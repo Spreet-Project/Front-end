@@ -18,10 +18,14 @@ body {
       .header_logo {
         cursor: pointer;
         flex: 1;
-        width: 100px;
-        margin-left: 100px;
+        width: 50px;
+        height: 100px;
         font-size: 42px;
         font-weight: 800;
+        background-image: url('../../../../public/Spreet.svg');
+        background-repeat: no-repeat;
+        background-size: 200px;
+        margin-top: 20px;
         &:hover {
           color: red;
         }

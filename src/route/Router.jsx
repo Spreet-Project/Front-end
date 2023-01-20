@@ -15,6 +15,7 @@ import KakaoLogin from '../pages/KakaoLogin';
 import MyPage from '../pages/MyPage';
 import FeedShorts from '../pages/FeedShorts';
 import NaverLogin from '../pages/NaverLogin';
+import EventDetail from '../pages/EventDetail';
 
 const Router = () => {
   return (
@@ -32,6 +33,7 @@ const Router = () => {
         <Route path="/modifyFeed/:id" element={<ModifyFeed />} />
         <Route path="/kakaoMap" element={<KaKaoMap />} />
         <Route path="/eventWrite" element={<EventWrite />} />
+        <Route path="/eventDetail" element={<EventDetail />} />
         <Route path="/modify/:id" element={<ModifyShorts />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="*" element={<div>이거 404 페이지요</div>} />

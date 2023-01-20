@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { postKakaoLogin } from '../core/api/login';
 
 //설정한 리다이렉트 URL
-const REDIRECT_URL = 'http://localhost:3000/api/user/kakao/callback';
 
 export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=a2347db1ceee37de238b04db40b8bb4e&redirect_uri=http://localhost:3000/api/user/kakao/callback&response_type=code`;
 
@@ -28,7 +27,7 @@ const KakaoLogin = () => {
         });
     }
   }, [code]);
-  return <div>카카오 로그인 진행중....!!!!!!!!</div>;
+  return <div>카카오 로그인 진행중...!</div>;
 };
 
 export default KakaoLogin;

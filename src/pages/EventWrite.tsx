@@ -65,38 +65,41 @@ const EventWrite = () => {
   return (
     <div className="eventWrite-content">
       <img src={fileUrl} className="eventWrite-showFile-box" />
-      <div className="eventWrite-inform-box">
-        <p>제목</p>
+      <form className="eventWrite-form-box">
         <input
           type="text"
           name="title"
-          placeholder="제목을 입력해주세요"
+          placeholder="제목"
+          className="eventWrite-input"
           onChange={onChangeTitle}
         />
-        <p>상세 위치</p>
         <input
           type="text"
           name="location"
-          placeholder="위치를 입력해주세요"
+          placeholder="상세위치"
+          className="eventWrite-input"
           onChange={onChangeLocation}
         />
-        <p>이미지 파일</p>
         <input
           type="file"
           accept="image/jpg, image/png, image/jpeg, image/gif"
+          className="eventWrite-inputImg"
           onChange={onChangeImgFile}
         />
-        <p>내용</p>
         <textarea
           name="content"
-          placeholder="내용을 입력해주세요"
+          placeholder="내용"
+          className="eventWrite-textatea"
           onChange={onChangeContent}
         ></textarea>
-      </div>
-      <div className="evnetWrite-btn-box">
-        <button onClick={onEventWriteSubmit}>확인</button>
-        <button>이전으로</button>
-      </div>
+        <hr className="eventWrite-hr" />
+        <div>
+          <button className="eventWrite-btn" onClick={onEventWriteSubmit}>
+            저장
+          </button>
+          {/* <button>이전으로</button> */}
+        </div>
+      </form>
     </div>
   );
 };
