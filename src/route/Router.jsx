@@ -9,7 +9,7 @@ import Layout from './Layout';
 import React from 'react';
 import ModifyShorts from '../pages/ModifyShorts';
 import ModifyFeed from '../pages/ModfiyFeed';
-import KaKaoMap from '../pages/KaKaoMap';
+import Event from '../pages/Event';
 import EventWrite from '../pages/EventWrite';
 import KakaoLogin from '../pages/KakaoLogin';
 import MyPage from '../pages/MyPage';
@@ -31,7 +31,7 @@ const Router = () => {
         <Route path="/feeds" element={<FeedShorts />} />
         <Route path="/modifyShorts/:id" element={<ModifyShorts />} />
         <Route path="/modifyFeed/:id" element={<ModifyFeed />} />
-        <Route path="/kakaoMap" element={<KaKaoMap />} />
+        <Route path="/event" element={<Event />} />
         <Route path="/eventWrite" element={<EventWrite />} />
         <Route path="/eventDetail" element={<EventDetail />} />
         <Route path="/modify/:id" element={<ModifyShorts />} />

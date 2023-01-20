@@ -25,28 +25,29 @@
   width: 1440px;
   margin: auto;
   display: flex;
-  position: relative;
   .feed-shorts-scroll {
     position: absolute;
     left: 50%;
-    top: 50px;
+    top: 25%;
     transform: translate(-40%, 0);
-    width: 600px;
-    height: 600px;
+    width: 650px;
+    height: 750px;
     border-radius: 10px;
     overflow: auto;
     scroll-snap-type: y mandatory;
+    overflow-x: hidden;
     .feed-shorts-item__scroll {
       text-align: center;
       position: relative;
       scroll-snap-align: start;
-      width: 600px;
-      height: 600px;
+      width: 650px;
+      height: 750px;
       @include flexCenter;
+      overflow-x: hidden;
       color: white;
       .feed-image__row {
-        width: 600px;
-        height: 600px;
+        width: 650px;
+        height: 750px;
         margin-right: 50px;
         border: 3px solid black;
         box-sizing: border-box;
@@ -56,12 +57,12 @@
           .feed-image__list {
             @include carouselList;
             .feed-image__wrapper {
-              height: 600px;
+              height: 750px;
               display: flex;
               align-items: center;
               .feed-image__container {
-                width: 600px;
-                height: 600px;
+                width: 650px;
+                height: 750px;
               }
             }
           }
@@ -96,8 +97,8 @@
       .shorts-item__btn {
         cursor: pointer;
         position: absolute;
-        bottom: -10px;
-        right: 20px;
+        bottom: 30px;
+        right: 30px;
         @include flexCenter;
         flex-direction: column;
         .shorts-btn {

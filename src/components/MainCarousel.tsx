@@ -49,8 +49,8 @@ const MainCarousel = ({ data, category, color }): JSX.Element => {
                     <div key={item.shortsId} className="slide-item__container">
                       <div key={item.shortsId} className="slide-item__bg"></div>
                       <Video
-                        width={'300px'}
-                        height={'450px'}
+                        width={'400px'}
+                        height={'500px'}
                         src={item.videoUrl}
                       />
                       <div className="slide-item__shorts-title">
@@ -59,12 +59,12 @@ const MainCarousel = ({ data, category, color }): JSX.Element => {
                             ? item.title.slice(0, 30) + '...'
                             : item.title}
                         </p>
-                        <p className="user-profile">
+                        <div className="user-profile">
                           <div className="user-image">
                             <img src={item.profileImageUrl} />
                           </div>
                           {item.nickname}
-                        </p>
+                        </div>
                       </div>
                     </div>
                   </>

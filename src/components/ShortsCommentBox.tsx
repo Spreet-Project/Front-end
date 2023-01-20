@@ -63,9 +63,7 @@ const ShortsCommentBox = ({
               {comment.modifiedAt.slice(0, 10)}
             </span>
           </div>
-          <div className="modal-comment__user-comment">
-            댓글:{comment.content}
-          </div>
+          <div className="modal-comment__user-comment">{comment.content}</div>
           {comment.nickname === loginNickname && (
             <button
               className="modal-comment__btn btn-delete"
