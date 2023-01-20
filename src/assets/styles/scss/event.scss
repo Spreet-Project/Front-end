@@ -1,0 +1,23 @@
+@import './body.scss';
+
+.event-modal {
+  display: flex;
+  width: 350px;
+  height: 200px;
+  text-align: center;
+  padding: 6px 0;
+  .event-modal__eventimage {
+    width: 10px;
+    height: 100px;
+  }
+  .event-modal__inform {
+    .event-modal__userform {
+      display: flex;
+      .event-modal__profileimg {
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
+      }
+    }
+  }
+}

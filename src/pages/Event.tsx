@@ -1,5 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { useQuery, useQueries } from 'react-query';
+import { getEvent } from '../core/api/event';
+import '../assets/styles/scss/event.scss';
 
 declare global {
   interface Window {
@@ -19,6 +21,8 @@ export default function Event() {
     '경기 부천시 중동로248번길 31',
     '서울특별시 마포구 와우산로21길 31',
   ];
+
+  const { data, isLoading, isError } = useQuery(['getEvent'], getEvent);
   const mapScript = document.createElement('script');
 
   mapScript.async = true;
@@ -27,6 +31,8 @@ export default function Event() {
   document.head.appendChild(mapScript);
 
   const onLoadKakaoMap = () => {
+    if (isLoading) return;
+    const eventList = data.data.data;
     window.kakao.maps.load(() => {
       const mapContainer = document.getElementById('map');
       const mapOption = {
@@ -40,8 +46,8 @@ export default function Event() {
 
       const geocoder = new window.kakao.maps.services.Geocoder();
 
-      locationList.map(local => {
-        geocoder.addressSearch(local, function (result, status) {
+      data.data.data.map(event => {
+        geocoder.addressSearch(event.location, function (result, status) {
           // 정상적으로 검색이 완료됐으면
           if (status === window.kakao.maps.services.Status.OK) {
             const coords = new window.kakao.maps.LatLng(
@@ -57,8 +63,18 @@ export default function Event() {
 
             // 인포윈도우로 장소에 대한 설명을 표시합니다
             const infowindow = new window.kakao.maps.InfoWindow({
-              content:
-                '<div style="width:15px; height:15px; text-align:center;padding:6px 0;">Spreet</div>',
+              content: `<div class=event-modal>
+                <img src='${event.eventImageUrl}' class=event-modal__eventimage/>
+                <div class=event-modal__inform>
+                  <p>행사이름:${event.title}</p> 
+                  <p>날짜:${event.date}</p>
+                  <p>시간:${event.time}</p>
+                  <div class=event-modal__userform >
+                    <img src='${event.profileImageUrl}' class=event-modal__profileimg />
+                    <p>${event.nickname}</p>
+                  </div>
+                </div> 
+              </div>`,
             });
             infowindow.open(map, marker);
 
@@ -71,6 +87,7 @@ export default function Event() {
   };
 
   mapScript.addEventListener('load', onLoadKakaoMap);
-
+  if (isLoading) return;
+  console.log(data, 'event');
   return <div id="map" style={{ width: '100%', height: '500px' }}></div>;
 }

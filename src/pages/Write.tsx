@@ -134,7 +134,6 @@ const Write = (): JSX.Element => {
     shortsData.append('title', title);
     shortsData.append('content', content);
     shortsData.append('category', shortsCate);
-    console.log(shortsCate);
     postShorts(shortsData)
       .then(res => {
         sweetAlert(1000, 'success', '쇼츠 작성 성공!');

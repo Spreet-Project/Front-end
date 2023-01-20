@@ -6,7 +6,7 @@ const handleClickSlide = (
   sectorTransX: any,
 ): any => {
   if (!sectorRef) return;
-  const currentX = sectorRef.current.getBoundingClientRect().x - 160;
+  const currentX = sectorRef.current.getBoundingClientRect().x;
   const listRef_NodeWidth =
     sectorRef.current.childNodes[0].getBoundingClientRect().width;
   //슬라이드에 넣은 데이터 배열의 길이가 0보다 크다면
@@ -32,6 +32,8 @@ const handleClickSlide = (
   }
   if (direction === 'right') {
     const calculationValue = (slideDistance / dataList.length) * slideNum;
+    // const calculationValue: number =
+    // (listRef_NodeWidth / dataList.length) * slideNum;
     // console.log(slideDistance, 'slideDistance');
     // console.log(listRef_NodeWidth, 'listRef_NodeWidth');
     // console.log(calculationValue, 'calculationValue');
