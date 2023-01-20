@@ -83,17 +83,19 @@ export const postKakaoLogin = async code => {
   }
 };
 
-// export const getNaverLogin = async code => {
-//   try {
-//     console.log(code, 'axios code 확인');
-//     const data = await instance.get(`/user/naver/callback?code=${code.code}`);
-//     sweetAlert(1000, 'success', '네이버 로그인 완료');
-//     return data;
-//   } catch (error) {
-//     console.log(error);
-//     sweetAlert(1000, 'error', '네이버 로그인 실패');
-//   }
-// };
+export const getNaverLogin = async code => {
+  try {
+    console.log(code, 'axios code 확인');
+    const data = await instance.get(
+      `/user/naver/callback?code=${code.code}&state=${code.state}`,
+    );
+    sweetAlert(1000, 'success', '네이버 로그인 완료');
+    return data;
+  } catch (error) {
+    console.log(error);
+    sweetAlert(1000, 'error', '네이버 로그인 실패');
+  }
+};
 
 // export const postLogout = async (post) => {
 //   try {

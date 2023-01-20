@@ -22,23 +22,23 @@ const MyPage = () => {
       <div className="mypage-sidebar">
         <div className="mypage-category">
           <ul>
-            <li>회원 정보</li>
+            <li>회원정보 수정</li>
             <li>크루 정보</li>
             <li>관리자</li>
           </ul>
         </div>
       </div>
-      <form onSubmit={onsubmitMyPage}>
-        <div className="mypage-form">
-          <p>회원 정보 수정</p>
-          <input placeholder="아이디" />
-          <input />
-          <div>
-            <input />
-            <button>인증 요청</button>
-          </div>
-          <button>수정</button>
+      <form className="mypage-form" onSubmit={onsubmitMyPage}>
+        <p className="mypage-p">회원 정보 수정</p>
+        <input className="mypage-input" placeholder="아이디" />
+        <input className="mypage-input" placeholder="이메일" />
+        <div>
+          <input className="mypage-input-nickname" placeholder="닉네임" />
+          <button className="mypage-btn-confirm">인증 요청</button>
         </div>
+        <button className="mypage-btn-modify">수정</button>
+        <hr className="mypage-hr" />
+        <button className="mypage-btn-unregister">회원탈퇴</button>
       </form>
     </>
   );

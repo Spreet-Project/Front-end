@@ -22,7 +22,7 @@ const Header = (): JSX.Element => {
               navigate('/');
             }}
           >
-            Spreet
+            <img />
           </p>
           <div className="header_btn">
             <button>알림</button>

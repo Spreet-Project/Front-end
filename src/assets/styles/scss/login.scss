@@ -10,7 +10,7 @@
   padding: 50px;
   width: 586px;
   height: 485px;
-  background: #eaeafe;
+  background: #ececec;
   border-radius: 5px;
   margin: 100px auto;
 }
@@ -27,7 +27,7 @@
   width: 486px;
   height: 48px;
   background: #ffffff;
-  border: 1px solid rgba(97, 99, 254, 0.8);
+  border: 1px solid rgba(198, 198, 198, 1);
   border-radius: 5px;
   margin: 20px;
 }
@@ -35,32 +35,33 @@
 .login-btn {
   width: 486px;
   height: 48px;
-  background-color: #6163fe;
+  background-color: #d10536;
   border-radius: 5px;
   border: none;
   margin: 20px;
-  color: #dfe0ff;
+  color: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   font-size: 17px;
+  font-family: 'Noto Sans';
   cursor: pointer;
   &:hover {
-    color: black;
+    color: #333333;
   }
 }
 
 .login-signup-btn {
   width: 486px;
   height: 48px;
-  background-color: #6163fe;
+  background-color: #717171;
   border-radius: 5px;
   border: none;
-  color: #dfe0ff;
+  color: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   margin: 20px;
   font-size: 17px;
   cursor: pointer;
   &:hover {
-    color: black;
+    color: #333333;
   }
 }
 
@@ -69,23 +70,22 @@
 }
 
 .login-social-btn > button {
-  width: 235px;
+  width: 220px;
   height: 48px;
   border: none;
   border-radius: 5px;
-  margin: 10px;
+  margin: 10px 23px;
 }
 
 .login-p {
   width: 480px;
   font-size: 12px;
-  color: rgba(97, 99, 254, 0.8);
+  color: #9c9c9c;
   margin: 3px;
 }
 
 .login-hr {
   width: 486px;
-  border: 0.5px solid rgba(97, 99, 254, 0.8);
   margin: 10px;
 }
 .login-kakao {
@@ -95,7 +95,7 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   cursor: pointer;
   &:hover {
-    border: solid 2px #6163fe;
+    border: 1px solid #fee500;
   }
 }
 
@@ -106,6 +106,6 @@
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   cursor: pointer;
   &:hover {
-    border: solid 2px #6163fe;
+    border: 1px solid rgb(3, 199, 90);
   }
 }
