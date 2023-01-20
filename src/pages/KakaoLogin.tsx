@@ -4,7 +4,7 @@ import { postKakaoLogin } from '../core/api/login';
 
 //설정한 리다이렉트 URL
 
-export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=a2347db1ceee37de238b04db40b8bb4e&redirect_uri=http://localhost:3000/api/user/kakao/callback&response_type=code`;
+export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=a2347db1ceee37de238b04db40b8bb4e&redirect_uri=https://dev.d2hev55rb01409.amplifyapp.com/api/user/kakao/callback`;
 
 const KakaoLogin = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const KakaoLogin = () => {
         .then(res => {
           // console.log(res);
           localStorage.setItem('id', res.headers.authorization);
-          return navigate('/');
+          // return navigate('/');
         })
         .catch(error => {
           console.log(error);

@@ -79,7 +79,7 @@ const Login = () => {
             className="login-kakao"
             onClick={() => {
               window.location.href =
-                'https://kauth.kakao.com/oauth/authorize?client_id=a2347db1ceee37de238b04db40b8bb4e&redirect_uri=http://localhost:3000/api/user/kakao/callback&response_type=code';
+                'https://kauth.kakao.com/oauth/authorize?client_id=a2347db1ceee37de238b04db40b8bb4e&redirect_uri=https://dev.d2hev55rb01409.amplifyapp.com/api/user/kakao/callback';
             }}
           ></button>
         </div>
