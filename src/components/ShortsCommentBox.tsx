@@ -13,6 +13,7 @@ const ShortsCommentBox = ({
   onCheckCommentModify,
   loginNickname,
 }): JSX.Element => {
+  console.log(comment);
   return (
     <>
       {isCommentModify && comment.shortsCommentId === modifyCommentId ? (
@@ -55,7 +56,7 @@ const ShortsCommentBox = ({
         <div key={comment.shortsCommentId} className="modal-comment-wrapper">
           <div className="modal-comment__user-author">
             <div className="modal-comment__user-image">
-              <img />
+              <img src={comment.profileImageUrl} />
             </div>
             {comment.nickname} &nbsp;
             <span className="modal-comment__date">

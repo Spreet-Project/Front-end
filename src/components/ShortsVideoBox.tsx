@@ -2,7 +2,6 @@ import React from 'react';
 import Video from './Video';
 
 const ShortsVideoBox = ({ shorts, shortsId }): JSX.Element => {
-  console.log(shorts);
   return (
     <div className="modal-video">
       <div className="modal-userInform">
@@ -13,9 +12,12 @@ const ShortsVideoBox = ({ shorts, shortsId }): JSX.Element => {
           className="modal__video"
         />
         <div className="modal-userInform__title">
-          <p>제목: {shorts.title}</p>
-          <p> 내용:{shorts.content}</p>
-          <p className="modal-userInform__author">작성자:{shorts.nickname}</p>
+          <p>{shorts.title}</p>
+          <p>{shorts.content}</p>
+          <div className="modal-userInform__author">
+            <img src={shorts.profileImageUrl} />
+            {shorts.nickname}
+          </div>
         </div>
       </div>
     </div>

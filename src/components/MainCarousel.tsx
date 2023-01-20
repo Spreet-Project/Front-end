@@ -61,7 +61,7 @@ const MainCarousel = ({ data, category, color }): JSX.Element => {
                         </p>
                         <p className="user-profile">
                           <div className="user-image">
-                            <img />
+                            <img src={item.profileImageUrl} />
                           </div>
                           {item.nickname}
                         </p>

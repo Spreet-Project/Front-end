@@ -1,4 +1,5 @@
 @import './body.scss';
+@import './shorts.scss';
 
 @mixin modal-comment__user-author {
   display: flex;
@@ -6,11 +7,18 @@
 }
 
 @mixin modal-comment__user-image {
-  width: 30px;
-  height: 30px;
-  border: 1px solid black;
+  width: 45px;
+  height: 45px;
   border-radius: 100%;
   margin-right: 5px;
+  object-fit: cover;
+}
+
+@mixin user-image {
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+  overflow: cover;
 }
 
 .modal-content {
@@ -33,10 +41,18 @@
       // bottom: 20px;
       // left: 20px;
       color: white;
-      font-size: 12px;
       .modal-userInform__title {
         position: absolute;
         bottom: 50px;
+        .modal-userInform__author {
+          display: flex;
+          align-items: center;
+          font-size: 18px;
+          margin-left: 10px;
+          img {
+            @include user-image;
+          }
+        }
       }
     }
   }
@@ -62,6 +78,9 @@
           @include modal-comment__user-author;
           .modal-comment__user-image {
             @include modal-comment__user-image;
+            img {
+              @include user-image;
+            }
           }
           .modal-comment__date {
             font-size: 12px;

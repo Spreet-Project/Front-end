@@ -15,7 +15,7 @@ const ShortsScroll = ({
         <p>{shorts.title}</p>
         <div className="user-profile">
           <div className="user-image">
-            <img />
+            <img src={shorts.profileImageUrl} />
           </div>
           <p>{shorts.nickname}</p>
         </div>

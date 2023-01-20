@@ -18,12 +18,16 @@
 }
 
 @mixin user-image {
-  width: 35px;
-  height: 35px;
-  border: 1px solid;
+  width: 40px;
+  height: 40px;
   border-radius: 100%;
   margin-right: 5px;
   margin-left: 10px;
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+  }
 }
 
 .shorts-sidebar {
