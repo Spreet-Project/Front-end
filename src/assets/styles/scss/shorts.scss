@@ -1,4 +1,35 @@
 @import './body.scss';
+
+@mixin shorts-item__info {
+  position: absolute;
+  bottom: 50px;
+  left: 10px;
+  pointer-events: none;
+  p {
+    text-align: start;
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+}
+
+@mixin user-profile {
+  display: flex;
+  align-items: center;
+}
+
+@mixin user-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  margin-right: 5px;
+  margin-left: 10px;
+  img {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+  }
+}
+
 .shorts-sidebar {
   position: absolute;
   left: 0;
@@ -21,7 +52,6 @@
   }
 }
 .shorts-cotent {
-  background-color: wheat;
   width: 1440px;
   margin: auto;
   display: flex;
@@ -31,8 +61,8 @@
     left: 50%;
     top: 50px;
     transform: translate(-40%, 0);
-    width: 600px;
-    height: 600px;
+    width: 500px;
+    height: 650px;
     border-radius: 10px;
     overflow: auto;
     scroll-snap-type: y mandatory;
@@ -40,27 +70,24 @@
       text-align: center;
       position: relative;
       scroll-snap-align: start;
-      width: 600px;
-      height: 600px;
+      width: 500px;
+      height: 650px;
       @include flexCenter;
       color: white;
-      .shorts-iframe {
-      }
       .shorts-item__info {
-        position: absolute;
-        bottom: 50px;
-        left: 20px;
-        p {
-          text-align: start;
-          font-size: 20px;
-          margin-bottom: 10px;
+        @include shorts-item__info;
+        .user-profile {
+          @include user-profile;
+          .user-image {
+            @include user-image;
+          }
         }
       }
       .shorts-item__btn {
         cursor: pointer;
         position: absolute;
-        bottom: -10px;
-        right: 20px;
+        bottom: 50px;
+        right: 10px;
         @include flexCenter;
         flex-direction: column;
         .shorts-btn {

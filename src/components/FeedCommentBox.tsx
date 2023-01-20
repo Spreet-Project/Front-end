@@ -18,8 +18,10 @@ const FeedCommentBox = ({
       {isCommentModify && comment.commentId === modifyCommentId ? (
         <div key={comment.commentId} className="modal-comment-wrapper">
           <div className="modal-comment__user-author">
-            {comment.commentId}
-            작성자:{comment.nickname} &nbsp;
+            <div className="modal-comment__user-image">
+              <img />
+            </div>
+            {comment.nickname} &nbsp;
             <span className="modal-comment__date">
               {comment.modifiedAt.slice(0, 10)}
             </span>
@@ -52,13 +54,17 @@ const FeedCommentBox = ({
       ) : (
         <div key={comment.commentId} className="modal-comment-wrapper">
           <div className="modal-comment__user-author">
-            {comment.commentId}
-            작성자:{comment.nickname} &nbsp;
+            <div className="modal-comment__user-image">
+              <img />
+            </div>
+            {comment.nickname} &nbsp;
             <span className="modal-comment__date">
               {comment.modifiedAt.slice(0, 10)}
             </span>
           </div>
-          <div className="modal-comment__user-comment">{comment.content}</div>
+          <div className="modal-comment__user-comment">
+            댓글:{comment.content}
+          </div>
 
           {comment.nickname === loginNickname && (
             <button

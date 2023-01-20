@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import '../assets/styles/scss/shorts.scss';
+import '../assets/styles/scss/feedShorts.scss';
 import FeedsScroll from '../components/FeedsScroll';
 import { useQueryClient, useMutation, useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
@@ -77,8 +77,8 @@ const FeedShorts = () => {
           </ul>
         </div>
       </div>
-      <div className="shorts-cotent">
-        <div className="shorts-scroll">
+      <div className="feed-shorts-cotent">
+        <div className="feed-shorts-scroll">
           {data.data.data.map(feed => {
             return (
               <FeedsScroll

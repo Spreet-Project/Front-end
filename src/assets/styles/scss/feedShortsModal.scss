@@ -1,5 +1,7 @@
 @import './body.scss';
 @import './main.scss';
+@import './shortsModal.scss';
+
 .modal-content {
   position: fixed;
   width: 100%;
@@ -79,14 +81,20 @@
         margin: 30px;
         overflow: auto;
         .modify-input {
+          margin-top: 10px;
           width: 300px;
           height: 25px;
         }
         .modal-comment__user-author {
+          @include modal-comment__user-author;
+
           .modal-comment__date {
             font-size: 12px;
             color: gray;
           }
+        }
+        .modal-comment__user-comment {
+          margin-top: 10px;
         }
         .modal-comment__btn {
           @include btn;

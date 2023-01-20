@@ -1,4 +1,25 @@
 @import './body.scss';
+@import './shorts.scss';
+
+@mixin modal-comment__user-author {
+  display: flex;
+  align-items: center;
+}
+
+@mixin modal-comment__user-image {
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+  margin-right: 5px;
+  object-fit: cover;
+}
+
+@mixin user-image {
+  width: 45px;
+  height: 45px;
+  border-radius: 100%;
+  overflow: cover;
+}
 
 .modal-content {
   position: fixed;
@@ -17,15 +38,21 @@
     border-radius: 30px;
     background-color: gray;
     .modal-userInform {
-      position: absolute;
-      bottom: 20px;
-      left: 20px;
+      // bottom: 20px;
+      // left: 20px;
       color: white;
-      font-size: 20px;
       .modal-userInform__title {
-        margin-bottom: 20px;
-      }
-      .modal-userInform__author {
+        position: absolute;
+        bottom: 50px;
+        .modal-userInform__author {
+          display: flex;
+          align-items: center;
+          font-size: 18px;
+          margin-left: 10px;
+          img {
+            @include user-image;
+          }
+        }
       }
     }
   }
@@ -48,6 +75,13 @@
           height: 25px;
         }
         .modal-comment__user-author {
+          @include modal-comment__user-author;
+          .modal-comment__user-image {
+            @include modal-comment__user-image;
+            img {
+              @include user-image;
+            }
+          }
           .modal-comment__date {
             font-size: 12px;
             color: gray;

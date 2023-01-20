@@ -21,13 +21,12 @@
     }
   }
 }
-.shorts-cotent {
-  background-color: wheat;
+.feed-shorts-cotent {
   width: 1440px;
   margin: auto;
   display: flex;
   position: relative;
-  .shorts-scroll {
+  .feed-shorts-scroll {
     position: absolute;
     left: 50%;
     top: 50px;
@@ -37,7 +36,7 @@
     border-radius: 10px;
     overflow: auto;
     scroll-snap-type: y mandatory;
-    .shorts-item__scroll {
+    .feed-shorts-item__scroll {
       text-align: center;
       position: relative;
       scroll-snap-align: start;

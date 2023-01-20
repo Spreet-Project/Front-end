@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../assets/styles/scss/shorts.scss';
+import Video from './Video';
 
 const ShortsScroll = ({
   shorts,
@@ -9,15 +10,15 @@ const ShortsScroll = ({
 }): JSX.Element => {
   return (
     <div key={shorts.shortsId} className="shorts-item__scroll">
-      <iframe
-        width="600px"
-        height="600px"
-        src={shorts.videoUrl}
-        className="shorts-iframe"
-      ></iframe>
+      <Video width="100%" height="600px" src={shorts.videoUrl} />
       <div className="shorts-item__info">
         <p>{shorts.title}</p>
-        <p>{shorts.nickname}</p>
+        <div className="user-profile">
+          <div className="user-image">
+            <img src={shorts.profileImageUrl} />
+          </div>
+          <p>{shorts.nickname}</p>
+        </div>
         <p>♥︎ {shorts.likeCount}</p>
       </div>
 

@@ -1,17 +1,24 @@
 import React from 'react';
+import Video from './Video';
 
 const ShortsVideoBox = ({ shorts, shortsId }): JSX.Element => {
-  console.log(shorts);
   return (
     <div className="modal-video">
       <div className="modal-userInform">
-        <iframe width="450px" height="350px" src={shorts.videoUrl}></iframe>
+        <Video
+          width="100%"
+          height="600px"
+          src={shorts.videoUrl}
+          className="modal__video"
+        />
         <div className="modal-userInform__title">
-          <p>글번호: {shortsId}</p>
-          <p>글제목: {shorts.title}</p>
-          <p> 내용:{shorts.content}</p>
+          <p>{shorts.title}</p>
+          <p>{shorts.content}</p>
+          <div className="modal-userInform__author">
+            <img src={shorts.profileImageUrl} />
+            {shorts.nickname}
+          </div>
         </div>
-        <p className="modal-userInform__author">작성자:{shorts.nickname}</p>
       </div>
     </div>
   );

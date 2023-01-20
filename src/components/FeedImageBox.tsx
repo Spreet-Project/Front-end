@@ -49,11 +49,13 @@ const FeedImageBox = ({ feed, feedId }): JSX.Element => {
       </div>
       <div className="modal-userInform">
         <div className="modal-userInform__title">
-          <p>글번호: {feedId}</p>
           <p>글제목: {feed.title}</p>
           <p> 내용:{feed.content}</p>
+          <div className="modal-userInform__author">
+            <img src={feed.profileImageUrl} />
+            {feed.nickname}
+          </div>
         </div>
-        <p className="modal-userInform__author">작성자:{feed.nickname}</p>
       </div>
     </div>
   );
