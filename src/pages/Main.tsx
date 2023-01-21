@@ -183,7 +183,9 @@ const Main = (): JSX.Element => {
                           width={'100%'}
                           height={'500px'}
                           src={
-                            process.env.PUBLIC_URL + '/videos/spreetintro.mp4'
+                            // process.env.PUBLIC_URL + '/videos/spreetintro.mp4'
+                            process.env.REACT_APP_PUBLIC_URL +
+                            '/videos/spreetintro.mp4'
                           }
                         />
                       ) : (
