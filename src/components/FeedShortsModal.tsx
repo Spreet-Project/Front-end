@@ -77,9 +77,10 @@ const FeedShortsModal = ({ setIsShowModal, feedId }): JSX.Element => {
   );
 
   //여기서 useMutaion객체는 변이함수를 반환하게 된다?
-  // if (deleteShortsMutation.isSuccess) {
-  //   sweetAlert(1000, 'success', '해당 게시글이 삭제되었습니다.');
-  // }
+  if (deleteFeedMutation.isSuccess) {
+    sweetAlert(1000, 'success', '해당 게시글이 삭제되었습니다.');
+    navigate('/feeds');
+  }
 
   if (isLoading || !data) return;
   console.log(data);

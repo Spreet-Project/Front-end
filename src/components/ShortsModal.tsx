@@ -64,7 +64,7 @@ const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
     },
   );
   const deleteShortsMutation = useMutation(shortsId => deleteShorts(shortsId), {
-    // onSettled: () => queryClient.invalidateQueries(['shortsDetail', shortsId]),
+    onSettled: () => queryClient.invalidateQueries(['shortsDetail', shortsId]),
   });
 
   const deleteCommentMutation = useMutation(shortsId =>
@@ -83,6 +83,7 @@ const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
   //여기서 useMutaion객체는 변이함수를 반환하게 된다?
   if (deleteShortsMutation.isSuccess) {
     sweetAlert(1000, 'success', '해당 게시글이 삭제되었습니다.');
+    navigate('/shorts');
   }
 
   // if (modifyCommentMutation.isSuccess) {

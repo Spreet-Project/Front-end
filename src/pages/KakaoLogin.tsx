@@ -18,7 +18,6 @@ const KakaoLogin = () => {
         code: code,
       })
         .then(res => {
-          console.log(res, 'res');
           localStorage.setItem('nickname', res.data.data.nickname);
           localStorage.setItem('id', res.headers.authorization);
           return navigate('/');

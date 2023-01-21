@@ -52,11 +52,11 @@ const ModifyShorts = (): JSX.Element => {
     setShortsCate(e.target.value);
   };
 
-  const updateMutation = useMutation(() => {
+  const updateMutation = useMutation((): any => {
     if (!file) {
-      sweetAlert(1000, 'error', '영상파일을 추가해주세요.');
-      return;
+      return sweetAlert(1000, 'error', '영상파일을 추가해주세요.');
     }
+    console.log(file);
     const newShorts: Shorts = {
       id: shortsId,
       title: title,
