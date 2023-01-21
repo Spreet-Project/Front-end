@@ -65,12 +65,12 @@ const ModifyShorts = (): JSX.Element => {
       file: file,
     };
 
-    console.log(newShorts);
     return updateShorts(newShorts);
   });
 
   if (updateMutation.isSuccess) {
     sweetAlert(1000, 'success', '해당 게시글이 수정되었습니다.');
+    navigate('/');
   }
 
   return (

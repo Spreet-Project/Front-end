@@ -25,7 +25,7 @@ const Login = () => {
     }).then(res => {
       localStorage.setItem('nickname', res.data.data.nickname);
       localStorage.setItem('id', res.headers.authorization);
-      // navigate('/');
+      navigate('/');
     });
   };
 

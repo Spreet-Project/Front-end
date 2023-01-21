@@ -137,7 +137,7 @@ const Write = (): JSX.Element => {
     postShorts(shortsData)
       .then(res => {
         sweetAlert(1000, 'success', '쇼츠 작성 성공!');
-        // navigate('/');
+        navigate('/');
       })
       .catch(error => {
         if (error.response.data.statusCode === 401) {
@@ -150,13 +150,13 @@ const Write = (): JSX.Element => {
 
   const onFeedSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (title.length === 0) {
-      sweetAlert(1000, 'error', '제목을 확인해주세요(공백제거)');
+      return sweetAlert(1000, 'error', '제목을 확인해주세요(공백제거)');
     }
     if (postImages.length === 0) {
-      sweetAlert(1000, 'error', '이미지를 추가해주세요');
+      return sweetAlert(1000, 'error', '이미지를 추가해주세요');
     }
     if (content.length === 0) {
-      sweetAlert(1000, 'error', '내용을 입력해주세요');
+      return sweetAlert(1000, 'error', '내용을 입력해주세요');
     }
     const feedData: any = new FormData();
     for (const feed of Array.from(postImages)) {
@@ -167,11 +167,11 @@ const Write = (): JSX.Element => {
     postFeed(feedData)
       .then(res => {
         sweetAlert(1000, 'success', '피드 작성 성공!');
+        navigate('/');
       })
       .catch(error => {
         sweetAlert(1000, 'error', '피드 작성 실패');
       });
-    // navigate('/');
   };
 
   return (

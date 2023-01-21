@@ -113,17 +113,17 @@ const ModifyFeed = (): JSX.Element => {
     console.log(postImages);
     // console.log(dettailImages);
     if (title.length === 0) {
-      sweetAlert(1000, 'error', '제목을 확인해주세요(공백제거)');
+      return sweetAlert(1000, 'error', '제목을 확인해주세요(공백제거)');
     }
     if (postImages.length === 0) {
-      sweetAlert(1000, 'error', '이미지를 추가해주세요');
+      return sweetAlert(1000, 'error', '이미지를 추가해주세요');
     }
     if (content.length === 0) {
-      sweetAlert(1000, 'error', '내용을 입력해주세요');
+      return sweetAlert(1000, 'error', '내용을 입력해주세요');
     }
     const feedData: any = new FormData();
     for (const feed of Array.from(postImages)) {
-      console.log(feed);
+      // console.log(feed);
       feedData.append('file', feed);
     }
     feedData.append('title', title);
@@ -131,8 +131,8 @@ const ModifyFeed = (): JSX.Element => {
     updateFeed(feedData, feedId).then(res => {
       console.log(res);
       sweetAlert(1000, 'success', '피드 수정 성공!');
+      navigate('/');
     });
-    // navigate('/');
   };
 
   if (!data) return;
