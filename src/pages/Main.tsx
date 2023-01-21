@@ -151,7 +151,7 @@ const Main = (): JSX.Element => {
   //   navigate('/login');
   // }
   if (!res || resFeed.isLoading) return;
-  console.log(res, 'res');
+  // console.log(res, 'res');
   return (
     <div className="mainsector">
       <div className="spreet-row">

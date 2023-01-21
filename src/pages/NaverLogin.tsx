@@ -23,8 +23,9 @@ const NaverLogin = () => {
       })
         .then(res => {
           console.log(res, 'res');
+          localStorage.setItem('nickname', res.data.data.nickname);
           localStorage.setItem('id', res.headers.authorization);
-          // return navigate('/');
+          return navigate('/');
         })
         .catch(error => {
           console.log(error);
