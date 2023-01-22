@@ -43,6 +43,14 @@ const ModifyShorts = (): JSX.Element => {
   const onChangeVideoFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFileUrl('');
     const videoFile = e.target.files[0];
+    const maxSize = 10 * 1024 * 1024;
+    if (videoFile.size > maxSize) {
+      return sweetAlert(
+        1000,
+        'error',
+        '영상사이즈는 10MB 이내로 등록 가능합니다.',
+      );
+    }
     const videoUrl = URL.createObjectURL(videoFile);
     setFile(e.target.files[0]);
     setFileUrl(videoUrl);
@@ -52,9 +60,15 @@ const ModifyShorts = (): JSX.Element => {
     setShortsCate(e.target.value);
   };
 
-  const updateMutation = useMutation((): any => {
+  const onShortsSubmit = () => {
+    if (title.length === 0) {
+      return sweetAlert(1000, 'error', '제목을 확인해주세요(공백제거)');
+    }
     if (!file) {
       return sweetAlert(1000, 'error', '영상파일을 추가해주세요.');
+    }
+    if (content.length === 0) {
+      return sweetAlert(1000, 'error', '내용을 입력해주세요');
     }
     console.log(file);
     const newShorts: Shorts = {
@@ -65,13 +79,11 @@ const ModifyShorts = (): JSX.Element => {
       file: file,
     };
 
-    return updateShorts(newShorts);
-  });
-
-  if (updateMutation.isSuccess) {
-    sweetAlert(1000, 'success', '해당 게시글이 수정되었습니다.');
-    navigate('/');
-  }
+    updateShorts(newShorts).then(res => {
+      sweetAlert(1000, 'success', '피드 수정 성공!');
+      navigate('/');
+    });
+  };
 
   return (
     <div className="write-content">
@@ -109,12 +121,7 @@ const ModifyShorts = (): JSX.Element => {
         ></textarea>
       </div>
       <div className="write-btn-box">
-        <button
-          className="write-btn__submit"
-          onClick={() => {
-            updateMutation.mutate();
-          }}
-        >
+        <button className="write-btn__submit" onClick={onShortsSubmit}>
           확인
         </button>
         <button className="write-btn__goback">이전으로</button>

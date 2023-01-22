@@ -31,3 +31,19 @@
     }
   }
 }
+
+.event-sector {
+  width: 1440px;
+  margin: auto;
+  border: 1px solid white;
+  .event-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    .event-item {
+      width: 400px;
+      margin: 30px auto;
+      height: 400px;
+      border: 1px solid red;
+    }
+  }
+}

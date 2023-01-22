@@ -97,6 +97,7 @@ const FeedsScroll = ({
         >
           Detail
         </p>
+        {/* <button>SubsCribe</button> */}
       </div>
     </div>
   );

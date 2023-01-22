@@ -27,7 +27,7 @@ export const updateShorts = async payload => {
 
 export const getMainShorts = async payload => {
   try {
-    console.log(payload, 'payload');
+    // console.log(payload, 'payload');
     const { queryKey } = payload;
     const { category } = queryKey[1];
     //shorts카테고리별 게시물조회조회
@@ -44,7 +44,7 @@ export const getShorts = async payload => {
   try {
     const { queryKey } = payload;
     const { category, token } = queryKey[1];
-    // console.log(payload, 'payload');
+    console.log(payload, 'payload');
     //shorts카테고리별 게시물조회조회
     if (token) {
       return await baseURL.get(`/shorts?category=${category}&page=1&size=10`);

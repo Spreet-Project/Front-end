@@ -34,7 +34,6 @@ const Router = () => {
         <Route path="/event" element={<Event />} />
         <Route path="/eventWrite" element={<EventWrite />} />
         <Route path="/eventDetail" element={<EventDetail />} />
-        <Route path="/modify/:id" element={<ModifyShorts />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="*" element={<div>이거 404 페이지요</div>} />
       </Routes>
