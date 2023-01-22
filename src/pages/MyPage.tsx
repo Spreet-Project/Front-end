@@ -10,11 +10,10 @@ const MyPage = () => {
   const [logIn, setLogIn] = useState(false);
   const [password, setPassword] = useState(false);
 
-  // const { isLoading, isError, data, error, isFetching } = useQuery(
-  //   [], // 쿼리 키
-  // );
   // useEffect(() => {
-  //   setProfile(data.data.data)
+  //   setProfile(data.data.data);
+  //   setUserId(data.data.data);
+  //   setuser
   // }, []);
   const onsubmitMyPage = e => {
     e.preventDefault();
@@ -48,6 +47,7 @@ const MyPage = () => {
           <input
             type="file"
             // value={profile}
+            accept="image/jpg, image/png, image/jpeg, image/gif"
             onChange={onProfileChange}
             className="mypage-profile__userimg-input"
           ></input>
