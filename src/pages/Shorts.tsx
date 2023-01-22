@@ -59,7 +59,7 @@ const Shorts = () => {
   const [isShowModal, setIsShowModal] = useState(false);
 
   if (isLoading || isFetching || !data) return;
-  // console.log(data);
+  console.log(data);
   if (data.response && data.response.request.status === 401) {
     localStorage.removeItem('id');
   }

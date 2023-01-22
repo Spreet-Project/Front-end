@@ -13,7 +13,9 @@ const ShortsVideoBox = ({ shorts, shortsId }): JSX.Element => {
         />
         <div className="modal-userInform__title">
           <p>{shorts.title}</p>
-          <p>{shorts.content}</p>
+          <p>
+            <div className="modal-userInform__comment">{shorts.content}</div>
+          </p>
           <div className="modal-userInform__author">
             <img src={shorts.profileImageUrl} />
             {shorts.nickname}
