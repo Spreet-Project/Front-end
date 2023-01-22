@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import { instance, baseURL, subURL } from '../axios/axios';
 import sweetAlert from '../utils/sweetAlert';
 

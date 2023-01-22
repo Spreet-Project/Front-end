@@ -111,6 +111,17 @@
           margin-top: 3px;
           margin-bottom: 10px;
         }
+        .subscribe-button {
+          @include btn;
+          width: 100px;
+          height: 30px;
+          border-radius: 15px;
+          margin-right: 20px;
+          background-color: gray;
+          &:hover {
+            color: red;
+          }
+        }
       }
     }
   }

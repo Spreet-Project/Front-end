@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import '../assets/styles/scss/feedShorts.scss';
 import sweetAlert from '../core/utils/sweetAlert';
+import { postSubscribe } from '../core/api/subscribe';
 
 const FeedsScroll = ({
   feed,
@@ -21,6 +22,10 @@ const FeedsScroll = ({
       -(feedRef_NodeWidth / feed.imageUrlList.length) * index;
     feedRef.current.style.transform = `translateX(${calculationValue}px)`;
   };
+
+  // const onSubscirbe = () => {
+  //   postSubscribe();
+  // };
 
   return (
     <div key={feed.feedId} className="feed-shorts-item__scroll">
@@ -97,7 +102,7 @@ const FeedsScroll = ({
         >
           Detail
         </p>
-        {/* <button>SubsCribe</button> */}
+        <button className="subscribe-button">SubsCribe</button>
       </div>
     </div>
   );
