@@ -28,11 +28,37 @@
   flex-direction: column;
   position: relative;
   width: 586px;
-  height: 516px;
+  height: 800px;
   background: #ececec;
   padding: 50px;
   border-radius: 5px;
   margin: 100px auto;
+  .mypage-profile {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px auto;
+    width: 150px;
+    height: 150px;
+    border: 10px dotted black;
+    border-radius: 100%;
+    .mypage-profile__icons {
+      position: absolute;
+      font-size: 60px;
+    }
+    .mypage-profile__userimg {
+      width: 150px;
+      height: 150px;
+      border-radius: 100%;
+    }
+    .mypage-profile__userimg-input {
+      opacity: 0;
+      position: absolute;
+      width: 150px;
+      height: 150px;
+    }
+  }
 }
 
 .mypage-p {

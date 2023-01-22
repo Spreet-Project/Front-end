@@ -1,20 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../assets/styles/scss/myPage.scss';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useQueryClient } from 'react-query';
 
 const MyPage = () => {
   const navigate = useNavigate();
+  const [profile, setProfile] = useState(null);
   const queryClient = useQueryClient();
   const [logIn, setLogIn] = useState(false);
   const [password, setPassword] = useState(false);
 
-  // const { isLoading, isError, data, error, isFetching } = useQuery(
-  //   [], // 쿼리 키
-  // );
-
+  // useEffect(() => {
+  //   setProfile(data.data.data);
+  //   setUserId(data.data.data);
+  //   setuser
+  // }, []);
   const onsubmitMyPage = e => {
     e.preventDefault();
+  };
+
+  const onProfileChange = e => {
+    e.preventDefault();
+    setProfile(URL.createObjectURL(e.target.files[0]));
   };
 
   return (
@@ -30,6 +37,21 @@ const MyPage = () => {
       </div>
       <form className="mypage-form" onSubmit={onsubmitMyPage}>
         <p className="mypage-p">회원 정보 수정</p>
+        <div className="mypage-profile">
+          <img src={profile} className="mypage-profile__userimg"></img>
+          {!profile && (
+            <div className="material-symbols-outlined mypage-profile__icons">
+              add_a_photo
+            </div>
+          )}
+          <input
+            type="file"
+            // value={profile}
+            accept="image/jpg, image/png, image/jpeg, image/gif"
+            onChange={onProfileChange}
+            className="mypage-profile__userimg-input"
+          ></input>
+        </div>
         <input className="mypage-input" placeholder="아이디" />
         <input className="mypage-input" placeholder="이메일" />
         <div>

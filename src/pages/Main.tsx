@@ -9,7 +9,6 @@ import FeedShortsModal from '../components/FeedShortsModal';
 import MainVideo from '../components/MainVideo';
 
 const Main = (): JSX.Element => {
-  const navigate = useNavigate();
   const token = localStorage.getItem('id');
   const feedId = useRef<number>(0);
   const [isShowModal, setIsShowModal] = useState(false);
@@ -180,12 +179,10 @@ const Main = (): JSX.Element => {
                     <>
                       {index === 0 ? (
                         <MainVideo
+                          key={index}
                           width={'100%'}
                           height={'500px'}
-                          src={
-                            process.env.REACT_APP_PUBLIC_URL +
-                            '/videos/spreetintro.mp4'
-                          }
+                          src={'/videos/spreetintro.mp4'}
                         />
                       ) : (
                         <div

@@ -33,16 +33,19 @@
   .modal-video {
     position: relative;
     width: 650px;
-    height: 750px;
+    height: 800px;
     margin-right: 30px;
-    margin-top: 80px;
+    margin-top: 50px;
     border-radius: 30px;
     background-color: gray;
     .modal-userInform {
       color: white;
+      overflow: hidden;
       .modal-userInform__title {
+        height: 230px;
         margin-left: 30px;
         font-size: 26px;
+        overflow-y: scroll;
         p {
           margin-bottom: 15px;
         }

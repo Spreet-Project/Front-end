@@ -27,6 +27,7 @@ export const updateShorts = async payload => {
 
 export const getMainShorts = async payload => {
   try {
+    console.log(payload, 'payload');
     const { queryKey } = payload;
     const { category } = queryKey[1];
     //shorts카테고리별 게시물조회조회
