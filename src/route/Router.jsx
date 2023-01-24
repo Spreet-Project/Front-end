@@ -16,6 +16,8 @@ import MyPage from '../pages/MyPage';
 import FeedShorts from '../pages/FeedShorts';
 import NaverLogin from '../pages/NaverLogin';
 import EventDetail from '../pages/EventDetail';
+import UserInform from '../components/UserInform';
+import CrewInform from '../components/CrewInform';
 
 const Router = () => {
   return (
@@ -35,7 +37,10 @@ const Router = () => {
         <Route path="/eventWrite" element={<EventWrite />} />
         <Route path="/eventDetail" element={<EventDetail />} />
         <Route path="/modify/:id" element={<ModifyShorts />} />
-        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/mypage" element={<MyPage />}>
+          {/* <Route path="userinform" element={<UserInform />} /> */}
+          <Route path="crewinform" element={<CrewInform />} />
+        </Route>
         <Route path="*" element={<div>이거 404 페이지요</div>} />
       </Routes>
     </Layout>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../assets/styles/scss/myPage.scss';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useQueryClient } from 'react-query';
+import UserInform from '../components/UserInform';
 
 const MyPage = () => {
   const navigate = useNavigate();
@@ -9,6 +10,25 @@ const MyPage = () => {
   const queryClient = useQueryClient();
   const [logIn, setLogIn] = useState(false);
   const [password, setPassword] = useState(false);
+  const [id, setId] = useState(0);
+  const data = [
+    {
+      id: 0,
+      title: '회원정보 수정',
+    },
+    {
+      id: 1,
+      title: '게시글',
+    },
+    {
+      id: 2,
+      title: '비밀번호 찾기',
+    },
+    {
+      id: 3,
+      title: '관리자',
+    },
+  ];
 
   // useEffect(() => {
   //   setProfile(data.data.data);
@@ -29,39 +49,21 @@ const MyPage = () => {
       <div className="mypage-sidebar">
         <div className="mypage-category">
           <ul>
-            <li>회원정보 수정</li>
-            <li>크루 정보</li>
-            <li>관리자</li>
+            {data.map(item => (
+              <li key={item.id} onClick={() => setId(item.id)}>
+                {item.title}
+              </li>
+            ))}
           </ul>
         </div>
       </div>
-      <form className="mypage-form" onSubmit={onsubmitMyPage}>
-        <p className="mypage-p">회원 정보 수정</p>
-        <div className="mypage-profile">
-          <img src={profile} className="mypage-profile__userimg"></img>
-          {!profile && (
-            <div className="material-symbols-outlined mypage-profile__icons">
-              add_a_photo
-            </div>
-          )}
-          <input
-            type="file"
-            // value={profile}
-            accept="image/jpg, image/png, image/jpeg, image/gif"
-            onChange={onProfileChange}
-            className="mypage-profile__userimg-input"
-          ></input>
-        </div>
-        <input className="mypage-input" placeholder="아이디" />
-        <input className="mypage-input" placeholder="이메일" />
-        <div>
-          <input className="mypage-input-nickname" placeholder="닉네임" />
-          <button className="mypage-btn-confirm">인증 요청</button>
-        </div>
-        <button className="mypage-btn-modify">수정</button>
-        <hr className="mypage-hr" />
-        <button className="mypage-btn-unregister">회원탈퇴</button>
-      </form>
+      {id === 0 && (
+        <UserInform
+          profile={profile}
+          onProfileChange={onProfileChange}
+          onsubmitMyPage={onsubmitMyPage}
+        />
+      )}
     </>
   );
 };
