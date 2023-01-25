@@ -1,0 +1,23 @@
+@import './body.scss';
+
+.crewInform-sidebar {
+  position: absolute;
+  left: 0;
+  text-align: center;
+  font-size: 23px;
+  color: $font_color;
+  width: 300px;
+  height: 100vh;
+  background-color: rgb(0, 0, 0);
+  .crewInform-category {
+    cursor: pointer;
+    height: 400px;
+    margin-top: 80px;
+    li {
+      margin: 60px auto;
+      &:hover {
+        background-color: #d10536;
+      }
+    }
+  }
+}
