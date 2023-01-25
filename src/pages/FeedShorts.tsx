@@ -18,19 +18,7 @@ import sweetAlert from '../core/utils/sweetAlert';
 import FeedShortsModal from '../components/FeedShortsModal';
 import { postFeedLike } from '../core/api/feed';
 import { baseURL } from '../core/axios/axios';
-
-export const getFeed = async ({ pageParam = 1 }: QueryFunctionContext) => {
-  //Feed 최신 게시물 조회
-  try {
-    console.log(pageParam, 'pageParam');
-    return await baseURL.get(`/feed/recent?&page=${pageParam}&size=10`);
-  } catch (error) {
-    if (error.response.request.status === 401) {
-      sweetAlert(1000, 'error', '로그인이 필요합니다!');
-    }
-    return error;
-  }
-};
+import { getScrollFeed } from '../core/api/feed';
 
 const FeedShorts = (): JSX.Element => {
   const naviagate = useNavigate();
@@ -41,35 +29,23 @@ const FeedShorts = (): JSX.Element => {
   // const [feedList, setFeedList] = useState(null);
   const [ref, inView] = useInView();
 
-  const InfiniteQueriesPage = () => {
-    const {
-      data,
-      isLoading,
-      isSuccess,
-      hasNextPage,
-      hasPreviousPage,
-      fetchNextPage,
-      isFetching,
-    } = useInfiniteQuery('getFeed', getFeed, {
-      getNextPageParam: (lastPage, pages) => {
-        if (pages.length === 2) {
-          return undefined;
-        }
-        return pages.length + 1;
-      },
-    });
-    return [data, isLoading, isSuccess, hasNextPage, fetchNextPage, isFetching];
-  };
   //처음 렌더링
-
-  const [
+  const {
     data,
     isLoading,
     isSuccess,
     hasNextPage,
+    hasPreviousPage,
     fetchNextPage,
     isFetching,
-  ]: any[] = InfiniteQueriesPage();
+  } = useInfiniteQuery('getScrollFeed', getScrollFeed, {
+    getNextPageParam: (lastPage, pages) => {
+      if (pages.length === 2) {
+        return undefined;
+      }
+      return pages.length + 1;
+    },
+  });
 
   useEffect(() => {
     // console.log(inView, 'inView');
@@ -103,12 +79,9 @@ const FeedShorts = (): JSX.Element => {
     });
   };
 
-  if (isLoading || isFetching || !data.pages) return;
+  if (isLoading) return;
 
-  // console.log(data, 'data');
-
-  const feedList = data.pages.flatMap(page => page.data.data);
-  // console.log(feedList, 'feedList');
+  // console.log(data.pages, 'pages');
   // if (data.response && data.response.request.status === 401) {
   //   localStorage.removeItem('id');
   // }.
@@ -137,32 +110,35 @@ const FeedShorts = (): JSX.Element => {
       </div>
       <div className="feed-shorts-cotent">
         <div className="feed-shorts-scroll">
-          {feedList.map((feed, index) => {
-            const lastIndex = feedList.length - 1;
-            return index === lastIndex ? (
-              <div ref={ref} key={feed.feedId}>
-                <FeedsScroll
-                  feed={feed}
-                  onPostFeedLike={onPostFeedLike}
-                  setFeedId={setFeedId}
-                  setIsShowModal={setIsShowModal}
-                />
-              </div>
-            ) : (
-              <FeedsScroll
-                key={feed.feedId}
-                feed={feed}
-                onPostFeedLike={onPostFeedLike}
-                setFeedId={setFeedId}
-                setIsShowModal={setIsShowModal}
-              />
-            );
-          })}
+          {data.pages &&
+            data.pages.map(page => {
+              return page.data.map((feed, feedIndex) => {
+                const lastIndex = page.data.length - 1;
+                return feedIndex === lastIndex ? (
+                  <div ref={ref} key={feed.feedId}>
+                    <FeedsScroll
+                      feed={feed}
+                      onPostFeedLike={onPostFeedLike}
+                      setFeedId={setFeedId}
+                      setIsShowModal={setIsShowModal}
+                    />
+                  </div>
+                ) : (
+                  <FeedsScroll
+                    key={feed.feedId}
+                    feed={feed}
+                    onPostFeedLike={onPostFeedLike}
+                    setFeedId={setFeedId}
+                    setIsShowModal={setIsShowModal}
+                  />
+                );
+              });
+            })}
         </div>
       </div>
-      {/* {isShowModal && (
+      {isShowModal && (
         <FeedShortsModal setIsShowModal={setIsShowModal} feedId={feedId} />
-      )} */}
+      )}
     </>
   );
 };

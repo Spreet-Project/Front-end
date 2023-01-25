@@ -24,6 +24,23 @@ export const getFeed = async payload => {
   }
 };
 
+export const getScrollFeed = async ({ pageParam = 1 }) => {
+  //Feed 최신 게시물 조회
+  try {
+    // console.log(pageParam, 'pageParam');
+    const res = await instance.get(`/feed/recent?&page=${pageParam}&size=10`);
+    return res.data;
+  } catch (error) {
+    if (error.response.request.status === 401) {
+      sweetAlert(1000, 'error', '로그인이 필요합니다!');
+    }
+    if (error.response.request.status === 400) {
+      sweetAlert(1000, 'error', '죄송합니다. 다시 로그인 해주세요');
+    }
+    return error;
+  }
+};
+
 export const getDetailFeed = async payload => {
   //Feed 상세 게시물 조회
   const { queryKey } = payload;

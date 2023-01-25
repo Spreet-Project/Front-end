@@ -107,5 +107,4 @@ const FeedsScroll = ({
     </div>
   );
 };
-
 export default FeedsScroll;

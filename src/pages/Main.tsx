@@ -182,7 +182,7 @@ const Main = (): JSX.Element => {
                           key={index}
                           width={'100%'}
                           height={'500px'}
-                          src={require('../assets/video/spreetintro.mp4')}
+                          src={'./videos/spreetintro.mp4'}
                         />
                       ) : (
                         <div

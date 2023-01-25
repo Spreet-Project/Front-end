@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import '../assets/styles/scss/myPage.scss';
+import '../../assets/styles/scss/myPage.scss';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useQueryClient } from 'react-query';
 
-const UserInform = ({ profile, onProfileChange, onsubmitMyPage }) => {
+const UserInform = ({
+  profile,
+  onProfileChange,
+  onsubmitMyPage,
+}): JSX.Element => {
   return (
     <form className="mypage-form" onSubmit={onsubmitMyPage}>
-      <p className="mypage-p">회원 정보 수정</p>
+      <p className="mypage-title">회원 정보 수정</p>
       <div className="mypage-profile">
         <img src={profile} className="mypage-profile__userimg"></img>
         {!profile && (

@@ -58,7 +58,11 @@ const Shorts = () => {
 
   if (isLoading || isFetching || !data) return;
 
-  if (data.response && data.response.request.status === 401) {
+  if (
+    data.response &&
+    (data.response.request.status === 401 ||
+      data.response.request.status === 400)
+  ) {
     localStorage.removeItem('id');
   }
   return (
