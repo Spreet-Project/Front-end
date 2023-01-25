@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../assets/styles/scss/shorts.scss';
 import ShortsModal from '../components/ShortsModal';
-import { getShorts, postShortLike, getFeed } from '../core/api/shorts';
-import { useQueryClient, useMutation, useQuery } from 'react-query';
+import { getShorts, postShortLike } from '../core/api/shorts';
+import { useQueryClient, useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import sweetAlert from '../core/utils/sweetAlert';
 import ShortsScroll from '../components/ShortsScroll';
@@ -28,8 +28,8 @@ const Shorts = () => {
     getShorts, //비동기 처리함수(서버에 요청),
     {
       // suspense: true,
-      cacheTime: 5000, //캐시를 몇초까지 저장해줄건지? 기본 5분?
-      staleTime: 5000, //재검색을 트리거? 기존에 있던 데이터처리를 어떻게할건지?
+      // cacheTime: 5000, //캐시를 몇초까지 저장해줄건지? 기본 5분?
+      // staleTime: 5000, //재검색을 트리거? 기존에 있던 데이터처리를 어떻게할건지?
       refetchOnMount: true, //쿼리데이터가 오래되었는지 확인하는여부?
     },
   );
@@ -44,8 +44,6 @@ const Shorts = () => {
   const onPostShortsLike = shortsId => {
     postShortLike(shortsId)
       .then(res => {
-        // console.log(res, 'res');
-        // sweetAlert(1000, 'success', '좋아요가 반영되었습니다.');
         queryClient.invalidateQueries([
           'shorts',
           { category: currentCate, token: token },
@@ -59,7 +57,7 @@ const Shorts = () => {
   const [isShowModal, setIsShowModal] = useState(false);
 
   if (isLoading || isFetching || !data) return;
-  console.log(data);
+
   if (data.response && data.response.request.status === 401) {
     localStorage.removeItem('id');
   }
@@ -75,6 +73,7 @@ const Shorts = () => {
                   <li
                     key={index}
                     onClick={() => {
+                      console.log(item);
                       onClickCate(item.value);
                     }}
                   >

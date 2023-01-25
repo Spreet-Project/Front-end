@@ -41,7 +41,7 @@
   color: $font_color;
   width: 300px;
   height: 100vh;
-  background-color: rgb(56, 54, 54);
+
   .shorts-category {
     cursor: pointer;
     height: 400px;
@@ -104,6 +104,17 @@
         .shorts-btn-text {
           margin-top: 3px;
           margin-bottom: 10px;
+        }
+        .subscribe-button {
+          @include btn;
+          width: 100px;
+          height: 30px;
+          border-radius: 15px;
+          margin-right: 20px;
+          background-color: gray;
+          &:hover {
+            color: red;
+          }
         }
       }
     }

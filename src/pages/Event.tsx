@@ -22,7 +22,9 @@ export default function Event() {
     '서울특별시 마포구 와우산로21길 31',
   ];
 
+  //Event행사 가져오기
   const { data, isLoading, isError } = useQuery(['getEvent'], getEvent);
+
   const mapScript = document.createElement('script');
 
   mapScript.async = true;
@@ -46,6 +48,7 @@ export default function Event() {
 
       const geocoder = new window.kakao.maps.services.Geocoder();
 
+      if (!data.data.data) return;
       data.data.data.map(event => {
         geocoder.addressSearch(event.location, function (result, status) {
           // 정상적으로 검색이 완료됐으면
@@ -89,5 +92,20 @@ export default function Event() {
   mapScript.addEventListener('load', onLoadKakaoMap);
   if (isLoading) return;
   console.log(data, 'event');
-  return <div id="map" style={{ width: '100%', height: '500px' }}></div>;
+  return (
+    <>
+      <div id="map" style={{ width: '100%', height: '500px' }}></div>;
+      <div className="event-sector">
+        <div className="event-wrapper">
+          {locationList.map((item, index) => {
+            return (
+              <div key={index} className="event-item">
+                {item}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </>
+  );
 }

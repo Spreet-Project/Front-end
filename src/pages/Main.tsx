@@ -12,6 +12,7 @@ const Main = (): JSX.Element => {
   const token = localStorage.getItem('id');
   const feedId = useRef<number>(0);
   const [isShowModal, setIsShowModal] = useState(false);
+
   const categoryList = [
     { category: '랩', value: 'RAP', color: '#D10536' },
     { category: '스트릿 댄스', value: 'STREET_DANCE', color: '#CA6100' },
@@ -67,7 +68,6 @@ const Main = (): JSX.Element => {
         if (item === entry.target) {
           currTagerIndex = index;
           firstEleNum = index - 4; //첫번째인덱스를 체크
-          // entry.target.style.opacity = 1;
         }
       });
       if (currTagerIndex === 0) {
@@ -182,7 +182,7 @@ const Main = (): JSX.Element => {
                           key={index}
                           width={'100%'}
                           height={'500px'}
-                          src={'/videos/spreetintro.mp4'}
+                          src={require('../assets/video/spreetintro.mp4')}
                         />
                       ) : (
                         <div
@@ -218,7 +218,7 @@ const Main = (): JSX.Element => {
       <div className="main-content">
         <div className="main-inner">
           {res.map((result, index) => {
-            if (result.isLoading || !result.data.data.data) return;
+            if (result.isLoading || !result.data.data.data[index]) return;
             return (
               <MainCarousel
                 key={index}

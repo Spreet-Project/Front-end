@@ -16,17 +16,12 @@ export const getEvent = async () => {
 };
 
 export const postEventWrite = async payload => {
-  console.log(payload);
-  const { title, content, location, date, time, file } = payload;
-  const evenData = new FormData();
-  evenData.append('title', title);
-  evenData.append('content', content);
-  evenData.append('location', location);
-  evenData.append('date', date);
-  evenData.append('time', time);
-  evenData.append('file', file);
-  // for (const value of evenData.values()) {
-  //   console.log(value);
-  // }
-  return await subURL.post('/event', evenData);
+  try {
+    console.log(payload);
+    return await subURL.post('/event', payload);
+  } catch (error) {
+    if (error.response.request.status === 401) {
+      sweetAlert(1000, 'error', '로그인이 필요합니다!');
+    }
+  }
 };

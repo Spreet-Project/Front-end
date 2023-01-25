@@ -22,29 +22,26 @@ const EventWrite = () => {
 
   const onEventWriteSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const newEnvet = {
-      title: title,
-      content: content,
-      location: location,
-      date: date,
-      time: time,
-      file: eventImage,
-    };
-
-    // const eventWriteData = new FormData();
-
-    // console.log(typeof date, typeof time, typeof eventImage);
-    // eventWriteData.append('title', title);
-    // eventWriteData.append('content', content);
-    // eventWriteData.append('location', location);
-    // eventWriteData.append('date', date);
-    // eventWriteData.append('time', time);
-    // eventWriteData.append('file', eventImage);
+    // const newEnvet = {
+    //   title: title,
+    //   content: content,
+    //   location: location,
+    //   date: date,
+    //   time: time,
+    //   file: eventImage,
+    // };
+    const eventWriteData = new FormData();
+    eventWriteData.append('title', title);
+    eventWriteData.append('content', content);
+    eventWriteData.append('location', location);
+    eventWriteData.append('date', date);
+    eventWriteData.append('time', time);
+    eventWriteData.append('file', eventImage);
     // console.log(eventWriteData);
     // for (const value of eventWriteData.values()) {
     //   console.log(value);
     // }
-    postEventWrite(newEnvet)
+    postEventWrite(eventWriteData)
       .then(res => {
         console.log(res, 'res');
         // navigate('/');
@@ -82,7 +79,7 @@ const EventWrite = () => {
 
   // 이미지
   const onChangeEventImage = e => {
-    setEventImage(e.target.value);
+    setEventImage(e.target.files[0]);
   };
 
   //이미지 리사이징

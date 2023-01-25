@@ -56,6 +56,7 @@ const ShortsScroll = ({
         >
           Detail
         </p>
+        <button className="subscribe-button">SubsCribe</button>
       </div>
     </div>
   );

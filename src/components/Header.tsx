@@ -2,6 +2,7 @@ import React from 'react';
 import '../assets/styles/scss/header.scss';
 import { useNavigate } from 'react-router-dom';
 import sweetAlert from '../core/utils/sweetAlert';
+import { getSubscribe } from '../core/api/subscribe';
 
 const Header = (): JSX.Element => {
   const navigate = useNavigate();
@@ -11,6 +12,15 @@ const Header = (): JSX.Element => {
     localStorage.removeItem('nickname');
     sweetAlert(1000, 'success', '로그아웃 되었습니다');
     navigate('/');
+  };
+
+  const onClcikSubsCribe = () => {
+    if (!token) {
+      return sweetAlert(1000, 'error', '로그인이 필요합니다.');
+    }
+    getSubscribe().then(res => {
+      console.log(res, 'subscribeRES');
+    });
   };
   return (
     <>
@@ -25,7 +35,7 @@ const Header = (): JSX.Element => {
             <img />
           </p>
           <div className="header_btn">
-            <button>알림</button>
+            <button onClick={onClcikSubsCribe}>알림</button>
             <button
               onClick={() => {
                 navigate('/shorts');
