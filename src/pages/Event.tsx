@@ -22,7 +22,9 @@ export default function Event() {
     '서울특별시 마포구 와우산로21길 31',
   ];
 
+  //Event행사 가져오기
   const { data, isLoading, isError } = useQuery(['getEvent'], getEvent);
+
   const mapScript = document.createElement('script');
 
   mapScript.async = true;

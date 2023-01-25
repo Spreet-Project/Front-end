@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import '../assets/styles/scss/feedShorts.scss';
 import sweetAlert from '../core/utils/sweetAlert';
 import { postSubscribe } from '../core/api/subscribe';
