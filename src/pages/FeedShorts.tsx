@@ -1,23 +1,11 @@
-import React, {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  useMemo,
-} from 'react';
+import React, { useState, useEffect } from 'react';
 import '../assets/styles/scss/feedShorts.scss';
 import FeedsScroll from '../components/FeedsScroll';
-import {
-  useQueryClient,
-  useInfiniteQuery,
-  QueryFunctionContext,
-} from 'react-query';
+import { useQueryClient, useInfiniteQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
-import sweetAlert from '../core/utils/sweetAlert';
 import FeedShortsModal from '../components/FeedShortsModal';
 import { postFeedLike } from '../core/api/feed';
-import { baseURL } from '../core/axios/axios';
 import { getScrollFeed } from '../core/api/feed';
 
 const FeedShorts = (): JSX.Element => {
@@ -30,22 +18,15 @@ const FeedShorts = (): JSX.Element => {
   const [ref, inView] = useInView();
 
   //처음 렌더링
-  const {
-    data,
-    isLoading,
-    isSuccess,
-    hasNextPage,
-    hasPreviousPage,
-    fetchNextPage,
-    isFetching,
-  } = useInfiniteQuery('getScrollFeed', getScrollFeed, {
-    getNextPageParam: (lastPage, pages) => {
-      if (pages.length === 2) {
-        return undefined;
-      }
-      return pages.length + 1;
-    },
-  });
+  const { data, isLoading, isSuccess, hasNextPage, fetchNextPage, isFetching } =
+    useInfiniteQuery('getScrollFeed', getScrollFeed, {
+      getNextPageParam: (lastPage, pages) => {
+        if (pages.length === 2) {
+          return undefined;
+        }
+        return pages.length + 1;
+      },
+    });
 
   useEffect(() => {
     // console.log(inView, 'inView');
