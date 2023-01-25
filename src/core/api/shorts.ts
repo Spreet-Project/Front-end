@@ -53,6 +53,9 @@ export const getShorts = async payload => {
     if (error.response.request.status === 401) {
       sweetAlert(1000, 'error', '죄송합니다 로그인해주세요!');
     }
+    if (error.response.request.status === 400) {
+      sweetAlert(1000, 'error', '죄송합니다 다시 로그인해주세요!');
+    }
     return error;
   }
 };

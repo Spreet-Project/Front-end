@@ -74,6 +74,19 @@ const Header = (): JSX.Element => {
                 글작성하기
               </button>
             )}
+            {token && (
+              <button
+                onClick={() => {
+                  if (!localStorage.getItem('id')) {
+                    sweetAlert(1000, 'error', '로그인 해주세요!');
+                    return navigate('/login');
+                  }
+                  navigate('/mypage');
+                }}
+              >
+                마이페이지
+              </button>
+            )}
           </div>
         </div>
       </div>

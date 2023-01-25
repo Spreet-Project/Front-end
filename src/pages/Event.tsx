@@ -89,8 +89,8 @@ export default function Event() {
     });
   };
 
-  mapScript.addEventListener('load', onLoadKakaoMap);
   if (isLoading) return;
+  mapScript.addEventListener('load', onLoadKakaoMap);
   console.log(data, 'event');
   return (
     <>

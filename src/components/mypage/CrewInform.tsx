@@ -1,5 +1,5 @@
 import React from 'react';
-import '../assets/styles/scss/crewInform.scss';
+import '../../assets/styles/scss/crewInform.scss';
 
 const CrewInform = () => {
   return (
