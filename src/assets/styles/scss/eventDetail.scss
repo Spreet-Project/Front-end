@@ -2,7 +2,7 @@
 @import './main.scss';
 
 .eventDetail-wrapper {
-  background-color: aquamarine;
+  background-color: green;
   width: 1440px;
   margin: auto;
 }
@@ -136,7 +136,41 @@
   margin: 5px;
 }
 
-.eventDetail-commentWrapper {
+.eventDetail-addWrapper {
   display: flex;
   flex-direction: column;
+}
+
+.eventDtail-commentWrapper {
+  width: 1200px;
+  height: 250px;
+  margin: auto;
+}
+
+.eventDetail-commentWrapper__profile {
+  display: flex;
+  align-items: center;
+}
+
+.eventDetail-commentWrapper__profileImg {
+  width: 48px;
+  height: 48px;
+  border-radius: 100%;
+  background-color: #9c9c9c;
+}
+
+.eventDetail-commentWrapper__id {
+  color: white;
+  margin: 15px;
+  font-size: 20px;
+}
+
+.eventDetail-commentWrapper__time {
+  color: #9c9c9c;
+  margin: 15px;
+  font-size: 18px;
+}
+
+.eventDetail-commentWrapper__like {
+  margin-left: 70px;
 }
