@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { useQuery, useQueries } from 'react-query';
 import { getEvent } from '../core/api/event';
 import '../assets/styles/scss/event.scss';
+import { useNavigate } from 'react-router-dom';
 
 declare global {
   interface Window {
@@ -10,17 +11,18 @@ declare global {
 }
 
 export default function Event() {
-  const locationList = [
-    '경기도 부천시 역곡로 13번길',
-    '서울특별시 영등포구 여의도동 84-1',
-    '서울 종로구 홍지문2길20 상명대학교',
-    '서울 성북구 정릉로77 국민대학교',
-    '광주 광역시 동구 광산동 74',
-    '경기 부천시 심곡동 498',
-    '서울 마포구 와우산로 121',
-    '경기 부천시 중동로248번길 31',
-    '서울특별시 마포구 와우산로21길 31',
-  ];
+  const navigate = useNavigate();
+  // const locationList = [
+  //   '경기도 부천시 역곡로 13번길',
+  //   '서울특별시 영등포구 여의도동 84-1',
+  //   '서울 종로구 홍지문2길20 상명대학교',
+  //   '서울 성북구 정릉로77 국민대학교',
+  //   '광주 광역시 동구 광산동 74',
+  //   '경기 부천시 심곡동 498',
+  //   '서울 마포구 와우산로 121',
+  //   '경기 부천시 중동로248번길 31',
+  //   '서울특별시 마포구 와우산로21길 31',
+  // ];
 
   //Event행사 가져오기
   const { data, isLoading, isError } = useQuery(['getEvent'], getEvent);
@@ -99,7 +101,13 @@ export default function Event() {
         <div className="event-wrapper">
           {data.data.data.map((event, index) => {
             return (
-              <div key={index} className="event-item">
+              <div
+                key={index}
+                className="event-item"
+                onClick={() => {
+                  navigate(`/eventDetail/${event.eventId}`);
+                }}
+              >
                 <img src={event.eventImageUrl} className="event-item__image" />
                 <div className="event-infrom">
                   <img
