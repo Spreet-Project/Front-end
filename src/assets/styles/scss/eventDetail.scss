@@ -2,7 +2,7 @@
 @import './main.scss';
 
 .eventDetail-wrapper {
-  background-color: green;
+  background-color: black;
   width: 1440px;
   margin: auto;
 }
@@ -40,28 +40,28 @@
 .eventDetail-content {
   color: rgba(255, 255, 255, 1);
   margin-right: auto;
-  font-size: 18px;
+  font-size: 20px;
   margin-top: 10px;
   margin-bottom: 20px;
 }
 
 .eventDetail-location {
   color: #9c9c9c;
-  font-size: 18px;
+  font-size: 17px;
   margin-right: auto;
   margin-bottom: 10px;
 }
 
 .eventDetail-date {
   color: #9c9c9c;
-  font-size: 18px;
+  font-size: 17px;
   margin-right: auto;
   margin-bottom: 10px;
 }
 
 .eventDetail-time {
   color: #9c9c9c;
-  font-size: 18px;
+  font-size: 17px;
   margin-right: auto;
   margin-bottom: 10px;
 }
@@ -120,13 +120,27 @@
 }
 
 .eventDetail-inputComment {
-  width: 500px;
+  width: 1000px;
   height: 30px;
   background-color: #333333;
   color: white;
   border: none;
   border-radius: 2px;
   margin: 10px;
+}
+
+.eventDetail-commentWrapper__btn {
+  width: 70px;
+  height: 30px;
+  background-color: #d10536;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  &:hover {
+    color: #333333;
+  }
 }
 
 .eventDetail-hr {
@@ -167,10 +181,25 @@
 
 .eventDetail-commentWrapper__time {
   color: #9c9c9c;
-  margin: 15px;
-  font-size: 18px;
+  margin: 10px;
+  font-size: 16px;
 }
 
 .eventDetail-commentWrapper__like {
   margin-left: 70px;
+}
+
+.eventDetail-commentWrapper__cemment {
+  margin: 10px;
+  font-size: 18px;
+  color: #9c9c9c;
+}
+
+.material-icons {
+  margin: 10px;
+  color: white;
+  cursor: pointer;
+  &:hover {
+    color: #d10536;
+  }
 }
