@@ -35,11 +35,11 @@ const Router = () => {
         <Route path="/modifyFeed/:id" element={<ModifyFeed />} />
         <Route path="/event" element={<Event />} />
         <Route path="/eventWrite" element={<EventWrite />} />
-        <Route path="/eventDetail" element={<EventDetail />} />
+        <Route path="/eventDetail/:id" element={<EventDetail />} />
         <Route path="/modify/:id" element={<ModifyShorts />} />
         <Route path="/mypage" element={<MyPage />}>
           <Route path="userinform" element={<UserInform />} />
-          {/* <Route path="crewinform" element={<CrewInform />} /> */}
+          <Route path="crewinform" element={<CrewInform />} />
         </Route>
         <Route path="*" element={<div>이거 404 페이지요</div>} />
       </Routes>
