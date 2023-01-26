@@ -28,7 +28,7 @@ export const getScrollFeed = async ({ pageParam = 1 }) => {
   //Feed 최신 게시물 조회
   try {
     // console.log(pageParam, 'pageParam');
-    const res = await instance.get(`/feed/recent?&page=${pageParam}&size=10`);
+    const res = await baseURL.get(`/feed/recent?&page=${pageParam}&size=10`);
     return res.data;
   } catch (error) {
     if (error.response.request.status === 401) {

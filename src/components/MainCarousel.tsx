@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import '../assets/styles/scss/shorts.scss';
-import { getShorts, postShortLike } from '../core/api/shorts';
+
 import handleClickSlide from '../core/utils/handleClickSlide';
 import Video from './Video';
 
