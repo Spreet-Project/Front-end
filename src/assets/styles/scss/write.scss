@@ -1,35 +1,39 @@
 @import './body.scss';
 @import './main.scss';
+
+$write_background: #ececec;
+$write_borderColor: #9c9c9c;
+@mixin confirmBtn {
+  background: #d10536;
+  border-radius: 5px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  &:hover {
+    color: #333333;
+  }
+}
+
 .write-content {
-  background-color: white;
   position: relative;
   width: 1440px;
   margin: 50px auto;
   @include flexCenter;
-  .write-checkFeed {
-    position: absolute;
-    top: -50px;
-    right: 20px;
-    width: 200px;
-    color: white;
-    input[type='checkbox'] {
-      width: 30px;
-      height: 30px;
-    }
-    label {
-      font-size: 20px;
-    }
-  }
   .feed-image__row {
     width: 600px;
     height: 600px;
     margin-right: 50px;
     border: 3px solid black;
+
     box-sizing: border-box;
     position: relative;
     .feed-image__carousel {
       @include carouselEle;
       .feed-image__list {
+        border-radius: 5px;
+        background-color: #ececec;
         @include carouselList;
         .feed-image__wrapper {
           height: 600px;
@@ -65,52 +69,77 @@
     height: 600px;
     margin-right: 50px;
     border: 3px solid black;
+    background-color: $write_background;
+    border-radius: 10px;
   }
   .write-inform-box {
-    width: 400px;
-    height: 600px;
-    border: 3px solid black;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    width: 450px;
+    height: 550px;
+    padding: 25px;
+    border: 3px solid black;
+    background-color: $write_background;
+    border-radius: 10px;
     .write-category {
       width: 200px;
       height: 30px;
       margin-left: 15px;
     }
     p {
-      font-size: 32px;
-      margin: 15px;
+      font-size: 24px;
+      margin-left: 15px;
+      margin-top: 20px;
     }
     input {
       margin-left: 15px;
+      margin-top: 20px;
       margin-bottom: 10px;
+      font-size: 18px;
     }
     .title-input {
-      height: 30px;
-      width: 350px;
+      width: 400px;
+      height: 40px;
+      border-radius: 5px;
+      border: 1px solid $write_borderColor;
     }
     textarea {
       margin-left: 15px;
       font-size: 22px;
-      width: 350px;
+      width: 400px;
       height: 250px;
       resize: none;
+      border-radius: 5px;
+      border: 1px solid $write_borderColor;
     }
-  }
-  .write-btn-box {
-    position: absolute;
-    bottom: -100px;
-    left: 50%;
-    transform: translate(-50%, 0);
-    button {
+    .write-hr {
+      width: 400px;
+      border: 0.7px solid $write_borderColor;
+      border-radius: 5px;
+      margin: 10px;
+    }
+    .write-checkfeed {
+      width: 300px;
+      margin: 20px 0 20px 15px;
+      display: flex;
+      align-items: center;
+      input[type='checkbox'] {
+        width: 25px;
+        height: 25px;
+        margin: 0;
+      }
+      label {
+        margin-left: 10px;
+        font-size: 20px;
+      }
+    }
+    .write-btn__submit {
       @include btn;
+      @include confirmBtn;
       height: 50px;
       font-size: 32px;
-      width: 250px;
-    }
-    .write-btn__goback {
-      margin-left: 50px;
+      width: 400px;
     }
   }
 }

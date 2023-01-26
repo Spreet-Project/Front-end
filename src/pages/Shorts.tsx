@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../assets/styles/scss/shorts.scss';
 import ShortsModal from '../components/ShortsModal';
-import { getShorts, postShortLike } from '../core/api/shorts';
-import { useQueryClient, useQuery } from 'react-query';
+import { getScrollShorts, postShortLike } from '../core/api/shorts';
+import { useQueryClient, useQuery, useInfiniteQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import sweetAlert from '../core/utils/sweetAlert';
 import ShortsScroll from '../components/ShortsScroll';
+import { useInView } from 'react-intersection-observer';
 
 const Shorts = () => {
   const naviagate = useNavigate();
@@ -13,6 +14,8 @@ const Shorts = () => {
   const [shortsId, setShortsId] = useState<number>(0);
   const [currentCate, setCurrentCate] = useState('RAP');
   const token = localStorage.getItem('id');
+  const [ref, inView] = useInView();
+
   const categoryList = [
     { category: '랩', value: 'RAP' },
     { category: '스트릿 댄스', value: 'STREET_DANCE' },
@@ -23,16 +26,25 @@ const Shorts = () => {
     { category: '게시글', value: 'feed' },
   ];
 
-  const { isLoading, isError, data, error, isFetching } = useQuery(
-    ['shorts', { category: currentCate, token: token }], //쿼리 키
-    getShorts, //비동기 처리함수(서버에 요청),
-    {
-      // suspense: true,
-      // cacheTime: 5000, //캐시를 몇초까지 저장해줄건지? 기본 5분?
-      // staleTime: 5000, //재검색을 트리거? 기존에 있던 데이터처리를 어떻게할건지?
-      refetchOnMount: true, //쿼리데이터가 오래되었는지 확인하는여부?
-    },
-  );
+  const { data, isLoading, isSuccess, hasNextPage, fetchNextPage, isFetching } =
+    useInfiniteQuery(['getScrollShorts', token, currentCate], getScrollShorts, {
+      getNextPageParam: (lastPage, pages: any) => {
+        console.log(lastPage, 'lastPage');
+        if (pages.length === 2 || lastPage.data.data.length < 10) {
+          return undefined;
+        }
+        return pages.length + 1;
+      },
+    });
+
+  useEffect(() => {
+    // console.log(inView, 'inView');
+    console.log(hasNextPage, 'hasNextPage');
+    // hasNextPage
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
 
   const onClickCate = cate => {
     if (cate === 'feed') {
@@ -56,15 +68,16 @@ const Shorts = () => {
 
   const [isShowModal, setIsShowModal] = useState(false);
 
-  if (isLoading || isFetching || !data) return;
+  if (isLoading || !data.pages) return;
+  console.log('data', data);
 
-  if (
-    data.response &&
-    (data.response.request.status === 401 ||
-      data.response.request.status === 400)
-  ) {
-    localStorage.removeItem('id');
-  }
+  // if (
+  //   data.response &&
+  //   (data.response.request.status === 401 ||
+  //     data.response.request.status === 400)
+  // ) {
+  //   localStorage.removeItem('id');
+  // }
   return (
     <>
       {isLoading || (isFetching && <div> 로딩중입니다</div>)}
@@ -90,7 +103,32 @@ const Shorts = () => {
       </div>
       <div className="shorts-cotent">
         <div className="shorts-scroll">
-          {data.data.data ? (
+          {data.pages &&
+            data.pages.map(page => {
+              return page.data.data.map((shorts, shortsIndex) => {
+                const lastIndex = page.data.data.length - 1;
+                return shortsIndex === lastIndex ? (
+                  <div ref={ref} key={shorts.shortsId}>
+                    <ShortsScroll
+                      key={shorts.shortsId}
+                      shorts={shorts}
+                      onPostShortsLike={onPostShortsLike}
+                      setShortsId={setShortsId}
+                      setIsShowModal={setIsShowModal}
+                    />
+                  </div>
+                ) : (
+                  <ShortsScroll
+                    key={shorts.shortsId}
+                    shorts={shorts}
+                    onPostShortsLike={onPostShortsLike}
+                    setShortsId={setShortsId}
+                    setIsShowModal={setIsShowModal}
+                  />
+                );
+              });
+            })}
+          {/* {data.data.data ? (
             data.data.data.map(shorts => {
               return (
                 <ShortsScroll
@@ -104,7 +142,7 @@ const Shorts = () => {
             })
           ) : (
             <div className="">게시물이 없네요 ㅠㅠ</div>
-          )}
+          )} */}
         </div>
       </div>
       {isShowModal && (

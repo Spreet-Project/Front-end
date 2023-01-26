@@ -11,7 +11,6 @@ const KakaoMapModal = ({
   mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAO_URL}&autoload=false`;
 
   document.head.appendChild(mapScript);
-
   const onLoadKakaoMap = () => {
     window.kakao.maps.load(() => {
       const mapContainer = document.getElementById('map');
@@ -39,7 +38,9 @@ const KakaoMapModal = ({
 
           // 인포윈도우로 장소에 대한 설명을 표시합니다
           const infowindow = new window.kakao.maps.InfoWindow({
-            cotent: `<div style="width:150px;text-align:center;">${location}</div>`,
+            content: `<div class=map-modal>
+            행사 장소
+          </div>`,
           });
           infowindow.open(map, marker);
 
@@ -52,12 +53,18 @@ const KakaoMapModal = ({
   mapScript.addEventListener('load', onLoadKakaoMap);
 
   return (
-    <div className="modal-content">
-      <div id="map" style={{ width: '600px', height: '500px' }}></div>;
+    <div className="event-modal-content">
+      <div id="map"></div>;
       <p>* 마커가 나오지 않았다면 상세주소를 입력했는지 확인해주세요!</p>
-      <div>
-        <button onClick={() => setIsShowModal(false)}>확인</button>
+      <div className="event-mdoal-btn">
         <button
+          className="event-btn__confirm"
+          onClick={() => setIsShowModal(false)}
+        >
+          확인
+        </button>
+        <button
+          className="event-btn__cancle"
           onClick={() => {
             setLocation('');
             setIsShowModal(false);

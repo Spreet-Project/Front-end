@@ -10,16 +10,41 @@ const EventWrite = () => {
   const navigate = useNavigate();
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
   // const [inputs, onChangeInput, clearInput] = useInputs();
-  const [title, setTitle] = useState();
-  const [content, setContent] = useState();
-  const [date, setDate] = useState();
-  const [time, setTime] = useState();
+  const [title, setTitle] = useState<string>('');
+  const [content, setContent] = useState<string>('');
+  const [date, setDate] = useState<string>('');
+  const [time, setTime] = useState<string>('');
   const [eventImage, setEventImage] = useState(null);
-  const [location, setLocation] = useState();
+  const [location, setLocation] = useState<string>();
   const [fileUrl, setFileUrl] = useState<any>('');
 
   const onEventWriteSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
+    if (title.length === 0) {
+      sweetAlert(1000, 'error', '제목을 입력해주세요');
+      return;
+    }
+    if (location.length === 0) {
+      sweetAlert(1000, 'error', '위치를 입력해주세요');
+      return;
+    }
+    if (date.length === 0) {
+      sweetAlert(1000, 'error', '날짜를 입력해주세요');
+      return;
+    }
+    if (time.length === 0) {
+      sweetAlert(1000, 'error', '시간을 입력해주세요');
+      return;
+    }
+    if (!eventImage) {
+      sweetAlert(1000, 'error', '이미지를 추가해주세요');
+      return;
+    }
+    if (content.length === 0) {
+      sweetAlert(1000, 'error', '내용을 입력해주세요');
+      return;
+    }
     // const newEnvet = {
     //   title: title,
     //   content: content,
@@ -82,7 +107,7 @@ const EventWrite = () => {
     reader.readAsDataURL(e.target.files[0]);
     reader.onloadend = () => {
       const resultImage = reader.result;
-      console.log('result', resultImage);
+      // console.log('result', resultImage);
       setFileUrl(resultImage);
     };
   };
@@ -112,24 +137,28 @@ const EventWrite = () => {
           name="location"
           placeholder="상세위치"
           className="eventWrite-input"
+          value={location}
           onChange={onChangeLocation}
         />
+        <p>정확한 도로명 주소를 기입해주세요</p>
         <button
           onClick={() => {
             setIsShowModal(true);
           }}
+          className="eventWrite-btn"
         >
-          위치 찾기
+          위치 확인
         </button>
-        <p>정확한 도로명 주소를 기입해주세요</p>
         <input
           type="date"
           className="eventWrite-input-date"
+          value={date}
           onChange={onchangeDate}
         />
         <input
           type="time"
           className="eventWrite-input-time"
+          value={time}
           onChange={onChangeTime}
         />
         <input
@@ -142,6 +171,7 @@ const EventWrite = () => {
           name="content"
           placeholder="내용"
           className="eventWrite-textatea"
+          value={content}
           onChange={onChangeContent}
         ></textarea>
         <hr className="eventWrite-hr" />

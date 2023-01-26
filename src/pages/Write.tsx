@@ -184,12 +184,6 @@ const Write = (): JSX.Element => {
 
   return (
     <div className="write-content">
-      <div className="write-checkFeed">
-        <input type="checkbox" onChange={onCheckFeed} id="checkFeed" />
-        <label htmlFor="checkFeed" className="checkFeed">
-          피드게시물로 작성
-        </label>
-      </div>
       {isFeed ? (
         <div className="feed-image__row">
           <div className="feed-image__carousel">
@@ -242,8 +236,6 @@ const Write = (): JSX.Element => {
             <option value="ETC">기타</option>
           </select>
         )}
-
-        <p>제목</p>
         <input
           type="text"
           className="title-input"
@@ -269,15 +261,20 @@ const Write = (): JSX.Element => {
           </>
         )}
 
-        <p>내용</p>
         <textarea
           name="content"
           value={content || ''}
           onChange={onChangeInput}
           placeholder="내용을 입력해주세요"
         ></textarea>
-      </div>
-      <div className="write-btn-box">
+        <div className="write-checkfeed">
+          <input type="checkbox" onChange={onCheckFeed} id="checkFeed" />
+          <label htmlFor="checkFeed" className="checkFeed">
+            피드게시물로 작성
+          </label>
+        </div>
+
+        <hr className="write-hr"></hr>
         {isFeed ? (
           <button className="write-btn__submit" onClick={onFeedSubmit}>
             확인
@@ -287,8 +284,6 @@ const Write = (): JSX.Element => {
             확인
           </button>
         )}
-
-        <button className="write-btn__goback">이전으로</button>
       </div>
     </div>
   );
