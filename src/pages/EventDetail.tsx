@@ -28,7 +28,7 @@ const EventDetail = () => {
         <div className="eventDtail-profileWrapper">
           <image className="eventDtail-profile"></image>
         </div>
-        <div className="eventDetail-commentWrapper">
+        <div className="eventDetail-addWrapper">
           <input
             className="eventDetail-inputComment"
             placeholder="Add a comment..."
@@ -36,14 +36,15 @@ const EventDetail = () => {
           <hr className="eventDetail-hr" />
         </div>
       </div>
-      <div>
-        <div>
-          <image>프로필</image>
-          <div>
-            id <span>시간</span>
+      <div className="eventDtail-commentWrapper">
+        <div className="eventDetail-commentWrapper__profile">
+          <image className="eventDetail-commentWrapper__profileImg"></image>
+          <div className="eventDetail-commentWrapper__id">
+            아이디
+            <span className="eventDetail-commentWrapper__time">시간</span>
           </div>
         </div>
-        <div>
+        <div className="eventDetail-commentWrapper__like">
           <p>내용</p>
           <span>좋아요</span>
         </div>
