@@ -4,21 +4,19 @@ import '../assets/styles/scss/eventWrite.scss';
 import { postEventWrite } from '../core/api/event';
 import { useInputs } from '../core/hooks/useInput';
 import sweetAlert from '../core/utils/sweetAlert';
+import KakaoMapModal from '../components/kakaomap/KakaoMapmodal';
 
 const EventWrite = () => {
   const navigate = useNavigate();
-  const [inputs, onChangeInput, clearInput] = useInputs();
+  const [isShowModal, setIsShowModal] = useState<boolean>(false);
+  // const [inputs, onChangeInput, clearInput] = useInputs();
   const [title, setTitle] = useState();
   const [content, setContent] = useState();
   const [date, setDate] = useState();
   const [time, setTime] = useState();
   const [eventImage, setEventImage] = useState(null);
   const [location, setLocation] = useState();
-  const [fileUrl, setFileUrl] = useState('');
-
-  // useEffect(() => {
-  // clearInput();
-  // }, []);
+  const [fileUrl, setFileUrl] = useState<any>('');
 
   const onEventWriteSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -80,6 +78,13 @@ const EventWrite = () => {
   // 이미지
   const onChangeEventImage = e => {
     setEventImage(e.target.files[0]);
+    const reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onloadend = () => {
+      const resultImage = reader.result;
+      console.log('result', resultImage);
+      setFileUrl(resultImage);
+    };
   };
 
   //이미지 리사이징
@@ -109,6 +114,14 @@ const EventWrite = () => {
           className="eventWrite-input"
           onChange={onChangeLocation}
         />
+        <button
+          onClick={() => {
+            setIsShowModal(true);
+          }}
+        >
+          위치 찾기
+        </button>
+        <p>정확한 도로명 주소를 기입해주세요</p>
         <input
           type="date"
           className="eventWrite-input-date"
@@ -138,6 +151,13 @@ const EventWrite = () => {
           </button>
         </div>
       </div>
+      {isShowModal && (
+        <KakaoMapModal
+          setIsShowModal={setIsShowModal}
+          setLocation={setLocation}
+          location={location}
+        />
+      )}
     </div>
   );
 };

@@ -97,10 +97,21 @@ export default function Event() {
       <div id="map" style={{ width: '100%', height: '500px' }}></div>;
       <div className="event-sector">
         <div className="event-wrapper">
-          {locationList.map((item, index) => {
+          {data.data.data.map((event, index) => {
             return (
               <div key={index} className="event-item">
-                {item}
+                <img src={event.eventImageUrl} className="event-item__image" />
+                <div className="event-infrom">
+                  <img
+                    src={event.profileImageUrl}
+                    className="event-item__profile"
+                  />
+                  <p>{event.title}</p>
+                </div>
+                <p className="event-item__location">장소 : {event.location}</p>
+                <span className="event-item__date">
+                  날짜: {event.date} 시간 {event.time}
+                </span>
               </div>
             );
           })}

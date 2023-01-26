@@ -1,0 +1,33 @@
+@import './body.scss';
+
+@mixin modal-content {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(27, 26, 26, 0.8);
+  @include flexCenter;
+  @include positonCenter;
+  z-index: 999;
+}
+
+@mixin modal-btn__close {
+  @include btn;
+  color: white;
+  width: 0;
+  background-color: rgb(27, 26, 26);
+  position: absolute;
+  right: 120px;
+  bottom: 80px;
+  font-size: 42px;
+}
+
+.modal-content {
+  @include modal-content;
+  flex-direction: column;
+  #map {
+    border: 5px solid white;
+  }
+  .modal-btn__close {
+    @include modal-btn__close;
+  }
+}
