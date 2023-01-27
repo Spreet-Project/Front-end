@@ -45,14 +45,6 @@ const EventWrite = () => {
       sweetAlert(1000, 'error', '내용을 입력해주세요');
       return;
     }
-    // const newEnvet = {
-    //   title: title,
-    //   content: content,
-    //   location: location,
-    //   date: date,
-    //   time: time,
-    //   file: eventImage,
-    // };
     const eventWriteData = new FormData();
     eventWriteData.append('title', title);
     eventWriteData.append('content', content);

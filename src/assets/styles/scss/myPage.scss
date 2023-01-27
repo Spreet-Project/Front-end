@@ -1,5 +1,6 @@
 @import './body.scss';
 $readOnly_color: darkgrey;
+$confirm-msg: gray;
 
 @mixin outForm {
   display: flex;
@@ -71,14 +72,18 @@ $readOnly_color: darkgrey;
   width: 586px;
   height: 800px;
   padding: 50px;
+  .input__readonly {
+    background-color: $readOnly_color;
+  }
   .mypage-profile {
     position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 30px auto;
-    width: 150px;
-    height: 150px;
+    margin: 0 auto 50px auto;
+    width: 170px;
+    height: 170px;
     border: 10px dotted black;
     border-radius: 100%;
     .mypage-profile__icons {
@@ -86,16 +91,32 @@ $readOnly_color: darkgrey;
       font-size: 60px;
     }
     .mypage-profile__userimg {
-      width: 150px;
-      height: 150px;
+      width: 170px;
+      height: 170px;
       border-radius: 100%;
     }
     .mypage-profile__userimg-input {
       opacity: 0;
       position: absolute;
-      width: 150px;
-      height: 150px;
+      width: 200px;
+      height: 230px;
     }
+    .mypage-profile__btn {
+      @include defaultBtn;
+      margin: 0;
+      position: absolute;
+      width: 150px;
+      height: 25px;
+      bottom: -40px;
+      pointer-events: none;
+    }
+  }
+  .mypage-profile__check__btn {
+    @include defaultBtn;
+    margin: 0;
+    margin-left: 10px;
+    width: 150px;
+    height: 50px;
   }
 }
 
@@ -162,10 +183,15 @@ $readOnly_color: darkgrey;
   background-color: darkgrey;
 }
 
+//마이페이지 비밀번호변경
 .findpasword-form {
   @include outForm;
   width: 586px;
   height: 600px;
+  .findpassword-confirm {
+    margin: 0 0 15px 0;
+    color: $confirm-msg;
+  }
   .findpasword-inner {
     margin: auto;
     .findpasword-input {

@@ -24,11 +24,19 @@ export const getFeed = async payload => {
   }
 };
 
-export const getScrollFeed = async ({ pageParam = 1 }) => {
+export const getScrollFeed = async payload => {
   //Feed 최신 게시물 조회
   try {
+    const { pageParam = 1, queryKey } = payload;
     // console.log(pageParam, 'pageParam');
-    const res = await baseURL.get(`/feed/recent?&page=${pageParam}&size=10`);
+    // console.log(queryKey, 'payload');
+    const [token] = [queryKey[1]];
+    // console.log(token, category);
+    if (token) {
+      const res = await baseURL.get(`/feed/recent?&page=${pageParam}&size=10`);
+      return res.data;
+    }
+    const res = await instance.get(`/feed/recent?&page=${pageParam}&size=10`);
     return res.data;
   } catch (error) {
     if (error.response.request.status === 401) {

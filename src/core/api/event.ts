@@ -33,7 +33,7 @@ export const getDetailEvent = async payload => {
     //배열 구조 분해 할당
     const [eventId] = [queryKey[1]];
     console.log(eventId);
-    return await subURL.get(`/event/${eventId}`);
+    return await instance.get(`/event/${eventId}`);
   } catch (error) {
     if (error.response.request.status === 401) {
       sweetAlert(1000, 'error', '로그인이 필요합니다!');

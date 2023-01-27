@@ -19,7 +19,7 @@ const FeedShorts = (): JSX.Element => {
 
   //처음 렌더링
   const { data, isLoading, isSuccess, hasNextPage, fetchNextPage, isFetching } =
-    useInfiniteQuery('getScrollFeed', getScrollFeed, {
+    useInfiniteQuery(['getScrollFeed', token], getScrollFeed, {
       getNextPageParam: (lastPage, pages) => {
         if (pages.length === 2) {
           return undefined;
@@ -56,11 +56,11 @@ const FeedShorts = (): JSX.Element => {
   const onPostFeedLike = feedId => {
     postFeedLike(feedId).then(res => {
       // sweetAlert(1000, 'success', '좋아요가 반영되었습니다.');
-      queryClient.invalidateQueries(['feeds', token]);
+      queryClient.invalidateQueries(['getScrollFeed', token]);
     });
   };
 
-  if (isLoading) return;
+  if (isLoading || !data.pages) return;
 
   // console.log(data.pages, 'pages');
   // if (data.response && data.response.request.status === 401) {
@@ -93,6 +93,7 @@ const FeedShorts = (): JSX.Element => {
         <div className="feed-shorts-scroll">
           {data.pages &&
             data.pages.map(page => {
+              if (!page.data) return;
               return page.data.map((feed, feedIndex) => {
                 const lastIndex = page.data.length - 1;
                 return feedIndex === lastIndex ? (
