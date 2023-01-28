@@ -47,13 +47,13 @@ const MyPage = () => {
     },
   ];
 
-  if (isLoading || !data) return;
-
-  if (data.response && data.name === 'AxiosError') {
+  if (data && data.response && data.name === 'AxiosError') {
     localStorage.removeItem('id');
     sweetAlert(1000, 'error', '죄송합니다 다시 로그인해주세요');
     navigate('/login');
   }
+  if (isLoading || !data) return;
+
   return (
     <>
       <div className="mypage-sidebar">
@@ -67,6 +67,7 @@ const MyPage = () => {
           </ul>
         </div>
       </div>
+
       {id === 0 && <UserInform userInform={data.data.data} />}
       {id === 1 && <ContentList />}
       {id === 2 && <FindPassword userEmail={data.data.data.email} />}

@@ -3,7 +3,11 @@ import '../../assets/styles/scss/myPage.scss';
 import { useQuery, useQueryClient } from 'react-query';
 import imageCompression from 'browser-image-compression';
 import sweetAlert from '../../core/utils/sweetAlert';
-import { postNicknameCheck, putUserInform } from '../../core/api/mypage';
+import {
+  postNicknameCheck,
+  putUserProfile,
+  putUserNickname,
+} from '../../core/api/mypage';
 
 const UserInform = ({ userInform }): JSX.Element => {
   const [profileImg, setProfileImg] = useState(null);
@@ -33,12 +37,13 @@ const UserInform = ({ userInform }): JSX.Element => {
     setProfileImg(URL.createObjectURL(e.target.files[0]));
     try {
       const newFile = await handleFileOnChange(e.target.files[0]);
-      setPostImg(newFile);
+
       const userData = new FormData();
       userData.append('file', newFile);
-      userData.append('nickname', nickname);
-      putUserInform(userData).then(res => {
-        console.log(res, '이미지 정보 수정');
+      putUserProfile(userData).then(res => {
+        if (!res) {
+          return sweetAlert(1000, 'error', '프로필 수정 중 오류!');
+        }
       });
     } catch (error) {
       sweetAlert(1000, 'error', '파일 변환중 오류!');
@@ -52,6 +57,7 @@ const UserInform = ({ userInform }): JSX.Element => {
   const onCheckNickname = () => {
     postNicknameCheck(nickname).then(res => {
       if (res.name === 'AxiosError') return;
+      sweetAlert(1000, 'success', res.data.msg);
       setCheckNickname(true);
     });
   };
@@ -60,11 +66,13 @@ const UserInform = ({ userInform }): JSX.Element => {
     if (!checkNickname) {
       return sweetAlert(1000, 'error', '닉네임 중복 확인 을 해주세요');
     }
-    const userData = new FormData();
-    userData.append('profileImage', postImg);
-    userData.append('nickname', nickname);
-    putUserInform(userData).then(res => {
-      console.log(res, '정보수정res');
+    putUserNickname(nickname).then(res => {
+      if (!res) {
+        return sweetAlert(1000, 'error', '닉네임 수정 중 오류!');
+      }
+      if (res.data.statusCode === 200) {
+        sweetAlert(1000, 'success', res.data.msg);
+      }
     });
   };
 

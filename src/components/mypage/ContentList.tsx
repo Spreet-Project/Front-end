@@ -17,6 +17,11 @@ const ContentList = (): JSX.Element => {
   ];
   return (
     <div className="contentList-form">
+      <ul>
+        <li>쇼츠</li>
+        <li>피드</li>
+        <li>행사</li>
+      </ul>
       {contentList.map((content, index) => {
         return (
           <div key={index} className="contentList-commentbox">
