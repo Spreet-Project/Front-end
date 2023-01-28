@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery, useQueryClient } from 'react-query';
 
 const FindPassword = (): JSX.Element => {
+  const navigate = useNavigate();
   return (
     <div className="findpasword-form">
       <p className="mypage-title">비밀번호 찾기</p>
@@ -15,7 +16,6 @@ const FindPassword = (): JSX.Element => {
             placeholder="이메일"
             readOnly
             className="findpasword-input user-email"
-            value="qweqwewq@naver.com"
           />
           <button className="findpasword-btn">인증 요청</button>
         </div>

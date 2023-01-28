@@ -151,8 +151,8 @@ $readOnly_color: darkgrey;
   @include defaultBtn;
 }
 
-//비밀번호 찾기
-@mixin findpasword-input {
+//비밀번호 변경
+@mixin changepasword-input {
   width: 400px;
   height: 40px;
   margin: 10px 0 10px 0;
@@ -160,6 +160,51 @@ $readOnly_color: darkgrey;
 
 @mixin readonlyColor {
   background-color: darkgrey;
+}
+
+.changepasword-form {
+  @include outForm;
+  width: 586px;
+  height: 600px;
+  .changepasword-inner {
+    margin: auto;
+    .changepasword-input {
+      @include changepasword-input;
+    }
+    .user-email {
+      background-color: $readOnly_color;
+    }
+    .changepasword-label {
+      font-size: 22px;
+      font-weight: 500;
+    }
+    .changepasword-btn {
+      width: 140px;
+      height: 48px;
+      margin: 0px 0px 0px 16px;
+      background: #717171;
+      border-radius: 5px;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      &:hover {
+        color: #333333;
+      }
+    }
+  }
+
+  .changepasword-btn__modify {
+    @include modifyBtn;
+    margin-top: 20px;
+  }
+}
+
+//비밀번호 찾기
+@mixin findpasword-input {
+  width: 400px;
+  height: 40px;
+  margin: 10px 0 10px 0;
 }
 
 .findpasword-form {
@@ -171,9 +216,8 @@ $readOnly_color: darkgrey;
     .findpasword-input {
       @include findpasword-input;
     }
-    .user-email {
-      background-color: $readOnly_color;
-    }
+    // .user-email {
+    // }
     .findpasword-label {
       font-size: 22px;
       font-weight: 500;

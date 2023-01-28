@@ -1,8 +1,18 @@
-import React from 'react';
-import { useQuery } from 'react-query';
+import React, { useState } from 'react';
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../assets/styles/scss/eventDetail.scss';
-import { getDetailEvent } from '../core/api/event';
+import {
+  deleteEventComment,
+  getDetailEvent,
+  getEventComment,
+  postEventComment,
+} from '../core/api/event';
 
 interface Event {
   id: number;
@@ -17,30 +27,70 @@ interface Event {
 
 const EventDetail = (): JSX.Element => {
   const id = useParams();
-  console.log(id);
+  // console.log(id);
   const eventId = Number(id.id);
   const navigate = useNavigate();
+  const [comment, setComment] = useState('');
+  const queryClient = useQueryClient();
 
   const { data, isLoading, isError, error } = useQuery(
     ['eventDtail', eventId],
     getDetailEvent,
   );
+  //댓글 조회
+  const resultComment = useQuery(['eventComment', eventId], getEventComment);
+
+  //댓글 생성
+  const postCommentMutaion = useMutation(
+    () => postEventComment({ eventId: eventId, content: comment }),
+    {
+      onSuccess: () => queryClient.invalidateQueries(['eventComment', eventId]),
+    },
+  );
+
+  //댓글 삭제
+  const deleteEventCommentMutaion = useMutation(
+    eventCommentId => deleteEventComment(eventCommentId),
+
+    {
+      // onSettled: () => queryClient.invalidateQueries(['eventComment', eventId]),
+    },
+  );
+
+  if (isLoading || !data || resultComment.isLoading || !resultComment.data)
+    return;
+  // console.log(data.data.data);
+  console.log(resultComment, 'resultComment');
 
   return (
     <div className="eventDetail-wrapper">
       <div className="eventDetail-eventWrapper">
-        <div className="eventDetail-img"></div>
+        <img
+          src={data.data.data.eventImageUrl}
+          className="eventDetail-img"
+        ></img>
         <div className="eventDetail-infoWrapper">
-          <h1 className="eventDetail-title">행사정보</h1>
-          <p className="eventDetail-content">항해 수료 기념행사...</p>
-          <p className="eventDetail-location">
-            경기도 안양시 동안구 평촌동 중앙공원
-          </p>
-          <p className="eventDetail-date">2023. 02. 17.</p>
-          <p className="eventDetail-time">오후 5:00</p>
+          <h1 className="eventDetail-title">{data.data.data.title}</h1>
+          <p className="eventDetail-content">{data.data.data.content}</p>
+          <p className="eventDetail-location">{data.data.data.location}</p>
+          <p className="eventDetail-date">{data.data.data.date}</p>
+          <p className="eventDetail-time">{data.data.data.time}</p>
+          <div>
+            <img
+              src={data.data.data.profileImageUrl}
+              className="eventDetail-commentWrapper__profileImg"
+            ></img>
+          </div>
           <div className="evenDetail-btnWrapper">
             <button className="eventDetail-btn">수정</button>
-            <button className="eventDetail-btn">삭제</button>
+            <button
+              className="eventDetail-btn"
+              onClick={() => {
+                // deleteEventDetail
+              }}
+            >
+              삭제
+            </button>
           </div>
         </div>
       </div>
@@ -54,27 +104,57 @@ const EventDetail = (): JSX.Element => {
             <input
               className="eventDetail-inputComment"
               placeholder="Add a comment..."
+              type="text"
+              name="comment"
+              value={comment}
+              onChange={e => {
+                setComment(e.target.value);
+              }}
             />
-            <button className="eventDetail-commentWrapper__btn">등록</button>
+            <button
+              className="eventDetail-commentWrapper__addBtn"
+              onClick={() => {
+                postCommentMutaion.mutate();
+                setComment('');
+              }}
+            >
+              등록
+            </button>
           </div>
           <hr className="eventDetail-hr" />
         </div>
       </div>
       <div className="eventDtail-commentWrapper">
-        <div className="eventDetail-commentWrapper__profile">
-          <image className="eventDetail-commentWrapper__profileImg"></image>
-          <div className="eventDetail-commentWrapper__id">
-            아이디
-            <span className="eventDetail-commentWrapper__time">오후 5:00</span>
-          </div>
-        </div>
-        <div className="eventDetail-commentWrapper__like">
-          <p className="eventDetail-commentWrapper__cemment">
-            댓글내용 댓글내용 댓글내용 댓글내용 댓글내용 댓글내용 댓글내용
-            댓글내용 댓글내용 댓글내용
-          </p>
-          <span className="material-icons">thumb_up</span>
-        </div>
+        {resultComment.data.data.data &&
+          resultComment.data.data.data.map(comment => (
+            <>
+              <div className="eventDetail-commentWrapper__profile">
+                <img
+                  src={data.data.data.profileImageUrl}
+                  className="eventDetail-commentWrapper__profileImg"
+                ></img>
+                <div className="eventDetail-commentWrapper__id">
+                  {comment.nickname}
+                  <button
+                    className="eventDetail-commentWrapper__deleteBtn"
+                    onClick={() => {
+                      deleteEventCommentMutaion.mutate(comment.eventCommentId);
+                    }}
+                  >
+                    삭제
+                  </button>
+                  <span className="eventDetail-commentWrapper__time">
+                    {comment.createAt}
+                  </span>
+                </div>
+              </div>
+              <div className="eventDetail-commentWrapper__like">
+                <p className="eventDetail-commentWrapper__cemment">
+                  {comment.content}
+                </p>
+              </div>
+            </>
+          ))}
       </div>
     </div>
   );
