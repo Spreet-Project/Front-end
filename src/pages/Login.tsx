@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { NavigationType, useNavigate } from 'react-router-dom';
 import { postLogin } from '../core/api/login';
 import '../assets/styles/scss/login.scss';
 import sweetAlert from '../core/utils/sweetAlert';
@@ -57,7 +57,14 @@ const Login = () => {
         <button className="login-btn" onClick={onClickLogin}>
           로그인
         </button>
-        <p className="login-p">비밀번호를 잊었나요?</p>
+        <p
+          className="login-findPassword"
+          onClick={() => {
+            navigate('/findpassword');
+          }}
+        >
+          비밀번호를 잊었나요?
+        </p>
         <hr className="login-hr" />
         <div>
           <button

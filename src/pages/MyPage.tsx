@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery, useQueryClient } from 'react-query';
 import UserInform from '../components/mypage/UserInform';
 import ContentList from '../components/mypage/ContentList';
-import FindPassword from '../components/mypage/ChangePassword';
+import ChangePassword from '../components/mypage/ChangePassword';
 import Admin from '../components/mypage/Admin';
 import { getUserInform } from '../core/api/mypage';
 import sweetAlert from '../core/utils/sweetAlert';
@@ -70,7 +70,7 @@ const MyPage = () => {
 
       {id === 0 && <UserInform userInform={data.data.data} />}
       {id === 1 && <ContentList />}
-      {id === 2 && <FindPassword userEmail={data.data.data.email} />}
+      {id === 2 && <ChangePassword userEmail={data.data.data.email} />}
       {id === 3 && <Admin />}
     </>
   );
