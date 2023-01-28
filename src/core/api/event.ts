@@ -33,10 +33,52 @@ export const getDetailEvent = async payload => {
     //배열 구조 분해 할당
     const [eventId] = [queryKey[1]];
     console.log(eventId);
-    return await subURL.get(`/event/${eventId}`);
+    return await instance.get(`/event/${eventId}`);
   } catch (error) {
     if (error.response.request.status === 401) {
       sweetAlert(1000, 'error', '로그인이 필요합니다!');
     }
+  }
+};
+
+export const getEventComment = async payload => {
+  try {
+    //객체 구조 분해 할당
+    const { queryKey } = payload;
+    //배열 구조 분해 할당
+    const [eventId] = [queryKey[1]];
+    return await baseURL.get(`/event/${eventId}/comment`);
+  } catch (error) {
+    if (error.response.request.status === 401) {
+      sweetAlert(1000, 'error', '로그인이 필요합니다!');
+    }
+  }
+};
+
+export const postEventComment = async payload => {
+  //행사 디테일 댓글 작성
+  try {
+    const { eventId, content } = payload;
+    console.log(payload);
+    return await baseURL.post(`/event/${eventId}/comment`, {
+      content: content,
+    });
+  } catch (error) {
+    console.log(error);
+    if (error.response.status === 401) {
+      return sweetAlert(1000, 'error', '로그인이 필요합니다!');
+    }
+    sweetAlert(1000, 'error', '댓글 입력 오류!');
+  }
+};
+
+export const deleteEventComment = async commentId => {
+  try {
+    console.log(commentId);
+
+    return await baseURL.delete(`/event/comment/${commentId}`);
+  } catch (error) {
+    sweetAlert(1000, 'error', '댓글 삭제 오류!');
+    return error;
   }
 };

@@ -16,7 +16,7 @@
 .eventDetail-img {
   width: 900px;
   height: 650px;
-  background-color: rgba(72, 72, 72, 1);
+  background-color: whitesmoke;
   border-radius: 10px;
   margin: 10px;
   box-sizing: border-box;
@@ -129,8 +129,8 @@
   margin: 10px;
 }
 
-.eventDetail-commentWrapper__btn {
-  width: 70px;
+.eventDetail-commentWrapper__addBtn {
+  width: 85px;
   height: 30px;
   background-color: #d10536;
   border: none;
@@ -179,6 +179,21 @@
   font-size: 20px;
 }
 
+.eventDetail-commentWrapper__deleteBtn {
+  width: 85px;
+  height: 30px;
+  background-color: #d10536;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 15px;
+  margin-left: 1006px;
+  cursor: pointer;
+  &:hover {
+    color: #333333;
+  }
+}
+
 .eventDetail-commentWrapper__time {
   color: #9c9c9c;
   margin: 10px;
@@ -193,13 +208,4 @@
   margin: 10px;
   font-size: 18px;
   color: #9c9c9c;
-}
-
-.material-icons {
-  margin: 10px;
-  color: white;
-  cursor: pointer;
-  &:hover {
-    color: #d10536;
-  }
 }

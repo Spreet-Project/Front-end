@@ -18,6 +18,7 @@ import NaverLogin from '../pages/NaverLogin';
 import EventDetail from '../pages/EventDetail';
 import UserInform from '../components/mypage/UserInform';
 import CrewInform from '../components/mypage/CrewInform';
+import FindPassword from '../pages/FindPassword';
 
 const Router = () => {
   return (
@@ -37,6 +38,7 @@ const Router = () => {
         <Route path="/eventWrite" element={<EventWrite />} />
         <Route path="/eventDetail/:id" element={<EventDetail />} />
         <Route path="/modify/:id" element={<ModifyShorts />} />
+        <Route path="/findpassword" element={<FindPassword />} />
         <Route path="/mypage" element={<MyPage />}>
           <Route path="userinform" element={<UserInform />} />
           <Route path="crewinform" element={<CrewInform />} />

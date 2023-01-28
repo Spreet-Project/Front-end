@@ -77,11 +77,15 @@
   margin: 10px 23px;
 }
 
-.login-p {
+.login-findPassword {
   width: 480px;
-  font-size: 12px;
+  font-size: 13px;
   color: #9c9c9c;
   margin: 3px;
+  cursor: pointer;
+  &:hover {
+    color: #333333;
+  }
 }
 
 .login-hr {
