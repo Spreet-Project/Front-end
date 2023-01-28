@@ -7,25 +7,26 @@ import ContentList from '../components/mypage/ContentList';
 import ChangePassword from '../components/mypage/ChangePassword';
 import Admin from '../components/mypage/Admin';
 import { getUserInform } from '../core/api/mypage';
+import sweetAlert from '../core/utils/sweetAlert';
 
 const MyPage = () => {
   const navigate = useNavigate();
-  const [profile, setProfile] = useState(null);
+
   const queryClient = useQueryClient();
   const [logIn, setLogIn] = useState(false);
   const [password, setPassword] = useState(false);
   const [id, setId] = useState(0);
 
-  // const { isLoading, isError, data, error, isFetching } = useQuery(
-  //   ['user'], //쿼리 키
-  //   getUserInform, //비동기 처리함수(서버에 요청),
-  //   {
-  //     // suspense: true,
-  //     // cacheTime: 5000, //캐시를 몇초까지 저장해줄건지? 기본 5분?
-  //     // staleTime: 5000, //재검색을 트리거? 기존에 있던 데이터처리를 어떻게할건지?
-  //     refetchOnMount: true, //쿼리데이터가 오래되었는지 확인하는여부?
-  //   },
-  // );
+  const { isLoading, isError, data, error, isFetching } = useQuery(
+    ['user'], //쿼리 키
+    getUserInform, //비동기 처리함수(서버에 요청),
+    {
+      // suspense: true,
+      // cacheTime: 5000, //캐시를 몇초까지 저장해줄건지? 기본 5분?
+      // staleTime: 5000, //재검색을 트리거? 기존에 있던 데이터처리를 어떻게할건지?
+      refetchOnMount: true, //쿼리데이터가 오래되었는지 확인하는여부?
+    },
+  );
 
   const tabList = [
     {
@@ -38,7 +39,7 @@ const MyPage = () => {
     },
     {
       id: 2,
-      title: '비밀번호 찾기',
+      title: '비밀번호 변경',
     },
     {
       id: 3,
@@ -46,27 +47,12 @@ const MyPage = () => {
     },
   ];
 
-  // useEffect(() => {
-  //   setProfile(data.data.data);
-  //   setUserId(data.data.data);
-  //   setuser
-  // }, []);
-  const onsubmitMyPage = e => {
-    e.preventDefault();
-  };
-
-  const onProfileChange = e => {
-    e.preventDefault();
-    setProfile(URL.createObjectURL(e.target.files[0]));
-  };
-
-  // if (isLoading || isFetching || !data) return;
-
-  // if (data.response && data.response.request.status === 401) {
-  //   localStorage.removeItem('id');
-  // }
-
-  // console.log(data, 'data');
+  if (data && data.response && data.name === 'AxiosError') {
+    localStorage.removeItem('id');
+    sweetAlert(1000, 'error', '죄송합니다 다시 로그인해주세요');
+    navigate('/login');
+  }
+  if (isLoading || !data) return;
 
   return (
     <>
@@ -81,15 +67,10 @@ const MyPage = () => {
           </ul>
         </div>
       </div>
-      {id === 0 && (
-        <UserInform
-          profile={profile}
-          onProfileChange={onProfileChange}
-          onsubmitMyPage={onsubmitMyPage}
-        />
-      )}
+
+      {id === 0 && <UserInform userInform={data.data.data} />}
       {id === 1 && <ContentList />}
-      {id === 2 && <ChangePassword />}
+      {id === 2 && <ChangePassword userEmail={data.data.data.email} />}
       {id === 3 && <Admin />}
     </>
   );

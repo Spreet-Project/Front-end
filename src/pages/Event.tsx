@@ -3,6 +3,7 @@ import { useQuery, useQueries } from 'react-query';
 import { getEvent } from '../core/api/event';
 import '../assets/styles/scss/event.scss';
 import { useNavigate } from 'react-router-dom';
+import KakaoLogin from './KakaoLogin';
 
 declare global {
   interface Window {
@@ -31,12 +32,10 @@ export default function Event() {
 
   mapScript.async = true;
   mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAO_URL}&autoload=false`;
-
   document.head.appendChild(mapScript);
-
+  const infowindow = new window.kakao.maps.InfoWindow({});
   const onLoadKakaoMap = () => {
     if (isLoading) return;
-    const eventList = data.data.data;
     window.kakao.maps.load(() => {
       const mapContainer = document.getElementById('map');
       const mapOption = {
@@ -65,23 +64,21 @@ export default function Event() {
               map: map,
               position: coords,
             });
-
+            // const infowindow = new window.kakao.maps.InfoWindow({});
             // 인포윈도우로 장소에 대한 설명을 표시합니다
-            const infowindow = new window.kakao.maps.InfoWindow({
-              content: `<div class=event-modal>
-                <img src='${event.eventImageUrl}' class=event-modal__eventimage />
-                <div class=event-modal__inform>
-                  <p>행사제목:${event.title}</p> 
-                  <p>날짜:${event.date}</p>
-                  <p>시간:${event.time}</p>
-                  <div class=event-modal__userform >
-                    <img src='${event.profileImageUrl}' class=event-modal__profileimg />
-                    <p>${event.nickname}</p>
-                  </div>
-                </div> 
-              </div>`,
+            window.kakao.maps.event.addListener(marker, 'mouseover', () => {
+              infowindow.setContent(`<div class=event-modal>
+              <img src='${event.eventImageUrl}' class=event-modal__image />
+              <p class=event-modal__title >${event.title}</p>
+              <div class=event-modal__date >${event.date} 시간:${event.time}</div>
+              <p class=event-modal__location >${event.location}</p>
+            </div>`),
+                infowindow.open(map, marker);
             });
-            infowindow.open(map, marker);
+
+            window.kakao.maps.event.addListener(marker, 'mouseout', () => {
+              infowindow.close();
+            });
 
             // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
             map.setCenter(coords);

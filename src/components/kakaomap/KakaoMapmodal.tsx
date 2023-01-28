@@ -1,6 +1,7 @@
 import React from 'react';
 import '../../assets/styles/scss/kakaoMapModal.scss';
 const KakaoMapModal = ({
+  setSearchDisplay,
   setIsShowModal,
   setLocation,
   location,
@@ -66,6 +67,7 @@ const KakaoMapModal = ({
         <button
           className="event-btn__cancle"
           onClick={() => {
+            setSearchDisplay(false);
             setLocation('');
             setIsShowModal(false);
           }}

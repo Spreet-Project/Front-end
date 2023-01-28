@@ -5,6 +5,7 @@ import { postEventWrite } from '../core/api/event';
 import { useInputs } from '../core/hooks/useInput';
 import sweetAlert from '../core/utils/sweetAlert';
 import KakaoMapModal from '../components/kakaomap/KakaoMapmodal';
+import DeaumPostCode from 'react-daum-postcode';
 
 const EventWrite = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const EventWrite = () => {
   const [eventImage, setEventImage] = useState(null);
   const [location, setLocation] = useState<string>();
   const [fileUrl, setFileUrl] = useState<any>('');
+  const [searchDisplay, setSearchDisplay] = useState<boolean>(false);
 
   const onEventWriteSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -45,14 +47,6 @@ const EventWrite = () => {
       sweetAlert(1000, 'error', '내용을 입력해주세요');
       return;
     }
-    // const newEnvet = {
-    //   title: title,
-    //   content: content,
-    //   location: location,
-    //   date: date,
-    //   time: time,
-    //   file: eventImage,
-    // };
     const eventWriteData = new FormData();
     eventWriteData.append('title', title);
     eventWriteData.append('content', content);
@@ -112,6 +106,37 @@ const EventWrite = () => {
     };
   };
 
+  ///다음 검색 주소 검색결과
+  const handleComplete = data => {
+    let fullAddress = data.address;
+    let extraAddress = '';
+    if (data.addressType === 'R') {
+      if (data.bname !== '') {
+        extraAddress += data.bname;
+      }
+      if (data.buildingName !== '') {
+        extraAddress +=
+          extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
+      }
+      fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
+      console.log(fullAddress);
+      setLocation(fullAddress);
+    }
+    //fullAddress -> 전체 주소반환
+  };
+
+  // 다음 주소 검색창 닫기 함수
+  const handleClose = data => {
+    if (data === 'FORCE_CLOSE') {
+      setSearchDisplay(false);
+    }
+
+    // 검색결과를 선택하여 화면이 닫혔을 경우 iframeDisplay값 false로 변경
+    if (data === 'COMPLETE_CLOSE') {
+      setSearchDisplay(true);
+    }
+  };
+
   //이미지 리사이징
   // const onChangeEventImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
   //   const targetFile = e.target.files[0];
@@ -149,6 +174,13 @@ const EventWrite = () => {
         >
           위치 확인
         </button>
+
+        <DeaumPostCode
+          onClose={handleClose}
+          onComplete={handleComplete}
+          style={{ width: '400px', height: '400px' }}
+        />
+
         <input
           type="date"
           className="eventWrite-input-date"
@@ -183,6 +215,7 @@ const EventWrite = () => {
       </div>
       {isShowModal && (
         <KakaoMapModal
+          setSearchDisplay={setSearchDisplay}
           setIsShowModal={setIsShowModal}
           setLocation={setLocation}
           location={location}

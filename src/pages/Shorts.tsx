@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../assets/styles/scss/shorts.scss';
 import ShortsModal from '../components/ShortsModal';
 import { getScrollShorts, postShortLike } from '../core/api/shorts';
@@ -12,8 +12,9 @@ const Shorts = () => {
   const naviagate = useNavigate();
   const queryClient = useQueryClient();
   const [shortsId, setShortsId] = useState<number>(0);
-  const [currentCate, setCurrentCate] = useState('RAP');
+  const [currentCate, setCurrentCate] = useState<string>('RAP');
   const token = localStorage.getItem('id');
+  const isOverData = useRef<boolean>(false); //현재 데이터없을때 요청 막아줄 값
   const [ref, inView] = useInView();
 
   const categoryList = [
@@ -28,9 +29,8 @@ const Shorts = () => {
 
   const { data, isLoading, isSuccess, hasNextPage, fetchNextPage, isFetching } =
     useInfiniteQuery(['getScrollShorts', token, currentCate], getScrollShorts, {
-      getNextPageParam: (lastPage, pages: any) => {
-        console.log(lastPage, 'lastPage');
-        if (pages.length === 2 || lastPage.data.data.length < 10) {
+      getNextPageParam: (lastPage, pages) => {
+        if (lastPage.data.data.length < 10 || !lastPage.data.data) {
           return undefined;
         }
         return pages.length + 1;
@@ -39,7 +39,7 @@ const Shorts = () => {
 
   useEffect(() => {
     // console.log(inView, 'inView');
-    console.log(hasNextPage, 'hasNextPage');
+    // console.log(hasNextPage, 'hasNextPage');
     // hasNextPage
     if (inView && hasNextPage) {
       fetchNextPage();
@@ -56,10 +56,11 @@ const Shorts = () => {
   const onPostShortsLike = shortsId => {
     postShortLike(shortsId)
       .then(res => {
-        queryClient.invalidateQueries([
-          'shorts',
-          { category: currentCate, token: token },
-        ]);
+        if (!res) {
+          return sweetAlert(1000, 'error', ' 로그인이 필요합니다!');
+        }
+        queryClient.invalidateQueries(['getScrollShorts', token, currentCate]);
+        // sweetAlert(1000, 'success', '좋아요가 반영되었습니다!');
       })
       .catch(error => {
         console.log(error);
@@ -105,6 +106,7 @@ const Shorts = () => {
         <div className="shorts-scroll">
           {data.pages &&
             data.pages.map(page => {
+              if (!page.data.data) return;
               return page.data.data.map((shorts, shortsIndex) => {
                 const lastIndex = page.data.data.length - 1;
                 return shortsIndex === lastIndex ? (
@@ -128,21 +130,6 @@ const Shorts = () => {
                 );
               });
             })}
-          {/* {data.data.data ? (
-            data.data.data.map(shorts => {
-              return (
-                <ShortsScroll
-                  key={shorts.shortsId}
-                  shorts={shorts}
-                  onPostShortsLike={onPostShortsLike}
-                  setShortsId={setShortsId}
-                  setIsShowModal={setIsShowModal}
-                />
-              );
-            })
-          ) : (
-            <div className="">게시물이 없네요 ㅠㅠ</div>
-          )} */}
         </div>
       </div>
       {isShowModal && (

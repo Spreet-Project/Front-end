@@ -13,7 +13,6 @@ const ShortsCommentBox = ({
   onCheckCommentModify,
   loginNickname,
 }): JSX.Element => {
-  console.log(comment);
   return (
     <>
       {isCommentModify && comment.shortsCommentId === modifyCommentId ? (

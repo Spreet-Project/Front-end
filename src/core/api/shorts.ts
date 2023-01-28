@@ -1,3 +1,4 @@
+import { isImportEqualsDeclaration } from 'typescript';
 import { instance, baseURL, subURL } from '../axios/axios';
 import sweetAlert from '../utils/sweetAlert';
 
@@ -33,11 +34,15 @@ export const getScrollShorts = async payload => {
     const [token, category] = [queryKey[1], queryKey[2]];
     // console.log(token, category);
     if (token) {
-      return await baseURL.get(
+      const result = await baseURL.get(
         `/shorts?category=${category}&page=${pageParam}`,
       );
+      return result;
     }
-    return await instance.get(`/shorts?category=${category}&page=${pageParam}`);
+    const result = await instance.get(
+      `/shorts?category=${category}&page=${pageParam}`,
+    );
+    return result;
   } catch (error) {
     if (error.response.request.status === 401) {
       sweetAlert(1000, 'error', '로그인이 필요합니다!');
