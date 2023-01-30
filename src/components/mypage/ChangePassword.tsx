@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useQuery, useQueryClient } from 'react-query';
 import sweetAlert from '../../core/utils/sweetAlert';
-import { putRestPassword } from '../../core/api/mypage';
+import { postEmailCheck, putRestPassword } from '../../core/api/mypage';
 
-const FindPassword = ({ userEmail }): JSX.Element => {
+const ChangePassword = ({ userEmail }): JSX.Element => {
   const [isCheckEmail, setIsCheckEmail] = useState<boolean>(false);
   const [password, setPassword] = useState<string>('');
   const [passwordCheck, setPasswordCheck] = useState<string>('');
@@ -30,6 +29,14 @@ const FindPassword = ({ userEmail }): JSX.Element => {
   };
 
   const onCheckEmail = () => {
+    postEmailCheck(userEmail).then(res => {
+      if (!res) {
+        return sweetAlert(1000, 'error', '이메일 인증 요청 오류');
+      }
+      if (res.data.statusCode === 200) {
+        sweetAlert(1000, 'success', res.data.msg);
+      }
+    });
     setIsCheckEmail(true);
   };
 
@@ -137,4 +144,4 @@ const FindPassword = ({ userEmail }): JSX.Element => {
   );
 };
 
-export default FindPassword;
+export default ChangePassword;

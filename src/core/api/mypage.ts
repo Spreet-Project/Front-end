@@ -20,7 +20,8 @@ export const getUserInform = async () => {
 export const postEmailCheck = async payload => {
   try {
     //Email 인증요청
-    return await instance.post(`/user/mypage/send-email?email=${payload}`);
+    console.log(payload, '이메일 payload');
+    return await baseURL.post(`/user/mypage/send-email?email=${payload}`);
   } catch (error) {
     if (error.response.request.status === 401) {
       sweetAlert(1000, 'error', '죄송합니다 로그인해주세요!');
@@ -76,6 +77,25 @@ export const putRestPassword = async payload => {
 export const postNicknameCheck = async payload => {
   try {
     return await baseURL.post(`/user/nickname-check?nickname=${payload}`);
+  } catch (error) {
+    sweetAlert(1000, 'error', error.response.data.msg);
+    if (error.response.request.status === 401) {
+      sweetAlert(1000, 'error', '죄송합니다 로그인해주세요!');
+    }
+    return error;
+  }
+};
+
+//마이페이지 회원이 작성한 게시글 목록
+export const getUserPost = async payload => {
+  try {
+    console.log(payload, 'payload');
+    const { queryKey } = payload;
+    const [category] = [queryKey[1]];
+    // console.log(category);
+    return await baseURL.get(
+      `/user/mypage/post?classification=${category}&page=1`,
+    );
   } catch (error) {
     sweetAlert(1000, 'error', error.response.data.msg);
     if (error.response.request.status === 401) {

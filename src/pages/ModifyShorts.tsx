@@ -119,12 +119,12 @@ const ModifyShorts = (): JSX.Element => {
           onChange={onChangeInput}
           placeholder="내용을 입력해주세요"
         ></textarea>
-      </div>
-      <div className="write-btn-box">
+
+        <hr className="write-hr"></hr>
+
         <button className="write-btn__submit" onClick={onShortsSubmit}>
           확인
         </button>
-        <button className="write-btn__goback">이전으로</button>
       </div>
     </div>
   );

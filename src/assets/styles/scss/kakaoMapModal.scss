@@ -53,7 +53,6 @@
 
 .event-modal-content {
   @include modal-content;
-  flex-direction: column;
   #map {
     width: 600px;
     height: 600px;
@@ -64,19 +63,31 @@
       font-size: 22px;
     }
   }
-  .event-mdoal-btn {
-    margin-top: 15px;
+  .event-modal-postcode {
+    margin-left: 30px;
+  }
+  .event-modal__btn-box {
     display: flex;
-    .event-btn__confirm {
-      @include confirmBtn;
+    flex-direction: column;
+    align-items: center;
+    p {
+      margin-top: 12px;
     }
-    .event-btn__cancle {
-      @include defaultBtn;
+    .event-mdoal-btn {
+      margin-top: 15px;
+      display: flex;
+      .event-btn__confirm {
+        @include confirmBtn;
+      }
+      .event-btn__cancle {
+        @include defaultBtn;
+      }
+    }
+    p {
+      color: $font_color;
     }
   }
-  p {
-    color: $font_color;
-  }
+
   .modal-btn__close {
     @include modal-btn__close;
   }

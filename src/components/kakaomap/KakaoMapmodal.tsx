@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import '../../assets/styles/scss/kakaoMapModal.scss';
+import DeaumPostCode from 'react-daum-postcode';
+
 const KakaoMapModal = ({
-  setSearchDisplay,
+  handleComplete,
   setIsShowModal,
-  setLocation,
   location,
 }): JSX.Element => {
+  // 다음 주소 검색창 닫기 함수
   const mapScript = document.createElement('script');
 
   mapScript.async = true;
@@ -55,26 +57,7 @@ const KakaoMapModal = ({
 
   return (
     <div className="event-modal-content">
-      <div id="map"></div>;
-      <p>* 마커가 나오지 않았다면 상세주소를 입력했는지 확인해주세요!</p>
-      <div className="event-mdoal-btn">
-        <button
-          className="event-btn__confirm"
-          onClick={() => setIsShowModal(false)}
-        >
-          확인
-        </button>
-        <button
-          className="event-btn__cancle"
-          onClick={() => {
-            setSearchDisplay(false);
-            setLocation('');
-            setIsShowModal(false);
-          }}
-        >
-          다시 작성하기
-        </button>
-      </div>
+      <div id="map"></div>
       <button
         className="modal-btn__close"
         onClick={() => {
@@ -83,6 +66,38 @@ const KakaoMapModal = ({
       >
         x
       </button>
+      <div className="event-modal-postcode">
+        <DeaumPostCode
+          autoClose={false}
+          onComplete={handleComplete}
+          style={{ width: '400px', height: '400px' }}
+        />
+
+        <div className="event-modal__btn-box">
+          <p>* 마커가 나오지 않았다면 상세주소를 입력했는지 확인해주세요!</p>
+          <div className="event-mdoal-btn">
+            <button
+              className="event-btn__confirm"
+              onClick={() => {
+                setIsShowModal(false);
+              }}
+            >
+              확인
+            </button>
+          </div>
+        </div>
+
+        {/* <button
+          className="event-btn__cancle"
+          onClick={() => {
+            setSearchDisplay(false);
+            setLocation('');
+            setIsShowModal(false);
+          }}
+        >
+          다시 작성하기
+        </button> */}
+      </div>
     </div>
   );
 };
