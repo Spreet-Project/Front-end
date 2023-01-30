@@ -72,16 +72,21 @@ export const postEventComment = async payload => {
   }
 };
 
+//행사 댓글 삭제
 export const deleteEventComment = async commentId => {
   try {
     console.log(commentId);
 
     return await baseURL.delete(`/event/comment/${commentId}`);
   } catch (error) {
+    if (error.response.request.status === 401) {
+      return sweetAlert(1000, 'error', '로그인이 필요합니다!');
+    }
     sweetAlert(1000, 'error', '댓글 삭제 오류!');
     return error;
   }
 };
+
 
 //행사 게시글 수정
 export const putModifyEvent = async payload => {
@@ -92,6 +97,34 @@ export const putModifyEvent = async payload => {
     // return await subURL.put(`/event/${eventId}`, newEvent);
   } catch (error) {
     sweetAlert(1000, 'error', '댓글 삭제 오류!');
+
+//행사 상세페이지 게시글 삭제
+export const deleteEventDetail = async eventId => {
+  try {
+    console.log(eventId, 'payload');
+
+    return await baseURL.delete(`/event/${eventId}`);
+  } catch (error) {
+    if (error.response.request.status === 401) {
+      return sweetAlert(1000, 'error', '로그인이 필요합니다!');
+    }
+    sweetAlert(1000, 'error', '게시글 삭제 오류!');
+    return error;
+  }
+};
+
+//행사 상제페이지 게시글 댓글 수정
+export const modifyEventComment = async eventId => {
+  try {
+    console.log(eventId, 'payload');
+
+    return await baseURL.delete(`/event/${eventId}`);
+  } catch (error) {
+    if (error.response.request.status === 401) {
+      return sweetAlert(1000, 'error', '로그인이 필요합니다!');
+    }
+    sweetAlert(1000, 'error', '게시글 삭제 오류!');
+
     return error;
   }
 };
