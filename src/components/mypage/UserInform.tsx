@@ -9,11 +9,13 @@ import {
   putUserNickname,
 } from '../../core/api/mypage';
 
-const UserInform = ({ userInform }): JSX.Element => {
+const UserInform = ({ userInform = null }): JSX.Element => {
   const [profileImg, setProfileImg] = useState(null);
   const [nickname, setNickname] = useState<string>('');
   const [checkNickname, setCheckNickname] = useState<boolean>(false);
   const [postImg, setPostImg] = useState(null);
+
+  console.log(userInform, 'userInform');
 
   useEffect(() => {
     setProfileImg(userInform.profileImage);

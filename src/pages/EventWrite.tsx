@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/styles/scss/eventWrite.scss';
 import { postEventWrite } from '../core/api/event';
@@ -18,7 +18,7 @@ const EventWrite = () => {
   const [eventImage, setEventImage] = useState(null);
   const [location, setLocation] = useState<string>();
   const [fileUrl, setFileUrl] = useState<any>('');
-  const [searchDisplay, setSearchDisplay] = useState<boolean>(false);
+  const [searchDisplay, setSearchDisplay] = useState<boolean>(true);
 
   const onEventWriteSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -54,10 +54,6 @@ const EventWrite = () => {
     eventWriteData.append('date', date);
     eventWriteData.append('time', time);
     eventWriteData.append('file', eventImage);
-    // console.log(eventWriteData);
-    // for (const value of eventWriteData.values()) {
-    //   console.log(value);
-    // }
     postEventWrite(eventWriteData)
       .then(res => {
         console.log(res, 'res');
@@ -119,22 +115,9 @@ const EventWrite = () => {
           extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
       }
       fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
-      console.log(fullAddress);
       setLocation(fullAddress);
     }
     //fullAddress -> 전체 주소반환
-  };
-
-  // 다음 주소 검색창 닫기 함수
-  const handleClose = data => {
-    if (data === 'FORCE_CLOSE') {
-      setSearchDisplay(false);
-    }
-
-    // 검색결과를 선택하여 화면이 닫혔을 경우 iframeDisplay값 false로 변경
-    if (data === 'COMPLETE_CLOSE') {
-      setSearchDisplay(true);
-    }
   };
 
   //이미지 리사이징
@@ -154,6 +137,7 @@ const EventWrite = () => {
           type="text"
           name="title"
           placeholder="제목"
+          value={title}
           className="eventWrite-input"
           onChange={onChangeTitle}
         />
@@ -174,13 +158,6 @@ const EventWrite = () => {
         >
           위치 확인
         </button>
-
-        <DeaumPostCode
-          onClose={handleClose}
-          onComplete={handleComplete}
-          style={{ width: '400px', height: '400px' }}
-        />
-
         <input
           type="date"
           className="eventWrite-input-date"
@@ -215,9 +192,9 @@ const EventWrite = () => {
       </div>
       {isShowModal && (
         <KakaoMapModal
-          setSearchDisplay={setSearchDisplay}
+          // searchDisplay={searchDisplay}
+          handleComplete={handleComplete}
           setIsShowModal={setIsShowModal}
-          setLocation={setLocation}
           location={location}
         />
       )}

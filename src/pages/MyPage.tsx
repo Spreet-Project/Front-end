@@ -11,10 +11,6 @@ import sweetAlert from '../core/utils/sweetAlert';
 
 const MyPage = () => {
   const navigate = useNavigate();
-
-  const queryClient = useQueryClient();
-  const [logIn, setLogIn] = useState(false);
-  const [password, setPassword] = useState(false);
   const [id, setId] = useState(0);
 
   const { isLoading, isError, data, error, isFetching } = useQuery(
@@ -47,13 +43,14 @@ const MyPage = () => {
     },
   ];
 
-  if (data && data.response && data.name === 'AxiosError') {
-    localStorage.removeItem('id');
-    sweetAlert(1000, 'error', '죄송합니다 다시 로그인해주세요');
-    navigate('/login');
-  }
-  if (isLoading || !data) return;
+  // if (data && data.response && data.name === 'AxiosError') {
+  //   localStorage.removeItem('id');
+  //   sweetAlert(1000, 'error', '죄송합니다 다시 로그인해주세요');
+  //   navigate('/login');
+  // }
 
+  if (isLoading || !data.data.data) return;
+  console.log(data, 'data');
   return (
     <>
       <div className="mypage-sidebar">
@@ -68,9 +65,11 @@ const MyPage = () => {
         </div>
       </div>
 
-      {id === 0 && <UserInform userInform={data.data.data} />}
+      {data.data.data && id === 0 && <UserInform userInform={data.data.data} />}
       {id === 1 && <ContentList />}
-      {id === 2 && <ChangePassword userEmail={data.data.data.email} />}
+      {data.data.data && id === 2 && (
+        <ChangePassword userEmail={data.data.data.email} />
+      )}
       {id === 3 && <Admin />}
     </>
   );

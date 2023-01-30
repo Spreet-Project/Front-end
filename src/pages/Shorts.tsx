@@ -14,7 +14,6 @@ const Shorts = () => {
   const [shortsId, setShortsId] = useState<number>(0);
   const [currentCate, setCurrentCate] = useState<string>('RAP');
   const token = localStorage.getItem('id');
-  const isOverData = useRef<boolean>(false); //현재 데이터없을때 요청 막아줄 값
   const [ref, inView] = useInView();
 
   const categoryList = [

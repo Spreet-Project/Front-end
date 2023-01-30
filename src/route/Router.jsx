@@ -17,7 +17,7 @@ import FeedShorts from '../pages/FeedShorts';
 import NaverLogin from '../pages/NaverLogin';
 import EventDetail from '../pages/EventDetail';
 import UserInform from '../components/mypage/UserInform';
-import CrewInform from '../components/mypage/CrewInform';
+import ModifyEvent from '../pages/ModifyEvent';
 import FindPassword from '../pages/FindPassword';
 
 const Router = () => {
@@ -34,6 +34,7 @@ const Router = () => {
         <Route path="/feeds" element={<FeedShorts />} />
         <Route path="/modifyShorts/:id" element={<ModifyShorts />} />
         <Route path="/modifyFeed/:id" element={<ModifyFeed />} />
+        <Route path="/modifyEvent/:id" element={<ModifyEvent />} />
         <Route path="/event" element={<Event />} />
         <Route path="/eventWrite" element={<EventWrite />} />
         <Route path="/eventDetail/:id" element={<EventDetail />} />
@@ -41,7 +42,6 @@ const Router = () => {
         <Route path="/findpassword" element={<FindPassword />} />
         <Route path="/mypage" element={<MyPage />}>
           <Route path="userinform" element={<UserInform />} />
-          <Route path="crewinform" element={<CrewInform />} />
         </Route>
         <Route path="*" element={<div>이거 404 페이지요</div>} />
       </Routes>

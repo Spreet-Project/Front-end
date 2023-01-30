@@ -36,7 +36,7 @@
 }
 
 @mixin carouselLeftBtn {
-  left: 45px;
+  left: 40px;
   pointer-events: visible;
 }
 @mixin carouselRighttBtn {
@@ -44,6 +44,7 @@
   margin: 0;
   pointer-events: visible;
 }
+
 .mainsector {
   width: 1440px;
   position: relative;
@@ -56,11 +57,14 @@
     .spreet-row__button {
       @include carouselBtn;
       &.btn--right {
+        object-fit: cover;
         @include carouselRighttBtn;
       }
 
       &.btn--left {
+        object-fit: cover;
         @include carouselLeftBtn;
+        left: 0;
       }
     }
     .spreet-row__carousel {
@@ -111,12 +115,13 @@
           .slide-row__button {
             @include carouselBtn();
             &.btn--right {
-              color: gray;
+              // color: gray;
+              object-fit: contain;
               @include carouselRighttBtn;
             }
-
             &.btn--left {
-              color: gray;
+              // color: black;
+              object-fit: contain;
               @include carouselLeftBtn;
             }
           }
@@ -138,27 +143,33 @@
                 width: 400px;
                 height: 500px;
                 margin-left: 50px;
+
                 .slide-item__bg {
                   position: absolute;
-                  width: 300px;
-                  height: 450px;
+                  width: 400px;
+                  height: 500px;
                   z-index: 1;
-                  opacity: 0.2;
+                  opacity: 0.1;
+                  background-color: gray;
                   pointer-events: none;
                 }
                 .slide-item__shorts-title {
                   color: white;
-                  bottom: -80px;
-                  // left: 30px;
+                  margin-top: 10px;
+                  margin-bottom: 50px;
                   pointer-events: none;
                   p {
-                    font-size: 18px;
+                    margin-top: 20px;
+                    font-weight: 700;
+                    margin-bottom: 5px;
+                    font-size: 20px;
                   }
                   .user-profile {
                     display: flex;
                     align-items: center;
                     .user-image {
                       @include user-image;
+                      margin-left: 0;
                     }
                   }
                 }

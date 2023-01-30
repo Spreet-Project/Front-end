@@ -155,22 +155,20 @@ const Main = (): JSX.Element => {
     <div className="mainsector">
       <div className="spreet-row">
         <div className="spreet-row__carousel">
-          <button
+          <img
+            src="./images/whiteLeftLarge.png"
             className="spreet-row__button btn--left"
             onClick={() =>
               handleClickSlide('left', post, spreetRef, 1, spreetTransX)
             }
-          >
-            {'<'}
-          </button>
-          <button
+          />
+          <img
+            src="./images/whiteRightLarge.png"
             className="spreet-row__button btn--right"
             onClick={() =>
               handleClickSlide('right', post, spreetRef, 1, spreetTransX)
             }
-          >
-            {'>'}
-          </button>
+          />
           <div className="spreet-row__list" ref={spreetRef}>
             <div className="spreet-item-wrapper" ref={spreetChidRef}>
               {post &&

@@ -21,22 +21,22 @@ const MainCarousel = ({ data, category, color }): JSX.Element => {
   return (
     <div className="slide-row">
       <div className="slide-row__carousel">
-        <button
+        <img
+          src="./images/whiteLeftLarge.png"
           className="slide-row__button btn--left"
           onClick={() => {
             handleClickSlide('left', data.data.data, rapRef, 2, shortsTransX);
           }}
-        >
-          {'<'}
-        </button>
-        <button
+        />
+
+        <img
+          src="./images/whiteRightLarge.png"
           className="slide-row__button btn--right"
           onClick={() => {
             handleClickSlide('right', data.data.data, rapRef, 2, shortsTransX);
           }}
-        >
-          {'>'}
-        </button>
+        />
+
         <div className="slide-item__title" style={{ color: `${color}` }}>
           {category}
         </div>

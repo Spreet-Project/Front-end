@@ -87,6 +87,17 @@ export const deleteEventComment = async commentId => {
   }
 };
 
+
+//행사 게시글 수정
+export const putModifyEvent = async payload => {
+  try {
+    console.log(payload, 'payload');
+    const { eventId, eventWriteData } = payload;
+    console.log(eventId, eventWriteData);
+    // return await subURL.put(`/event/${eventId}`, newEvent);
+  } catch (error) {
+    sweetAlert(1000, 'error', '댓글 삭제 오류!');
+
 //행사 상세페이지 게시글 삭제
 export const deleteEventDetail = async eventId => {
   try {
@@ -102,7 +113,7 @@ export const deleteEventDetail = async eventId => {
   }
 };
 
-//행사 상제페이지 게시글 수정
+//행사 상제페이지 게시글 댓글 수정
 export const modifyEventComment = async eventId => {
   try {
     console.log(eventId, 'payload');
@@ -113,6 +124,7 @@ export const modifyEventComment = async eventId => {
       return sweetAlert(1000, 'error', '로그인이 필요합니다!');
     }
     sweetAlert(1000, 'error', '게시글 삭제 오류!');
+
     return error;
   }
 };
