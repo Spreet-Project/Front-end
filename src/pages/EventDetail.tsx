@@ -30,7 +30,6 @@ interface Event {
 
 const EventDetail = (): JSX.Element => {
   const id = useParams();
-  // console.log(id);
   const eventId = Number(id.id);
   const navigate = useNavigate();
   const [comment, setComment] = useState('');
@@ -44,6 +43,9 @@ const EventDetail = (): JSX.Element => {
     getDetailEvent,
   );
 
+  //댓글 조회
+  const resultComment = useQuery(['eventComment', eventId], getEventComment);
+
   //게시글 삭제
   const onDeleteEvent = () => {
     deleteEventDetail(eventId).then(res => {
@@ -56,16 +58,16 @@ const EventDetail = (): JSX.Element => {
   };
 
   //게시글 수정
-  const modifyCommenttMutation = useMutation(
-    commentId =>
-      modifyEventComment({ commentId: commentId, content: modifyComment }),
+  const modifyCommentMutation = useMutation(
+    () =>
+      modifyEventComment({
+        commentId: modifyCommentId,
+        content: modifyComment,
+      }),
     {
       onSuccess: () => queryClient.invalidateQueries(['eventComment', eventId]),
     },
   );
-
-  //댓글 조회
-  const resultComment = useQuery(['eventComment', eventId], getEventComment);
 
   //댓글 생성
   const postCommentMutaion = useMutation(
@@ -74,13 +76,28 @@ const EventDetail = (): JSX.Element => {
       onSuccess: () => queryClient.invalidateQueries(['eventComment', eventId]),
     },
   );
+  // 댓글 수정 중 수정 취소
+  const onCancleModifyComment = () => {
+    setIsCommentModify(false);
+  };
+
+  //댓글 수정하기
+  const onCheckCommentModify = (commentId, content) => {
+    if (!window.confirm('해당 댓글을 수정하시겠습니까?')) return;
+    setModifyComment(content);
+    setIsCommentModify(true); //수정중 상태
+    setModifyCommentId(commentId);
+  };
+
+  const onChangeModifyComment = e => {
+    setModifyComment(e.target.value);
+  };
 
   //댓글 삭제
   const deleteEventCommentMutaion = useMutation(
     eventCommentId => deleteEventComment(eventCommentId),
-
     {
-      // onSettled: () => queryClient.invalidateQueries(['eventComment', eventId]),
+      onSuccess: () => queryClient.invalidateQueries(['eventComment', eventId]),
     },
   );
 
@@ -157,23 +174,73 @@ const EventDetail = (): JSX.Element => {
                 ></img>
                 <div className="eventDetail-commentWrapper__id">
                   {comment.nickname}
-                  <button
-                    className="eventDetail-commentWrapper__deleteBtn"
-                    onClick={() => {
-                      deleteEventCommentMutaion.mutate(comment.eventCommentId);
-                    }}
-                  >
-                    삭제
-                  </button>
+                  <div className="eventDetail-commentWrapper__btn-box">
+                    {modifyCommentId === comment.eventCommentId &&
+                    isCommentModify ? (
+                      <>
+                        <button
+                          className="eventDetail-commentWrapper__deleteBtn"
+                          onClick={() => {
+                            onCancleModifyComment();
+                          }}
+                        >
+                          수정 취소
+                        </button>
+                        <button
+                          className="eventDetail-commentWrapper__deleteBtn"
+                          onClick={() => {
+                            setIsCommentModify(false);
+                            return modifyCommentMutation.mutate();
+                          }}
+                        >
+                          수정 완료
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          className="eventDetail-commentWrapper__deleteBtn"
+                          onClick={() => {
+                            onCheckCommentModify(
+                              comment.eventCommentId,
+                              comment.content,
+                            );
+                          }}
+                        >
+                          수정
+                        </button>
+                        <button
+                          className="eventDetail-commentWrapper__deleteBtn"
+                          onClick={() => {
+                            deleteEventCommentMutaion.mutate(
+                              comment.eventCommentId,
+                            );
+                          }}
+                        >
+                          삭제
+                        </button>
+                      </>
+                    )}
+                  </div>
+
                   <span className="eventDetail-commentWrapper__time">
                     {comment.createAt}
                   </span>
                 </div>
               </div>
               <div className="eventDetail-commentWrapper__like">
-                <p className="eventDetail-commentWrapper__cemment">
-                  {comment.content}
-                </p>
+                {modifyCommentId === comment.eventCommentId &&
+                isCommentModify ? (
+                  <input
+                    className="eventDetail-commentWrapper__cemment"
+                    value={modifyComment}
+                    onChange={onChangeModifyComment}
+                  />
+                ) : (
+                  <p className="eventDetail-commentWrapper__cemment">
+                    {comment.content}
+                  </p>
+                )}
               </div>
             </>
           ))}
