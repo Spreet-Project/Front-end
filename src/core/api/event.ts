@@ -87,7 +87,6 @@ export const deleteEventComment = async commentId => {
   }
 };
 
-
 //행사 게시글 수정
 export const putModifyEvent = async payload => {
   try {
@@ -97,6 +96,8 @@ export const putModifyEvent = async payload => {
     // return await subURL.put(`/event/${eventId}`, newEvent);
   } catch (error) {
     sweetAlert(1000, 'error', '댓글 삭제 오류!');
+  }
+};
 
 //행사 상세페이지 게시글 삭제
 export const deleteEventDetail = async eventId => {

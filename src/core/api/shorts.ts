@@ -60,7 +60,7 @@ export const getMainShorts = async payload => {
     const { queryKey } = payload;
     const { category } = queryKey[1];
     //shorts카테고리별 게시물조회조회
-    return await instance.get(`/shorts?category=${category}&page=1&size=10`);
+    return await instance.get(`/shorts/main?category=${category}`);
   } catch (error) {
     if (error.response.request.status === 401) {
       sweetAlert(1000, 'error', '죄송합니다 로그인해주세요!');

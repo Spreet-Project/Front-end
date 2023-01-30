@@ -149,6 +149,7 @@ const Main = (): JSX.Element => {
   //   localStorage.removeItem('id');
   //   navigate('/login');
   // }
+
   if (!res || resFeed.isLoading) return;
   // console.log(res, 'res');
   return (
