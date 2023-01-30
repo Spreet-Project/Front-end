@@ -9,10 +9,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 import '../assets/styles/scss/eventDetail.scss';
 import {
   deleteEventComment,
+  deleteEventDetail,
   getDetailEvent,
   getEventComment,
+  modifyEventComment,
   postEventComment,
 } from '../core/api/event';
+import sweetAlert from '../core/utils/sweetAlert';
 
 interface Event {
   id: number;
@@ -32,11 +35,35 @@ const EventDetail = (): JSX.Element => {
   const navigate = useNavigate();
   const [comment, setComment] = useState('');
   const queryClient = useQueryClient();
+  const [isCommentModify, setIsCommentModify] = useState<boolean>(false);
+  const [modifyCommentId, setModifyCommentId] = useState<number>(0);
+  const [modifyComment, setModifyComment] = useState<string>(''); //수정 댓글 인풋
 
   const { data, isLoading, isError, error } = useQuery(
     ['eventDtail', eventId],
     getDetailEvent,
   );
+
+  //게시글 삭제
+  const onDeleteEvent = () => {
+    deleteEventDetail(eventId).then(res => {
+      if (!res) {
+        return sweetAlert(1000, 'error', '게시글 삭제 중 오류 발생!');
+      }
+      sweetAlert(1000, 'succecss', '게시글 삭제 완료!');
+      navigate('/event');
+    });
+  };
+
+  //게시글 수정
+  const modifyCommenttMutation = useMutation(
+    commentId =>
+      modifyEventComment({ commentId: commentId, content: modifyComment }),
+    {
+      onSuccess: () => queryClient.invalidateQueries(['eventComment', eventId]),
+    },
+  );
+
   //댓글 조회
   const resultComment = useQuery(['eventComment', eventId], getEventComment);
 
@@ -83,12 +110,7 @@ const EventDetail = (): JSX.Element => {
           </div>
           <div className="evenDetail-btnWrapper">
             <button className="eventDetail-btn">수정</button>
-            <button
-              className="eventDetail-btn"
-              onClick={() => {
-                // deleteEventDetail
-              }}
-            >
+            <button className="eventDetail-btn" onClick={onDeleteEvent}>
               삭제
             </button>
           </div>
