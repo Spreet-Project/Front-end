@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-  useQuery,
-  useQueryClient,
-  useInfiniteQuery,
-  useMutation,
-} from 'react-query';
+import { useQueryClient, useInfiniteQuery, useMutation } from 'react-query';
 import { getUserPost } from '../../core/api/mypage';
 import { useInView } from 'react-intersection-observer';
 import { deleteFeed } from '../../core/api/feed';
 import { deleteShorts } from '../../core/api/shorts';
+import { deleteEventDetail } from '../../core/api/event';
 
 const ContentList = (): JSX.Element => {
   const navigate = useNavigate();
@@ -20,7 +16,7 @@ const ContentList = (): JSX.Element => {
   const { data, isLoading, isSuccess, hasNextPage, fetchNextPage, isFetching } =
     useInfiniteQuery(['getUserpost', currentCate], getUserPost, {
       getNextPageParam: (lastPage, pages) => {
-        if (pages.length === 2) {
+        if (lastPage.data.data.length < 10 || !lastPage.data.data) {
           return undefined;
         }
         return pages.length + 1;
@@ -59,6 +55,9 @@ const ContentList = (): JSX.Element => {
     if (currentCate === 'feed') {
       return navigate(`/modifyFeed/${postId}`);
     }
+    if (currentCate === 'event') {
+      return navigate(`/modifyEvent/${postId}`);
+    }
   };
 
   const onClickDelete = postId => {
@@ -69,7 +68,11 @@ const ContentList = (): JSX.Element => {
     if (currentCate === 'feed') {
       return deleteFeedMutation.mutate(postId);
     }
+    if (currentCate === 'event') {
+      return deleteEventMutation.mutate(postId);
+    }
   };
+
   const deleteShortsMutation = useMutation(shortsId => deleteShorts(shortsId), {
     onSettled: shortsId =>
       queryClient.invalidateQueries(['getUserpost', shortsId]),
@@ -79,8 +82,16 @@ const ContentList = (): JSX.Element => {
     onSettled: feedId => queryClient.invalidateQueries(['getUserpost', feedId]),
   });
 
+  const deleteEventMutation = useMutation(
+    eventId => deleteEventDetail(eventId),
+    {
+      onSettled: eventId =>
+        queryClient.invalidateQueries(['getUserpost', eventId]),
+    },
+  );
+
   if (isLoading || !data) return;
-  console.log(data, 'data');
+  // console.log(data, 'data');
 
   return (
     <div className="contentList-form">
@@ -100,6 +111,7 @@ const ContentList = (): JSX.Element => {
       </ul>
       {data.pages &&
         data.pages.map(page => {
+          console.log(page, 'page');
           if (!page.data.data) return;
           return page.data.data.map((item, itemIndex) => {
             const lastIndex = page.data.data.length - 1;
@@ -111,8 +123,7 @@ const ContentList = (): JSX.Element => {
                     <li className="contentList-inform__cate">
                       {item.category}
                     </li>
-                    <li> 작성자</li>
-                    <li> 2023-01-01 13:15</li>
+                    <li>{item.createdAt}</li>
                     <li className="contentList-btn">
                       <button
                         className="contentList-btn__modify"
@@ -139,8 +150,7 @@ const ContentList = (): JSX.Element => {
                 <p className="contentList-title">{item.title}</p>
                 <ul className="contentList-commentbox__infrom">
                   <li className="contentList-inform__cate">{item.category}</li>
-                  <li> 작성자</li>
-                  <li> 2023-01-01 13:15</li>
+                  <li> {item.createdAt}</li>
                   <li className="contentList-btn">
                     <button
                       className="contentList-btn__modify"

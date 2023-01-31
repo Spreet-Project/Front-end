@@ -75,7 +75,7 @@ const FeedsScroll = ({
             onPostFeedLike(feed.feedId);
           }}
         >
-          {feed.like ? (
+          {feed.liked ? (
             <span className="material-icons" style={{ color: 'black' }}>
               thumb_up
             </span>

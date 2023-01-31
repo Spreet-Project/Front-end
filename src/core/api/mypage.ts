@@ -30,6 +30,24 @@ export const postEmailCheck = async payload => {
   }
 };
 
+//마이페이지 이메일 인증 번호 확인
+export const postEmailConfirm = async payload => {
+  try {
+    //Email 인증요청
+    console.log(payload, '이메일인증번호 payload');
+    return await baseURL.post('/confirm-email', payload);
+  } catch (error) {
+    console.log(error);
+    if (error.response.data.statusCode === 400) {
+      sweetAlert(1000, 'error', error.response.data.msg);
+    }
+    if (error.response.request.status === 401) {
+      sweetAlert(1000, 'error', '죄송합니다 로그인해주세요!');
+    }
+    return error;
+  }
+};
+
 export const putUserNickname = async nickname => {
   try {
     //유저 닉네임 수정
@@ -60,11 +78,11 @@ export const putUserProfile = async payload => {
   }
 };
 
-//비밀번호 초기화
-export const putRestPassword = async payload => {
+//마이페이지에서 비밀번호 초기화
+export const putResetPassword = async payload => {
   try {
-    console.log(payload, '비밀번호 변경');
-    return await baseURL.post('/user/reset/password', payload);
+    console.log(payload, '비밀번호 초기화');
+    return await baseURL.put('/user/mypage/edit/password', payload);
   } catch (error) {
     if (error.response.request.status === 401) {
       sweetAlert(1000, 'error', '죄송합니다 로그인해주세요!');
@@ -89,12 +107,12 @@ export const postNicknameCheck = async payload => {
 //마이페이지 회원이 작성한 게시글 목록
 export const getUserPost = async payload => {
   try {
-    console.log(payload, 'payload');
-    const { queryKey } = payload;
+    // console.log(payload, 'payload');
+    const { pageParam = 1, queryKey } = payload;
     const [category] = [queryKey[1]];
     // console.log(category);
     return await baseURL.get(
-      `/user/mypage/post?classification=${category}&page=1`,
+      `/user/mypage/post?classification=${category}&page=${pageParam}`,
     );
   } catch (error) {
     sweetAlert(1000, 'error', error.response.data.msg);

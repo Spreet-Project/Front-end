@@ -4,13 +4,12 @@ $confirm-msg: gray;
 
 @mixin outForm {
   display: flex;
-  justify-content: center;
   flex-direction: column;
   position: relative;
   background: #ececec;
   border-radius: 5px;
   margin: 100px auto;
-  padding: 50px;
+  padding: 30px 30px 30px 30px;
 }
 
 @mixin modifyBtn {
@@ -70,8 +69,7 @@ $confirm-msg: gray;
 .mypage-form {
   @include outForm;
   width: 586px;
-  height: 800px;
-  padding: 50px;
+  height: 700px;
   .input__readonly {
     background-color: $readOnly_color;
   }
@@ -183,44 +181,6 @@ $confirm-msg: gray;
   background-color: darkgrey;
 }
 
-.changepasword-form {
-  @include outForm;
-  width: 586px;
-  height: 600px;
-  .changepasword-inner {
-    margin: auto;
-    .changepasword-input {
-      @include changepasword-input;
-    }
-    .user-email {
-      background-color: $readOnly_color;
-    }
-    .changepasword-label {
-      font-size: 22px;
-      font-weight: 500;
-    }
-    .changepasword-btn {
-      width: 140px;
-      height: 48px;
-      margin: 0px 0px 0px 16px;
-      background: #717171;
-      border-radius: 5px;
-      border: none;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      &:hover {
-        color: #333333;
-      }
-    }
-  }
-
-  .changepasword-btn__modify {
-    @include modifyBtn;
-    margin-top: 20px;
-  }
-}
-
 //비밀번호 찾기
 @mixin findpasword-input {
   width: 400px;
@@ -228,26 +188,27 @@ $confirm-msg: gray;
   margin: 10px 0 10px 0;
 }
 
-.findpasword-form {
+.changepassword-form {
   @include outForm;
   width: 586px;
-  height: 600px;
-  .findpassword-confirm {
+  height: 500px;
+  .changepassword-confirm {
     margin: 0 0 15px 0;
     color: $confirm-msg;
   }
-  .findpasword-inner {
-    margin: auto;
-    .findpasword-input {
+  .changepassword-inner {
+    margin: 5px auto;
+    .changepassword-input {
       @include findpasword-input;
     }
-    // .user-email {
-    // }
-    .findpasword-label {
+    .user-email {
+      background-color: $readOnly_color;
+    }
+    .changepassword-label {
       font-size: 22px;
       font-weight: 500;
     }
-    .findpasword-btn {
+    .changepassword-btn {
       width: 140px;
       height: 48px;
       margin: 0px 0px 0px 16px;
@@ -263,9 +224,8 @@ $confirm-msg: gray;
     }
   }
 
-  .findpasword-btn__modify {
+  .changepassword-btn__modify {
     @include modifyBtn;
-    margin-top: 20px;
   }
 }
 
@@ -277,18 +237,40 @@ $confirm-msg: gray;
   height: 600px;
   margin-left: 25%;
   overflow: auto;
+  .admin-form {
+    display: flex;
+    justify-content: center;
+    .admin-password {
+      width: 300px;
+      height: 20px;
+    }
+  }
+
   .contentList-category {
     display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
     li {
-      width: 150px;
+      list-style: none;
+      font-size: 24px;
+      font-weight: 600;
+      text-align: center;
+      width: 250px;
       margin-right: 30px;
+      border-left: 1px solid gray;
       cursor: pointer;
+      &:hover {
+        color: #d10536;
+      }
+      &:first-child {
+        border: none;
+      }
     }
   }
   .contentList-commentbox {
     border-bottom: 1px solid black;
     margin: 10px 0 20px 0;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
     .contentList-title {
       width: 100%;
       font-size: 24px;

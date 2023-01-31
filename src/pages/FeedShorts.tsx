@@ -5,6 +5,7 @@ import { useQueryClient, useInfiniteQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import FeedShortsModal from '../components/FeedShortsModal';
+import sweetAlert from '../core/utils/sweetAlert';
 import { postFeedLike } from '../core/api/feed';
 import { getScrollFeed } from '../core/api/feed';
 
@@ -55,13 +56,16 @@ const FeedShorts = (): JSX.Element => {
 
   const onPostFeedLike = feedId => {
     postFeedLike(feedId).then(res => {
-      // sweetAlert(1000, 'success', '좋아요가 반영되었습니다.');
+      if (!res) {
+        return sweetAlert(1000, 'error', ' 로그인이 필요합니다!');
+      }
+      sweetAlert(1000, 'success', '좋아요가 반영되었습니다.');
       queryClient.invalidateQueries(['getScrollFeed', token]);
     });
   };
 
   if (isLoading || !data.pages) return;
-
+  // console.log(data);
   // console.log(data.pages, 'pages');
   // if (data.response && data.response.request.status === 401) {
   //   localStorage.removeItem('id');

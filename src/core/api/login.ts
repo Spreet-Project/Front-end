@@ -31,7 +31,7 @@ export const postSignup = async post => {
 
 export const postEmailCheck = async post => {
   try {
-    // console.log(post, 'axios email 인증확인 보내기 전');
+    console.log(post, 'axios email 인증확인 보내기 전');
     const data = await instance.post(`/user/send-email?email=${post.email}`);
     sweetAlert(1000, 'success', '이메일 인증 확인완료');
     return data;

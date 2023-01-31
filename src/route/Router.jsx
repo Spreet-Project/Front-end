@@ -4,7 +4,6 @@ import Login from '../pages/Login';
 import SignUp from '../pages/SignUp';
 import Write from '../pages/Write';
 import Shorts from '../pages/Shorts';
-import Feed from '../pages/FeedShorts';
 import Layout from './Layout';
 import React from 'react';
 import ModifyShorts from '../pages/ModifyShorts';

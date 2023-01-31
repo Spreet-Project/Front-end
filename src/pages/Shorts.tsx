@@ -55,11 +55,12 @@ const Shorts = () => {
   const onPostShortsLike = shortsId => {
     postShortLike(shortsId)
       .then(res => {
+        console.log(res);
         if (!res) {
           return sweetAlert(1000, 'error', ' 로그인이 필요합니다!');
         }
+        sweetAlert(1000, 'success', '좋아요가 반영되었습니다.');
         queryClient.invalidateQueries(['getScrollShorts', token, currentCate]);
-        // sweetAlert(1000, 'success', '좋아요가 반영되었습니다!');
       })
       .catch(error => {
         console.log(error);
@@ -69,7 +70,7 @@ const Shorts = () => {
   const [isShowModal, setIsShowModal] = useState(false);
 
   if (isLoading || !data.pages) return;
-  console.log('data', data);
+  // console.log('data', data);
 
   // if (
   //   data.response &&
