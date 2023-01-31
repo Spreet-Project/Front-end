@@ -23,9 +23,10 @@ const Login = () => {
       loginId: loginId,
       password: password,
     }).then(res => {
+      console.log(res, '로그인 결과');
       localStorage.setItem('nickname', res.data.data.nickname);
       localStorage.setItem('id', res.headers.authorization);
-      navigate('/');
+      // navigate('/');
     });
   };
 

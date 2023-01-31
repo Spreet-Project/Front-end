@@ -29,7 +29,7 @@ const ShortsScroll = ({
             onPostShortsLike(shorts.shortsId);
           }}
         >
-          {shorts.like ? (
+          {shorts.liked ? (
             <span className="material-icons" style={{ color: 'black' }}>
               thumb_up
             </span>

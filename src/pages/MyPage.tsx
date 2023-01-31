@@ -50,7 +50,7 @@ const MyPage = () => {
   // }
 
   if (isLoading || !data.data.data) return;
-  console.log(data, 'data');
+  // console.log(data, 'data');
   return (
     <>
       <div className="mypage-sidebar">

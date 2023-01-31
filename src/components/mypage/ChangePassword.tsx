@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import sweetAlert from '../../core/utils/sweetAlert';
-import { postEmailCheck, putRestPassword } from '../../core/api/mypage';
+import {
+  postEmailCheck,
+  postEmailConfirm,
+  putResetPassword,
+} from '../../core/api/mypage';
 
 const ChangePassword = ({ userEmail }): JSX.Element => {
+  const navigate = useNavigate();
   const [isCheckEmail, setIsCheckEmail] = useState<boolean>(false);
   const [password, setPassword] = useState<string>('');
   const [passwordCheck, setPasswordCheck] = useState<string>('');
   const [isPasswordCheck, setIsPasswordCheck] = useState<boolean>(false);
   const [isRegPasswordCheck, setIsRegPasswordCheck] = useState<boolean>(false);
   const [isEmailConfirm, setIsEmailConfirm] = useState<boolean>(false);
+  const [confirmCode, setConfirmCode] = useState<string>('');
 
   const onChangeRegPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -40,6 +46,10 @@ const ChangePassword = ({ userEmail }): JSX.Element => {
     setIsCheckEmail(true);
   };
 
+  const onChangeConfirmCode = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setConfirmCode(e.target.value);
+  };
+
   const is_userRegPassword = asValue => {
     const blankExp = /[\s]/g;
     if (blankExp.test(asValue)) {
@@ -56,13 +66,15 @@ const ChangePassword = ({ userEmail }): JSX.Element => {
   const onConfirmEmail = () => {
     if (isEmailConfirm)
       return sweetAlert(1000, 'error', '이미 중복확인 처리되었습니다.');
-    // postEmailConfirm({
-    //   email: email,
-    //   confirmCode: confirmCode,
-    // }).then(res => {
-    //   if (!res) return;
-    //   setEmailCofirm(true);
-    // });
+    postEmailConfirm({
+      email: userEmail,
+      confirmCode: confirmCode,
+    }).then(res => {
+      if (!res) return;
+      if (res.name === 'AxiosError') return;
+      sweetAlert(1000, 'success', '인증 확인되었습니다.');
+      setIsEmailConfirm(true);
+    });
   };
 
   const onResetPassword = () => {
@@ -72,72 +84,84 @@ const ChangePassword = ({ userEmail }): JSX.Element => {
     if (!isRegPasswordCheck) {
       return sweetAlert(1000, 'error', '형식에 맞는 비밀번호를 입력해주세요');
     }
+    if (!passwordCheck) {
+      return sweetAlert(1000, 'error', '비밀번호가 일치하지 않습니다.');
+    }
 
-    putRestPassword({ password }).then(res => {
+    putResetPassword({ email: userEmail, password }).then(res => {
       console.log(res, '비밀번호 초기화 결과');
+      if (!res) {
+        return sweetAlert(1000, 'error', '비밀번호 초기화 오류');
+      }
+      sweetAlert(1000, 'success', '비밀번호 초기화 성공');
+      navigate('/mypage');
     });
   };
 
   return (
-    <div className="findpasword-form">
+    <div className="changepassword-form">
       <p className="mypage-title">비밀번호 변경</p>
 
-      <div className="findpasword-inner">
-        <p className="findpasword-label">이메일</p>
+      <div className="changepassword-inner">
+        <p className="changepassword-label">이메일</p>
         <div>
           <input
             type="text"
             placeholder="이메일"
             readOnly
-            className="findpasword-input user-email"
+            className="changepassword-input user-email"
             value={userEmail}
           />
-          <button className="findpasword-btn" onClick={onCheckEmail}>
+          <button className="changepassword-btn" onClick={onCheckEmail}>
             인증 요청
           </button>
         </div>
         {isCheckEmail && (
           <div>
-            <p className="findpasword-label">인증 번호</p>
+            <p className="changepassword-label">인증 번호</p>
             <input
               type="text"
               placeholder="인증 번호"
-              className="findpasword-input"
+              className="changepassword-input"
+              value={confirmCode}
+              onChange={onChangeConfirmCode}
             />
-            <button className="findpasword-btn" onClick={onConfirmEmail}>
+            <button className="changepassword-btn" onClick={onConfirmEmail}>
               확인
             </button>
           </div>
         )}
 
-        <p className="findpasword-label">새로운 비밀번호</p>
+        <p className="changepassword-label">새로운 비밀번호</p>
         <input
           type="password"
           placeholder="새로운 비밀번호"
-          className="findpasword-input"
+          className="changepassword-input"
           value={password}
           onChange={onChangeRegPassword}
         />
         {!isRegPasswordCheck && (
-          <p className="findpassword-confirm">
+          <p className="changepassword-confirm">
             비밀번호 6~15자, 영문,숫자,특수문자 조합으로 입력해주세요
           </p>
         )}
 
-        <p className="findpasword-label">비밀번호 확인</p>
+        <p className="changepassword-label">비밀번호 확인</p>
         <input
           type="password"
           placeholder="비밀번호 확인"
-          className="findpasword-input"
+          className="changepassword-input"
           value={passwordCheck}
           onChange={onChangeCheckPassword}
         />
         {isPasswordCheck ? null : (
-          <p className="findpassword-confirm">비밀번호가 일치하지 않습니다.</p>
+          <p className="changepassword-confirm">
+            비밀번호가 일치하지 않습니다.
+          </p>
         )}
       </div>
 
-      <button className="findpasword-btn__modify" onClick={onResetPassword}>
+      <button className="changepassword-btn__modify" onClick={onResetPassword}>
         비밀번호 변경
       </button>
     </div>
