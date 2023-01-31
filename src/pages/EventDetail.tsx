@@ -114,34 +114,46 @@ const EventDetail = (): JSX.Element => {
           className="eventDetail-img"
         ></img>
         <div className="eventDetail-infoWrapper">
-          <h1 className="eventDetail-title">{data.data.data.title}</h1>
-          <p className="eventDetail-content">{data.data.data.content}</p>
-          <p className="eventDetail-location">{data.data.data.location}</p>
-          <p className="eventDetail-date">{data.data.data.date}</p>
-          <p className="eventDetail-time">{data.data.data.time}</p>
-          <div>
+          <h1 className="eventDetail-infoWrapper__title">
+            {data.data.data.title}
+          </h1>
+          <p className="eventDetail-infoWrapper__content">
+            {data.data.data.content}
+          </p>
+          <p className="eventDetail-infoWrapper__location">
+            {data.data.data.location}
+          </p>
+          <p className="eventDetail-infoWrapper__date">{data.data.data.date}</p>
+          <p className="eventDetail-infoWrapper__time">{data.data.data.time}</p>
+          <div className="eventDetail-infoWrapper-profileImgWrapper">
             <img
               src={data.data.data.profileImageUrl}
-              className="eventDetail-commentWrapper__profileImg"
+              className="eventDetail-infoWrapper__profileImg"
             ></img>
+            <p className="eventDetail-infoWrapper__nickname">
+              {data.data.data.nickname}
+            </p>
           </div>
-          <div className="evenDetail-btnWrapper">
-            <button className="eventDetail-btn">수정</button>
-            <button className="eventDetail-btn" onClick={onDeleteEvent}>
+          <div className="evenDetail-infoWrapper__btn-box">
+            <button className="eventDetail-infoWrapper__modifyBtn">수정</button>
+            <button
+              className="eventDetail-infoWrapper__deleteBtn"
+              onClick={onDeleteEvent}
+            >
               삭제
             </button>
           </div>
         </div>
       </div>
-      <div className="eventDetail-map"></div>
-      <div className="eventDtail-commentWrite">
-        <div className="eventDtail-profileWrapper">
-          <image className="eventDtail-profile"></image>
+      <div className="eventDetail-kakaoMap"></div>
+      <div className="eventDtail-commentWrapper-commentWrite">
+        <div className="eventDtail-commentWrapper__profile">
+          <image className="eventDtail-commentWrapper__profileImg"></image>
         </div>
-        <div className="eventDetail-addWrapper">
+        <div className="eventDetail-commentWrapper-addWrap">
           <div>
             <input
-              className="eventDetail-inputComment"
+              className="eventDetail-commentWrapper-inputComment"
               placeholder="Add a comment..."
               type="text"
               name="comment"
@@ -160,10 +172,10 @@ const EventDetail = (): JSX.Element => {
               등록
             </button>
           </div>
-          <hr className="eventDetail-hr" />
+          <hr className="eventDetail-commentWrapper__hr" />
         </div>
       </div>
-      <div className="eventDtail-commentWrapper">
+      <div className="eventDtail-commentWrapper-commentMap">
         {resultComment.data.data.data &&
           resultComment.data.data.data.map(comment => (
             <>
@@ -232,12 +244,12 @@ const EventDetail = (): JSX.Element => {
                 {modifyCommentId === comment.eventCommentId &&
                 isCommentModify ? (
                   <input
-                    className="eventDetail-commentWrapper__cemment"
+                    className="eventDetail-commentWrapper__inputcomment"
                     value={modifyComment}
                     onChange={onChangeModifyComment}
                   />
                 ) : (
-                  <p className="eventDetail-commentWrapper__cemment">
+                  <p className="eventDetail-commentWrapper__comment">
                     {comment.content}
                   </p>
                 )}
