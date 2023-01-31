@@ -58,7 +58,7 @@ export default function Event() {
               infowindow.setContent(`<div class=event-modal>
               <img src='${event.eventImageUrl}' class=event-modal__image />
               <p class=event-modal__title >${event.title}</p>
-              <div class=event-modal__date >${event.date} 시간:${event.time}</div>
+              <div class=event-modal__date >${event.date} 시간: ${event.time}</div>
               <p class=event-modal__location >${event.location}</p>
             </div>`),
                 infowindow.open(map, marker);
@@ -101,10 +101,16 @@ export default function Event() {
                   />
                   <p>{event.title}</p>
                 </div>
-                <p className="event-item__location">장소 : {event.location}</p>
-                <span className="event-item__date">
-                  날짜: {event.date} 시간 {event.time}
-                </span>
+                {event.location.length > 20 ? (
+                  <p className="event-item__location">
+                    장소: {event.location.substr(0, 20) + '...'}
+                  </p>
+                ) : (
+                  <p className="event-item__location">장소: {event.location}</p>
+                )}
+
+                <span className="event-item__date">날짜: {event.date}</span>
+                <span className="event-item__time">시간: {event.time}</span>
               </div>
             );
           })}
