@@ -114,20 +114,32 @@ const EventDetail = (): JSX.Element => {
           className="eventDetail-img"
         ></img>
         <div className="eventDetail-infoWrapper">
-          <h1 className="eventDetail-title">{data.data.data.title}</h1>
-          <p className="eventDetail-content">{data.data.data.content}</p>
-          <p className="eventDetail-location">{data.data.data.location}</p>
-          <p className="eventDetail-date">{data.data.data.date}</p>
-          <p className="eventDetail-time">{data.data.data.time}</p>
-          <div>
+          <h1 className="eventDetail-infoWrapper__title">
+            {data.data.data.title}
+          </h1>
+          <p className="eventDetail-infoWrapper__content">
+            {data.data.data.content}
+          </p>
+          <p className="eventDetail-infoWrapper__location">
+            {data.data.data.location}
+          </p>
+          <p className="eventDetail-infoWrapper__date">{data.data.data.date}</p>
+          <p className="eventDetail-infoWrapper__time">{data.data.data.time}</p>
+          <div className="eventDetail-infoWrapper-profileImgWrapper">
             <img
               src={data.data.data.profileImageUrl}
-              className="eventDetail-commentWrapper__profileImg"
+              className="eventDetail-infoWrapper__profileImg"
             ></img>
+            <p className="eventDetail-infoWrapper__nickname">
+              {data.data.data.nickname}
+            </p>
           </div>
-          <div className="evenDetail-btnWrapper">
-            <button className="eventDetail-btn">수정</button>
-            <button className="eventDetail-btn" onClick={onDeleteEvent}>
+          <div className="evenDetail-infoWrapper-btn">
+            <button className="eventDetail-infoWrapper__btnModify">수정</button>
+            <button
+              className="eventDetail-infoWrapper__btnDelete"
+              onClick={onDeleteEvent}
+            >
               삭제
             </button>
           </div>

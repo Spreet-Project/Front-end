@@ -14,7 +14,7 @@
 }
 
 .eventDetail-img {
-  width: 900px;
+  width: 902px;
   height: 650px;
   background-color: whitesmoke;
   border-radius: 10px;
@@ -32,59 +32,93 @@
   box-sizing: border-box;
 }
 
-.eventDetail-title {
+.eventDetail-infoWrapper__title {
   color: rgba(209, 5, 54, 1);
   margin-right: auto;
 }
 
-.eventDetail-content {
+.eventDetail-infoWrapper__content {
   color: rgba(255, 255, 255, 1);
   margin-right: auto;
-  font-size: 20px;
+  font-size: 24px;
   margin-top: 10px;
   margin-bottom: 20px;
+  width: 450px;
+  height: 320px;
 }
 
-.eventDetail-location {
+.eventDetail-infoWrapper__location {
   color: #9c9c9c;
-  font-size: 17px;
+  font-size: 18px;
   margin-right: auto;
   margin-bottom: 10px;
 }
 
-.eventDetail-date {
+.eventDetail-infoWrapper__date {
   color: #9c9c9c;
-  font-size: 17px;
+  font-size: 18px;
   margin-right: auto;
   margin-bottom: 10px;
 }
 
-.eventDetail-time {
+.eventDetail-infoWrapper__time {
   color: #9c9c9c;
-  font-size: 17px;
+  font-size: 18px;
   margin-right: auto;
   margin-bottom: 10px;
 }
 
-.evenDetail-btnWrapper {
+.evenDetail-infoWrapper-btn {
   position: absolute;
   display: flex;
   bottom: 0;
 }
 
-.eventDetail-btn {
-  width: 200px;
-  height: 38px;
+.eventDetail-infoWrapper__btnModify {
+  width: 224px;
+  height: 48px;
   background-color: #d10536;
   border-radius: 5px;
   border: none;
   margin: 10px 8px 10px 8px;
   color: white;
-  font-size: 18px;
+  font-size: 20px;
   cursor: pointer;
   &:hover {
     color: #333333;
   }
+}
+
+.eventDetail-infoWrapper__btnDelete {
+  width: 224px;
+  height: 48px;
+  background-color: rgba(179, 179, 179, 1);
+  border-radius: 5px;
+  border: none;
+  margin: 10px 8px 10px 8px;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  &:hover {
+    color: #333333;
+  }
+}
+
+.eventDetail-infoWrapper-profileImgWrapper {
+  display: flex;
+}
+
+.eventDetail-infoWrapper__profileImg {
+  width: 48px;
+  height: 48px;
+  border-radius: 100%;
+  background-color: #9c9c9c;
+}
+
+.eventDetail-infoWrapper__nickname {
+  color: white;
+  // margin: 15px;
+  font-size: 20px;
 }
 
 .eventDetail-map {
