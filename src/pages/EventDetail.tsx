@@ -134,10 +134,10 @@ const EventDetail = (): JSX.Element => {
               {data.data.data.nickname}
             </p>
           </div>
-          <div className="evenDetail-infoWrapper-btn">
-            <button className="eventDetail-infoWrapper__btnModify">수정</button>
+          <div className="evenDetail-infoWrapper__btn-box">
+            <button className="eventDetail-infoWrapper__modifyBtn">수정</button>
             <button
-              className="eventDetail-infoWrapper__btnDelete"
+              className="eventDetail-infoWrapper__deleteBtn"
               onClick={onDeleteEvent}
             >
               삭제
@@ -145,15 +145,15 @@ const EventDetail = (): JSX.Element => {
           </div>
         </div>
       </div>
-      <div className="eventDetail-map"></div>
-      <div className="eventDtail-commentWrite">
-        <div className="eventDtail-profileWrapper">
-          <image className="eventDtail-profile"></image>
+      <div className="eventDetail-kakaoMap"></div>
+      <div className="eventDtail-commentWrapper-commentWrite">
+        <div className="eventDtail-commentWrapper__profile">
+          <image className="eventDtail-commentWrapper__profileImg"></image>
         </div>
-        <div className="eventDetail-addWrapper">
+        <div className="eventDetail-commentWrapper-addWrap">
           <div>
             <input
-              className="eventDetail-inputComment"
+              className="eventDetail-commentWrapper-inputComment"
               placeholder="Add a comment..."
               type="text"
               name="comment"
@@ -172,10 +172,10 @@ const EventDetail = (): JSX.Element => {
               등록
             </button>
           </div>
-          <hr className="eventDetail-hr" />
+          <hr className="eventDetail-commentWrapper__hr" />
         </div>
       </div>
-      <div className="eventDtail-commentWrapper">
+      <div className="eventDtail-commentWrapper-commentMap">
         {resultComment.data.data.data &&
           resultComment.data.data.data.map(comment => (
             <>
@@ -244,12 +244,12 @@ const EventDetail = (): JSX.Element => {
                 {modifyCommentId === comment.eventCommentId &&
                 isCommentModify ? (
                   <input
-                    className="eventDetail-commentWrapper__cemment"
+                    className="eventDetail-commentWrapper__inputcomment"
                     value={modifyComment}
                     onChange={onChangeModifyComment}
                   />
                 ) : (
-                  <p className="eventDetail-commentWrapper__cemment">
+                  <p className="eventDetail-commentWrapper__comment">
                     {comment.content}
                   </p>
                 )}
