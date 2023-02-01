@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 
-const FeedImageBox = ({ feed, feedId }): JSX.Element => {
+const FeedImageBox = ({ feed }): JSX.Element => {
   const feedChildRef = useRef<HTMLDivElement>(null);
   const feedRef = useRef<HTMLDivElement>(null);
   const [currPaigingIDX, setCurrPaigingIDX] = useState<number>(0);
@@ -44,7 +44,7 @@ const FeedImageBox = ({ feed, feedId }): JSX.Element => {
                   onClick={() => {
                     onPaigingBtn(index);
                   }}
-                  style={{ border: '3px solid #d10536' }}
+                  style={{ border: '3px solid gray' }}
                 ></button>
               ) : (
                 <button
@@ -59,13 +59,13 @@ const FeedImageBox = ({ feed, feedId }): JSX.Element => {
         </div>
       </div>
       <div className="modal-userInform">
-        <div className="modal-userInform__title">
-          <p>{feed.title}</p>
-          <p> 내용:{feed.content}</p>
-          <div className="modal-userInform__author">
-            <img src={feed.profileImageUrl} />
-            {feed.nickname}
-          </div>
+        <div className="modal-userInform__content">
+          <p className="modal-content__title">{feed.title}</p>
+          <p className="modal-content__detail">{feed.content}</p>
+        </div>
+        <div className="modal-userInform__author">
+          <img src={feed.profileImageUrl} />
+          {feed.nickname}
         </div>
       </div>
     </div>

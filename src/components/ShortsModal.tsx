@@ -64,7 +64,7 @@ const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
     },
   );
   const deleteShortsMutation = useMutation(shortsId => deleteShorts(shortsId), {
-    onSettled: () => queryClient.invalidateQueries(['shortsDetail', shortsId]),
+    onSettled: () => setIsShowModal(false),
   });
 
   const deleteCommentMutation = useMutation(shortsId =>

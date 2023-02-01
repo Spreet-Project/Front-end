@@ -11,7 +11,7 @@ const ShortsScroll = ({
 }): JSX.Element => {
   return (
     <div key={shorts.shortsId} className="shorts-item__scroll">
-      <Video width="100%" height="750px" src={shorts.videoUrl} />
+      <Video width="100%" height="650px" src={shorts.videoUrl} />
       <div className="shorts-item__info">
         <p>{shorts.title}</p>
         <div className="user-profile">

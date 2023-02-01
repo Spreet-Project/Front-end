@@ -58,7 +58,7 @@ const FeedsScroll = ({
                   onClick={() => {
                     onPaigingBtn(index);
                   }}
-                  style={{ border: '3px solid #d10536' }}
+                  style={{ border: '3px solid gray' }}
                 ></button>
               ) : (
                 <button

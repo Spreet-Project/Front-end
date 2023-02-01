@@ -6,6 +6,7 @@ const FeedCommentBox = ({
   modifyCommentId,
   modifyComment,
   setModifyComment,
+  profileImageUrl,
   onCancleModifyComment,
   setIsCommentModify,
   modifyCommentMutation,
@@ -19,7 +20,7 @@ const FeedCommentBox = ({
         <div key={comment.commentId} className="modal-comment-wrapper">
           <div className="modal-comment__user-author">
             <div className="modal-comment__user-image">
-              <img />
+              <img src={profileImageUrl} />
             </div>
             {comment.nickname} &nbsp;
             <span className="modal-comment__date">
@@ -55,16 +56,14 @@ const FeedCommentBox = ({
         <div key={comment.commentId} className="modal-comment-wrapper">
           <div className="modal-comment__user-author">
             <div className="modal-comment__user-image">
-              <img />
+              <img src={profileImageUrl} />
             </div>
             {comment.nickname} &nbsp;
             <span className="modal-comment__date">
               {comment.modifiedAt.slice(0, 10)}
             </span>
           </div>
-          <div className="modal-comment__user-comment">
-            댓글:{comment.content}
-          </div>
+          <div className="modal-comment__user-comment">{comment.content}</div>
 
           {comment.nickname === loginNickname && (
             <button

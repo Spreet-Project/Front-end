@@ -31,9 +31,9 @@
     left: 50%;
     margin-top: 5%;
     transform: translate(-40%, 0);
-    width: 650px;
-    height: 750px;
-    border-radius: 10px;
+    width: 550px;
+    height: 650px;
+    border-radius: 15px;
     overflow: auto;
     scroll-snap-type: y mandatory;
     &::-webkit-scrollbar {
@@ -43,16 +43,18 @@
       text-align: center;
       position: relative;
       scroll-snap-align: start;
-      width: 650px;
-      height: 750px;
+      width: 550px;
+      height: 650px;
       @include flexCenter;
+      border-radius: 15px;
       overflow-x: hidden;
       color: white;
       .feed-image__row {
-        width: 650px;
-        height: 750px;
+        width: 550px;
+        height: 650px;
         margin-right: 50px;
         border: 3px solid black;
+        border-radius: 15px;
         box-sizing: border-box;
         position: relative;
         .feed-image__carousel {
@@ -64,8 +66,8 @@
               display: flex;
               align-items: center;
               .feed-image__container {
-                width: 650px;
-                height: 750px;
+                width: 550px;
+                height: 650px;
               }
             }
           }
