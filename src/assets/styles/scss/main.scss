@@ -87,14 +87,14 @@
     .spreet-row__paiging {
       position: absolute;
       left: 50%;
-      bottom: 10vh;
+      bottom: 8vh;
       transform: translate(-50%, 0);
       .carousel-paging__btn {
         cursor: pointer;
         margin-left: 10px;
-        background-color: black;
-        width: 30px;
-        height: 30px;
+        background-color: rgba(51, 51, 51, 1);
+        width: 20px;
+        height: 20px;
         border: none;
         border-radius: 100%;
         color: black;
@@ -150,7 +150,8 @@
                   height: 500px;
                   z-index: 1;
                   opacity: 0.1;
-                  background-color: gray;
+                  background-color: rgba(113, 113, 113, 1);
+                  border-radius: 10px;
                   pointer-events: none;
                 }
                 .slide-item__shorts-title {
