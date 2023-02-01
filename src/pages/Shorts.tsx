@@ -29,6 +29,7 @@ const Shorts = () => {
   const { data, isLoading, isSuccess, hasNextPage, fetchNextPage, isFetching } =
     useInfiniteQuery(['getScrollShorts', token, currentCate], getScrollShorts, {
       getNextPageParam: (lastPage, pages) => {
+        if (!lastPage.data.data) return;
         if (lastPage.data.data.length < 10 || !lastPage.data.data) {
           return undefined;
         }

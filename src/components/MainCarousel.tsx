@@ -1,6 +1,4 @@
 import React, { useRef, useState, useEffect } from 'react';
-import '../assets/styles/scss/shorts.scss';
-
 import handleClickSlide from '../core/utils/handleClickSlide';
 import Video from './Video';
 
@@ -54,17 +52,17 @@ const MainCarousel = ({ data, category, color }): JSX.Element => {
                         src={item.videoUrl}
                       />
                       <div className="slide-item__shorts-title">
-                        <p>
-                          {item.title.length > 10
-                            ? item.title.slice(0, 30) + '...'
-                            : item.title}
-                        </p>
                         <div className="user-profile">
                           <div className="user-image">
                             <img src={item.profileImageUrl} />
                           </div>
                           {item.nickname}
                         </div>
+                        <p>
+                          {item.title.length > 10
+                            ? item.title.slice(0, 30) + '...'
+                            : item.title}
+                        </p>
                       </div>
                     </div>
                   </>

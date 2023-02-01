@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import '../assets/styles/scss/shorts.scss';
 import Video from './Video';
+import sweetAlert from '../core/utils/sweetAlert';
 
 const ShortsScroll = ({
   shorts,
@@ -19,7 +20,10 @@ const ShortsScroll = ({
           </div>
           <p>{shorts.nickname}</p>
         </div>
-        <p>♥︎ {shorts.likeCount}</p>
+        <div className="user-like">
+          <span className="user-like__heart">♥︎</span>
+          <span>{shorts.likeCount}</span>
+        </div>
       </div>
 
       <div className="shorts-item__btn">
@@ -56,7 +60,24 @@ const ShortsScroll = ({
         >
           Detail
         </p>
-        <button className="subscribe-button">SubsCribe</button>
+        <div className="shorts-btn btn__subscribe">
+          <span
+            className="material-symbols-outlined"
+            onClick={() => {
+              sweetAlert(1000, 'error', '서비스 준비 중 입니다.');
+            }}
+          >
+            subscriptions
+          </span>
+        </div>
+        <p
+          className="shorts-btn-text text__subscribe"
+          onClick={() => {
+            sweetAlert(1000, 'error', '서비스 준비 중 입니다.');
+          }}
+        >
+          Subscribe
+        </p>
       </div>
     </div>
   );

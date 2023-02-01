@@ -9,7 +9,6 @@ export const postLogin = async post => {
     }
     return data;
   } catch (error) {
-    console.log(error);
     if (error.response.data.msg === '크루회원 승인 대기 중입니다.') {
       sweetAlert(1000, 'error', '크루회원 승인 대기 중입니다.');
     }
@@ -99,20 +98,31 @@ export const getNaverLogin = async code => {
   }
 };
 
-//비밀번호 재발급
-export const putResetPassword = async payalod => {
+//비밀번호 재발급을 위한 이메일 인증 요청
+export const postResetPasswordEmail = async payalod => {
   try {
-    console.log(payalod, 'axios code 확인');
-    const data = await instance.put('/user/reset/password', payalod);
+    // console.log(payalod, 'axios code 확인');
+    const data = await instance.post(
+      `/user/reset-password/send-email?email=${payalod}`,
+    );
     return data;
   } catch (error) {
     console.log(error);
-    sweetAlert(1000, 'error', '비밀번호 재발급 실패');
+    sweetAlert(1000, 'error', error.response.data.msg);
   }
 };
 
-// /reset-password/send-email
-// /api/user/reset-password/send-email
+//비밀번호 재발급
+export const putResetPassword = async payalod => {
+  try {
+    // console.log(payalod, 'axios code 확인');
+    const data = await instance.put('/user/reset-password', payalod);
+    return data;
+  } catch (error) {
+    console.log(error);
+    sweetAlert(1000, 'error', error.response.data.msg);
+  }
+};
 
 // export const postSignout = async (post) => {
 //   try {

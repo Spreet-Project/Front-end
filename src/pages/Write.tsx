@@ -129,6 +129,9 @@ const Write = (): JSX.Element => {
       sweetAlert(1000, 'error', '제목을 확인해주세요(공백제거)');
       return;
     }
+    if (title.length > 20) {
+      return sweetAlert(1000, 'error', '제목은 20자 이하로 작성해주세요.');
+    }
     if (!file) {
       sweetAlert(1000, 'error', '영상을 추가해주세요');
       return;
@@ -159,6 +162,9 @@ const Write = (): JSX.Element => {
   const onFeedSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (title.length === 0) {
       return sweetAlert(1000, 'error', '제목을 확인해주세요(공백제거)');
+    }
+    if (title.length > 20) {
+      return sweetAlert(1000, 'error', '제목은 20자 이하로 작성해주세요.');
     }
     if (postImages.length === 0) {
       return sweetAlert(1000, 'error', '이미지를 추가해주세요');

@@ -1,8 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 
 const FeedImageBox = ({ feed, feedId }): JSX.Element => {
   const feedChildRef = useRef<HTMLDivElement>(null);
   const feedRef = useRef<HTMLDivElement>(null);
+  const [currPaigingIDX, setCurrPaigingIDX] = useState<number>(0);
 
   const onPaigingBtn = (index: number): void => {
     if (!feedChildRef) return;
@@ -13,6 +14,7 @@ const FeedImageBox = ({ feed, feedId }): JSX.Element => {
     const calculationValue: number =
       -(feedRef_NodeWidth / feed.imageUrlList.length) * index;
     feedRef.current.style.transform = `translateX(${calculationValue}px)`;
+    setCurrPaigingIDX(index);
   };
 
   return (
@@ -35,7 +37,16 @@ const FeedImageBox = ({ feed, feedId }): JSX.Element => {
         <div className="feed-image__paiging">
           {feed.imageUrlList &&
             feed.imageUrlList.map((item, index) => {
-              return (
+              return currPaigingIDX === index ? (
+                <button
+                  key={index}
+                  className="carousel-paging__btn"
+                  onClick={() => {
+                    onPaigingBtn(index);
+                  }}
+                  style={{ border: '3px solid #d10536' }}
+                ></button>
+              ) : (
                 <button
                   key={index}
                   className="carousel-paging__btn"

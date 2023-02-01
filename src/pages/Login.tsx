@@ -23,6 +23,9 @@ const Login = () => {
       loginId: loginId,
       password: password,
     }).then(res => {
+      if (!res) {
+        return sweetAlert(1000, 'error', '로그인 실패');
+      }
       localStorage.setItem('nickname', res.data.data.nickname);
       localStorage.setItem('id', res.headers.authorization);
       localStorage.setItem('userRole', res.data.data.userRole);
