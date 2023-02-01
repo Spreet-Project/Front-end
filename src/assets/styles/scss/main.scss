@@ -79,7 +79,7 @@
           .spreet-item__container {
             width: 1440px;
             height: 660px;
-            border: 5px solid gray;
+            border: 3px solid gray;
           }
         }
       }
@@ -87,7 +87,7 @@
     .spreet-row__paiging {
       position: absolute;
       left: 50%;
-      bottom: 8vh;
+      bottom: 7vh;
       transform: translate(-50%, 0);
       .carousel-paging__btn {
         cursor: pointer;
@@ -107,9 +107,11 @@
     background-color: #111;
     .main-inner {
       // background-color: #373636;
+      background-color: #111;
       .slide-row {
         position: relative;
         box-sizing: border-box;
+        margin-top: 100px;
         .slide-row__carousel {
           @include carouselEle;
           .slide-row__button {
@@ -127,7 +129,7 @@
           }
           .slide-item__title {
             position: absolute;
-            top: 5px;
+            top: 50px;
             left: 50px;
             font-size: 32px;
             color: white;
@@ -151,7 +153,7 @@
                   z-index: 1;
                   opacity: 0.1;
                   background-color: rgba(113, 113, 113, 1);
-                  border-radius: 10px;
+                  border-radius: 20px;
                   pointer-events: none;
                 }
                 .slide-item__shorts-title {
@@ -160,10 +162,11 @@
                   margin-bottom: 50px;
                   pointer-events: none;
                   p {
-                    margin-top: 20px;
+                    margin-top: 10px;
                     font-weight: 700;
                     margin-bottom: 5px;
-                    font-size: 20px;
+                    font-size: 18px;
+                    margin-left: 45px;
                   }
                   .user-profile {
                     display: flex;

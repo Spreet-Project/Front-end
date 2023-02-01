@@ -19,7 +19,7 @@ $write_borderColor: #9c9c9c;
 .write-content {
   position: relative;
   width: 1440px;
-  margin: 50px auto;
+  margin: 150px auto;
   @include flexCenter;
   .feed-image__row {
     width: 600px;
@@ -41,7 +41,7 @@ $write_borderColor: #9c9c9c;
           align-items: center;
           .feed-image__container {
             width: 600px;
-            height: 600px;
+            height: 650px;
           }
         }
       }
@@ -66,7 +66,7 @@ $write_borderColor: #9c9c9c;
 
   .write-showFile-box {
     width: 600px;
-    height: 600px;
+    height: 680px;
     margin-right: 50px;
     border: 3px solid black;
     background-color: $write_background;
@@ -76,19 +76,19 @@ $write_borderColor: #9c9c9c;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 450px;
-    height: 550px;
+    width: 480px;
+    height: 630px;
     padding: 25px;
     border: 3px solid black;
     background-color: $write_background;
     border-radius: 10px;
     .write-category {
-      width: 200px;
-      height: 30px;
+      width: 400px;
+      height: 40px;
       margin-left: 15px;
     }
     p {
-      font-size: 24px;
+      font-size: 22px;
       margin-left: 15px;
       margin-top: 20px;
     }
@@ -117,7 +117,7 @@ $write_borderColor: #9c9c9c;
       width: 400px;
       border: 0.7px solid $write_borderColor;
       border-radius: 5px;
-      margin: 10px;
+      margin: 20px;
     }
     .write-checkfeed {
       width: 300px;

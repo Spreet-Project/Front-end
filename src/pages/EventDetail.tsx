@@ -188,14 +188,14 @@ const EventDetail = (): JSX.Element => {
           <p className="eventDetail-infoWrapper__content">
             {data.data.data.content}
           </p>
-          <p className="eventDetail-infoWrapper__location">
-            장소: {data.data.data.location}
-          </p>
           <p className="eventDetail-infoWrapper__date">
             날짜: {data.data.data.date}
           </p>
           <p className="eventDetail-infoWrapper__time">
             시간: {data.data.data.time}
+          </p>
+          <p className="eventDetail-infoWrapper__location">
+            장소: {data.data.data.location}
           </p>
           <div className="eventDetail-infoWrapper-profileImgWrapper">
             <img
