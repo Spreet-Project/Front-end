@@ -120,6 +120,8 @@ export default function Event() {
                   />
                   <p>{event.title}</p>
                 </div>
+                <span className="event-item__date">날짜: {event.date}</span>
+                <span className="event-item__time">시간: {event.time}</span>
                 {event.location.length > 20 ? (
                   <p className="event-item__location">
                     장소: {event.location.substr(0, 20) + '...'}
@@ -127,9 +129,6 @@ export default function Event() {
                 ) : (
                   <p className="event-item__location">장소: {event.location}</p>
                 )}
-
-                <span className="event-item__date">날짜: {event.date}</span>
-                <span className="event-item__time">시간: {event.time}</span>
               </div>
             );
           })}
