@@ -27,6 +27,10 @@ const EventWrite = () => {
       sweetAlert(1000, 'error', '제목을 입력해주세요');
       return;
     }
+    if (title.length > 20) {
+      sweetAlert(1000, 'error', '제목은 20이하로 입력해주세요');
+      return;
+    }
     if (location.length === 0) {
       sweetAlert(1000, 'error', '위치를 입력해주세요');
       return;

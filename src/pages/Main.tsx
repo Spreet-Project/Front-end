@@ -11,7 +11,8 @@ import MainVideo from '../components/MainVideo';
 const Main = (): JSX.Element => {
   const token = localStorage.getItem('id');
   const feedId = useRef<number>(0);
-  const [isShowModal, setIsShowModal] = useState(false);
+  const [isShowModal, setIsShowModal] = useState<boolean>(false);
+  const [currPaigingIDX, setCurrPaigingIDX] = useState<number>(0);
 
   const categoryList = [
     { category: '랩', value: 'RAP', color: '#D10536' },
@@ -131,24 +132,8 @@ const Main = (): JSX.Element => {
     const calculationValue: number =
       -(spreetRef_NodeWidth / sldiesDomLength.current) * index;
     spreetRef.current.style.transform = `translateX(${calculationValue}px)`;
+    setCurrPaigingIDX(index);
   };
-
-  // res.map(response => {
-  //   if (response.isSuccess && response.data.status === 200) {
-  //     return;
-  //   }
-  //   if (response.isSuccess && response.data.response.data.statusCode === 400) {
-  //     sweetAlert(1000, 'error', '죄송합니다.  다시 로그인 해주세요.');
-  //     localStorage.removeItem('id');
-  //     return navigate('/login');
-  //   }
-  // });
-
-  // if (resFeed.response.status === 401) {
-  //   sweetAlert(1000, 'error', '죄송합니다.  다시 로그인 해주세요.');
-  //   localStorage.removeItem('id');
-  //   navigate('/login');
-  // }
 
   if (!res || resFeed.isLoading) return;
   // console.log(res, 'res');
@@ -201,7 +186,16 @@ const Main = (): JSX.Element => {
         <div className="spreet-row__paiging">
           {post &&
             post.map((item, index) => {
-              return (
+              return index === currPaigingIDX ? (
+                <button
+                  key={index}
+                  className="carousel-paging__btn"
+                  onClick={() => {
+                    onPaigingBtn(index);
+                  }}
+                  style={{ border: '3px solid #d10536' }}
+                ></button>
+              ) : (
                 <button
                   key={index}
                   className="carousel-paging__btn"

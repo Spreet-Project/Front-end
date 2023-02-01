@@ -22,7 +22,8 @@ const FeedShorts = (): JSX.Element => {
   const { data, isLoading, isSuccess, hasNextPage, fetchNextPage, isFetching } =
     useInfiniteQuery(['getScrollFeed', token], getScrollFeed, {
       getNextPageParam: (lastPage, pages) => {
-        if (pages.length === 2) {
+        if (!lastPage.data) return;
+        if (lastPage.data.length < 10 || !lastPage.data.data) {
           return undefined;
         }
         return pages.length + 1;
@@ -66,11 +67,6 @@ const FeedShorts = (): JSX.Element => {
 
   if (isLoading || !data.pages) return;
   // console.log(data);
-  // console.log(data.pages, 'pages');
-  // if (data.response && data.response.request.status === 401) {
-  //   localStorage.removeItem('id');
-  // }.
-
   return (
     <>
       {isLoading || (isFetching && <div> 로딩중입니다</div>)}

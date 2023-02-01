@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import '../assets/styles/scss/feedShorts.scss';
 import sweetAlert from '../core/utils/sweetAlert';
 import { postSubscribe } from '../core/api/subscribe';
@@ -11,6 +11,7 @@ const FeedsScroll = ({
 }): JSX.Element => {
   const feedChildRef = useRef<HTMLDivElement>(null);
   const feedRef = useRef<HTMLDivElement>(null);
+  const [currPaigingIDX, setCurrPaigingIDX] = useState<number>(0);
 
   const onPaigingBtn = (index: number): void => {
     if (!feedChildRef) return;
@@ -21,6 +22,7 @@ const FeedsScroll = ({
     const calculationValue: number =
       -(feedRef_NodeWidth / feed.imageUrlList.length) * index;
     feedRef.current.style.transform = `translateX(${calculationValue}px)`;
+    setCurrPaigingIDX(index);
   };
 
   // const onSubscirbe = () => {
@@ -49,7 +51,16 @@ const FeedsScroll = ({
         <div className="feed-image__paiging">
           {feed.imageUrlList &&
             feed.imageUrlList.map((item, index) => {
-              return (
+              return currPaigingIDX === index ? (
+                <button
+                  key={index}
+                  className="carousel-paging__btn"
+                  onClick={() => {
+                    onPaigingBtn(index);
+                  }}
+                  style={{ border: '3px solid #d10536' }}
+                ></button>
+              ) : (
                 <button
                   key={index}
                   className="carousel-paging__btn"
@@ -64,8 +75,16 @@ const FeedsScroll = ({
 
       <div className="shorts-item__info">
         <p>{feed.title}</p>
-        <p>{feed.nickname}</p>
-        <p>♥︎ {feed.feedLike}</p>
+        <div className="user-profile">
+          <div className="user-image">
+            <img src={feed.profileImageUrl} />
+          </div>
+          <p>{feed.nickname}</p>
+        </div>
+        <div className="user-like">
+          <span className="user-like__heart">♥︎</span>
+          <span>{feed.feedLike}</span>
+        </div>
       </div>
 
       <div className="shorts-item__btn">
@@ -102,7 +121,24 @@ const FeedsScroll = ({
         >
           Detail
         </p>
-        <button className="subscribe-button">SubsCribe</button>
+        <div className="shorts-btn btn__subscribe">
+          <span
+            className="material-symbols-outlined"
+            onClick={() => {
+              sweetAlert(1000, 'error', '서비스 준비 중 입니다.');
+            }}
+          >
+            subscriptions
+          </span>
+        </div>
+        <p
+          className="shorts-btn-text text__subscribe"
+          onClick={() => {
+            sweetAlert(1000, 'error', '서비스 준비 중 입니다.');
+          }}
+        >
+          Subscribe
+        </p>
       </div>
     </div>
   );

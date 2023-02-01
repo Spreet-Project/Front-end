@@ -132,7 +132,7 @@ const Video: React.FC<IProps> = ({ width, height, src }) => {
         muted={true}
         ref={ref}
         onClick={handleControlVisible}
-        style={{ width: `${width}`, height: `${height}` }}
+        style={{ width: `${width}`, height: `${height}`, borderRadius: '20px' }}
       >
         <source src={videoSrc} type="video/mp4" />
       </video>

@@ -16,6 +16,7 @@ const ContentList = (): JSX.Element => {
   const { data, isLoading, isSuccess, hasNextPage, fetchNextPage, isFetching } =
     useInfiniteQuery(['getUserpost', currentCate], getUserPost, {
       getNextPageParam: (lastPage, pages) => {
+        if (!lastPage.data.data) return;
         if (lastPage.data.data.length < 10 || !lastPage.data.data) {
           return undefined;
         }
@@ -91,7 +92,7 @@ const ContentList = (): JSX.Element => {
   );
 
   if (isLoading || !data) return;
-  // console.log(data, 'data');
+  console.log(data, 'data');
 
   return (
     <div className="contentList-form">

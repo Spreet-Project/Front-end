@@ -37,9 +37,9 @@ const Header = (): JSX.Element => {
             <img />
           </p>
           <div className="header_btn">
-            <button onClick={onClcikSubsCribe} className="letter-spacing__5">
+            {/* <button onClick={onClcikSubsCribe} className="letter-spacing__5">
               알림
-            </button>
+            </button> */}
             <button
               onClick={() => {
                 navigate('/shorts');

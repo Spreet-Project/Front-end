@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react';
 import '../assets/styles/scss/myPage.scss';
 import { Navigate, useNavigate } from 'react-router-dom';
 import sweetAlert from '../core/utils/sweetAlert';
-import { postEmailConfirm, putResetPassword } from '../core/api/login';
-import { postEmailCheck } from '../core/api/mypage';
+import {
+  postEmailConfirm,
+  putResetPassword,
+  postResetPasswordEmail,
+} from '../core/api/login';
 const FindPassword = (): JSX.Element => {
   const navigate = useNavigate();
   const [isCheckEmail, setIsCheckEmail] = useState<boolean>(false);
@@ -37,15 +40,16 @@ const FindPassword = (): JSX.Element => {
   };
 
   const onCheckEmail = () => {
-    postEmailCheck(userEmail).then(res => {
+    postResetPasswordEmail(userEmail).then(res => {
+      console.log(res);
       if (!res) {
-        return sweetAlert(1000, 'error', '이메일 인증 요청 오류');
+        return sweetAlert(1000, 'error', res.data.msg);
       }
       if (res.data.statusCode === 200) {
         sweetAlert(1000, 'success', res.data.msg);
+        setIsCheckEmail(true);
       }
     });
-    setIsCheckEmail(true);
   };
 
   const onChangeConfirmCode = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,13 +94,17 @@ const FindPassword = (): JSX.Element => {
       return sweetAlert(1000, 'error', '비밀번호가 일치하지 않습니다.');
     }
 
-    putResetPassword({ email: userEmail, password }).then(res => {
+    putResetPassword({
+      email: userEmail,
+      password,
+      emailConfirm: isEmailConfirm,
+    }).then(res => {
       console.log(res, '비밀번호 초기화 결과');
       if (!res) {
-        return sweetAlert(1000, 'error', '비밀번호 초기화 오류');
+        return sweetAlert(1000, 'error', res.data.msg);
       }
       sweetAlert(1000, 'success', '비밀번호 초기화 성공');
-      navigate('/mypage');
+      navigate('/login');
     });
   };
 

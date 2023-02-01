@@ -1,6 +1,4 @@
 import React, { useRef, useState, useEffect } from 'react';
-import '../assets/styles/scss/shorts.scss';
-
 import handleClickSlide from '../core/utils/handleClickSlide';
 import Video from './Video';
 
