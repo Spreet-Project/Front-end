@@ -191,7 +191,7 @@ $confirm-msg: gray;
 .changepassword-form {
   @include outForm;
   width: 586px;
-  height: 500px;
+  height: 600px;
   .changepassword-confirm {
     margin: 0 0 15px 0;
     color: $confirm-msg;

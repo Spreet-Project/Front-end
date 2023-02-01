@@ -56,9 +56,11 @@ const EventWrite = () => {
     eventWriteData.append('file', eventImage);
     postEventWrite(eventWriteData)
       .then(res => {
-        console.log(res, 'res');
-        // navigate('/');
+        if (!res) {
+          return sweetAlert(1000, 'error', '행사 게시글 작성 중 오류');
+        }
         sweetAlert(1000, 'success', '행사 게시글 작성 성공!');
+        navigate('/event');
       })
       .catch(error => {
         sweetAlert(1000, 'error', '행사 게시글 작성 실패');
@@ -104,7 +106,7 @@ const EventWrite = () => {
 
   ///다음 검색 주소 검색결과
   const handleComplete = data => {
-    let fullAddress = data.address;
+    const fullAddress = data.address;
     let extraAddress = '';
     if (data.addressType === 'R') {
       if (data.bname !== '') {
@@ -114,7 +116,7 @@ const EventWrite = () => {
         extraAddress +=
           extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
       }
-      fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
+      // fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
       setLocation(fullAddress);
     }
     //fullAddress -> 전체 주소반환
@@ -156,7 +158,7 @@ const EventWrite = () => {
           }}
           className="eventWrite-btn"
         >
-          위치 확인
+          위치 찾기
         </button>
         <input
           type="date"
@@ -192,7 +194,6 @@ const EventWrite = () => {
       </div>
       {isShowModal && (
         <KakaoMapModal
-          // searchDisplay={searchDisplay}
           handleComplete={handleComplete}
           setIsShowModal={setIsShowModal}
           location={location}

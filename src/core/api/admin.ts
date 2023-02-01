@@ -21,12 +21,12 @@ export const putCrewAccess = async userId => {
     if (error.response.request.status === 401) {
       return sweetAlert(1000, 'error', '로그인이 필요합니다!');
     }
-    sweetAlert(1000, 'error', '댓글 수정 중 오류!');
+    sweetAlert(1000, 'error', '크루 승인 중 오류!');
     return error;
   }
 };
 
-//크루 요청 승인
+//크루 거절
 export const putCrewReject = async userId => {
   try {
     return await baseURL.put(`/admin/reject/${userId}`);
@@ -34,7 +34,20 @@ export const putCrewReject = async userId => {
     if (error.response.request.status === 401) {
       return sweetAlert(1000, 'error', '로그인이 필요합니다!');
     }
-    sweetAlert(1000, 'error', '댓글 수정 중 오류!');
+    sweetAlert(1000, 'error', '크루 거절 중 오류!');
+    return error;
+  }
+};
+
+//크로 요청 취소
+export const putCrewCancel = async userId => {
+  try {
+    return await baseURL.put(`/admin/cancel/${userId}`);
+  } catch (error) {
+    if (error.response.request.status === 401) {
+      return sweetAlert(1000, 'error', '로그인이 필요합니다!');
+    }
+    sweetAlert(1000, 'error', '크루 취소 중 오류!');
     return error;
   }
 };

@@ -7,9 +7,11 @@ import { getSubscribe } from '../core/api/subscribe';
 const Header = (): JSX.Element => {
   const navigate = useNavigate();
   const token = localStorage.getItem('id');
+  const userRole = localStorage.getItem('userRole');
   const onLogout = () => {
     localStorage.removeItem('id');
     localStorage.removeItem('nickname');
+    localStorage.removeItem('userRole');
     sweetAlert(1000, 'success', '로그아웃 되었습니다');
     navigate('/');
   };
@@ -73,9 +75,26 @@ const Header = (): JSX.Element => {
                   navigate('/write');
                 }}
               >
-                글작성하기
+                글 작성
               </button>
             )}
+
+            {token &&
+              (userRole === 'ROLE_APPROVED_CREW' ||
+                userRole === 'ROLE_ADMIN') && (
+                <button
+                  onClick={() => {
+                    if (!localStorage.getItem('id')) {
+                      sweetAlert(1000, 'error', '로그인 해주세요!');
+                      return navigate('/login');
+                    }
+                    navigate('/eventWrite');
+                  }}
+                >
+                  행사 작성
+                </button>
+              )}
+
             {token && (
               <button
                 onClick={() => {

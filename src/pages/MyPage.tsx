@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../assets/styles/scss/myPage.scss';
 import { useNavigate } from 'react-router-dom';
-import { useQuery, useQueryClient } from 'react-query';
+import { useQuery } from 'react-query';
 import UserInform from '../components/mypage/UserInform';
 import ContentList from '../components/mypage/ContentList';
 import ChangePassword from '../components/mypage/ChangePassword';
 import Admin from '../components/mypage/Admin';
 import { getUserInform } from '../core/api/mypage';
-import sweetAlert from '../core/utils/sweetAlert';
-
 const MyPage = () => {
-  const navigate = useNavigate();
+  const userRole = localStorage.getItem('userRole');
   const [id, setId] = useState(0);
 
   const { isLoading, isError, data, error, isFetching } = useQuery(
@@ -56,11 +54,19 @@ const MyPage = () => {
       <div className="mypage-sidebar">
         <div className="mypage-category">
           <ul>
-            {tabList.map(item => (
-              <li key={item.id} onClick={() => setId(item.id)}>
-                {item.title}
-              </li>
-            ))}
+            {tabList.map(item =>
+              item.title !== '관리자' ? (
+                <li key={item.id} onClick={() => setId(item.id)}>
+                  {item.title}
+                </li>
+              ) : (
+                userRole === 'ROLE_ADMIN' && (
+                  <li key={item.id} onClick={() => setId(item.id)}>
+                    {item.title}
+                  </li>
+                )
+              ),
+            )}
           </ul>
         </div>
       </div>
