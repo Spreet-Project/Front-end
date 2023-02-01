@@ -170,7 +170,7 @@ const FindPassword = (): JSX.Element => {
           </p>
         )}
       </div>
-
+      <hr className="changepassword-hr" />
       <button className="changepassword-btn__modify" onClick={onResetPassword}>
         비밀번호 변경
       </button>

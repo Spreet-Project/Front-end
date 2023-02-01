@@ -262,7 +262,7 @@ const Write = (): JSX.Element => {
           </>
         ) : (
           <>
-            <p>영상 파일</p>
+            <p className="write-inform-box__p">영상 파일</p>
             <input type="file" accept="video/*" onChange={onChangeVideoFile} />
           </>
         )}

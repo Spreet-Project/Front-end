@@ -14,7 +14,7 @@
   flex-direction: column;
   align-items: center;
   width: 780px;
-  height: 730px;
+  height: 800px;
   background-color: #ececec;
   border-radius: 10px;
   vertical-align: top;
@@ -26,7 +26,7 @@
   flex-direction: column;
   align-items: center;
   width: 540px;
-  height: 850px;
+  height: 800px;
   border-radius: 10px;
   background-color: #ececec;
   margin: 0px 0px 0px 15px;
@@ -34,52 +34,53 @@
 
 .eventWrite-input {
   margin: 30px 0px 0px 0px;
-  width: 450px;
-  height: 45px;
+  width: 430px;
+  height: 40px;
   border: 1px solid #9c9c9c;
   border-radius: 5px;
 }
 
 .eventWrite-input-date {
   margin: 30px 0px 0px 0px;
-  width: 450px;
-  height: 45px;
+  width: 430px;
+  height: 40px;
   border: 1px solid #9c9c9c;
   border-radius: 5px;
 }
 
 .eventWrite-input-time {
   margin: 30px 0px 0px 0px;
-  width: 450px;
-  height: 45px;
+  width: 430px;
+  height: 40px;
   border: 1px solid #9c9c9c;
   border-radius: 5px;
 }
 
 .eventWrite-input-file {
-  margin: 15px 200px 0px 0px;
+  margin: 15px 150px 0px 0px;
+  font-size: 15px;
 }
 
 .eventWrite-textatea {
   margin: 20px;
-  width: 450px;
-  height: 233px;
+  width: 430px;
+  height: 200px;
   border: 1px solid #9c9c9c;
   border-radius: 5px;
   resize: none;
-  font-size: 22px;
+  font-size: 18px;
 }
 
 .eventWrite-hr {
-  width: 450px;
+  width: 430px;
   border: 0.7px solid #9c9c9c;
   border-radius: 5px;
   margin: 10px;
 }
 
 .eventWrite-btn {
-  width: 450px;
-  height: 45px;
+  width: 430px;
+  height: 40px;
   background: #d10536;
   border-radius: 5px;
   margin: 20px;
