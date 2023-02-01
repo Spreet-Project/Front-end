@@ -157,11 +157,14 @@ const SignUp = () => {
       password: password,
       email: email,
       emailConfirm: emailConfirm,
-      userRole: crewCheck ? 'ROLE_UNACCEPTED_CREW' : 'ROLE_USER',
+      userRole: crewCheck ? 'ROLE_WAITING_CREW' : 'ROLE_USER',
       //crewCheck가 true라면 ROLE_CREW false라면 ROLE_USER
       // crewCheck === true ? ROLE_CREW : ROLE_USER
     }).then(res => {
-      // navigate('/login');
+      if (!res) {
+        sweetAlert(1000, 'error', '회원가입 오류');
+      }
+      navigate('/login');
     });
   };
 
@@ -296,8 +299,6 @@ const SignUp = () => {
   const onChangeEmailCheck = e => {
     console.log(e.target.value);
     setConfirmCode(e.target.value);
-    // const isCheckEmail = is_userEmail(e.target.value);
-    // isCheckEmail ? setisRegEmailCheck(true) : setisRegEmailCheck(false);
   };
 
   //크루

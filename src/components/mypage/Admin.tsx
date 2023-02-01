@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useQuery, useQueryClient } from 'react-query';
+import React, { useState } from 'react';
+import { useQuery } from 'react-query';
 import '../../assets/styles/scss/myPage.scss';
 import {
   getCrewList,
   putCrewAccess,
+  putCrewCancel,
   putCrewReject,
 } from '../../core/api/admin';
 import sweetAlert from '../../core/utils/sweetAlert';
 
 const Admin = (): JSX.Element => {
-  const contentList = ['첫번째', '두번째', '세번째', '네번째'];
   const [adminPassword, setAdminPassword] = useState('');
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const { isLoading, isError, data, error, isFetching } = useQuery(
@@ -35,6 +34,13 @@ const Admin = (): JSX.Element => {
     putCrewReject(userId).then(res => {
       if (!res) return;
       sweetAlert(1000, 'success', '크루 거절 성공');
+    });
+  };
+
+  const onCancleCrew = (userId: number) => {
+    putCrewCancel(userId).then(res => {
+      if (!res) return;
+      sweetAlert(1000, 'success', '크루 취소 성공');
     });
   };
 
@@ -81,6 +87,14 @@ const Admin = (): JSX.Element => {
                         }}
                       >
                         거절
+                      </button>
+                      <button
+                        className="contentList-btn__delete"
+                        onClick={() => {
+                          onCancleCrew(user.userId);
+                        }}
+                      >
+                        취소
                       </button>
                     </li>
                   </ul>

@@ -86,17 +86,6 @@ const KakaoMapModal = ({
             </button>
           </div>
         </div>
-
-        {/* <button
-          className="event-btn__cancle"
-          onClick={() => {
-            setSearchDisplay(false);
-            setLocation('');
-            setIsShowModal(false);
-          }}
-        >
-          다시 작성하기
-        </button> */}
       </div>
     </div>
   );

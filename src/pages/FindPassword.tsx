@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import '../assets/styles/scss/myPage.scss';
 import { Navigate, useNavigate } from 'react-router-dom';
 import sweetAlert from '../core/utils/sweetAlert';
-import { postEmailCheck } from '../core/api/login';
-
+import { postEmailConfirm, putResetPassword } from '../core/api/login';
+import { postEmailCheck } from '../core/api/mypage';
 const FindPassword = (): JSX.Element => {
   const navigate = useNavigate();
   const [isCheckEmail, setIsCheckEmail] = useState<boolean>(false);
@@ -36,7 +37,7 @@ const FindPassword = (): JSX.Element => {
   };
 
   const onCheckEmail = () => {
-    postEmailCheck({ email: userEmail }).then(res => {
+    postEmailCheck(userEmail).then(res => {
       if (!res) {
         return sweetAlert(1000, 'error', '이메일 인증 요청 오류');
       }
@@ -67,15 +68,15 @@ const FindPassword = (): JSX.Element => {
   const onConfirmEmail = () => {
     if (isEmailConfirm)
       return sweetAlert(1000, 'error', '이미 중복확인 처리되었습니다.');
-    // postEmailConfirm({
-    //   email: userEmail,
-    //   confirmCode: confirmCode,
-    // }).then(res => {
-    //   if (!res) return;
-    //   if (res.name === 'AxiosError') return;
-    //   sweetAlert(1000, 'success', '인증 확인되었습니다.');
-    //   setIsEmailConfirm(true);
-    // });
+    postEmailConfirm({
+      email: userEmail,
+      confirmCode: confirmCode,
+    }).then(res => {
+      if (!res) return;
+      if (res.name === 'AxiosError') return;
+      sweetAlert(1000, 'success', '인증 확인되었습니다.');
+      setIsEmailConfirm(true);
+    });
   };
 
   const onResetPassword = () => {
@@ -85,15 +86,18 @@ const FindPassword = (): JSX.Element => {
     if (!isRegPasswordCheck) {
       return sweetAlert(1000, 'error', '형식에 맞는 비밀번호를 입력해주세요');
     }
+    if (!passwordCheck) {
+      return sweetAlert(1000, 'error', '비밀번호가 일치하지 않습니다.');
+    }
 
-    // putResetPassword({ email: userEmail, password }).then(res => {
-    //   console.log(res, '비밀번호 초기화 결과');
-    //   if (!res) {
-    //     return sweetAlert(1000, 'error', '비밀번호 초기화 오류');
-    //   }
-    //   sweetAlert(1000, 'success', '비밀번호 초기화 성공');
-    //   navigate('/mypage');
-    // });
+    putResetPassword({ email: userEmail, password }).then(res => {
+      console.log(res, '비밀번호 초기화 결과');
+      if (!res) {
+        return sweetAlert(1000, 'error', '비밀번호 초기화 오류');
+      }
+      sweetAlert(1000, 'success', '비밀번호 초기화 성공');
+      navigate('/mypage');
+    });
   };
 
   return (

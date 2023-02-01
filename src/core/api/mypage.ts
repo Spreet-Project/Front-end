@@ -20,7 +20,6 @@ export const getUserInform = async () => {
 export const postEmailCheck = async payload => {
   try {
     //Email 인증요청
-    console.log(payload, '이메일 payload');
     return await baseURL.post(`/user/mypage/send-email?email=${payload}`);
   } catch (error) {
     if (error.response.request.status === 401) {

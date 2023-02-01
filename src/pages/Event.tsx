@@ -4,6 +4,7 @@ import { getEvent } from '../core/api/event';
 import '../assets/styles/scss/event.scss';
 import { useNavigate } from 'react-router-dom';
 import KakaoLogin from './KakaoLogin';
+import { click } from '@testing-library/user-event/dist/click';
 
 declare global {
   interface Window {
@@ -32,6 +33,16 @@ export default function Event() {
       };
       const map = new window.kakao.maps.Map(mapContainer, mapOption);
 
+      const imageSrc = './images/kakaoMarker.png'; // 마커이미지의 주소입니다
+      const imageSize = new window.kakao.maps.Size(32, 28); // 마커이미지의 크기입니다
+      const imageOption = { offset: new window.kakao.maps.Point(27, 69) };
+
+      const markerImage = new window.kakao.maps.MarkerImage(
+        imageSrc,
+        imageSize,
+        imageOption,
+      );
+
       const zoomControl = new window.kakao.maps.ZoomControl();
       map.addControl(zoomControl, window.kakao.maps.ControlPosition.TOPRIGHT);
 
@@ -51,6 +62,7 @@ export default function Event() {
             const marker = new window.kakao.maps.Marker({
               map: map,
               position: coords,
+              image: markerImage,
             });
             // const infowindow = new window.kakao.maps.InfoWindow({});
             // 인포윈도우로 장소에 대한 설명을 표시합니다
@@ -66,6 +78,13 @@ export default function Event() {
 
             window.kakao.maps.event.addListener(marker, 'mouseout', () => {
               infowindow.close();
+            });
+
+            window.kakao.maps.event.addListener(marker, 'click', () => {
+              window.open(
+                `https://map.kakao.com/link/to/${result[0].address.address_name},${result[0].y},${result[0].x}`,
+                '__blank',
+              );
             });
 
             // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
