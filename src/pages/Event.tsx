@@ -97,7 +97,6 @@ export default function Event() {
 
   if (isLoading) return;
   mapScript.addEventListener('load', onLoadKakaoMap);
-  console.log(data, 'event');
   return (
     <>
       <div id="map" style={{ width: '100%', height: '500px' }}></div>;

@@ -62,7 +62,9 @@ const FeedShortsModal = ({ setIsShowModal, feedId }): JSX.Element => {
       onSuccess: () => queryClient.invalidateQueries(['feedComment', feedId]),
     },
   );
-  const deleteFeedMutation = useMutation(feedId => deleteFeed(feedId), {});
+  const deleteFeedMutation = useMutation(feedId => deleteFeed(feedId), {
+    onSuccess: () => setIsShowModal(false),
+  });
 
   const deleteCommentMutation = useMutation(feedId =>
     deleteFeedComment(feedId),
@@ -88,7 +90,7 @@ const FeedShortsModal = ({ setIsShowModal, feedId }): JSX.Element => {
     <>
       {isLoading && <div> 로딩중입니다</div>}
       <div className="modal-content">
-        <FeedImageBox feed={data.data.data} feedId={feedId} />
+        <FeedImageBox feed={data.data.data} />
         <div className="modal-comment">
           <div className="modal-comment__comment-box">
             {resultCommnet.data.data.data &&
@@ -96,6 +98,7 @@ const FeedShortsModal = ({ setIsShowModal, feedId }): JSX.Element => {
                 return (
                   <FeedCommentBox
                     key={comment.shortsCommentId}
+                    profileImageUrl={data.data.data.profileImageUrl}
                     isCommentModify={isCommentModify}
                     comment={comment}
                     modifyCommentId={modifyCommentId}

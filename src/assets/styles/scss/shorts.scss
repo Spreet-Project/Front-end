@@ -63,9 +63,9 @@
     left: 55%;
     margin-top: 5%;
     transform: translate(-50%, 0);
-    width: 650px;
-    height: 750px;
-    border-radius: 10px;
+    width: 550px;
+    height: 650px;
+    border-radius: 15px;
     overflow: auto;
     scroll-snap-type: y mandatory;
     &::-webkit-scrollbar {
@@ -75,8 +75,9 @@
       text-align: center;
       position: relative;
       scroll-snap-align: start;
-      width: 650px;
-      height: 750px;
+      width: 550px;
+      height: 650px;
+      border-radius: 15px;
       @include flexCenter;
       color: white;
       .shorts-item__info {

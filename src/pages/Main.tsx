@@ -136,7 +136,6 @@ const Main = (): JSX.Element => {
   };
 
   if (!res || resFeed.isLoading) return;
-  // console.log(res, 'res');
   return (
     <div className="mainsector">
       <div className="spreet-row">
@@ -193,7 +192,7 @@ const Main = (): JSX.Element => {
                   onClick={() => {
                     onPaigingBtn(index);
                   }}
-                  style={{ border: '3px solid #d10536' }}
+                  style={{ border: '3px solid gray' }}
                 ></button>
               ) : (
                 <button
