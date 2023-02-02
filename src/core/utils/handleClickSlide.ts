@@ -47,10 +47,6 @@ const handleClickSlide = (
     // }
   }
   sectorRef.current.style.transform = `translateX(${calculate_distance}px)`;
-  console.log(
-    sectorRef.current.style.transform,
-    'sectorRef.current.style.transform',
-  );
 };
 
 export default handleClickSlide;

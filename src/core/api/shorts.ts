@@ -1,4 +1,3 @@
-import { isImportEqualsDeclaration } from 'typescript';
 import { instance, baseURL, subURL } from '../axios/axios';
 import sweetAlert from '../utils/sweetAlert';
 

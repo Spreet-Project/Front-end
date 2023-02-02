@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { postKakaoLogin } from '../core/api/login';
+import sweetAlert from '../core/utils/sweetAlert';
 
 //설정한 리다이렉트 URL
 
@@ -16,15 +17,16 @@ const KakaoLogin = () => {
     if (code) {
       postKakaoLogin({
         code: code,
-      })
-        .then(res => {
-          localStorage.setItem('nickname', res.data.data.nickname);
-          localStorage.setItem('id', res.headers.authorization);
-          return navigate('/');
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      }).then(res => {
+        if (!res || res.name === 'AxiosError') {
+          sweetAlert(1000, 'error', '카카오 로그인 실패');
+          return navigate('/login');
+        }
+        console.log(res);
+        localStorage.setItem('nickname', res.data.data.nickname);
+        localStorage.setItem('id', res.headers.authorization);
+        return navigate('/');
+      });
     }
   }, [code]);
   return <div>카카오 로그인 진행중...!</div>;

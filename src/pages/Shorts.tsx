@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import sweetAlert from '../core/utils/sweetAlert';
 import ShortsScroll from '../components/ShortsScroll';
 import { useInView } from 'react-intersection-observer';
+import { postSubscribe } from '../core/api/subscribe';
 
 const Shorts = () => {
   const naviagate = useNavigate();
@@ -53,7 +54,18 @@ const Shorts = () => {
     setCurrentCate(cate);
   };
 
-  const onPostShortsLike = shortsId => {
+  //구독 요청
+  const onSubscribe = userNickname => {
+    console.log(userNickname, 'userNickname');
+    postSubscribe(userNickname).then(res => {
+      if (!res) {
+        return sweetAlert(1000, 'error', '구독 에러!');
+      }
+      console.log(res, 'res');
+    });
+  };
+
+  const onPostShortsLike = (shortsId: number) => {
     postShortLike(shortsId)
       .then(res => {
         console.log(res);
@@ -73,13 +85,6 @@ const Shorts = () => {
   if (isLoading || !data.pages) return;
   // console.log('data', data);
 
-  // if (
-  //   data.response &&
-  //   (data.response.request.status === 401 ||
-  //     data.response.request.status === 400)
-  // ) {
-  //   localStorage.removeItem('id');
-  // }
   return (
     <>
       {isLoading || (isFetching && <div> 로딩중입니다</div>)}
@@ -118,6 +123,7 @@ const Shorts = () => {
                       onPostShortsLike={onPostShortsLike}
                       setShortsId={setShortsId}
                       setIsShowModal={setIsShowModal}
+                      onSubscribe={onSubscribe}
                     />
                   </div>
                 ) : (
@@ -127,6 +133,7 @@ const Shorts = () => {
                     onPostShortsLike={onPostShortsLike}
                     setShortsId={setShortsId}
                     setIsShowModal={setIsShowModal}
+                    onSubscribe={onSubscribe}
                   />
                 );
               });

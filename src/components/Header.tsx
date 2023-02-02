@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../assets/styles/scss/header.scss';
 import { useNavigate } from 'react-router-dom';
 import sweetAlert from '../core/utils/sweetAlert';
 import { getSubscribe } from '../core/api/subscribe';
+import { click } from '@testing-library/user-event/dist/click';
 
 const Header = (): JSX.Element => {
   const navigate = useNavigate();
-  const token = localStorage.getItem('id');
-  const userRole = localStorage.getItem('userRole');
+  const token: string = localStorage.getItem('id');
+  const [isShowAlarm, setIsShowAlarm] = useState<boolean>(false);
+  const userRole: string = localStorage.getItem('userRole');
+
   const onLogout = () => {
     localStorage.removeItem('id');
     localStorage.removeItem('nickname');
@@ -17,13 +20,20 @@ const Header = (): JSX.Element => {
   };
 
   const onClcikSubsCribe = () => {
+    if (isShowAlarm) {
+      setIsShowAlarm(false);
+    } else {
+      setIsShowAlarm(true);
+    }
     if (!token) {
       return sweetAlert(1000, 'error', '로그인이 필요합니다.');
     }
     getSubscribe().then(res => {
+      if (!res) return sweetAlert(1000, 'error', '알림 구독 중 오류');
       console.log(res, 'subscribeRES');
     });
   };
+
   return (
     <>
       <div className="header">
@@ -37,9 +47,16 @@ const Header = (): JSX.Element => {
             <img />
           </p>
           <div className="header_btn">
-            {/* <button onClick={onClcikSubsCribe} className="letter-spacing__5">
+            <button onClick={onClcikSubsCribe} className="letter-spacing__5">
               알림
-            </button> */}
+            </button>
+            {isShowAlarm && (
+              <>
+                <div className="alarm-triangle"></div>
+                <div className="header-alarm">알람 뜨는 부분</div>
+              </>
+            )}
+
             <button
               onClick={() => {
                 navigate('/shorts');
