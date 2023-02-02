@@ -42,7 +42,12 @@ const Main = (): JSX.Element => {
   const spreetRef = useRef<HTMLDivElement>(null); //상단 슬라이드 ref;
   const spreetChidRef = useRef<HTMLDivElement>(null); //상단 페이징 버튼위한 ref
   const [spreetTransX, setspreetTransX] = useState(0);
-  const post: string[] = ['red', 'blue', 'green', 'black', 'purple'];
+  const post: string[] = [
+    '',
+    './images/mainImg(2).jpg',
+    './images/mainImg(3).jpeg',
+    './images/mainImg(4).jpg',
+  ];
 
   const sldiesDomLength = useRef(post.length);
 
@@ -168,13 +173,12 @@ const Main = (): JSX.Element => {
                           src={process.env.REACT_APP_VIDEO_URL}
                         />
                       ) : (
-                        <div
+                        <img
                           key={index}
                           className="spreet-item__container"
-                          style={{ backgroundColor: item }}
-                        >
-                          {item}박스입니다.
-                        </div>
+                          // style={{ backgroundColor: item }}
+                          src={item}
+                        ></img>
                       )}
                     </>
                   );
