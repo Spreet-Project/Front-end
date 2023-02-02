@@ -79,7 +79,7 @@
           .spreet-item__container {
             width: 1440px;
             height: 660px;
-            border: 3px solid gray;
+            border: 1px solid black;
           }
         }
       }
@@ -87,7 +87,7 @@
     .spreet-row__paiging {
       position: absolute;
       left: 50%;
-      bottom: 7vh;
+      bottom: 9vh;
       transform: translate(-50%, 0);
       .carousel-paging__btn {
         cursor: pointer;
