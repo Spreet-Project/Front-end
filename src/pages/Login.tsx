@@ -23,6 +23,7 @@ const Login = () => {
       loginId: loginId,
       password: password,
     }).then(res => {
+      console.log(res);
       if (!res) {
         return sweetAlert(1000, 'error', '로그인 실패');
       }

@@ -32,6 +32,28 @@ body {
       }
       .header_btn {
         margin-right: 30px;
+        position: relative;
+        .header-alarm {
+          position: absolute;
+          border-radius: 5px;
+          top: 65px;
+          left: 11px;
+          width: 300px;
+          overflow: auto;
+          color: black;
+          background-color: rgb(255, 255, 254);
+        }
+        .alarm-triangle {
+          position: absolute;
+          top: 35px;
+          width: 0px;
+          height: 0px;
+          left: 10px;
+          border-bottom: 25px solid white;
+          border-right: 15px solid transparent;
+          border-top: 15px solid transparent;
+          border-left: 15px solid transparent;
+        }
         button {
           letter-spacing: 3px;
           @include btn;

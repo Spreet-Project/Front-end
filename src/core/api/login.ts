@@ -23,6 +23,7 @@ export const postSignup = async post => {
     return data;
   } catch (error) {
     sweetAlert(1000, 'error', '회원가입 실패');
+    return error;
   }
 };
 
@@ -34,6 +35,7 @@ export const postEmailCheck = async post => {
     return data;
   } catch (error) {
     sweetAlert(1000, 'error', '이메일 인증 에러');
+    return error;
   }
 };
 
@@ -79,8 +81,8 @@ export const postKakaoLogin = async code => {
     sweetAlert(1000, 'success', '카카오 로그인 완료');
     return data;
   } catch (error) {
-    console.log(error);
     sweetAlert(1000, 'error', '카카오 로그인 실패');
+    return error;
   }
 };
 
@@ -93,8 +95,8 @@ export const getNaverLogin = async code => {
     sweetAlert(1000, 'success', '네이버 로그인 완료');
     return data;
   } catch (error) {
-    console.log(error);
     sweetAlert(1000, 'error', '네이버 로그인 실패');
+    return error;
   }
 };
 
@@ -107,7 +109,6 @@ export const postResetPasswordEmail = async payalod => {
     );
     return data;
   } catch (error) {
-    console.log(error);
     sweetAlert(1000, 'error', error.response.data.msg);
   }
 };
@@ -119,8 +120,8 @@ export const putResetPassword = async payalod => {
     const data = await instance.put('/user/reset-password', payalod);
     return data;
   } catch (error) {
-    console.log(error);
     sweetAlert(1000, 'error', error.response.data.msg);
+    return error;
   }
 };
 

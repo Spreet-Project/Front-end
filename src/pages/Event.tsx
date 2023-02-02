@@ -3,8 +3,6 @@ import { useQuery, useQueries } from 'react-query';
 import { getEvent } from '../core/api/event';
 import '../assets/styles/scss/event.scss';
 import { useNavigate } from 'react-router-dom';
-import KakaoLogin from './KakaoLogin';
-import { click } from '@testing-library/user-event/dist/click';
 
 declare global {
   interface Window {
@@ -67,7 +65,7 @@ export default function Event() {
             // const infowindow = new window.kakao.maps.InfoWindow({});
             // 인포윈도우로 장소에 대한 설명을 표시합니다
             window.kakao.maps.event.addListener(marker, 'mouseover', () => {
-              infowindow.setContent(`<div class=event-modal>
+              infowindow.setContent(`<div style="border:2px solid #d10536;" class=event-modal>
               <img src='${event.eventImageUrl}' class=event-modal__image />
               <p class=event-modal__title >${event.title}</p>
               <div class=event-modal__date >${event.date} 시간: ${event.time}</div>

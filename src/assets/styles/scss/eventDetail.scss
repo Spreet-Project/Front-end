@@ -50,7 +50,8 @@
   margin-bottom: 20px;
   width: 450px;
   height: 350px;
-  overflow-y: scroll;
+  overflow: auto;
+  overflow-x: hidden;
 }
 
 .eventDetail-infoWrapper__location {
@@ -142,7 +143,7 @@
 
 .eventDtail-commentWrapper-commentWrite {
   width: 1200px;
-  height: 250px;
+  height: 200px;
   margin: auto;
   display: flex;
   align-items: center;
@@ -167,7 +168,8 @@
   display: flex;
   flex-direction: column;
 }
-.eventDetail-commentWrapper-inputComment {
+
+.eventDetail-commentWrapper__inputComment {
   width: 1000px;
   height: 30px;
   background-color: #333333;
@@ -226,7 +228,8 @@
 
 .eventDetail-commentWrapper__btn-box {
   position: absolute;
-  width: 500px;
+  width: 300px;
+  right: 100px;
   .eventDetail-commentWrapper__deleteBtn {
     width: 85px;
     height: 30px;

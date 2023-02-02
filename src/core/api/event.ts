@@ -32,7 +32,6 @@ export const getDetailEvent = async payload => {
     const { queryKey } = payload;
     //배열 구조 분해 할당
     const [eventId] = [queryKey[1]];
-    console.log(eventId);
     return await instance.get(`/event/${eventId}`);
   } catch (error) {
     if (error.response.request.status === 401) {
@@ -117,8 +116,9 @@ export const deleteEventDetail = async eventId => {
 //행사 상제페이지 게시글 댓글 수정
 export const modifyEventComment = async payload => {
   try {
+    console.log(payload, '수정 payload');
     const { commentId, content } = payload;
-    return await baseURL.put(`/event/comment/${commentId}`, content);
+    return await baseURL.put(`/event/comment/${commentId}`, { content });
   } catch (error) {
     if (error.response.request.status === 401) {
       return sweetAlert(1000, 'error', '로그인이 필요합니다!');

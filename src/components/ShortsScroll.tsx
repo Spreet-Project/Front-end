@@ -8,6 +8,7 @@ const ShortsScroll = ({
   onPostShortsLike,
   setShortsId,
   setIsShowModal,
+  onSubscribe,
 }): JSX.Element => {
   return (
     <div key={shorts.shortsId} className="shorts-item__scroll">
@@ -64,7 +65,7 @@ const ShortsScroll = ({
           <span
             className="material-symbols-outlined"
             onClick={() => {
-              sweetAlert(1000, 'error', '서비스 준비 중 입니다.');
+              onSubscribe(shorts.nickname);
             }}
           >
             subscriptions
@@ -73,7 +74,7 @@ const ShortsScroll = ({
         <p
           className="shorts-btn-text text__subscribe"
           onClick={() => {
-            sweetAlert(1000, 'error', '서비스 준비 중 입니다.');
+            onSubscribe(shorts.nickname);
           }}
         >
           Subscribe
