@@ -44,6 +44,7 @@ const Main = (): JSX.Element => {
   const [spreetTransX, setspreetTransX] = useState(0);
   const post: string[] = [
     '',
+    './images/mainImg(1).jpg',
     './images/mainImg(2).jpg',
     './images/mainImg(3).jpeg',
     './images/mainImg(4).jpg',
