@@ -1,11 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../assets/styles/scss/eventWrite.scss';
 import { postEventWrite } from '../core/api/event';
-import { useInputs } from '../core/hooks/useInput';
 import sweetAlert from '../core/utils/sweetAlert';
 import KakaoMapModal from '../components/kakaomap/KakaoMapmodal';
-import DeaumPostCode from 'react-daum-postcode';
 
 const EventWrite = () => {
   const navigate = useNavigate();
@@ -18,7 +16,6 @@ const EventWrite = () => {
   const [eventImage, setEventImage] = useState(null);
   const [location, setLocation] = useState<string>();
   const [fileUrl, setFileUrl] = useState<any>('');
-  const [searchDisplay, setSearchDisplay] = useState<boolean>(true);
 
   const onEventWriteSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

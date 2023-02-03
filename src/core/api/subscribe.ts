@@ -4,9 +4,9 @@ import sweetAlert from '../utils/sweetAlert';
 //구독
 export const postSubscribe = async nickname => {
   try {
-    console.log(nickname, 'userNickname');
     return await baseURL.post('/subscribe', { nickname });
   } catch (error) {
+    console.log(error);
     if (error.response.request.status === 401) {
       return sweetAlert(1000, 'error', '로그인이 필요합니다!');
     }
@@ -17,7 +17,6 @@ export const postSubscribe = async nickname => {
 //구독 취소
 export const deleteSubscribe = async userId => {
   try {
-    console.log(userId, 'userId');
     return await baseURL.post(`/subscribe/${userId}`);
   } catch (error) {
     if (error.response.request.status === 401) {
@@ -42,7 +41,7 @@ export const getSubscribe = async () => {
 //구독 알림확인
 export const postCheckSubscribe = async alertId => {
   try {
-    return await baseURL.get(`/alarm/${alertId}`);
+    return await baseURL.post(`/alarm/${alertId}`);
   } catch (error) {
     if (error.response.request.status === 401) {
       return sweetAlert(1000, 'error', '죄송합니다 다시 로그인 해주세요!');

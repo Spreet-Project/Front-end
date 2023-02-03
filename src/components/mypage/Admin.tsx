@@ -56,7 +56,6 @@ const Admin = (): JSX.Element => {
   };
 
   if (isLoading || !data) return;
-  // console.log('crew', data);
 
   return (
     <div className="contentList-form">

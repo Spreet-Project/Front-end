@@ -92,7 +92,6 @@ const ContentList = (): JSX.Element => {
   );
 
   if (isLoading || !data) return;
-  console.log(data, 'data');
 
   return (
     <div className="contentList-form">
@@ -112,7 +111,6 @@ const ContentList = (): JSX.Element => {
       </ul>
       {data.pages &&
         data.pages.map(page => {
-          console.log(page, 'page');
           if (!page.data.data) return;
           return page.data.data.map((item, itemIndex) => {
             const lastIndex = page.data.data.length - 1;

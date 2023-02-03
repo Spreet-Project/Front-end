@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import '../assets/styles/scss/header.scss';
 import { useNavigate } from 'react-router-dom';
 import sweetAlert from '../core/utils/sweetAlert';
-import { getSubscribe } from '../core/api/subscribe';
+import { getSubscribe, postCheckSubscribe } from '../core/api/subscribe';
 
 const Header = (): JSX.Element => {
   const navigate = useNavigate();
   const token: string = localStorage.getItem('id');
   const [isShowAlarm, setIsShowAlarm] = useState<boolean>(false);
+  const [alarmList, setAlarmList] = useState([]);
   const userRole: string = localStorage.getItem('userRole');
 
   const onLogout = () => {
@@ -29,7 +30,14 @@ const Header = (): JSX.Element => {
     }
     getSubscribe().then(res => {
       if (!res) return sweetAlert(1000, 'error', '알림 구독 중 오류');
-      console.log(res, 'subscribeRES');
+      setAlarmList(res.data.data);
+    });
+  };
+
+  const onAlarmCheck = alarmId => {
+    postCheckSubscribe(alarmId).then(res => {
+      if (!res) return;
+      setIsShowAlarm(false);
     });
   };
 
@@ -52,7 +60,32 @@ const Header = (): JSX.Element => {
             {isShowAlarm && (
               <>
                 <div className="alarm-triangle"></div>
-                <div className="header-alarm">알람 뜨는 부분</div>
+                <div className="header-alarm">
+                  {alarmList &&
+                    alarmList.length !== 0 &&
+                    alarmList.map(alarm => {
+                      return (
+                        <div className="alarm-item" key={alarm.id}>
+                          <p>{alarm.content.substr(0, 17)}</p>
+                          <div className="alarm-closebox">
+                            <p>
+                              {alarm.content.substr(17).length > 20
+                                ? alarm.content.substr(17, 20) + '...'
+                                : alarm.content.substr(17)}
+                            </p>
+                            <button
+                              className="alarm-close"
+                              onClick={() => {
+                                onAlarmCheck(alarm.id);
+                              }}
+                            >
+                              확인
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
               </>
             )}
 

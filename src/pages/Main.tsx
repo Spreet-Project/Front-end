@@ -1,7 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useQuery, useQueries } from 'react-query';
 import '../assets/styles/scss/main.scss';
-import { useNavigate } from 'react-router-dom';
 import { getFeed, getMainShorts } from '../core/api/shorts';
 import handleClickSlide from '../core/utils/handleClickSlide';
 import MainCarousel from '../components/MainCarousel';
@@ -205,7 +204,6 @@ const Main = (): JSX.Element => {
                   onClick={() => {
                     onPaigingBtn(index);
                   }}
-                  // style={{ color: 'white' }}
                 ></button>
               );
             })}
@@ -215,7 +213,7 @@ const Main = (): JSX.Element => {
       <div className="main-content">
         <div className="main-inner">
           {res.map((result, index) => {
-            if (result.isLoading || !result.data.data.data[index]) return;
+            if (result.isLoading) return;
             return (
               <MainCarousel
                 key={index}
@@ -228,7 +226,7 @@ const Main = (): JSX.Element => {
           <div className="feed-content">
             <div className="feed-wrapper" ref={feedRef}>
               {resFeed.data.data.data &&
-                resFeed.data.data.data.map((item, index) => {
+                resFeed.data.data.data.map(item => {
                   return (
                     <h1
                       key={item.feedId}

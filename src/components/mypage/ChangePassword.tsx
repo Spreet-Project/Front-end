@@ -89,7 +89,6 @@ const ChangePassword = ({ userEmail }): JSX.Element => {
     }
 
     putResetPassword({ email: userEmail, password }).then(res => {
-      console.log(res, '비밀번호 초기화 결과');
       if (!res) {
         return sweetAlert(1000, 'error', '비밀번호 초기화 오류');
       }

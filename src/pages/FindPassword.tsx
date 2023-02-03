@@ -99,7 +99,7 @@ const FindPassword = (): JSX.Element => {
       password,
       emailConfirm: isEmailConfirm,
     }).then(res => {
-      console.log(res, '비밀번호 초기화 결과');
+      // console.log(res, '비밀번호 초기화 결과');
       if (!res) {
         return sweetAlert(1000, 'error', res.data.msg);
       }

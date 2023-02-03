@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../assets/styles/scss/eventWrite.scss';
-import { postEventWrite, putModifyEvent } from '../core/api/event';
+import { putModifyEvent } from '../core/api/event';
 import { useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import sweetAlert from '../core/utils/sweetAlert';
@@ -12,7 +12,6 @@ const ModfiyEvent = () => {
   const eventId = Number(id.id);
   const navigate = useNavigate();
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
-  // const [inputs, onChangeInput, clearInput] = useInputs();
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [date, setDate] = useState<string>('');
@@ -20,7 +19,6 @@ const ModfiyEvent = () => {
   const [eventImage, setEventImage] = useState(null);
   const [location, setLocation] = useState<string>();
   const [fileUrl, setFileUrl] = useState<any>('');
-  const [searchDisplay, setSearchDisplay] = useState<boolean>(true);
 
   const { data, isLoading, isError, error } = useQuery(
     ['eventDtail', eventId],
@@ -76,8 +74,8 @@ const ModfiyEvent = () => {
     putModifyEvent({ eventWriteData, eventId })
       .then(res => {
         console.log(res, 'res');
-        // navigate('/');
-        sweetAlert(1000, 'success', '행사 게시글 작성 성공!');
+        navigate('/event');
+        sweetAlert(1000, 'success', '행사 게시글 수정 성공!');
       })
       .catch(error => {
         sweetAlert(1000, 'error', '행사 게시글 작성 실패');
@@ -211,7 +209,6 @@ const ModfiyEvent = () => {
       </div>
       {isShowModal && (
         <KakaoMapModal
-          // searchDisplay={searchDisplay}
           handleComplete={handleComplete}
           setIsShowModal={setIsShowModal}
           location={location}

@@ -4,7 +4,7 @@ import imageCompression from 'browser-image-compression';
 import { useInputs } from '../core/hooks/useInput';
 import { useNavigate, useParams } from 'react-router-dom';
 import sweetAlert from '../core/utils/sweetAlert';
-import { useMutation, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import { getDetailFeed, updateFeed } from '../core/api/feed';
 
 interface Feed {
@@ -109,8 +109,6 @@ const ModifyFeed = (): JSX.Element => {
   };
 
   const onFeedSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(postImages);
-    // console.log(dettailImages);
     if (title.length === 0) {
       return sweetAlert(1000, 'error', '제목을 확인해주세요(공백제거)');
     }
@@ -128,7 +126,6 @@ const ModifyFeed = (): JSX.Element => {
     feedData.append('title', title);
     feedData.append('content', content);
     updateFeed(feedData, feedId).then(res => {
-      console.log(res);
       sweetAlert(1000, 'success', '피드 수정 성공!');
       navigate('/');
     });
