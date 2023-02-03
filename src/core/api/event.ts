@@ -17,7 +17,6 @@ export const getEvent = async () => {
 
 export const postEventWrite = async payload => {
   try {
-    console.log(payload);
     return await subURL.post('/event', payload);
   } catch (error) {
     if (error.response.request.status === 401) {
@@ -58,7 +57,6 @@ export const postEventComment = async payload => {
   //행사 디테일 댓글 작성
   try {
     const { eventId, content } = payload;
-    console.log(payload);
     return await baseURL.post(`/event/${eventId}/comment`, {
       content: content,
     });
@@ -89,12 +87,12 @@ export const deleteEventComment = async commentId => {
 //행사 게시글 수정
 export const putModifyEvent = async payload => {
   try {
-    console.log(payload, 'payload');
+    // console.log(payload, 'payload');
     const { eventId, eventWriteData } = payload;
     console.log(eventId, eventWriteData);
-    // return await subURL.put(`/event/${eventId}`, newEvent);
+    return await subURL.put(`/event/${eventId}`, eventWriteData);
   } catch (error) {
-    sweetAlert(1000, 'error', '댓글 삭제 오류!');
+    sweetAlert(1000, 'error', '행사 게시글 수정 오류!');
   }
 };
 
@@ -116,7 +114,6 @@ export const deleteEventDetail = async eventId => {
 //행사 상제페이지 게시글 댓글 수정
 export const modifyEventComment = async payload => {
   try {
-    console.log(payload, '수정 payload');
     const { commentId, content } = payload;
     return await baseURL.put(`/event/comment/${commentId}`, { content });
   } catch (error) {

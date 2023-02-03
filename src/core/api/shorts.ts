@@ -68,27 +68,6 @@ export const getMainShorts = async payload => {
   }
 };
 
-// export const getShorts = async payload => {
-//   try {
-//     const { queryKey } = payload;
-//     const { category, token } = queryKey[1];
-//     console.log(payload, 'payload');
-//     //shorts카테고리별 게시물조회조회
-//     if (token) {
-//       return await baseURL.get(`/shorts?category=${category}&page=1&size=10`);
-//     }
-//     return await instance.get(`/shorts?category=${category}&page=1&size=10`);
-//   } catch (error) {
-//     if (error.response.request.status === 401) {
-//       sweetAlert(1000, 'error', '죄송합니다 로그인해주세요!');
-//     }
-//     if (error.response.request.status === 400) {
-//       sweetAlert(1000, 'error', '죄송합니다 다시 로그인해주세요!');
-//     }
-//     return error;
-//   }
-// };
-
 export const getFeed = async () => {
   //Feed 메인페이지 최신 게시물 조회
   try {

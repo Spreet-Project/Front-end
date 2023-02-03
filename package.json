@@ -40,7 +40,7 @@
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
     "server-json": "json-server --watch db.json --port 4000",
     "deploy": "aws s3 sync build/ s3://spreet-project",
-    "invalidate": "aws cloudfront create-invalidation --distribution-id E2VFPKZEX7FI2M --paths /*"
+    "invalidate": "aws cloudfront create-invalidation --distribution-id E2OMYI7PUC0N91 --paths /*"
   },
   "eslintConfig": {
     "extends": [

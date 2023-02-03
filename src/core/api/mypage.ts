@@ -33,7 +33,6 @@ export const postEmailCheck = async payload => {
 export const postEmailConfirm = async payload => {
   try {
     //Email 인증요청
-    console.log(payload, '이메일인증번호 payload');
     return await baseURL.post('/confirm-email', payload);
   } catch (error) {
     console.log(error);
@@ -80,7 +79,6 @@ export const putUserProfile = async payload => {
 //마이페이지에서 비밀번호 초기화
 export const putResetPassword = async payload => {
   try {
-    console.log(payload, '비밀번호 초기화');
     return await baseURL.put('/mypage/edit/password', payload);
   } catch (error) {
     if (error.response.request.status === 401) {

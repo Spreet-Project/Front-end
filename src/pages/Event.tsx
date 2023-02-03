@@ -1,5 +1,5 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { useQuery, useQueries } from 'react-query';
+import React from 'react';
+import { useQuery } from 'react-query';
 import { getEvent } from '../core/api/event';
 import '../assets/styles/scss/event.scss';
 import { useNavigate } from 'react-router-dom';

@@ -60,7 +60,6 @@ const Shorts = () => {
       // if (!res) {
       //   return sweetAlert(1000, 'error', '구독 에러!');
       // }
-      console.log(res, 'res');
     });
   };
 

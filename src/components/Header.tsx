@@ -35,8 +35,6 @@ const Header = (): JSX.Element => {
   };
 
   const onAlarmCheck = alarmId => {
-    console.log(alarmList, 'alarmList');
-    console.log(alarmId);
     postCheckSubscribe(alarmId).then(res => {
       if (!res) return;
       setIsShowAlarm(false);

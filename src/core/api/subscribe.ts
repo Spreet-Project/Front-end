@@ -4,7 +4,6 @@ import sweetAlert from '../utils/sweetAlert';
 //구독
 export const postSubscribe = async nickname => {
   try {
-    console.log(nickname, 'userNickname');
     return await baseURL.post('/subscribe', { nickname });
   } catch (error) {
     console.log(error);
@@ -18,7 +17,6 @@ export const postSubscribe = async nickname => {
 //구독 취소
 export const deleteSubscribe = async userId => {
   try {
-    console.log(userId, 'userId');
     return await baseURL.post(`/subscribe/${userId}`);
   } catch (error) {
     if (error.response.request.status === 401) {
