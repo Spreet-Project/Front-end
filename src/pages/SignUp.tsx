@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   postEmailCheck,
@@ -465,6 +465,8 @@ const SignUp = () => {
                   value={nickname || ''}
                   readOnly
                   style={{ background: 'darkgray' }}
+                  minLength={3}
+                  maxLength={10}
                 />
               ) : (
                 <input
@@ -473,6 +475,8 @@ const SignUp = () => {
                   className="signUp-input"
                   value={nickname || ''}
                   onChange={onChangeNickname}
+                  minLength={3}
+                  maxLength={10}
                 />
               )}
 

@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import '../assets/styles/scss/header.scss';
 import { useNavigate } from 'react-router-dom';
 import sweetAlert from '../core/utils/sweetAlert';
 import { getSubscribe } from '../core/api/subscribe';
-import { click } from '@testing-library/user-event/dist/click';
 
 const Header = (): JSX.Element => {
   const navigate = useNavigate();
