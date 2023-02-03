@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getNaverLogin } from '../core/api/login';
 import sweetAlert from '../core/utils/sweetAlert';
 
-export const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=eF_JzIGRrOBli_bLicf5&redirect_uri=https://dev.d2hev55rb01409.amplifyapp.com/api/user/naver/callback&state=hello`;
+export const NAVER_AUTH_URL = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=eF_JzIGRrOBli_bLicf5&redirect_uri=https://www.spreet.co.kr/api/user/naver/callback&state=hello`;
 // Math.random().toString(36).substring(3, 14);
 
 const NaverLogin = () => {
