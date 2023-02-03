@@ -212,7 +212,7 @@ const EventDetail = (): JSX.Element => {
               {data.data.data.nickname}
             </p>
           </div>
-          {nickname === data.data.data.nick && (
+          {nickname === data.data.data.nickname && (
             <div className="evenDetail-infoWrapper__btn-box">
               <button
                 className="eventDetail-infoWrapper__modifyBtn"

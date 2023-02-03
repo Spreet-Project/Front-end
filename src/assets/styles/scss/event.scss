@@ -47,6 +47,7 @@ $inform_fontColor: #717171;
     display: flex;
     flex-wrap: wrap;
     .event-item {
+      cursor: pointer;
       width: 400px;
       margin: 30px auto;
       height: 400px;

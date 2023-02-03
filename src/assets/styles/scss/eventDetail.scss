@@ -212,6 +212,12 @@
   align-items: center;
 }
 
+.eventDetail-commentbox {
+  position: relative;
+  display: flex;
+  width: 1200px;
+}
+
 .eventDetail-commentWrapper__profileImg {
   width: 48px;
   height: 48px;
@@ -229,7 +235,7 @@
 .eventDetail-commentWrapper__btn-box {
   position: absolute;
   width: 300px;
-  right: 100px;
+  right: -100px;
   .eventDetail-commentWrapper__deleteBtn {
     width: 85px;
     height: 30px;

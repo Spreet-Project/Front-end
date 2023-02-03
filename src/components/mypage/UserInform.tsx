@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import '../../assets/styles/scss/myPage.scss';
-import { useQuery, useQueryClient } from 'react-query';
 import imageCompression from 'browser-image-compression';
 import sweetAlert from '../../core/utils/sweetAlert';
 import {
@@ -13,11 +12,32 @@ const UserInform = ({ userInform = null }): JSX.Element => {
   const [profileImg, setProfileImg] = useState(null);
   const [nickname, setNickname] = useState<string>('');
   const [checkNickname, setCheckNickname] = useState<boolean>(false);
+  const [isRegNickNameCheck, setIsRegNickNameCheck] = useState<boolean>(false);
 
   useEffect(() => {
     setProfileImg(userInform.profileImage);
     setNickname(userInform.nickname);
   }, [userInform]);
+
+  const is_userNickName = asValue => {
+    const blankExp = /[\s]/g;
+    if (blankExp.test(asValue)) {
+      return sweetAlert(1000, 'error', '공백을 제거해주세요');
+    }
+    if (Number(asValue)) {
+      return sweetAlert(
+        2000,
+        'error',
+        '알파벳,한글로 시작하는 닉넴임을 입력해주세요',
+      );
+    }
+    const regIdExp =
+      // eslint-disable-next-line
+      /^[a-zA-Zㄱ-힣]+[a-zA-Zㄱ-힣0-9]{2,10}$/g;
+    // 닉네임 2~10 자 알파벳, 한글, 숫자 가능
+    const result: boolean = regIdExp.test(asValue);
+    return result;
+  };
 
   const handleFileOnChange = async file => {
     const options = { maxSizeMB: 7, maxWidthOrHeight: 200 };
@@ -54,6 +74,10 @@ const UserInform = ({ userInform = null }): JSX.Element => {
   };
 
   const onCheckNickname = () => {
+    if (!is_userNickName(nickname)) {
+      return setIsRegNickNameCheck(false);
+    }
+    setIsRegNickNameCheck(true);
     postNicknameCheck(nickname).then(res => {
       if (res.name === 'AxiosError') return;
       sweetAlert(1000, 'success', res.data.msg);
@@ -105,20 +129,48 @@ const UserInform = ({ userInform = null }): JSX.Element => {
         readOnly
         value={userInform.email}
       />
-      <div>
-        <input
-          className="mypage-input-nickname"
-          placeholder="닉네임"
-          value={nickname}
-          onChange={onChangeNickname}
-        />
-        <button
-          className="mypage-profile__check__btn"
-          onClick={onCheckNickname}
-        >
-          중복 확인
-        </button>
-      </div>
+      {checkNickname ? (
+        <div>
+          <input
+            className="mypage-input-nickname"
+            placeholder="닉네임"
+            value={nickname}
+            onChange={onChangeNickname}
+            minLength={2}
+            maxLength={10}
+            readOnly
+            style={{ background: 'gray' }}
+          />
+          <button
+            className="mypage-profile__check__btn"
+            onClick={onCheckNickname}
+          >
+            중복 확인
+          </button>
+        </div>
+      ) : (
+        <div>
+          <input
+            className="mypage-input-nickname"
+            placeholder="닉네임"
+            value={nickname}
+            onChange={onChangeNickname}
+            minLength={2}
+            maxLength={10}
+          />
+          <button
+            className="mypage-profile__check__btn"
+            onClick={onCheckNickname}
+          >
+            중복 확인
+          </button>
+          {!isRegNickNameCheck && (
+            <p className="mypage-profile__checknickname">
+              닉네임 2~10 자 알파벳, 한글, 숫자 가능
+            </p>
+          )}
+        </div>
+      )}
 
       <button className="mypage-btn-modify" onClick={onModifyUserInform}>
         수정

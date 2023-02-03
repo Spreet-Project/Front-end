@@ -89,7 +89,6 @@ const Main = (): JSX.Element => {
         current.childNodes[currTagerIndex + 1].style.opacity = 0.5;
         current.childNodes[currTagerIndex + 2].style.opacity = 0.9;
         current.childNodes[currTagerIndex + 3].style.opacity = 0.5;
-        // return;
       }
       // console.log('첫번째타켓인덱스', current.childNodes[firstEleNum]);
       // console.log(currTagerIndex, '현재 인덱스');
@@ -145,7 +144,7 @@ const Main = (): JSX.Element => {
     <div className="mainsector">
       <div className="spreet-row">
         <div className="spreet-row__carousel">
-          <img
+          {/* <img
             src="./images/whiteLeftLarge.png"
             className="spreet-row__button btn--left"
             onClick={() =>
@@ -158,7 +157,7 @@ const Main = (): JSX.Element => {
             onClick={() =>
               handleClickSlide('right', post, spreetRef, 1, spreetTransX)
             }
-          />
+          /> */}
           <div className="spreet-row__list" ref={spreetRef}>
             <div className="spreet-item-wrapper" ref={spreetChidRef}>
               {post &&
@@ -196,7 +195,7 @@ const Main = (): JSX.Element => {
                   onClick={() => {
                     onPaigingBtn(index);
                   }}
-                  style={{ border: '3px solid gray' }}
+                  style={{ background: 'gray' }}
                 ></button>
               ) : (
                 <button
@@ -205,6 +204,7 @@ const Main = (): JSX.Element => {
                   onClick={() => {
                     onPaigingBtn(index);
                   }}
+                  // style={{ color: 'white' }}
                 ></button>
               );
             })}

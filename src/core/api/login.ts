@@ -10,7 +10,7 @@ export const postLogin = async post => {
     return data;
   } catch (error) {
     if (error.response.data.msg === '크루회원 승인 대기 중입니다.') {
-      sweetAlert(1000, 'error', '크루회원 승인 대기 중입니다.');
+      return sweetAlert(1000, 'error', '크루회원 승인 대기 중입니다.');
     }
   }
 };
