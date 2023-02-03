@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import FeedShortsModal from '../components/FeedShortsModal';
 import sweetAlert from '../core/utils/sweetAlert';
-import { postFeedLike } from '../core/api/feed';
-import { getScrollFeed } from '../core/api/feed';
+import { postFeedLike, getScrollFeed } from '../core/api/feed';
+import { postSubscribe } from '../core/api/subscribe';
 
 const FeedShorts = (): JSX.Element => {
   const naviagate = useNavigate();
@@ -65,6 +65,14 @@ const FeedShorts = (): JSX.Element => {
     });
   };
 
+  //구독 요청
+  const onSubscribe = userNickname => {
+    postSubscribe(userNickname).then(res => {
+      if (!res) return;
+      sweetAlert(1000, 'success', '구독 성공');
+    });
+  };
+
   if (isLoading || !data.pages) return;
   // console.log(data);
   return (
@@ -103,6 +111,7 @@ const FeedShorts = (): JSX.Element => {
                       onPostFeedLike={onPostFeedLike}
                       setFeedId={setFeedId}
                       setIsShowModal={setIsShowModal}
+                      onSubscribe={onSubscribe}
                     />
                   </div>
                 ) : (
@@ -112,6 +121,7 @@ const FeedShorts = (): JSX.Element => {
                     onPostFeedLike={onPostFeedLike}
                     setFeedId={setFeedId}
                     setIsShowModal={setIsShowModal}
+                    onSubscribe={onSubscribe}
                   />
                 );
               });

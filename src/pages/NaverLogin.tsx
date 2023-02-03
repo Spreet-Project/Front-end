@@ -23,7 +23,7 @@ const NaverLogin = () => {
         state: state,
       }).then(res => {
         if (!res || res.name === 'AxiosError') {
-          sweetAlert(1000, 'error', '카카오 로그인 실패');
+          sweetAlert(1000, 'error', '네이버 로그인 실패');
           return navigate('/login');
         }
         localStorage.setItem('nickname', res.data.data.nickname);

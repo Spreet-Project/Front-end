@@ -1,13 +1,13 @@
 import React, { useRef, useState } from 'react';
 import '../assets/styles/scss/feedShorts.scss';
 import sweetAlert from '../core/utils/sweetAlert';
-import { postSubscribe } from '../core/api/subscribe';
 
 const FeedsScroll = ({
   feed,
   setFeedId,
   setIsShowModal,
   onPostFeedLike,
+  onSubscribe,
 }): JSX.Element => {
   const feedChildRef = useRef<HTMLDivElement>(null);
   const feedRef = useRef<HTMLDivElement>(null);
@@ -125,7 +125,7 @@ const FeedsScroll = ({
           <span
             className="material-symbols-outlined"
             onClick={() => {
-              sweetAlert(1000, 'error', '서비스 준비 중 입니다.');
+              onSubscribe(feed.nickname);
             }}
           >
             subscriptions
@@ -134,7 +134,7 @@ const FeedsScroll = ({
         <p
           className="shorts-btn-text text__subscribe"
           onClick={() => {
-            sweetAlert(1000, 'error', '서비스 준비 중 입니다.');
+            onSubscribe(feed.nickname);
           }}
         >
           Subscribe

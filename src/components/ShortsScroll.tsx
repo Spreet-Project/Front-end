@@ -65,7 +65,7 @@ const ShortsScroll = ({
           <span
             className="material-symbols-outlined"
             onClick={() => {
-              onSubscribe(shorts.nickname);
+              sweetAlert(1000, 'error', '서비스 구현 중 입니다.');
             }}
           >
             subscriptions
@@ -74,7 +74,7 @@ const ShortsScroll = ({
         <p
           className="shorts-btn-text text__subscribe"
           onClick={() => {
-            onSubscribe(shorts.nickname);
+            sweetAlert(1000, 'error', '서비스 구현 중 입니다.');
           }}
         >
           Subscribe

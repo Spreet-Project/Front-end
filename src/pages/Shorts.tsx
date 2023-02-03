@@ -56,11 +56,10 @@ const Shorts = () => {
 
   //구독 요청
   const onSubscribe = userNickname => {
-    console.log(userNickname, 'userNickname');
     postSubscribe(userNickname).then(res => {
-      if (!res) {
-        return sweetAlert(1000, 'error', '구독 에러!');
-      }
+      // if (!res) {
+      //   return sweetAlert(1000, 'error', '구독 에러!');
+      // }
       console.log(res, 'res');
     });
   };
