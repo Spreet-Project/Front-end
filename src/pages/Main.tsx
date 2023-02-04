@@ -1,11 +1,12 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { useQuery, useQueries } from 'react-query';
 import '../assets/styles/scss/main.scss';
-import { getFeed, getMainShorts } from '../core/api/shorts';
+import { getMainShorts } from '../core/api/shorts';
 import handleClickSlide from '../core/utils/handleClickSlide';
 import MainCarousel from '../components/MainCarousel';
 import FeedShortsModal from '../components/FeedShortsModal';
 import MainVideo from '../components/MainVideo';
+import { getMainFeed } from '../core/api/feed';
 
 const Main = (): JSX.Element => {
   const token = localStorage.getItem('id');
@@ -34,7 +35,7 @@ const Main = (): JSX.Element => {
     }),
   );
 
-  const resFeed: any = useQuery(['getFeed'], getFeed);
+  const resFeed: any = useQuery(['getFeed'], getMainFeed);
 
   const isUpScrollNum = useRef(0); //게시글 부분 스크롤 위로가는 경우 확인해주는숫자
   const feedRef = useRef<HTMLDivElement>(null); //게시글 스크롤에 사용될 ref

@@ -24,6 +24,16 @@ export const getFeed = async payload => {
   }
 };
 
+export const getMainFeed = async payload => {
+  //Feed 최신 게시물 조회
+  try {
+    console.log(payload, 'payload');
+    return await instance.get('/feed/main');
+  } catch (error) {
+    return error;
+  }
+};
+
 export const getScrollFeed = async payload => {
   //Feed 최신 게시물 조회
   try {
