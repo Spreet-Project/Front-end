@@ -44,7 +44,7 @@ const FeedImageBox = ({ feed }): JSX.Element => {
                   onClick={() => {
                     onPaigingBtn(index);
                   }}
-                  style={{ border: '3px solid gray' }}
+                  style={{ background: 'gray' }}
                 ></button>
               ) : (
                 <button
