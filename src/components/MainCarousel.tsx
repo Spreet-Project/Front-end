@@ -40,7 +40,7 @@ const MainCarousel = ({ data, category, color }): JSX.Element => {
         </div>
         <div className="slide-item__list" ref={rapRef}>
           <div className="slide-item__wrapper">
-            {data.data &&
+            {data.data.data &&
               data.data.data.map(item => {
                 return (
                   <>
