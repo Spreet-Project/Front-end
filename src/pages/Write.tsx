@@ -148,7 +148,7 @@ const Write = (): JSX.Element => {
     postShorts(shortsData)
       .then(res => {
         sweetAlert(1000, 'success', '쇼츠 작성 성공!');
-        navigate('/');
+        navigate('/shorts');
       })
       .catch(error => {
         if (error.response.data.statusCode === 401) {
@@ -181,7 +181,7 @@ const Write = (): JSX.Element => {
     postFeed(feedData)
       .then(res => {
         sweetAlert(1000, 'success', '피드 작성 성공!');
-        navigate('/');
+        navigate('/feeds');
       })
       .catch(error => {
         sweetAlert(1000, 'error', '피드 작성 실패');
