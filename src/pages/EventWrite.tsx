@@ -8,7 +8,6 @@ import KakaoMapModal from '../components/kakaomap/KakaoMapmodal';
 const EventWrite = () => {
   const navigate = useNavigate();
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
-  // const [inputs, onChangeInput, clearInput] = useInputs();
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [date, setDate] = useState<string>('');

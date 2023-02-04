@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import '../../assets/styles/scss/kakaoMapModal.scss';
 import DeaumPostCode from 'react-daum-postcode';
 
@@ -9,7 +9,6 @@ const KakaoMapModal = ({
 }): JSX.Element => {
   // 다음 주소 검색창 닫기 함수
   const mapScript = document.createElement('script');
-
   mapScript.async = true;
   mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAO_URL}&autoload=false`;
 

@@ -64,12 +64,12 @@ const Write = (): JSX.Element => {
     setFile(null);
     setFileUrl(null);
     const videoFile = e.target.files[0];
-    const maxSize = 10 * 1024 * 1024;
+    const maxSize = 100 * 1024 * 1024;
     if (videoFile.size > maxSize) {
       return sweetAlert(
         1000,
         'error',
-        '영상사이즈는 10MB 이하로 등록 가능합니다.',
+        '영상사이즈는 100MB 이하로 등록 가능합니다.',
       );
     }
     const videoUrl = URL.createObjectURL(videoFile);
@@ -148,7 +148,7 @@ const Write = (): JSX.Element => {
     postShorts(shortsData)
       .then(res => {
         sweetAlert(1000, 'success', '쇼츠 작성 성공!');
-        navigate('/');
+        navigate('/shorts');
       })
       .catch(error => {
         if (error.response.data.statusCode === 401) {
@@ -181,7 +181,7 @@ const Write = (): JSX.Element => {
     postFeed(feedData)
       .then(res => {
         sweetAlert(1000, 'success', '피드 작성 성공!');
-        navigate('/');
+        navigate('/feeds');
       })
       .catch(error => {
         sweetAlert(1000, 'error', '피드 작성 실패');
