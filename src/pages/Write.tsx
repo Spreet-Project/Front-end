@@ -64,12 +64,12 @@ const Write = (): JSX.Element => {
     setFile(null);
     setFileUrl(null);
     const videoFile = e.target.files[0];
-    const maxSize = 10 * 1024 * 1024;
+    const maxSize = 100 * 1024 * 1024;
     if (videoFile.size > maxSize) {
       return sweetAlert(
         1000,
         'error',
-        '영상사이즈는 10MB 이하로 등록 가능합니다.',
+        '영상사이즈는 100MB 이하로 등록 가능합니다.',
       );
     }
     const videoUrl = URL.createObjectURL(videoFile);
