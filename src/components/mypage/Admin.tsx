@@ -48,6 +48,7 @@ const Admin = (): JSX.Element => {
     setAdminPassword(e.target.value);
   };
 
+  //admin인지 확인하는 부분
   const onClickAdminPass = (e: React.MouseEvent<HTMLInputElement>) => {
     if (adminPassword === process.env.REACT_APP_ADMIN_PASS) {
       sweetAlert(1000, 'success', '환영합니다 관리자님!');

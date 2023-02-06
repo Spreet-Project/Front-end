@@ -21,6 +21,7 @@ export default function Event() {
   mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAO_URL}&autoload=false`;
   document.head.appendChild(mapScript);
   const infowindow = new window.kakao.maps.InfoWindow({});
+
   const onLoadKakaoMap = () => {
     if (isLoading) return;
     window.kakao.maps.load(() => {
@@ -30,7 +31,6 @@ export default function Event() {
         level: 7, // 지도의 확대 레벨
       };
       const map = new window.kakao.maps.Map(mapContainer, mapOption);
-
       const imageSrc = './images/kakaoMarker.png'; // 마커이미지의 주소입니다
       const imageSize = new window.kakao.maps.Size(32, 28); // 마커이미지의 크기입니다
       const imageOption = { offset: new window.kakao.maps.Point(27, 69) };

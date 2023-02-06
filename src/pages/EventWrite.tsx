@@ -99,7 +99,6 @@ const EventWrite = () => {
     reader.readAsDataURL(e.target.files[0]);
     reader.onloadend = () => {
       const resultImage = reader.result;
-      // console.log('result', resultImage);
       setFileUrl(resultImage);
     };
   };
