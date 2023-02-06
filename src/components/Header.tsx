@@ -45,14 +45,14 @@ const Header = (): JSX.Element => {
     <>
       <div className="header">
         <div className="header_inner">
-          <p
+          <div
             className="header_logo"
             onClick={() => {
               navigate('/');
             }}
           >
-            <img />
-          </p>
+            <div className="spreet-logo__bg"></div>
+          </div>
           <div className="header_btn">
             {token && (
               <button onClick={onClcikSubsCribe} className="letter-spacing__5">

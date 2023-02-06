@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { NavigationType, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { postLogin } from '../core/api/login';
 import '../assets/styles/scss/login.scss';
 import sweetAlert from '../core/utils/sweetAlert';

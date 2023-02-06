@@ -74,7 +74,7 @@ const FeedCommentBox = ({
                 deleteCommentMutation.mutate(comment.commentId);
               }}
             >
-              댓글 삭제
+              삭제
             </button>
           )}
 
@@ -85,7 +85,7 @@ const FeedCommentBox = ({
                 onCheckCommentModify(comment.commentId, comment.content);
               }}
             >
-              댓글 수정
+              수정
             </button>
           )}
         </div>

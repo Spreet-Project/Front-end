@@ -72,7 +72,7 @@ const ShortsCommentBox = ({
                 deleteCommentMutation.mutate(comment.shortsCommentId);
               }}
             >
-              댓글 삭제
+              삭제
             </button>
           )}
           {comment.nickname === loginNickname && (
@@ -82,7 +82,7 @@ const ShortsCommentBox = ({
                 onCheckCommentModify(comment.shortsCommentId, comment.content);
               }}
             >
-              댓글 수정
+              수정
             </button>
           )}
         </div>
