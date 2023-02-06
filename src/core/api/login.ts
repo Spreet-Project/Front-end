@@ -34,7 +34,7 @@ export const postEmailCheck = async post => {
     sweetAlert(1000, 'success', '이메일 인증 확인완료');
     return data;
   } catch (error) {
-    sweetAlert(1000, 'error', '이메일 인증 에러');
+    sweetAlert(1000, 'error', error.response.data.msg);
     return error;
   }
 };
@@ -45,7 +45,7 @@ export const postEmailConfirm = async post => {
     sweetAlert(1000, 'success', '인증번호 전송완료');
     return data;
   } catch (error) {
-    sweetAlert(1000, 'error', '인증 에러');
+    sweetAlert(1000, 'error', error.response.data.msg);
     return error;
   }
 };

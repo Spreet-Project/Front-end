@@ -54,9 +54,11 @@ const Header = (): JSX.Element => {
             <img />
           </p>
           <div className="header_btn">
-            <button onClick={onClcikSubsCribe} className="letter-spacing__5">
-              알림
-            </button>
+            {token && (
+              <button onClick={onClcikSubsCribe} className="letter-spacing__5">
+                알림
+              </button>
+            )}
             {isShowAlarm && (
               <>
                 <div className="alarm-triangle"></div>
