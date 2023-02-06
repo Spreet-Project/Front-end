@@ -1,124 +1,186 @@
-import React, { useRef, useState, useLayoutEffect, useEffect } from 'react';
-// import { useQuery } from 'react-query';
-import axios from 'axios';
-import './main.scss';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { useQuery, useQueries } from 'react-query';
+import '../assets/styles/scss/main.scss';
+import { getMainShorts } from '../core/api/shorts';
+import handleClickSlide from '../core/utils/handleClickSlide';
+import MainCarousel from '../components/MainCarousel';
+import FeedShortsModal from '../components/FeedShortsModal';
+import MainVideo from '../components/MainVideo';
+import { getMainFeed } from '../core/api/feed';
 
-const getHeroes = () => {
-  return axios.get('http://localhost:4000/superheroes');
-};
+const Main = (): JSX.Element => {
+  const token = localStorage.getItem('id');
+  const feedId = useRef<number>(0);
+  const [isShowModal, setIsShowModal] = useState<boolean>(false);
+  const [currPaigingIDX, setCurrPaigingIDX] = useState<number>(0);
 
-const Main = () => {
-  // const { isLoading, data, isError, error, isFetching } = useQuery(
-  //   'super-heroes',
-  //   getHeroes,
-  //   {
-  //     cacheTime: 5000, //캐시를 몇초까지 저장해줄건지? 기본 5분?
-  //     staleTime: 3000, //재검색을 트리거? 기존에 있던 데이터처리를 어떻게할건지?
-  //     refetchOnMount: true, //쿼리데이터가 오래되었는지 확인하는여부?
-  //     refetchOnWindowFocus: true, //기본값 true 데이터가 변경되었다면 변경된 값에따라 화면새로겝반영?
-  //   },
-  // );
-  const rapRef: any = useRef(); //상단 슬라이드 ref;
-  const feedList: string[] = [
-    '첫번째글',
-    '두번째글',
-    '세번째글',
-    '네번째글',
-    '다섯뻔째글',
+  const categoryList = [
+    { category: '랩', value: 'RAP', color: '#D10536' },
+    { category: '스트릿 댄스', value: 'STREET_DANCE', color: '#CA6100' },
+    { category: 'DJ', value: 'DJ', color: '#CAC200' },
+    { category: '그래피티', value: 'GRAFFITI', color: '#12A443' },
+    { category: '비트박스', value: 'BEAT_BOX', color: '#153BFF' },
+    { category: '기타', value: 'ETC', color: '#7E0479' },
   ];
-  const [feedTransX, setFeedTransX] = useState(0);
-  const spreetRef: any = useRef(); //상단 슬라이드 ref;
+
+  const res: any = useQueries(
+    categoryList.map(categroy => {
+      return {
+        queryKey: ['shortsList', { category: categroy.value, token: token }],
+        queryFn: getMainShorts,
+        // cacheTime: 5000,
+        // staleTime: 5000,
+        // refetchOnMount: true,
+      };
+    }),
+  );
+
+  const resFeed: any = useQuery(['getFeed'], getMainFeed);
+
+  const isUpScrollNum = useRef(0); //게시글 부분 스크롤 위로가는 경우 확인해주는숫자
+  const feedRef = useRef<HTMLDivElement>(null); //게시글 스크롤에 사용될 ref
+  const spreetRef = useRef<HTMLDivElement>(null); //상단 슬라이드 ref;
+  const spreetChidRef = useRef<HTMLDivElement>(null); //상단 페이징 버튼위한 ref
   const [spreetTransX, setspreetTransX] = useState(0);
-  const post: string[] = ['red', 'blue', 'green', 'black', 'purple'];
+  const post: string[] = [
+    '',
+    './images/mainImg(1).jpg',
+    './images/mainImg(2).jpg',
+    './images/mainImg(3).jpeg',
+    './images/mainImg(4).jpg',
+  ];
+
   const sldiesDomLength = useRef(post.length);
-  useLayoutEffect(() => {
+
+  useEffect(() => {
     const getSpreetCordinate = () => {
+      if (!spreetRef.current) return;
       const listLeft = spreetRef.current.getBoundingClientRect().left;
       setspreetTransX(listLeft);
     };
-    const getFeedCordinate = () => {
-      const rapLeft = rapRef.current.getBoundingClientRect().left;
-      setFeedTransX(rapLeft);
-    };
+
     getSpreetCordinate();
   }, []);
 
-  const handleClickNavBtn = (direction: 'left' | 'right'): void => {
-    const currentX = spreetRef.current.getBoundingClientRect().x;
-    const spreetRef_NodeWidth =
-      post.length > 0
-        ? spreetRef.current.childNodes[0].getBoundingClientRect().width
-        : 0;
-    //슬라이드에 넣은 데이터 배열의 길이가 0보다 크다면
-    //ref속성으로 이어진 돔요소 spreetRef에 childNode에 제일 첫번째?
-    //요소의 넓이값을 세팅
-    // console.log(
-    //   '노드의 넓이값',
-    //   spreetRef.current.childNodes[0].getBoundingClientRect().width,
-    // );
-    // 슬라이드 되는 박스 하나의 넓이값 * 3 (전체 넓이?를 제한하는 값?)
-    const slideDistance = spreetRef_NodeWidth * 1;
-    // console.log('sldiesDomLength', sldiesDomLength.current);
-    //버튼으로 눌렀을때 변화하는 현재넓이제한값?
-    let calculate_distance = 0;
-    // console.log('슬라이드 전체넓이 값?', slideDistance);
-    if (direction === 'left') {
-      calculate_distance = currentX + slideDistance / sldiesDomLength.current;
-      // console.log('현재calculate_distance', calculate_distance);
-      if (spreetTransX < calculate_distance) {
-        calculate_distance = 0;
+  const onScroll = useCallback(([entry]: any) => {
+    const { current }: any = feedRef;
+    let currTagerIndex: number; //현재 타켓이 되는 게시글index
+    const lastIndex = current.childNodes.length - 1;
+    const lastTargetEle = current.childNodes[lastIndex];
+    if (entry.isIntersecting) {
+      let firstEleNum: number; //한번에 보여질 게시글 수
+      // console.log(entry, '객체');
+      // console.log(entry.target, '현재타겟');
+      current.childNodes.forEach((item: any, index: number) => {
+        if (item === entry.target) {
+          currTagerIndex = index;
+          firstEleNum = index - 4; //첫번째인덱스를 체크
+        }
+      });
+      if (currTagerIndex === 0) {
+        entry.target.style.opacity = 1;
+        current.childNodes[currTagerIndex + 1].style.opacity = 0.9;
+        current.childNodes[currTagerIndex + 2].style.opacity = 0.6;
+        current.childNodes[currTagerIndex + 3].style.opacity = 0.3;
+        return;
       }
-      // console.log('left버튼 차일드노드"', spreetRef.current);
-    }
-    if (direction === 'right') {
-      const calculationValue = slideDistance / sldiesDomLength.current;
-      calculate_distance = currentX - calculationValue;
-      // console.log('현재calculate_distance', calculate_distance);
-      if (-slideDistance > calculate_distance - calculationValue) {
-        calculate_distance = 0;
-      }
-    }
-    spreetRef.current.style.transform = `translateX(${calculate_distance}px)`;
-  };
 
-  const onPaiginBtn = (index: number): void => {
+      // console.log('current', currTagerIndex, 'isUpscroll', isUpScrollNum);
+      if (currTagerIndex < isUpScrollNum.current) {
+        current.childNodes[currTagerIndex + 1].style.opacity = 0.5;
+        current.childNodes[currTagerIndex + 2].style.opacity = 0.9;
+        current.childNodes[currTagerIndex + 3].style.opacity = 0.5;
+      }
+      // console.log('첫번째타켓인덱스', current.childNodes[firstEleNum]);
+      // console.log(currTagerIndex, '현재 인덱스');
+      current.childNodes[firstEleNum].style.opacity = 0.3;
+      current.childNodes[firstEleNum + 1].style.opacity = 0.4;
+      current.childNodes[firstEleNum + 2].style.opacity = 0.6;
+      current.childNodes[firstEleNum + 3].style.opacity = 1;
+      current.childNodes[firstEleNum + 4].style.opacity = 0.6;
+
+      if (entry.target === lastTargetEle) {
+        current.childNodes[firstEleNum].style.opacity = 0.6;
+        current.childNodes[lastIndex].style.opacity = 1;
+        current.childNodes[lastIndex - 1].style.opacity = 0.8;
+        current.childNodes[lastIndex - 2].style.opacity = 0.7;
+        current.childNodes[lastIndex - 3].style.opacity = 0.6;
+        // console.log('마지막?', lastTargetEle);
+      }
+
+      isUpScrollNum.current = currTagerIndex;
+      // console.log(isUpScrollNum.current, '위로체크 숫자');
+    } else {
+      entry.target.style.opacity = 0.1;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!feedRef.current) return;
+
+    const observer: any = new IntersectionObserver(onScroll, {
+      threshold: 0.4,
+      rootMargin: '-30px',
+    });
+
+    feedRef.current.childNodes.forEach(childNode => {
+      observer.observe(childNode);
+    });
+
+    return () => observer && observer.disconnect();
+  }, [feedRef.current, onScroll]);
+
+  const onPaigingBtn = (index: number): void => {
+    if (!spreetChidRef) return;
     const spreetRef_NodeWidth: number =
-      post.length > 0
-        ? spreetRef.current.childNodes[0].getBoundingClientRect().width
-        : 0;
+      post.length > 0 ? spreetChidRef.current.getBoundingClientRect().width : 0;
     const calculationValue: number =
       -(spreetRef_NodeWidth / sldiesDomLength.current) * index;
     spreetRef.current.style.transform = `translateX(${calculationValue}px)`;
+    setCurrPaigingIDX(index);
   };
 
+  if (!res || resFeed.isLoading) return;
   return (
-    <>
+    <div className="mainsector">
       <div className="spreet-row">
         <div className="spreet-row__carousel">
-          <button
+          {/* <img
+            src="./images/whiteLeftLarge.png"
             className="spreet-row__button btn--left"
-            onClick={() => handleClickNavBtn('left')}
-          >
-            {'<'}
-          </button>
-          <button
+            onClick={() =>
+              handleClickSlide('left', post, spreetRef, 1, spreetTransX)
+            }
+          />
+          <img
+            src="./images/whiteRightLarge.png"
             className="spreet-row__button btn--right"
-            onClick={() => handleClickNavBtn('right')}
-          >
-            {'>'}
-          </button>
+            onClick={() =>
+              handleClickSlide('right', post, spreetRef, 1, spreetTransX)
+            }
+          /> */}
           <div className="spreet-row__list" ref={spreetRef}>
-            <div className="spreet-item-wrapper">
+            <div className="spreet-item-wrapper" ref={spreetChidRef}>
               {post &&
                 post.map((item, index) => {
                   return (
-                    <div
-                      key={index}
-                      className="spreet-item__container"
-                      style={{ backgroundColor: item }}
-                    >
-                      {item}박스입니다.
-                    </div>
+                    <>
+                      {index === 0 ? (
+                        <MainVideo
+                          key={index}
+                          width={'100%'}
+                          height={'500px'}
+                          src={process.env.REACT_APP_VIDEO_URL}
+                        />
+                      ) : (
+                        <img
+                          key={index}
+                          className="spreet-item__container"
+                          // style={{ backgroundColor: item }}
+                          src={item}
+                        ></img>
+                      )}
+                    </>
                   );
                 })}
             </div>
@@ -127,39 +189,68 @@ const Main = () => {
         <div className="spreet-row__paiging">
           {post &&
             post.map((item, index) => {
-              return (
+              return index === currPaigingIDX ? (
                 <button
                   key={index}
                   className="carousel-paging__btn"
                   onClick={() => {
-                    onPaiginBtn(index);
+                    onPaigingBtn(index);
+                  }}
+                  style={{ background: 'gray' }}
+                ></button>
+              ) : (
+                <button
+                  key={index}
+                  className="carousel-paging__btn"
+                  onClick={() => {
+                    onPaigingBtn(index);
                   }}
                 ></button>
               );
             })}
         </div>
       </div>
+
       <div className="main-content">
-        <div className="rap-row">
-          <div className="rap-row__carousel">
-            <button className="rap-row__button btn--left">{'<'}</button>
-            <button className="rap-row__button btn--right">{'>'}</button>
-            <div className="rap-row__list" ref={rapRef}>
-              <div className="rap-item__wrapper">
-                {feedList &&
-                  feedList.map((item, index) => {
-                    return (
-                      <div key={index} className="rap-item__container">
-                        {item}박스입니다.
-                      </div>
-                    );
-                  })}
-              </div>
+        <div className="main-inner">
+          {res.map((result, index) => {
+            if (result.isLoading) return;
+            return (
+              <MainCarousel
+                key={index}
+                data={result.data}
+                category={categoryList[index].category}
+                color={categoryList[index].color}
+              />
+            );
+          })}
+          <div className="feed-content">
+            <div className="feed-wrapper" ref={feedRef}>
+              {resFeed.data.data.data &&
+                resFeed.data.data.data.map(item => {
+                  return (
+                    <h1
+                      key={item.feedId}
+                      onClick={() => {
+                        feedId.current = item.feedId;
+                        setIsShowModal(true);
+                      }}
+                    >
+                      {item.title}
+                    </h1>
+                  );
+                })}
             </div>
           </div>
+          {isShowModal && (
+            <FeedShortsModal
+              setIsShowModal={setIsShowModal}
+              feedId={feedId.current}
+            />
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

@@ -1,0 +1,109 @@
+@import './body.scss';
+
+.signUp-containerWrap {
+  position: relative;
+  padding: 50px;
+  width: 586px;
+  height: 750px;
+  background: #ececec;
+  border-radius: 5px;
+  margin: 30px auto;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.signUp-input {
+  width: 330px;
+  height: 48px;
+  border: 1px solid #9c9c9c;
+  border-radius: 5px;
+  margin: 0px 0px 15px 40px;
+}
+.signUp-input-btn {
+  width: 140px;
+  height: 48px;
+  color: #ffffff;
+  font-size: 15px;
+  background-color: #717171;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin: 0px 0px 0px 15px;
+  &:hover {
+    color: #333333;
+  }
+}
+
+.signUp-inputPw {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 486px;
+  height: 48px;
+  border: 1px solid #9c9c9c;
+  border-radius: 5px;
+  margin: 10px 10px 15px 40px;
+  cursor: text;
+}
+
+.signUp-crew {
+  margin: 30px 40px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  .signUp-checkbox {
+    margin: 0;
+    &[type='checkbox'] {
+      width: 20px;
+    }
+  }
+}
+
+.signUp-label {
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+  margin-left: 10px;
+
+  cursor: pointer;
+}
+
+.signUp-confirm {
+  font-size: 12px;
+  color: #9c9c9c;
+  margin: 10px 0px 20px 43px;
+}
+
+.signUp-p {
+  font-size: 13px;
+  color: black;
+  margin: 5px 30px;
+}
+
+.signUp-hr {
+  width: 510px;
+  margin: 20px;
+}
+
+.signUp-btn {
+  width: 486px;
+  height: 48px;
+  background: #d10536;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  border: none;
+  color: #ffffff;
+  font-size: 17px;
+  margin: 20px 40px;
+  cursor: pointer;
+  &:hover {
+    color: #333333;
+  }
+}

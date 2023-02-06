@@ -1,0 +1,116 @@
+@import './body.scss';
+
+//소셜로그인 버튼 로고 크기에 맞게 버튼 사이즈 줄이기
+
+.login-containerWrap {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  padding: 30px;
+  width: 586px;
+  height: 485px;
+  background: #ececec;
+  border-radius: 5px;
+  margin: 100px auto;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.login-form > input {
+  width: 486px;
+  height: 48px;
+  background: #ffffff;
+  border: 1px solid rgba(198, 198, 198, 1);
+  border-radius: 5px;
+  margin: 20px;
+}
+
+.login-btn {
+  width: 486px;
+  height: 48px;
+  background-color: #d10536;
+  border-radius: 5px;
+  border: none;
+  margin: 20px;
+  color: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  font-size: 17px;
+  font-family: 'Noto Sans';
+  cursor: pointer;
+  &:hover {
+    color: #333333;
+  }
+}
+
+.login-signup-btn {
+  width: 486px;
+  height: 48px;
+  background-color: #717171;
+  border-radius: 5px;
+  border: none;
+  color: #ffffff;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  margin: 20px;
+  font-size: 17px;
+  cursor: pointer;
+  &:hover {
+    color: #333333;
+  }
+}
+
+.login-social-btn {
+  display: flex;
+}
+
+.login-social-btn > button {
+  width: 220px;
+  height: 48px;
+  border: none;
+  border-radius: 5px;
+  margin: 10px 23px;
+}
+
+.login-findPassword {
+  width: 480px;
+  font-size: 13px;
+  color: #9c9c9c;
+  margin: 3px;
+  cursor: pointer;
+  &:hover {
+    color: #333333;
+    text-decoration: underline;
+  }
+}
+
+.login-hr {
+  width: 486px;
+  margin: 10px;
+}
+.login-kakao {
+  background-image: url('../../../../public/kakao.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  &:hover {
+    border: 1px solid #fee500;
+  }
+}
+
+.login-naver {
+  background-image: url('../../../../public/naver.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  &:hover {
+    border: 1px solid rgb(3, 199, 90);
+  }
+}
