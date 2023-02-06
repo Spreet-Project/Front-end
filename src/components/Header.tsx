@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import '../assets/styles/scss/header.scss';
 import { useNavigate } from 'react-router-dom';
 import sweetAlert from '../core/utils/sweetAlert';
@@ -10,24 +10,15 @@ const Header = (): JSX.Element => {
   const [isShowAlarm, setIsShowAlarm] = useState<boolean>(false);
   const [alarmList, setAlarmList] = useState([]);
   const userRole: string = localStorage.getItem('userRole');
-  const [IswindowClick, setIsWindowClick] = useState<boolean>(false);
+  const alarmRef = useRef<any>();
 
-  useEffect(() => {
-    if (!isShowAlarm) return;
-
-    const eventId = () =>
-      window.addEventListener('click', () => {
-        // if (isShowAlarm) return;
-        setIsWindowClick(true);
+  const eventId = () =>
+    document.addEventListener('click', e => {
+      if (alarmRef.current && !alarmRef.current.contains(e.target)) {
         setIsShowAlarm(false);
-      });
-
-    eventId();
-
-    return () => {
-      window.removeEventListener('click', eventId);
-    };
-  }, [isShowAlarm, IswindowClick]);
+      }
+    });
+  eventId();
 
   const onLogout = () => {
     localStorage.removeItem('id');
@@ -53,10 +44,10 @@ const Header = (): JSX.Element => {
   };
 
   const onAlarmCheck = alarmId => {
-    // postCheckSubscribe(alarmId).then(res => {
-    //   if (!res) return;
-    //   setIsShowAlarm(false);
-    // });
+    postCheckSubscribe(alarmId).then(res => {
+      if (!res) return;
+      setIsShowAlarm(false);
+    });
   };
 
   return (
@@ -73,7 +64,11 @@ const Header = (): JSX.Element => {
           </div>
           <div className="header_btn">
             {token && (
-              <button onClick={onClcikSubsCribe} className="letter-spacing__5">
+              <button
+                ref={alarmRef}
+                onClick={onClcikSubsCribe}
+                className="letter-spacing__5"
+              >
                 알림
               </button>
             )}
@@ -81,8 +76,7 @@ const Header = (): JSX.Element => {
               <>
                 <div className="alarm-triangle"></div>
                 <div className="header-alarm">
-                  {alarmList &&
-                    alarmList.length !== 0 &&
+                  {alarmList && alarmList.length !== 0 ? (
                     alarmList.map(alarm => {
                       return (
                         <div className="alarm-item" key={alarm.id}>
@@ -104,7 +98,10 @@ const Header = (): JSX.Element => {
                           </div>
                         </div>
                       );
-                    })}
+                    })
+                  ) : (
+                    <p>알람이 없네요</p>
+                  )}
                 </div>
               </>
             )}
