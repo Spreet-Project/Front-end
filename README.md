@@ -52,6 +52,7 @@
 ![CreateReactApp](https://img.shields.io/badge/createreactapp-09D3AC?style=for-the-badge&logo=createreactapp&logoColor=white)
 ![ReactRouter](https://img.shields.io/badge/reactrouter-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white)
 ![YARN](https://img.shields.io/badge/yarn-2C8EBB?style=for-the-badge&logo=yarn&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=ffffff")
 ![ReactQuery](https://img.shields.io/badge/react_query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white)
 ![AmazonCloudFront](https://img.shields.io/badge/AmazonCloudFront-DF5146?style=for-the-badge&logo=amazoncloudfront&logoColor=white)
 ![Route53](https://img.shields.io/badge/Route53-F58340?style=for-the-badge&logo=route53&logoColor=white)
@@ -95,7 +96,7 @@
 ## :sparkler: 트러블슈팅
 
 <details>
-   ### [Spreet 노션](https://www.notion.so/Troubleshooting-_FE-ae0b2dbd5caf459f9d40df3c975c28b2) 
+   ### [Spreet 노션](https://www.notion.so/Spreet-b6601fb63c764ec58a91570dabfd07cb) 
 </details>
 ----
 
