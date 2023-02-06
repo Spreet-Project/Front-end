@@ -57,7 +57,7 @@
 ![ReactQuery](https://img.shields.io/badge/react_query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white)
 ![AmazonCloudFront](https://img.shields.io/badge/AmazonCloudFront-DF5146?style=for-the-badge&logo=amazoncloudfront&logoColor=white)
 ![Route53](https://img.shields.io/badge/Route53-F58340?style=for-the-badge&logo=route53&logoColor=white)
-![KakaMap](https://img.shields.io/badge/kakao react―maps-FFCD00?style=for-the-badge&logo=kakao&logoColor=white)
+![KakaMap](https://img.shields.io/badge/kakaoreact―maps-FFCD00?style=for-the-badge&logo=kakao&logoColor=white)
 ![Daumpostcode](https://img.shields.io/badge/daum postcode-FFCD00?style=for-the-badge&logo=kakao&logoColor=white)
 ![SpringBoot](https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
 ![AmazonRDS](https://img.shields.io/badge/amazonRDS-527FFF?style=for-the-badge&logo=amazonrds&logoColor=white)
