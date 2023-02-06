@@ -27,6 +27,7 @@ const SignUp = () => {
   const [longinIdCheck, setLoginIdCheck] = useState(false);
   const [emailConfirm, setEmailCofirm] = useState(false);
   const [emailCheck, setEmailCheck] = useState(false);
+  const [isEmailLoading, setIsEmailLoading] = useState(false);
   const [nicknameCheck, setNicknameCheck] = useState(false);
 
   const navigate = useNavigate();
@@ -188,13 +189,17 @@ const SignUp = () => {
     e.preventDefault();
     if (!isRegEmailCheck)
       return sweetAlert(1000, 'error', '이메일을 확인해주세요');
-    if (confirmCode)
+    if (emailConfirm)
       return sweetAlert(1000, 'error', '이미 중복확인 처리되었습니다.');
-
+    if (isEmailLoading) {
+      return sweetAlert(1000, 'error', '이메일 인증 번호를 보내는 중 입니다.');
+    }
+    setIsEmailLoading(true);
     postEmailCheck({
       email: email,
     }).then(res => {
-      if (!res) return;
+      setIsEmailLoading(false);
+      if (!res || res.name === 'AxiosError') return;
       setEmailCheck(true);
     });
   };
@@ -208,7 +213,9 @@ const SignUp = () => {
       email: email,
       confirmCode: confirmCode,
     }).then(res => {
-      if (!res) return;
+      console.log(res);
+      console.log(emailConfirm);
+      if (!res || res.name === 'AxiosError') return;
       setEmailCofirm(true);
     });
   };

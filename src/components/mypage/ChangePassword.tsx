@@ -16,6 +16,7 @@ const ChangePassword = ({ userEmail }): JSX.Element => {
   const [isRegPasswordCheck, setIsRegPasswordCheck] = useState<boolean>(false);
   const [isEmailConfirm, setIsEmailConfirm] = useState<boolean>(false);
   const [confirmCode, setConfirmCode] = useState<string>('');
+  const [isEmailLoading, setIsEmailLoading] = useState<boolean>(false);
 
   const onChangeRegPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -35,7 +36,14 @@ const ChangePassword = ({ userEmail }): JSX.Element => {
   };
 
   const onCheckEmail = () => {
+    if (isEmailConfirm)
+      return sweetAlert(1000, 'error', '이미 중복확인 처리되었습니다.');
+    if (isEmailLoading) {
+      return sweetAlert(1000, 'error', '이메일 인증 번호를 보내는 중 입니다.');
+    }
+    setIsEmailLoading(true);
     postEmailCheck(userEmail).then(res => {
+      setIsEmailLoading(false);
       if (!res) {
         return sweetAlert(1000, 'error', '이메일 인증 요청 오류');
       }
