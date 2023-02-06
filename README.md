@@ -4,7 +4,7 @@
 
 ## :house_with_garden: 소개 | About Us
 
-<img width="960" alt="Spreet 오프닝 사진" src="https://files.slack.com/files-pri/T01L2TNGW3T-F04NFBK98DP/1.png">
+<img width="960" alt="Spreet 오프닝 사진" src="/src/assets/image/spreet 복사본.jpg">
 
 ---
 
