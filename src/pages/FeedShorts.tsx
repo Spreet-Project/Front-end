@@ -68,6 +68,7 @@ const FeedShorts = (): JSX.Element => {
   //구독 요청
   const onSubscribe = userNickname => {
     postSubscribe(userNickname).then(res => {
+      console.log(res);
       if (!res) return;
       sweetAlert(1000, 'success', '구독 성공');
     });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../assets/styles/scss/header.scss';
 import { useNavigate } from 'react-router-dom';
 import sweetAlert from '../core/utils/sweetAlert';
@@ -10,6 +10,24 @@ const Header = (): JSX.Element => {
   const [isShowAlarm, setIsShowAlarm] = useState<boolean>(false);
   const [alarmList, setAlarmList] = useState([]);
   const userRole: string = localStorage.getItem('userRole');
+  const [IswindowClick, setIsWindowClick] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!isShowAlarm) return;
+
+    const eventId = () =>
+      window.addEventListener('click', () => {
+        // if (isShowAlarm) return;
+        setIsWindowClick(true);
+        setIsShowAlarm(false);
+      });
+
+    eventId();
+
+    return () => {
+      window.removeEventListener('click', eventId);
+    };
+  }, [isShowAlarm, IswindowClick]);
 
   const onLogout = () => {
     localStorage.removeItem('id');
@@ -21,7 +39,7 @@ const Header = (): JSX.Element => {
 
   const onClcikSubsCribe = () => {
     if (isShowAlarm) {
-      setIsShowAlarm(false);
+      return setIsShowAlarm(false);
     } else {
       setIsShowAlarm(true);
     }
@@ -35,10 +53,10 @@ const Header = (): JSX.Element => {
   };
 
   const onAlarmCheck = alarmId => {
-    postCheckSubscribe(alarmId).then(res => {
-      if (!res) return;
-      setIsShowAlarm(false);
-    });
+    // postCheckSubscribe(alarmId).then(res => {
+    //   if (!res) return;
+    //   setIsShowAlarm(false);
+    // });
   };
 
   return (
@@ -105,17 +123,7 @@ const Header = (): JSX.Element => {
             >
               행사
             </button>
-            {token ? (
-              <button onClick={onLogout}>로그아웃</button>
-            ) : (
-              <button
-                onClick={() => {
-                  navigate('/login');
-                }}
-              >
-                로그인
-              </button>
-            )}
+
             {token && (
               <button
                 onClick={() => {
@@ -157,6 +165,17 @@ const Header = (): JSX.Element => {
                 }}
               >
                 마이페이지
+              </button>
+            )}
+            {token ? (
+              <button onClick={onLogout}>로그아웃</button>
+            ) : (
+              <button
+                onClick={() => {
+                  navigate('/login');
+                }}
+              >
+                로그인
               </button>
             )}
           </div>

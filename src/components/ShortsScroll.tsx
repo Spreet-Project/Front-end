@@ -62,19 +62,31 @@ const ShortsScroll = ({
           Detail
         </p>
         <div className="shorts-btn btn__subscribe">
-          <span
-            className="material-symbols-outlined"
-            onClick={() => {
-              sweetAlert(1000, 'error', '서비스 구현 중 입니다.');
-            }}
-          >
-            subscriptions
-          </span>
+          {shorts.subscribed ? (
+            <span
+              className="material-symbols-outlined"
+              onClick={() => {
+                onSubscribe(shorts.nickname);
+              }}
+              style={{ color: 'red' }}
+            >
+              subscriptions
+            </span>
+          ) : (
+            <span
+              className="material-symbols-outlined"
+              onClick={() => {
+                onSubscribe(shorts.nickname);
+              }}
+            >
+              subscriptions
+            </span>
+          )}
         </div>
         <p
           className="shorts-btn-text text__subscribe"
           onClick={() => {
-            sweetAlert(1000, 'error', '서비스 구현 중 입니다.');
+            onSubscribe(shorts.nickname);
           }}
         >
           Subscribe

@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../assets/styles/scss/shorts.scss';
 import ShortsModal from '../components/ShortsModal';
 import { getScrollShorts, postShortLike } from '../core/api/shorts';
-import { useQueryClient, useQuery, useInfiniteQuery } from 'react-query';
+import { useQueryClient, useInfiniteQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import sweetAlert from '../core/utils/sweetAlert';
 import ShortsScroll from '../components/ShortsScroll';
@@ -57,9 +57,9 @@ const Shorts = () => {
   //구독 요청
   const onSubscribe = userNickname => {
     postSubscribe(userNickname).then(res => {
-      // if (!res) {
-      //   return sweetAlert(1000, 'error', '구독 에러!');
-      // }
+      if (!res) return;
+      sweetAlert(1000, 'success', res.data.msg);
+      queryClient.invalidateQueries(['getScrollShorts', token, currentCate]);
     });
   };
 
