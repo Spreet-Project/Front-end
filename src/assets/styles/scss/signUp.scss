@@ -19,11 +19,12 @@
 }
 
 .signUp-input {
-  width: 330px;
+  width: 320px;
   height: 48px;
   border: 1px solid #9c9c9c;
   border-radius: 5px;
   margin: 0px 0px 15px 40px;
+  padding-left: 10px;
 }
 .signUp-input-btn {
   width: 140px;
@@ -45,11 +46,12 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 486px;
+  width: 476px;
   height: 48px;
   border: 1px solid #9c9c9c;
   border-radius: 5px;
   margin: 10px 10px 15px 40px;
+  padding-left: 10px;
   cursor: text;
 }
 
