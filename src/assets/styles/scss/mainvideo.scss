@@ -32,16 +32,16 @@
         height: 30px;
       }
       .volume-icon:hover + .main-volumebar-controller {
-        display: block;
+        opacity: 1;
       }
       .main-volumebar-controller {
         position: absolute;
-        display: none;
+        opacity: 0;
         right: -53px;
         bottom: 110px;
         transform: rotate(-90deg);
         &:hover {
-          display: block;
+          opacity: 1;
         }
       }
     }
