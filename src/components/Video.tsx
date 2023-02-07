@@ -23,6 +23,9 @@ const Video: React.FC<IProps> = ({ width, height, src }) => {
   const startTime = Math.floor(currentTime);
 
   const [volumeClicked, setVolumeClicked] = useState(false);
+  const [volumeNum, setVolumeNum] = useState<number>(
+    videoElement && (videoElement.volume * 10) / 2,
+  );
 
   const percentNum = (currentTime / totalTime || 0) * 100;
 
@@ -41,6 +44,9 @@ const Video: React.FC<IProps> = ({ width, height, src }) => {
 
   useEffect(() => {
     addTimeUpdate();
+    if (videoElement) {
+      videoElement.volume = 0.5;
+    }
   }, []);
 
   // progress 이동시켰을때 실행되는 함수
@@ -87,14 +93,32 @@ const Video: React.FC<IProps> = ({ width, height, src }) => {
     if (volumeClicked) {
       if (videoElement) {
         videoElement.muted = true;
+        videoElement.volume = 0;
+        setVolumeNum(0);
       }
       setVolumeClicked(false);
     } else {
       if (videoElement) {
         videoElement.muted = false;
+        videoElement.volume = 0.5;
+        setVolumeNum(5);
       }
       setVolumeClicked(true);
     }
+  };
+
+  const onChangeVolumeNum = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const currNumber = Number(e.target.value);
+    if (currNumber !== 0) {
+      videoElement.muted = false;
+      setVolumeClicked(true);
+      setVolumeNum(5);
+    } else {
+      videoElement.muted = true;
+      setVolumeClicked(false);
+    }
+    videoElement.volume = currNumber / 10;
+    setVolumeNum(currNumber);
   };
 
   // 마우스를 올렸을때 실행되는 함수
@@ -157,16 +181,32 @@ const Video: React.FC<IProps> = ({ width, height, src }) => {
             {toTimeString(totalTime)}
           </span>
           {volumeClicked ? (
-            <span className="material-symbols-outlined" onClick={handleVolume}>
+            <span
+              className="material-symbols-outlined volume-icon"
+              onClick={handleVolume}
+            >
               volume_mute
             </span>
           ) : (
-            <span className="material-symbols-outlined" onClick={handleVolume}>
+            <span
+              className="material-symbols-outlined volume-icon"
+              onClick={handleVolume}
+            >
               volume_off
             </span>
           )}
+          <input
+            onChange={onChangeVolumeNum}
+            type="range"
+            min="0"
+            max="10"
+            step="1"
+            value={volumeNum}
+            className="main-volumebar-controller"
+          />
         </div>
       </div>
+
       <div className="controlbar-videoplay__icon">
         {nowPlaying ? (
           <span
