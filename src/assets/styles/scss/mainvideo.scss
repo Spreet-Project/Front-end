@@ -40,6 +40,9 @@
         right: -53px;
         bottom: 110px;
         transform: rotate(-90deg);
+        &:hover {
+          display: block;
+        }
       }
     }
   }
