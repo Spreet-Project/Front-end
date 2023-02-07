@@ -1,7 +1,6 @@
 import React from 'react';
 import '../assets/styles/scss/shorts.scss';
 import Video from './Video';
-import sweetAlert from '../core/utils/sweetAlert';
 
 const ShortsScroll = ({
   shorts,
