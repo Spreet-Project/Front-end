@@ -35,10 +35,13 @@ const Video: React.FC<IProps> = ({ width, height, src }) => {
     if (observedVideoElement) {
       observedVideoElement.addEventListener('timeupdate', function () {
         setCurrentTime(observedVideoElement.currentTime);
+        // 영상이 다 자생되었다면 다시 초기화
+        if (
+          observedVideoElement.currentTime === observedVideoElement.duration
+        ) {
+          setNowPlaying(false);
+        }
       });
-      // 컴포넌트가 처음 마운트 될 때 동영상 시작 할지 말지 여부 (여기서는 시작되게 했음)
-      // setNowPlaying(true);
-      // observedVideoElement.play();
     }
   };
 

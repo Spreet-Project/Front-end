@@ -35,7 +35,14 @@ const MainVideo: React.FC<IProps> = ({ src }) => {
     if (observedVideoElement) {
       observedVideoElement.addEventListener('timeupdate', function () {
         setCurrentTime(observedVideoElement.currentTime);
+        // 영상이 다 자생되었다면 다시 초기화
+        if (
+          observedVideoElement.currentTime === observedVideoElement.duration
+        ) {
+          setNowPlaying(false);
+        }
       });
+
       // 컴포넌트가 처음 마운트 될 때 동영상 시작 할지 말지 여부 (여기서는 시작되게 했음)
       setNowPlaying(true);
       observedVideoElement.play();
@@ -48,7 +55,7 @@ const MainVideo: React.FC<IProps> = ({ src }) => {
     if (videoElement) {
       videoElement.volume = 0.5;
     }
-  }, []);
+  }, [videoElement]);
 
   // progress 이동시켰을때 실행되는 함수
   const onProgressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,13 +74,13 @@ const MainVideo: React.FC<IProps> = ({ src }) => {
 
   // play icon 클릭했을떄 실행되는 함수
   const onPlayIconClick = () => {
-    if (videoElement) {
+    if (ref.current) {
       if (nowPlaying) {
         setNowPlaying(false);
-        videoElement.pause();
+        ref.current.pause();
       } else {
         setNowPlaying(true);
-        videoElement.play();
+        ref.current.play();
       }
     }
   };
