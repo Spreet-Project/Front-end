@@ -2,8 +2,6 @@
 
 # :mailbox_with_mail: [Spreet] 힙합 문화 콘텐츠 공유 플랫폼
 
-## :house_with_garden: 소개 | About Us
-
 <img width="912" alt="Spreet 오프닝 사진" src="/src/assets/image/Spreet 메인 이미지.png">
 
 ---
