@@ -28,7 +28,6 @@
 
 ## :nut_and_bolt: 아키텍쳐
 
-![아키텍쳐]
 <img width="912" alt="Spreet 아키텍처 사진" src="/src/assets/image/아키텍처.png">
 
 ---
