@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../assets/styles/scss/shorts.scss';
 import ShortsModal from '../components/ShortsModal';
 import { getScrollShorts, postShortLike } from '../core/api/shorts';
@@ -16,7 +16,7 @@ const Shorts = () => {
   const [currentCate, setCurrentCate] = useState<string>('RAP');
   const [sort, setSort] = useState<string>('new');
   const token: string = localStorage.getItem('id');
-
+  const scrollRef = useRef<HTMLDivElement>();
   const [ref, inView] = useInView();
 
   const categoryList = [
@@ -59,6 +59,16 @@ const Shorts = () => {
     }
     setCurrentCate(cate);
   };
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+      scrollRef.current.scrollTop = 0;
+    }
+  }, [data]);
 
   //구독 요청
   const onSubscribe = userNickname => {
@@ -116,10 +126,22 @@ const Shorts = () => {
       </div>
       <div className="shorts-cotent">
         <div className="shorts-sortbtn">
-          <button onClick={() => setSort('popular')}>인기글</button>
-          <button onClick={() => setSort('new')}>최신글</button>
+          <button
+            onClick={() => {
+              setSort('popular');
+            }}
+          >
+            인기글
+          </button>
+          <button
+            onClick={() => {
+              setSort('new');
+            }}
+          >
+            최신글
+          </button>
         </div>
-        <div className="shorts-scroll">
+        <div className="shorts-scroll" ref={scrollRef}>
           {data.pages &&
             data.pages.map(page => {
               if (!page.data.data) return;
