@@ -39,6 +39,7 @@ const UserInform = ({ userInform = null }): JSX.Element => {
     return result;
   };
 
+  //리사이징 함수
   const handleFileOnChange = async file => {
     const options = { maxSizeMB: 7, maxWidthOrHeight: 200 };
     try {
