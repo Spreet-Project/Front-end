@@ -1,5 +1,5 @@
 $font_color: white;
-$font_family: 'NanumBarunGothic', 'serif';
+$font_family: 'Noto Sans', sans-serif;
 $font_size: 16px;
 $point_color: #d10536;
 
@@ -29,13 +29,14 @@ $point_color: #d10536;
   width: 1440px;
   margin: auto;
 }
-
-body {
-  position: relative;
-  background-color: black;
+* {
   font: {
     color: $font_color;
-    size: $font_size;
     family: $font_family;
+  }
+  body {
+    position: relative;
+    background-color: black;
+    font-size: $font_size;
   }
 }
