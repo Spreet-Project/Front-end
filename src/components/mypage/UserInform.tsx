@@ -7,11 +7,9 @@ import {
   putUserProfile,
   putUserNickname,
 } from '../../core/api/mypage';
-import { useNavigate } from 'react-router-dom';
 
 const UserInform = ({ userInform = null }): JSX.Element => {
   const [profileImg, setProfileImg] = useState(null);
-  const navigate = useNavigate();
   const [nickname, setNickname] = useState<string>('');
   const [checkNickname, setCheckNickname] = useState<boolean>(false);
   const [isRegNickNameCheck, setIsRegNickNameCheck] = useState<boolean>(false);
