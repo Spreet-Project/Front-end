@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../assets/styles/scss/feedShorts.scss';
 import FeedsScroll from '../components/FeedsScroll';
-import { useQueryClient, useInfiniteQuery } from 'react-query';
+import { useQueryClient, useInfiniteQuery, useMutation } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import FeedShortsModal from '../components/FeedShortsModal';
@@ -55,12 +55,48 @@ const FeedShorts = (): JSX.Element => {
     }
   };
 
+  // const postFeedLikeMutation = useMutation(
+  //   feedId =>
+  //     postFeedLike(feedId).then(res => {
+  //       if (!res) {
+  //         return sweetAlert(1000, 'error', ' 로그인이 필요합니다!');
+  //       }
+  //       if (res.data.msg === '좋아요 성공') {
+  //         sweetAlert(1000, 'success', res.data.msg);
+  //       } else {
+  //         sweetAlert(1000, 'error', res.data.msg);
+  //       }
+  //     }),
+  //   {
+  //     onSuccess: () => {
+  //       const getQuery = queryClient.invalidateQueries([
+  //         'getScrollFeed',
+  //         token,
+  //       ]);
+  //       console.log(getQuery);
+  //     },
+  //   },
+  // );
+
+  // const modifyCommentMutation = useMutation(
+  //   commentId =>
+  //     modifyFeedComment({ commentId: commentId, content: modifyComment }),
+  //   {
+  //     onSuccess: () => queryClient.invalidateQueries(['feedComment', feedId]),
+  //   },
+  // );
+
   const onPostFeedLike = feedId => {
     postFeedLike(feedId).then(res => {
       if (!res) {
         return sweetAlert(1000, 'error', ' 로그인이 필요합니다!');
       }
-      sweetAlert(1000, 'success', '좋아요가 반영되었습니다.');
+      if (res.data.msg === '좋아요 성공') {
+        sweetAlert(1000, 'success', res.data.msg);
+      } else {
+        sweetAlert(1000, 'error', res.data.msg);
+      }
+
       queryClient.invalidateQueries(['getScrollFeed', token]);
     });
   };
@@ -68,7 +104,6 @@ const FeedShorts = (): JSX.Element => {
   //구독 요청
   const onSubscribe = userNickname => {
     postSubscribe(userNickname).then(res => {
-      console.log(res);
       if (!res) return;
       sweetAlert(1000, 'success', '구독 성공');
     });

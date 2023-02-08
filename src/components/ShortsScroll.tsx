@@ -9,6 +9,7 @@ const ShortsScroll = ({
   setIsShowModal,
   onSubscribe,
 }): JSX.Element => {
+  const username = localStorage.getItem('nickname');
   return (
     <div key={shorts.shortsId} className="shorts-item__scroll">
       <Video width="100%" height="650px" src={shorts.videoUrl} />
@@ -60,36 +61,40 @@ const ShortsScroll = ({
         >
           Detail
         </p>
-        <div className="shorts-btn btn__subscribe">
-          {shorts.subscribed ? (
-            <span
-              className="material-symbols-outlined"
+        {username !== shorts.nickname && (
+          <>
+            <div className="shorts-btn btn__subscribe">
+              {shorts.subscribed ? (
+                <span
+                  className="material-symbols-outlined"
+                  onClick={() => {
+                    onSubscribe(shorts.nickname);
+                  }}
+                  style={{ color: 'red' }}
+                >
+                  subscriptions
+                </span>
+              ) : (
+                <span
+                  className="material-symbols-outlined"
+                  onClick={() => {
+                    onSubscribe(shorts.nickname);
+                  }}
+                >
+                  subscriptions
+                </span>
+              )}
+            </div>
+            <p
+              className="shorts-btn-text text__subscribe"
               onClick={() => {
                 onSubscribe(shorts.nickname);
               }}
-              style={{ color: 'red' }}
             >
-              subscriptions
-            </span>
-          ) : (
-            <span
-              className="material-symbols-outlined"
-              onClick={() => {
-                onSubscribe(shorts.nickname);
-              }}
-            >
-              subscriptions
-            </span>
-          )}
-        </div>
-        <p
-          className="shorts-btn-text text__subscribe"
-          onClick={() => {
-            onSubscribe(shorts.nickname);
-          }}
-        >
-          Subscribe
-        </p>
+              Subscribe
+            </p>
+          </>
+        )}
       </div>
     </div>
   );

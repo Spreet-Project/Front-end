@@ -15,6 +15,7 @@ const Shorts = () => {
   const [shortsId, setShortsId] = useState<number>(0);
   const [currentCate, setCurrentCate] = useState<string>('RAP');
   const token = localStorage.getItem('id');
+
   const [ref, inView] = useInView();
 
   const categoryList = [
@@ -66,11 +67,14 @@ const Shorts = () => {
   const onPostShortsLike = (shortsId: number) => {
     postShortLike(shortsId)
       .then(res => {
-        console.log(res);
         if (!res) {
           return sweetAlert(1000, 'error', ' 로그인이 필요합니다!');
         }
-        sweetAlert(1000, 'success', '좋아요가 반영되었습니다.');
+        if (res.data.msg === '좋아요 성공') {
+          sweetAlert(1000, 'success', res.data.msg);
+        } else {
+          sweetAlert(1000, 'error', res.data.msg);
+        }
         queryClient.invalidateQueries(['getScrollShorts', token, currentCate]);
       })
       .catch(error => {
@@ -95,7 +99,6 @@ const Shorts = () => {
                   <li
                     key={index}
                     onClick={() => {
-                      console.log(item);
                       onClickCate(item.value);
                     }}
                   >

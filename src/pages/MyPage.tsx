@@ -9,7 +9,6 @@ import { getUserInform } from '../core/api/mypage';
 const MyPage = () => {
   const userRole = localStorage.getItem('userRole');
   const isSocial = Boolean(localStorage.getItem('isSocial'));
-  console.log(isSocial, 'isSocial');
   const [id, setId] = useState(0);
 
   const { isLoading, isError, data, error, isFetching } = useQuery(
@@ -36,7 +35,7 @@ const MyPage = () => {
       id: 2,
       title: '비밀번호 변경',
     },
-    {
+    userRole === 'ROLE_ADMIN' && {
       id: 3,
       title: '관리자',
     },

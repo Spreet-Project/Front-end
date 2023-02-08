@@ -10,9 +10,9 @@ interface IProps {
 }
 
 const MainVideo: React.FC<IProps> = ({ src }) => {
-  const [nowPlaying, setNowPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [showControl, setShowControl] = useState(false);
+  const [nowPlaying, setNowPlaying] = useState<boolean>(false);
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const [showControl, setShowControl] = useState<boolean>(false);
 
   const ref = useRef<HTMLVideoElement>(null);
 
@@ -27,7 +27,6 @@ const MainVideo: React.FC<IProps> = ({ src }) => {
     videoElement && (videoElement.volume * 10) / 2,
   );
   const percentNum = (currentTime / totalTime || 0) * 100;
-  // const volumeNum = videoElement && videoElement.volume * 10;
 
   // 동영상 시간 업데이트 함수
   const addTimeUpdate = () => {

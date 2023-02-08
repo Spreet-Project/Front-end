@@ -10,9 +10,9 @@ interface IProps {
 }
 
 const Video: React.FC<IProps> = ({ width, height, src }) => {
-  const [nowPlaying, setNowPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [showControl, setShowControl] = useState(false);
+  const [nowPlaying, setNowPlaying] = useState<boolean>(false);
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const [showControl, setShowControl] = useState<boolean>(false);
 
   const ref = useRef<HTMLVideoElement>(null);
 

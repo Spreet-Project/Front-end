@@ -55,13 +55,13 @@ const Header = (): JSX.Element => {
     <>
       <div className="header">
         <div className="header_inner">
-          <div
-            className="header_logo"
-            onClick={() => {
-              navigate('/');
-            }}
-          >
-            <div className="spreet-logo__bg"></div>
+          <div className="header_logo">
+            <div
+              className="spreet-logo__bg"
+              onClick={() => {
+                navigate('/');
+              }}
+            ></div>
           </div>
           <div className="header_btn">
             {token && (
