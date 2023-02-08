@@ -39,7 +39,7 @@ export const getScrollShorts = async payload => {
       return result;
     }
     const result = await instance.get(
-      `/shorts?sort=${sort}category=${category}&page=${pageParam}`,
+      `/shorts?sort=${sort}&category=${category}&page=${pageParam}`,
     );
     return result;
   } catch (error) {
