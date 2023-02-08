@@ -63,6 +63,7 @@ const UserInform = ({ userInform = null }): JSX.Element => {
         if (!res) {
           return sweetAlert(1000, 'error', '프로필 수정 중 오류!');
         }
+        sweetAlert(1000, 'success', res.data.msg);
       });
     } catch (error) {
       sweetAlert(1000, 'error', '파일 변환중 오류!');
@@ -95,6 +96,7 @@ const UserInform = ({ userInform = null }): JSX.Element => {
       }
       if (res.data.statusCode === 200) {
         sweetAlert(1000, 'success', res.data.msg);
+        setCheckNickname(false);
       }
     });
   };
@@ -173,7 +175,7 @@ const UserInform = ({ userInform = null }): JSX.Element => {
       )}
 
       <button className="mypage-btn-modify" onClick={onModifyUserInform}>
-        수정
+        닉네임 변경
       </button>
       <hr className="mypage-hr" />
       <button className="mypage-btn-unregister">회원탈퇴</button>

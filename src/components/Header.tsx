@@ -24,6 +24,7 @@ const Header = (): JSX.Element => {
     localStorage.removeItem('id');
     localStorage.removeItem('nickname');
     localStorage.removeItem('userRole');
+    localStorage.removeItem('isSocial');
     sweetAlert(1000, 'success', '로그아웃 되었습니다');
     navigate('/');
   };
@@ -54,13 +55,13 @@ const Header = (): JSX.Element => {
     <>
       <div className="header">
         <div className="header_inner">
-          <div
-            className="header_logo"
-            onClick={() => {
-              navigate('/');
-            }}
-          >
-            <div className="spreet-logo__bg"></div>
+          <div className="header_logo">
+            <div
+              className="spreet-logo__bg"
+              onClick={() => {
+                navigate('/');
+              }}
+            ></div>
           </div>
           <div className="header_btn">
             {token && (

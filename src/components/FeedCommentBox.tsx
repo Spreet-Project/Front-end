@@ -56,7 +56,7 @@ const FeedCommentBox = ({
         <div key={comment.commentId} className="modal-comment-wrapper">
           <div className="modal-comment__user-author">
             <div className="modal-comment__user-image">
-              <img src={profileImageUrl} />
+              <img src={comment.profileImageUrl} />
             </div>
             {comment.nickname} &nbsp;
             <span className="modal-comment__date">

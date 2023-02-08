@@ -25,6 +25,7 @@ const KakaoLogin = () => {
         console.log(res);
         localStorage.setItem('nickname', res.data.data.nickname);
         localStorage.setItem('id', res.headers.authorization);
+        localStorage.setItem('isSocial', 'true');
         return navigate('/');
       });
     }

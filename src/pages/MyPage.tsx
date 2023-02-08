@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import '../assets/styles/scss/myPage.scss';
-import { useNavigate } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import UserInform from '../components/mypage/UserInform';
 import ContentList from '../components/mypage/ContentList';
@@ -9,6 +8,7 @@ import Admin from '../components/mypage/Admin';
 import { getUserInform } from '../core/api/mypage';
 const MyPage = () => {
   const userRole = localStorage.getItem('userRole');
+  const isSocial = Boolean(localStorage.getItem('isSocial'));
   const [id, setId] = useState(0);
 
   const { isLoading, isError, data, error, isFetching } = useQuery(
@@ -31,21 +31,15 @@ const MyPage = () => {
       id: 1,
       title: '게시글',
     },
-    {
+    !isSocial && {
       id: 2,
       title: '비밀번호 변경',
     },
-    {
+    userRole === 'ROLE_ADMIN' && {
       id: 3,
       title: '관리자',
     },
   ];
-
-  // if (data && data.response && data.name === 'AxiosError') {
-  //   localStorage.removeItem('id');
-  //   sweetAlert(1000, 'error', '죄송합니다 다시 로그인해주세요');
-  //   navigate('/login');
-  // }
 
   if (isLoading || !data.data.data) return;
   // console.log(data, 'data');
@@ -73,7 +67,7 @@ const MyPage = () => {
 
       {data.data.data && id === 0 && <UserInform userInform={data.data.data} />}
       {id === 1 && <ContentList />}
-      {data.data.data && id === 2 && (
+      {data.data.data && id === 2 && !isSocial && (
         <ChangePassword userEmail={data.data.data.email} />
       )}
       {id === 3 && <Admin />}

@@ -8,16 +8,16 @@
 }
 
 @mixin modal-comment__user-image {
-  width: 45px;
-  height: 45px;
+  width: 35px;
+  height: 35px;
   border-radius: 100%;
   margin-right: 5px;
   object-fit: cover;
 }
 
 @mixin user-image {
-  width: 45px;
-  height: 45px;
+  width: 35px;
+  height: 35px;
   border-radius: 100%;
   overflow: cover;
 }
@@ -45,6 +45,8 @@
     .modal-userInform {
       color: white;
       .modal-userInform__content {
+        overflow: auto;
+        height: 130px;
         margin-left: 20px;
         .modal-content__title {
           font-weight: 600;
@@ -55,11 +57,11 @@
           color: white;
           height: 80px;
           font-size: 18px;
-          overflow: auto;
         }
       }
       .modal-userInform__author {
-        margin-top: 10px;
+        margin-top: 15px;
+
         font-size: 16px;
         display: flex;
         align-items: center;
