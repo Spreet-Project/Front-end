@@ -55,8 +55,10 @@ $confirm-msg: gray;
   .mypage-category {
     cursor: pointer;
     height: 400px;
-    margin-top: 80px;
+    margin-top: 50px;
     li {
+      // width: 300px;
+      // height: 50px;
       margin: 60px auto;
       &:hover {
         background-color: #d10536;
