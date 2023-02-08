@@ -41,6 +41,10 @@ $inform_fontColor: #717171;
 .event-sector {
   width: 1440px;
   margin: auto;
+  .local-category {
+    width: 100px;
+    height: 35px;
+  }
   .event-wrapper {
     display: flex;
     flex-wrap: wrap;
