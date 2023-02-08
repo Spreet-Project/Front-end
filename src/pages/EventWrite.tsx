@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../assets/styles/scss/eventWrite.scss';
 import { postEventWrite } from '../core/api/event';
 import sweetAlert from '../core/utils/sweetAlert';
+import imageCompression from 'browser-image-compression';
 import KakaoMapModal from '../components/kakaomap/KakaoMapmodal';
 
 const EventWrite = () => {
@@ -68,40 +69,58 @@ const EventWrite = () => {
   };
 
   // 제목
-  const onChangeTitle = e => {
+  const onChangeTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
 
   // 내용
-  const onChangeContent = e => {
+  const onChangeContent = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value);
   };
 
   // 날짜
-  const onchangeDate = e => {
+  const onchangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDate(e.target.value);
   };
 
   // 시간
-  const onChangeTime = e => {
+  const onChangeTime = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTime(e.target.value);
   };
 
   // 위치
-  const onChangeLocation = e => {
+  const onChangeLocation = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLocation(e.target.value);
   };
 
+  //리사이징 함수
+  const handleFileOnChange = async file => {
+    const options = { maxSizeMB: 10, maxWidthOrHeight: 100 };
+    try {
+      const compressedFile = await imageCompression(file, options);
+      const resultFile = new File([compressedFile], compressedFile.name, {
+        type: compressedFile.type,
+      });
+      return resultFile;
+    } catch (error) {
+      sweetAlert(1000, 'error', '파일 변환중 오류!');
+    }
+  };
+
   // 이미지
-  const onChangeEventImage = e => {
-    setEventImage(e.target.files[0]);
-    const reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
-    reader.onloadend = () => {
-      const resultImage = reader.result;
-      // console.log('result', resultImage);
-      setFileUrl(resultImage);
-    };
+  const onChangeEventImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      const newFile = await handleFileOnChange(e.target.files[0]);
+      setEventImage(newFile);
+      const reader = new FileReader();
+      reader.readAsDataURL(e.target.files[0]);
+      reader.onloadend = () => {
+        const resultImage = reader.result;
+        setFileUrl(resultImage);
+      };
+    } catch (error) {
+      sweetAlert(1000, 'error', '파일 변환중 오류!');
+    }
   };
 
   ///다음 검색 주소 검색결과
@@ -121,15 +140,6 @@ const EventWrite = () => {
     }
     //fullAddress -> 전체 주소반환
   };
-
-  //이미지 리사이징
-  // const onChangeEventImage = async (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   const targetFile = e.target.files[0];
-  //   const options = {
-  //     maxSizeMB: 10,
-  //     maxWidthOrHeight: 600,
-  //   };
-  // };
 
   return (
     <div className="eventWrite-content">

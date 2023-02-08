@@ -9,6 +9,7 @@ const FeedsScroll = ({
   onPostFeedLike,
   onSubscribe,
 }): JSX.Element => {
+  const username = localStorage.getItem('nickname');
   const feedChildRef = useRef<HTMLDivElement>(null);
   const feedRef = useRef<HTMLDivElement>(null);
   const [currPaigingIDX, setCurrPaigingIDX] = useState<number>(0);
@@ -121,24 +122,29 @@ const FeedsScroll = ({
         >
           Detail
         </p>
-        <div className="shorts-btn btn__subscribe">
-          <span
-            className="material-symbols-outlined"
-            onClick={() => {
-              onSubscribe(feed.nickname);
-            }}
-          >
-            subscriptions
-          </span>
-        </div>
-        <p
-          className="shorts-btn-text text__subscribe"
-          onClick={() => {
-            onSubscribe(feed.nickname);
-          }}
-        >
-          Subscribe
-        </p>
+        {username !== feed.nickname && (
+          <>
+            <div className="shorts-btn btn__subscribe">
+              <span
+                className="material-symbols-outlined"
+                onClick={() => {
+                  console.log(feed);
+                  onSubscribe(feed.nickname);
+                }}
+              >
+                subscriptions
+              </span>
+            </div>
+            <p
+              className="shorts-btn-text text__subscribe"
+              onClick={() => {
+                onSubscribe(feed.nickname);
+              }}
+            >
+              Subscribe
+            </p>
+          </>
+        )}
       </div>
     </div>
   );

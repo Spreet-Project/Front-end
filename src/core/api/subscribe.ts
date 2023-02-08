@@ -10,7 +10,7 @@ export const postSubscribe = async nickname => {
     if (error.response.request.status === 401) {
       return sweetAlert(1000, 'error', '로그인이 필요합니다!');
     }
-    sweetAlert(1000, 'error', '구독중 에러');
+    sweetAlert(1000, 'error', error.response.data.msg);
   }
 };
 

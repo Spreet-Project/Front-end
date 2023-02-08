@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../assets/styles/scss/write.scss';
 import { useInputs } from '../core/hooks/useInput';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useMutation, useQuery } from 'react-query';
+import { useQuery } from 'react-query';
 import { getDetailShorts, updateShorts } from '../core/api/shorts';
 import sweetAlert from '../core/utils/sweetAlert';
 

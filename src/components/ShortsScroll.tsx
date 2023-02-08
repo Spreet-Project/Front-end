@@ -1,7 +1,6 @@
 import React from 'react';
 import '../assets/styles/scss/shorts.scss';
 import Video from './Video';
-import sweetAlert from '../core/utils/sweetAlert';
 
 const ShortsScroll = ({
   shorts,
@@ -10,6 +9,7 @@ const ShortsScroll = ({
   setIsShowModal,
   onSubscribe,
 }): JSX.Element => {
+  const username = localStorage.getItem('nickname');
   return (
     <div key={shorts.shortsId} className="shorts-item__scroll">
       <Video width="100%" height="650px" src={shorts.videoUrl} />
@@ -61,24 +61,40 @@ const ShortsScroll = ({
         >
           Detail
         </p>
-        <div className="shorts-btn btn__subscribe">
-          <span
-            className="material-symbols-outlined"
-            onClick={() => {
-              sweetAlert(1000, 'error', '서비스 구현 중 입니다.');
-            }}
-          >
-            subscriptions
-          </span>
-        </div>
-        <p
-          className="shorts-btn-text text__subscribe"
-          onClick={() => {
-            sweetAlert(1000, 'error', '서비스 구현 중 입니다.');
-          }}
-        >
-          Subscribe
-        </p>
+        {username !== shorts.nickname && (
+          <>
+            <div className="shorts-btn btn__subscribe">
+              {shorts.subscribed ? (
+                <span
+                  className="material-symbols-outlined"
+                  onClick={() => {
+                    onSubscribe(shorts.nickname);
+                  }}
+                  style={{ color: 'red' }}
+                >
+                  subscriptions
+                </span>
+              ) : (
+                <span
+                  className="material-symbols-outlined"
+                  onClick={() => {
+                    onSubscribe(shorts.nickname);
+                  }}
+                >
+                  subscriptions
+                </span>
+              )}
+            </div>
+            <p
+              className="shorts-btn-text text__subscribe"
+              onClick={() => {
+                onSubscribe(shorts.nickname);
+              }}
+            >
+              Subscribe
+            </p>
+          </>
+        )}
       </div>
     </div>
   );

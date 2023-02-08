@@ -107,10 +107,18 @@
     .main-inner {
       // background-color: #373636;
       background-color: #111;
+      .main-title {
+        color: #bbb7b7;
+        font-size: 30px;
+        letter-spacing: 0.03em;
+        margin-left: 50px;
+        // margin-bottom: 50px;
+        padding-top: 30px;
+      }
       .slide-row {
         position: relative;
         box-sizing: border-box;
-        margin-top: 100px;
+        margin-top: 80px;
         .slide-row__carousel {
           @include carouselEle;
           .slide-row__button {
@@ -185,6 +193,16 @@
       .feed-content {
         cursor: pointer;
         margin-top: 100px;
+        .feed-title {
+          color: #6163fe;
+          font-size: 26px;
+          letter-spacing: 0.03em;
+          margin: 20px;
+          margin-left: 50px;
+          &:hover {
+            cursor: default;
+          }
+        }
         .feed-wrapper {
           color: #6163fe;
           text-align: center;

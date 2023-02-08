@@ -213,6 +213,7 @@ const Main = (): JSX.Element => {
 
       <div className="main-content">
         <div className="main-inner">
+          <p className="main-title">인기 TOP10</p>
           {res.map((result, index) => {
             if (result.isLoading) return;
             return (
@@ -225,6 +226,7 @@ const Main = (): JSX.Element => {
             );
           })}
           <div className="feed-content">
+            <p className="feed-title">인기 게시글</p>
             <div className="feed-wrapper" ref={feedRef}>
               {resFeed.data.data.data &&
                 resFeed.data.data.data.map(item => {

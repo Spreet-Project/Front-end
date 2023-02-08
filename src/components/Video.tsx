@@ -10,9 +10,9 @@ interface IProps {
 }
 
 const Video: React.FC<IProps> = ({ width, height, src }) => {
-  const [nowPlaying, setNowPlaying] = useState(false);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [showControl, setShowControl] = useState(false);
+  const [nowPlaying, setNowPlaying] = useState<boolean>(false);
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const [showControl, setShowControl] = useState<boolean>(false);
 
   const ref = useRef<HTMLVideoElement>(null);
 
@@ -23,6 +23,9 @@ const Video: React.FC<IProps> = ({ width, height, src }) => {
   const startTime = Math.floor(currentTime);
 
   const [volumeClicked, setVolumeClicked] = useState(false);
+  const [volumeNum, setVolumeNum] = useState<number>(
+    videoElement && (videoElement.volume * 10) / 2,
+  );
 
   const percentNum = (currentTime / totalTime || 0) * 100;
 
@@ -32,16 +35,22 @@ const Video: React.FC<IProps> = ({ width, height, src }) => {
     if (observedVideoElement) {
       observedVideoElement.addEventListener('timeupdate', function () {
         setCurrentTime(observedVideoElement.currentTime);
+        // 영상이 다 자생되었다면 다시 초기화
+        if (
+          observedVideoElement.currentTime === observedVideoElement.duration
+        ) {
+          setNowPlaying(false);
+        }
       });
-      // 컴포넌트가 처음 마운트 될 때 동영상 시작 할지 말지 여부 (여기서는 시작되게 했음)
-      setNowPlaying(true);
-      // observedVideoElement.play();
     }
   };
 
   useEffect(() => {
     addTimeUpdate();
-  }, []);
+    if (videoElement) {
+      videoElement.volume = 0.5;
+    }
+  }, [videoElement]);
 
   // progress 이동시켰을때 실행되는 함수
   const onProgressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,13 +70,13 @@ const Video: React.FC<IProps> = ({ width, height, src }) => {
 
   // play icon 클릭했을떄 실행되는 함수
   const onPlayIconClick = () => {
-    if (videoElement) {
+    if (ref.current) {
       if (nowPlaying) {
         setNowPlaying(false);
-        videoElement.pause();
+        ref.current.pause();
       } else {
         setNowPlaying(true);
-        videoElement.play();
+        ref.current.play();
       }
     }
   };
@@ -87,14 +96,32 @@ const Video: React.FC<IProps> = ({ width, height, src }) => {
     if (volumeClicked) {
       if (videoElement) {
         videoElement.muted = true;
+        videoElement.volume = 0;
+        setVolumeNum(0);
       }
       setVolumeClicked(false);
     } else {
       if (videoElement) {
         videoElement.muted = false;
+        videoElement.volume = 0.5;
+        setVolumeNum(5);
       }
       setVolumeClicked(true);
     }
+  };
+
+  const onChangeVolumeNum = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const currNumber = Number(e.target.value);
+    if (currNumber !== 0) {
+      videoElement.muted = false;
+      setVolumeClicked(true);
+      setVolumeNum(5);
+    } else {
+      videoElement.muted = true;
+      setVolumeClicked(false);
+    }
+    videoElement.volume = currNumber / 10;
+    setVolumeNum(currNumber);
   };
 
   // 마우스를 올렸을때 실행되는 함수
@@ -157,16 +184,32 @@ const Video: React.FC<IProps> = ({ width, height, src }) => {
             {toTimeString(totalTime)}
           </span>
           {volumeClicked ? (
-            <span className="material-symbols-outlined" onClick={handleVolume}>
+            <span
+              className="material-symbols-outlined volume-icon"
+              onClick={handleVolume}
+            >
               volume_mute
             </span>
           ) : (
-            <span className="material-symbols-outlined" onClick={handleVolume}>
+            <span
+              className="material-symbols-outlined volume-icon"
+              onClick={handleVolume}
+            >
               volume_off
             </span>
           )}
+          <input
+            onChange={onChangeVolumeNum}
+            type="range"
+            min="0"
+            max="10"
+            step="1"
+            value={volumeNum}
+            className="main-volumebar-controller"
+          />
         </div>
       </div>
+
       <div className="controlbar-videoplay__icon">
         {nowPlaying ? (
           <span

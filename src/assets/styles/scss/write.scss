@@ -89,6 +89,7 @@ $write_borderColor: #9c9c9c;
       margin-left: 15px;
       border: 1px solid #9c9c9c;
       border-radius: 5px;
+      padding-left: 10px;
     }
     p {
       font-size: 20px;
@@ -100,26 +101,28 @@ $write_borderColor: #9c9c9c;
       margin-right: 310px;
     }
     input {
-      margin-right: 100px;
+      margin-right: 65px;
       margin-top: 15px;
       margin-bottom: 10px;
       font-size: 15px;
     }
     .title-input {
-      width: 400px;
+      width: 390px;
       height: 40px;
       border-radius: 5px;
       border: 1px solid $write_borderColor;
-      margin-left: 115px;
+      margin-left: 80px;
+      padding-left: 10px;
     }
     textarea {
       margin-left: 15px;
-      font-size: 18px;
-      width: 400px;
+      font-size: 17px;
+      width: 390px;
       height: 250px;
       resize: none;
       border-radius: 5px;
       border: 1px solid $write_borderColor;
+      padding-left: 10px;
     }
     .write-hr {
       width: 400px;

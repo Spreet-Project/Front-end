@@ -30,16 +30,16 @@ export const getScrollShorts = async payload => {
     const { pageParam = 1, queryKey } = payload;
     // console.log(pageParam, 'pageParam');
     // console.log(queryKey, 'payload');
-    const [token, category] = [queryKey[1], queryKey[2]];
-    // console.log(token, category);
+    const [token, category, sort] = [queryKey[1], queryKey[2], queryKey[3]];
+    // console.log(sort);
     if (token) {
       const result = await baseURL.get(
-        `/shorts?category=${category}&page=${pageParam}`,
+        `/shorts?sort=${sort}&category=${category}&page=${pageParam}`,
       );
       return result;
     }
     const result = await instance.get(
-      `/shorts?category=${category}&page=${pageParam}`,
+      `/shorts?sort=${sort}&category=${category}&page=${pageParam}`,
     );
     return result;
   } catch (error) {

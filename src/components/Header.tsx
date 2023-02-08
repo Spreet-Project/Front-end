@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import '../assets/styles/scss/header.scss';
 import { useNavigate } from 'react-router-dom';
 import sweetAlert from '../core/utils/sweetAlert';
@@ -10,18 +10,28 @@ const Header = (): JSX.Element => {
   const [isShowAlarm, setIsShowAlarm] = useState<boolean>(false);
   const [alarmList, setAlarmList] = useState([]);
   const userRole: string = localStorage.getItem('userRole');
+  const alarmRef = useRef<any>();
+
+  const eventId = () =>
+    document.addEventListener('click', e => {
+      if (alarmRef.current && !alarmRef.current.contains(e.target)) {
+        setIsShowAlarm(false);
+      }
+    });
+  eventId();
 
   const onLogout = () => {
     localStorage.removeItem('id');
     localStorage.removeItem('nickname');
     localStorage.removeItem('userRole');
+    localStorage.removeItem('isSocial');
     sweetAlert(1000, 'success', '로그아웃 되었습니다');
     navigate('/');
   };
 
   const onClcikSubsCribe = () => {
     if (isShowAlarm) {
-      setIsShowAlarm(false);
+      return setIsShowAlarm(false);
     } else {
       setIsShowAlarm(true);
     }
@@ -45,24 +55,29 @@ const Header = (): JSX.Element => {
     <>
       <div className="header">
         <div className="header_inner">
-          <p
-            className="header_logo"
-            onClick={() => {
-              navigate('/');
-            }}
-          >
-            <img />
-          </p>
+          <div className="header_logo">
+            <div
+              className="spreet-logo__bg"
+              onClick={() => {
+                navigate('/');
+              }}
+            ></div>
+          </div>
           <div className="header_btn">
-            <button onClick={onClcikSubsCribe} className="letter-spacing__5">
-              알림
-            </button>
+            {token && (
+              <button
+                ref={alarmRef}
+                onClick={onClcikSubsCribe}
+                className="letter-spacing__5"
+              >
+                알림
+              </button>
+            )}
             {isShowAlarm && (
               <>
                 <div className="alarm-triangle"></div>
                 <div className="header-alarm">
-                  {alarmList &&
-                    alarmList.length !== 0 &&
+                  {alarmList && alarmList.length !== 0 ? (
                     alarmList.map(alarm => {
                       return (
                         <div className="alarm-item" key={alarm.id}>
@@ -84,7 +99,10 @@ const Header = (): JSX.Element => {
                           </div>
                         </div>
                       );
-                    })}
+                    })
+                  ) : (
+                    <p>알람이 없네요</p>
+                  )}
                 </div>
               </>
             )}
@@ -103,17 +121,7 @@ const Header = (): JSX.Element => {
             >
               행사
             </button>
-            {token ? (
-              <button onClick={onLogout}>로그아웃</button>
-            ) : (
-              <button
-                onClick={() => {
-                  navigate('/login');
-                }}
-              >
-                로그인
-              </button>
-            )}
+
             {token && (
               <button
                 onClick={() => {
@@ -155,6 +163,17 @@ const Header = (): JSX.Element => {
                 }}
               >
                 마이페이지
+              </button>
+            )}
+            {token ? (
+              <button onClick={onLogout}>로그아웃</button>
+            ) : (
+              <button
+                onClick={() => {
+                  navigate('/login');
+                }}
+              >
+                로그인
               </button>
             )}
           </div>

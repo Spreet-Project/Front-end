@@ -55,8 +55,10 @@ $confirm-msg: gray;
   .mypage-category {
     cursor: pointer;
     height: 400px;
-    margin-top: 80px;
+    margin-top: 50px;
     li {
+      // width: 300px;
+      // height: 50px;
       margin: 60px auto;
       &:hover {
         background-color: #d10536;
@@ -114,7 +116,7 @@ $confirm-msg: gray;
     @include defaultBtn;
     margin: 0;
     margin-left: 10px;
-    width: 150px;
+    width: 145px;
     height: 50px;
   }
   .mypage-profile__checknickname {
@@ -133,19 +135,21 @@ $confirm-msg: gray;
 }
 
 .mypage-input {
-  width: 486px;
+  width: 476px;
   height: 48px;
   margin: 0px 0px 30px 9.5%;
   border: 1px solid #9c9c9c;
   border-radius: 5px;
+  padding-left: 10px;
 }
 
 .mypage-input-nickname {
-  width: 330px;
+  width: 320px;
   height: 48px;
   margin: 0px 0px 10px 9.5%;
   border: 1px solid #9c9c9c;
   border-radius: 5px;
+  padding-left: 10px;
 }
 
 .mypage-btn-confirm {
@@ -193,9 +197,10 @@ $confirm-msg: gray;
 
 //비밀번호 찾기
 @mixin findpasword-input {
-  width: 400px;
+  width: 330px;
   height: 40px;
   margin: 10px 0 10px 0;
+  padding-left: 10px;
 }
 
 .changepassword-form {
@@ -225,8 +230,8 @@ $confirm-msg: gray;
       margin-top: 25px;
     }
     .changepassword-btn {
-      width: 140px;
-      height: 48px;
+      width: 130px;
+      height: 40px;
       margin: 0px 0px 0px 16px;
       background: #717171;
       border-radius: 5px;

@@ -34,41 +34,48 @@
 
 .eventWrite-input {
   margin: 30px 0px 0px 0px;
-  width: 430px;
+  width: 420px;
   height: 40px;
   border: 1px solid #9c9c9c;
   border-radius: 5px;
+  padding-left: 10px;
 }
 
 .eventWrite-input-date {
   margin: 30px 0px 0px 0px;
-  width: 430px;
+  width: 410px;
   height: 40px;
   border: 1px solid #9c9c9c;
   border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .eventWrite-input-time {
   margin: 30px 0px 0px 0px;
-  width: 430px;
+  width: 410px;
   height: 40px;
   border: 1px solid #9c9c9c;
   border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 
 .eventWrite-input-file {
-  margin: 15px 150px 0px 0px;
+  margin: 15px 110px 0px 0px;
   font-size: 15px;
 }
 
 .eventWrite-textatea {
   margin: 20px;
-  width: 430px;
+  width: 420px;
   height: 200px;
   border: 1px solid #9c9c9c;
   border-radius: 5px;
   resize: none;
   font-size: 18px;
+  padding-left: 10px;
+  font-size: 16px;
 }
 
 .eventWrite-hr {

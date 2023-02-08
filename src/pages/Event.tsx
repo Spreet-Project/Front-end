@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { getEvent } from '../core/api/event';
 import '../assets/styles/scss/event.scss';
@@ -12,8 +12,17 @@ declare global {
 
 export default function Event() {
   const navigate = useNavigate();
+  const [currentLocal, setCurrentLocal] = useState<string>('all');
   //Event행사 가져오기
-  const { data, isLoading, isError } = useQuery(['getEvent'], getEvent);
+  const { data, isLoading, isError } = useQuery(
+    ['getEvent', currentLocal],
+    getEvent,
+  );
+
+  const onChangeLocal = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log(e.target.value === currentLocal);
+    setCurrentLocal(e.target.value);
+  };
 
   const mapScript = document.createElement('script');
 
@@ -21,6 +30,7 @@ export default function Event() {
   mapScript.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAO_URL}&autoload=false`;
   document.head.appendChild(mapScript);
   const infowindow = new window.kakao.maps.InfoWindow({});
+
   const onLoadKakaoMap = () => {
     if (isLoading) return;
     window.kakao.maps.load(() => {
@@ -30,7 +40,6 @@ export default function Event() {
         level: 7, // 지도의 확대 레벨
       };
       const map = new window.kakao.maps.Map(mapContainer, mapOption);
-
       const imageSrc = './images/kakaoMarker.png'; // 마커이미지의 주소입니다
       const imageSize = new window.kakao.maps.Size(32, 28); // 마커이미지의 크기입니다
       const imageOption = { offset: new window.kakao.maps.Point(27, 69) };
@@ -92,13 +101,39 @@ export default function Event() {
       });
     });
   };
-
+  useEffect(() => {
+    mapScript.addEventListener('load', onLoadKakaoMap);
+  }, [data]);
   if (isLoading) return;
-  mapScript.addEventListener('load', onLoadKakaoMap);
+
   return (
     <>
-      <div id="map" style={{ width: '100%', height: '500px' }}></div>;
+      <div id="map" style={{ width: '100%', height: '600px' }}></div>;
       <div className="event-sector">
+        <select
+          name="local-category"
+          className="local-category"
+          onChange={onChangeLocal}
+          value={currentLocal}
+        >
+          <option value="all">전체</option>
+          <option value="A01">서울</option>
+          <option value="A02">경기</option>
+          <option value="A03">인천</option>
+          <option value="A04">강원</option>
+          <option value="A05">충북</option>
+          <option value="A06">충남</option>
+          <option value="A07">대전</option>
+          <option value="A08">경북</option>
+          <option value="A09">경남</option>
+          <option value="A10">대구</option>
+          <option value="A11">울산</option>
+          <option value="A12">부산</option>
+          <option value="A13">전북</option>
+          <option value="A14">전남</option>
+          <option value="A15">광주</option>
+          <option value="A16">제주</option>
+        </select>
         <div className="event-wrapper">
           {data.data.data &&
             data.data.data.map((event, index) => {

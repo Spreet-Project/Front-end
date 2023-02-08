@@ -28,6 +28,7 @@ const KakaoMapModal = ({
       const geocoder = new window.kakao.maps.services.Geocoder();
 
       geocoder.addressSearch(location, function (result, status) {
+        // location을 prpost로 받아서 바로 카카오 맵 검색
         // 정상적으로 검색이 완료됐으면
         if (status === window.kakao.maps.services.Status.OK) {
           const coords = new window.kakao.maps.LatLng(result[0].y, result[0].x);

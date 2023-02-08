@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import '../assets/styles/scss/shorts.scss';
 import ShortsModal from '../components/ShortsModal';
 import { getScrollShorts, postShortLike } from '../core/api/shorts';
-import { useQueryClient, useQuery, useInfiniteQuery } from 'react-query';
+import { useQueryClient, useInfiniteQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import sweetAlert from '../core/utils/sweetAlert';
 import ShortsScroll from '../components/ShortsScroll';
@@ -14,7 +14,9 @@ const Shorts = () => {
   const queryClient = useQueryClient();
   const [shortsId, setShortsId] = useState<number>(0);
   const [currentCate, setCurrentCate] = useState<string>('RAP');
-  const token = localStorage.getItem('id');
+  const [sort, setSort] = useState<string>('new');
+  const token: string = localStorage.getItem('id');
+  const scrollRef = useRef<HTMLDivElement>();
   const [ref, inView] = useInView();
 
   const categoryList = [
@@ -28,15 +30,19 @@ const Shorts = () => {
   ];
 
   const { data, isLoading, isSuccess, hasNextPage, fetchNextPage, isFetching } =
-    useInfiniteQuery(['getScrollShorts', token, currentCate], getScrollShorts, {
-      getNextPageParam: (lastPage, pages) => {
-        if (!lastPage.data.data) return;
-        if (lastPage.data.data.length < 10 || !lastPage.data.data) {
-          return undefined;
-        }
-        return pages.length + 1;
+    useInfiniteQuery(
+      ['getScrollShorts', token, currentCate, sort],
+      getScrollShorts,
+      {
+        getNextPageParam: (lastPage, pages) => {
+          if (!lastPage.data.data) return;
+          if (lastPage.data.data.length < 10 || !lastPage.data.data) {
+            return undefined;
+          }
+          return pages.length + 1;
+        },
       },
-    });
+    );
 
   useEffect(() => {
     // console.log(inView, 'inView');
@@ -54,23 +60,36 @@ const Shorts = () => {
     setCurrentCate(cate);
   };
 
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+      scrollRef.current.scrollTop = 0;
+    }
+  }, [data]);
+
   //구독 요청
   const onSubscribe = userNickname => {
     postSubscribe(userNickname).then(res => {
-      // if (!res) {
-      //   return sweetAlert(1000, 'error', '구독 에러!');
-      // }
+      if (!res) return;
+      sweetAlert(1000, 'success', res.data.msg);
+      queryClient.invalidateQueries(['getScrollShorts', token, currentCate]);
     });
   };
 
   const onPostShortsLike = (shortsId: number) => {
     postShortLike(shortsId)
       .then(res => {
-        console.log(res);
         if (!res) {
           return sweetAlert(1000, 'error', ' 로그인이 필요합니다!');
         }
-        sweetAlert(1000, 'success', '좋아요가 반영되었습니다.');
+        if (res.data.msg === '좋아요 성공') {
+          sweetAlert(1000, 'success', res.data.msg);
+        } else {
+          sweetAlert(1000, 'error', res.data.msg);
+        }
         queryClient.invalidateQueries(['getScrollShorts', token, currentCate]);
       })
       .catch(error => {
@@ -95,7 +114,6 @@ const Shorts = () => {
                   <li
                     key={index}
                     onClick={() => {
-                      console.log(item);
                       onClickCate(item.value);
                     }}
                   >
@@ -107,7 +125,23 @@ const Shorts = () => {
         </div>
       </div>
       <div className="shorts-cotent">
-        <div className="shorts-scroll">
+        <div className="shorts-sortbtn">
+          <button
+            onClick={() => {
+              setSort('popular');
+            }}
+          >
+            인기글
+          </button>
+          <button
+            onClick={() => {
+              setSort('new');
+            }}
+          >
+            최신글
+          </button>
+        </div>
+        <div className="shorts-scroll" ref={scrollRef}>
           {data.pages &&
             data.pages.map(page => {
               if (!page.data.data) return;

@@ -17,6 +17,7 @@ const FindPassword = (): JSX.Element => {
   const [isRegPasswordCheck, setIsRegPasswordCheck] = useState<boolean>(false);
   const [isEmailConfirm, setIsEmailConfirm] = useState<boolean>(false);
   const [confirmCode, setConfirmCode] = useState<string>('');
+  const [isEmailLoading, setIsEmailLoading] = useState<boolean>(false);
 
   const onChangeRegPassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -40,8 +41,14 @@ const FindPassword = (): JSX.Element => {
   };
 
   const onCheckEmail = () => {
+    if (isEmailConfirm)
+      return sweetAlert(1000, 'error', '이미 중복확인 처리되었습니다.');
+    if (isEmailLoading) {
+      return sweetAlert(1000, 'error', '이메일 인증 번호를 보내는 중 입니다.');
+    }
+    setIsEmailLoading(true);
     postResetPasswordEmail(userEmail).then(res => {
-      console.log(res);
+      setIsEmailLoading(false);
       if (!res) {
         return sweetAlert(1000, 'error', res.data.msg);
       }
@@ -72,6 +79,7 @@ const FindPassword = (): JSX.Element => {
   const onConfirmEmail = () => {
     if (isEmailConfirm)
       return sweetAlert(1000, 'error', '이미 중복확인 처리되었습니다.');
+
     postEmailConfirm({
       email: userEmail,
       confirmCode: confirmCode,
@@ -134,6 +142,8 @@ const FindPassword = (): JSX.Element => {
               placeholder="인증 번호"
               className="changepassword-input"
               value={confirmCode}
+              readOnly
+              style={{ background: 'darkgray' }}
               onChange={onChangeConfirmCode}
             />
             <button className="changepassword-btn" onClick={onConfirmEmail}>
