@@ -1,11 +1,16 @@
 import sweetAlert from '../utils/sweetAlert';
 import { instance, baseURL, subURL } from '../axios/axios';
 
-export const getEvent = async () => {
-  //Feed 최신 게시물 조회
+export const getEvent = async payload => {
   try {
-    // console.log(payload, 'payload');
     //event행사 게시물조회조회
+    //행사 게시글 지역별 조회
+    const { queryKey } = payload;
+    const [local] = [queryKey[1]];
+    console.log(local, 'local');
+    if (local !== 'all') {
+      return await instance.get(`/event/area?code=${local}`);
+    }
     return await instance.get('/event');
   } catch (error) {
     if (error.response.request.status === 401) {
