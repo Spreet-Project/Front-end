@@ -14,7 +14,8 @@ const Shorts = () => {
   const queryClient = useQueryClient();
   const [shortsId, setShortsId] = useState<number>(0);
   const [currentCate, setCurrentCate] = useState<string>('RAP');
-  const token = localStorage.getItem('id');
+  const [sort, setSort] = useState<string>('new');
+  const token: string = localStorage.getItem('id');
 
   const [ref, inView] = useInView();
 
@@ -29,15 +30,19 @@ const Shorts = () => {
   ];
 
   const { data, isLoading, isSuccess, hasNextPage, fetchNextPage, isFetching } =
-    useInfiniteQuery(['getScrollShorts', token, currentCate], getScrollShorts, {
-      getNextPageParam: (lastPage, pages) => {
-        if (!lastPage.data.data) return;
-        if (lastPage.data.data.length < 10 || !lastPage.data.data) {
-          return undefined;
-        }
-        return pages.length + 1;
+    useInfiniteQuery(
+      ['getScrollShorts', token, currentCate, sort],
+      getScrollShorts,
+      {
+        getNextPageParam: (lastPage, pages) => {
+          if (!lastPage.data.data) return;
+          if (lastPage.data.data.length < 10 || !lastPage.data.data) {
+            return undefined;
+          }
+          return pages.length + 1;
+        },
       },
-    });
+    );
 
   useEffect(() => {
     // console.log(inView, 'inView');
@@ -110,6 +115,10 @@ const Shorts = () => {
         </div>
       </div>
       <div className="shorts-cotent">
+        <div className="shorts-sortbtn">
+          <button onClick={() => setSort('popular')}>인기글</button>
+          <button onClick={() => setSort('new')}>최신글</button>
+        </div>
         <div className="shorts-scroll">
           {data.pages &&
             data.pages.map(page => {
