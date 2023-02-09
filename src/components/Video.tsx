@@ -48,6 +48,7 @@ const Video: React.FC<IProps> = ({ width, height, src }) => {
   useEffect(() => {
     addTimeUpdate();
     if (videoElement) {
+      //페이지 렌더링시 처음 볼륨은 0.5 로 설정
       videoElement.volume = 0.5;
     }
   }, [videoElement]);
@@ -110,6 +111,7 @@ const Video: React.FC<IProps> = ({ width, height, src }) => {
     }
   };
 
+  //볼륨바 onChange함수
   const onChangeVolumeNum = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currNumber = Number(e.target.value);
     if (currNumber !== 0) {
