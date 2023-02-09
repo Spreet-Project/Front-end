@@ -5,7 +5,7 @@
 <img width="912" alt="Spreet 오프닝 사진" src="/src/assets/image/Spreet 메인 이미지.png">
 <br>
 
-[😎Back-End GitHub](https://github.com/Spreet-Project/Front-end)  
+[😎Back-End GitHub](https://github.com/Spreet-Project/Back-end)  
 [🛹Spreet Notion](https://www.notion.so/Spreet-30f5391e7e524289b3d44ec0abc11cbc)
 
 ---
