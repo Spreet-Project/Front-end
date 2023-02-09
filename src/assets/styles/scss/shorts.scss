@@ -15,6 +15,27 @@
   }
 }
 
+@mixin sort-btn {
+  position: absolute;
+  right: 15%;
+  button {
+    width: 100px;
+    height: 30px;
+    background: #d10536;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    border: none;
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+    margin: 10px 15px;
+    cursor: pointer;
+    &:hover {
+      color: black;
+    }
+  }
+}
+
 @mixin user-profile {
   display: flex;
   align-items: center;
@@ -60,24 +81,7 @@
   position: relative;
   // height: 100vh;
   .shorts-sortbtn {
-    position: absolute;
-    right: 15%;
-    button {
-      width: 100px;
-      height: 30px;
-      background: #d10536;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-      border-radius: 5px;
-      border: none;
-      color: white;
-      font-size: 17px;
-      font-weight: 600;
-      margin: 10px 15px;
-      cursor: pointer;
-      &:hover {
-        color: black;
-      }
-    }
+    @include sort-btn;
   }
   .shorts-scroll {
     position: absolute;

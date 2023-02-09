@@ -5,24 +5,6 @@ export const postFeed = async payload => {
   return await subURL.post('/feed', payload);
 };
 
-export const getFeed = async payload => {
-  //Feed 최신 게시물 조회
-  try {
-    const { queryKey } = payload;
-    // console.log(payload, 'payload');
-    //shorts카테고리별 게시물조회조회
-    if (queryKey[1]) {
-      return await baseURL.get(`/feed/recent?&page=1&size=10`);
-    }
-    return await instance.get('/feed/recent?page=1&size=10');
-  } catch (error) {
-    if (error.response.request.status === 401) {
-      sweetAlert(1000, 'error', '로그인이 필요합니다!');
-    }
-    return error;
-  }
-};
-
 export const getMainFeed = async payload => {
   //Feed 최신 게시물 조회
   try {
@@ -38,13 +20,17 @@ export const getScrollFeed = async payload => {
     const { pageParam = 1, queryKey } = payload;
     // console.log(pageParam, 'pageParam');
     // console.log(queryKey, 'payload');
-    const [token] = [queryKey[1]];
+    const [token, sort] = [queryKey[1], queryKey[2]];
     // console.log(token, category);
     if (token) {
-      const res = await baseURL.get(`/feed/recent?&page=${pageParam}&size=10`);
+      const res = await baseURL.get(
+        `/feed?sort=${sort}&page=${pageParam}&size=10`,
+      );
       return res.data;
     }
-    const res = await instance.get(`/feed/recent?&page=${pageParam}&size=10`);
+    const res = await instance.get(
+      `/feed?sort=${sort}&page=${pageParam}&size=10`,
+    );
     return res.data;
   } catch (error) {
     if (error.response.request.status === 401) {

@@ -26,6 +26,9 @@
 .feed-shorts-cotent {
   display: flex;
   position: relative;
+  .feed-sortbtn {
+    @include sort-btn;
+  }
   .feed-shorts-scroll {
     position: absolute;
     left: 50%;

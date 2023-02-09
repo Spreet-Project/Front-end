@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import '../assets/styles/scss/feedShorts.scss';
 import FeedsScroll from '../components/FeedsScroll';
 import { useQueryClient, useInfiniteQuery, useMutation } from 'react-query';
@@ -13,14 +13,16 @@ const FeedShorts = (): JSX.Element => {
   const naviagate = useNavigate();
   const queryClient = useQueryClient();
   const [feedId, setFeedId] = useState<number>(0);
+  const [sort, setSort] = useState<string>('new');
   const [isShowModal, setIsShowModal] = useState<boolean>(false);
-  const token = localStorage.getItem('id');
-  // const [feedList, setFeedList] = useState(null);
+  const token: string = localStorage.getItem('id');
+  const scrollRef = useRef<HTMLDivElement>();
+
   const [ref, inView] = useInView();
 
   //처음 렌더링
   const { data, isLoading, isSuccess, hasNextPage, fetchNextPage, isFetching } =
-    useInfiniteQuery(['getScrollFeed', token], getScrollFeed, {
+    useInfiniteQuery(['getScrollFeed', token, sort], getScrollFeed, {
       getNextPageParam: (lastPage, pages) => {
         if (!lastPage.data) return;
         if (lastPage.data.length < 10 || !lastPage.data.data) {
@@ -38,6 +40,16 @@ const FeedShorts = (): JSX.Element => {
       fetchNextPage();
     }
   }, [inView, hasNextPage, fetchNextPage]);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+      scrollRef.current.scrollTop = 0;
+    }
+  }, [data]);
 
   const categoryList = [
     { category: '랩', value: 'RAP' },
@@ -134,7 +146,23 @@ const FeedShorts = (): JSX.Element => {
         </div>
       </div>
       <div className="feed-shorts-cotent">
-        <div className="feed-shorts-scroll">
+        <div className="feed-sortbtn">
+          <button
+            onClick={() => {
+              setSort('popular');
+            }}
+          >
+            인기글
+          </button>
+          <button
+            onClick={() => {
+              setSort('new');
+            }}
+          >
+            최신글
+          </button>
+        </div>
+        <div className="feed-shorts-scroll" ref={scrollRef}>
           {data.pages &&
             data.pages.map(page => {
               if (!page.data) return;

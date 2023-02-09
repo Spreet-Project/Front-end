@@ -1,6 +1,5 @@
 import React, { useRef, useState } from 'react';
 import '../assets/styles/scss/feedShorts.scss';
-import sweetAlert from '../core/utils/sweetAlert';
 
 const FeedsScroll = ({
   feed,
@@ -84,7 +83,7 @@ const FeedsScroll = ({
         </div>
         <div className="user-like">
           <span className="user-like__heart">♥︎</span>
-          <span>{feed.feedLike}</span>
+          <span>{feed.likeCount}</span>
         </div>
       </div>
 
@@ -128,7 +127,6 @@ const FeedsScroll = ({
               <span
                 className="material-symbols-outlined"
                 onClick={() => {
-                  console.log(feed);
                   onSubscribe(feed.nickname);
                 }}
               >
