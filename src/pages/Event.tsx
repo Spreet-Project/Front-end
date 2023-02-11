@@ -10,7 +10,7 @@ declare global {
   }
 }
 
-export default function Event() {
+export default function Event(): JSX.Element {
   const navigate = useNavigate();
   const [currentLocal, setCurrentLocal] = useState<string>('all');
   //Event행사 가져오기

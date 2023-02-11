@@ -7,7 +7,6 @@ export const getEvent = async payload => {
     //행사 게시글 지역별 조회
     const { queryKey } = payload;
     const [local] = [queryKey[1]];
-    console.log(local, 'local');
     if (local !== 'all') {
       return await instance.get(`/event/area?code=${local}`);
     }

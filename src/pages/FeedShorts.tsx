@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../assets/styles/scss/feedShorts.scss';
 import FeedsScroll from '../components/FeedsScroll';
-import { useQueryClient, useInfiniteQuery, useMutation } from 'react-query';
+import { useQueryClient, useInfiniteQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { useInView } from 'react-intersection-observer';
 import FeedShortsModal from '../components/FeedShortsModal';
@@ -21,7 +21,7 @@ const FeedShorts = (): JSX.Element => {
   const [ref, inView] = useInView();
 
   //처음 렌더링
-  const { data, isLoading, isSuccess, hasNextPage, fetchNextPage, isFetching } =
+  const { data, isLoading, hasNextPage, fetchNextPage, isFetching } =
     useInfiniteQuery(['getScrollFeed', token, sort], getScrollFeed, {
       getNextPageParam: (lastPage, pages) => {
         if (!lastPage.data) return;
@@ -98,7 +98,7 @@ const FeedShorts = (): JSX.Element => {
   //   },
   // );
 
-  const onPostFeedLike = feedId => {
+  const onPostFeedLike = (feedId: number): void => {
     postFeedLike(feedId).then(res => {
       if (!res) {
         return sweetAlert(1000, 'error', ' 로그인이 필요합니다!');
@@ -114,7 +114,7 @@ const FeedShorts = (): JSX.Element => {
   };
 
   //구독 요청
-  const onSubscribe = userNickname => {
+  const onSubscribe = (userNickname: string): void => {
     postSubscribe(userNickname).then(res => {
       if (!res) return;
       sweetAlert(1000, 'success', '구독 성공');
@@ -122,7 +122,7 @@ const FeedShorts = (): JSX.Element => {
   };
 
   if (isLoading || !data.pages) return;
-  // console.log(data);
+
   return (
     <>
       {isLoading || (isFetching && <div> 로딩중입니다</div>)}

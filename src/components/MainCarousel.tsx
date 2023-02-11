@@ -4,10 +4,10 @@ import Video from './Video';
 
 const MainCarousel = ({ data, category, color }): JSX.Element => {
   const rapRef = useRef<HTMLDivElement>(null); //하단 메인 슬라이드 ref;
-  const [shortsTransX, setShortsTransX] = useState(0);
+  const [shortsTransX, setShortsTransX] = useState<number>(0);
 
   useEffect(() => {
-    const getFeedCordinate = () => {
+    const getFeedCordinate = (): void => {
       if (!rapRef.current) return;
       const rapLeft = rapRef.current.getBoundingClientRect().left;
       setShortsTransX(rapLeft);
