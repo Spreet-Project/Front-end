@@ -22,7 +22,7 @@ const MainVideo: React.FC<IProps> = ({ src }) => {
   const videoSrc = src || '';
   const startTime = Math.floor(currentTime);
 
-  const [volumeClicked, setVolumeClicked] = useState(false);
+  const [volumeClicked, setVolumeClicked] = useState<boolean>(false);
   const [volumeNum, setVolumeNum] = useState<number>(
     videoElement && (videoElement.volume * 10) / 2,
   );
@@ -32,7 +32,7 @@ const MainVideo: React.FC<IProps> = ({ src }) => {
   const addTimeUpdate = () => {
     const observedVideoElement = ref && ref.current;
     if (observedVideoElement) {
-      observedVideoElement.addEventListener('timeupdate', function () {
+      observedVideoElement.addEventListener('timeupdate', (): void => {
         setCurrentTime(observedVideoElement.currentTime);
         // 영상이 다 자생되었다면 다시 초기화
         if (
@@ -72,7 +72,7 @@ const MainVideo: React.FC<IProps> = ({ src }) => {
   };
 
   // play icon 클릭했을떄 실행되는 함수
-  const onPlayIconClick = () => {
+  const onPlayIconClick = (): void => {
     if (ref.current) {
       if (nowPlaying) {
         setNowPlaying(false);
@@ -85,7 +85,7 @@ const MainVideo: React.FC<IProps> = ({ src }) => {
   };
 
   // control bar visible 관련 함수
-  const handleControlVisible = () => {
+  const handleControlVisible = (): void => {
     if (!showControl) {
       setShowControl(true);
       setTimeout(() => {
@@ -95,7 +95,7 @@ const MainVideo: React.FC<IProps> = ({ src }) => {
   };
 
   // volume 클릭 관련 함수
-  const handleVolume = () => {
+  const handleVolume = (): void => {
     if (volumeClicked) {
       if (videoElement) {
         videoElement.muted = true;
@@ -128,7 +128,7 @@ const MainVideo: React.FC<IProps> = ({ src }) => {
   };
 
   // 마우스를 올렸을때 실행되는 함수
-  const onMouseUp = () => {
+  const onMouseUp = (): void => {
     if (videoElement) {
       // controller를 옮긴 시점에 currentTime이 최신화 되지 않아, 이를 위해 수정
       videoElement.currentTime = currentTime;
@@ -137,7 +137,7 @@ const MainVideo: React.FC<IProps> = ({ src }) => {
   };
 
   // 마우스를 내렸을때 실행되는 함수
-  const onMouseDown = () => {
+  const onMouseDown = (): void => {
     if (videoElement) {
       videoElement.pause();
     }

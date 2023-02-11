@@ -17,10 +17,10 @@ import ShortsCommentBox from './ShortsCommentBox';
 
 const ShortsModal = ({ setIsShowModal, shortsId }): JSX.Element => {
   const navigate = useNavigate();
-  const [isCommentModify, setIsCommentModify] = useState(false);
-  const [modifyCommentId, setModifyCommentId] = useState(0);
-  const [comment, setComment] = useState(''); //댓글 인풋
-  const [modifyComment, setModifyComment] = useState(''); //수정 댓글 인풋
+  const [isCommentModify, setIsCommentModify] = useState<boolean>(false);
+  const [modifyCommentId, setModifyCommentId] = useState<number>(0);
+  const [comment, setComment] = useState<string>(''); //댓글 인풋
+  const [modifyComment, setModifyComment] = useState<string>(''); //수정 댓글 인풋
   const queryClient = useQueryClient();
   const loginNickname = useRef<string>(null);
 

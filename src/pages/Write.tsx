@@ -13,9 +13,9 @@ const Write = (): JSX.Element => {
   const [fileUrl, setFileUrl] = useState(null);
   const [postImages, setPostImages] = useState([]); //서버로 보낼 이미지 데이터
   const [dettailImages, setDetailImages] = useState([]); //프리뷰 보낼 이미지 데이터
-  const [isFeed, setIsFeed] = useState(false);
-  const [shortsCate, setShortsCate] = useState('RAP');
-  const [feedTransX, setFeedTransX] = useState(0);
+  const [isFeed, setIsFeed] = useState<boolean>(false);
+  const [shortsCate, setShortsCate] = useState<string>('RAP');
+  const [feedTransX, setFeedTransX] = useState<number>(0);
   const feedChildRef = useRef<HTMLDivElement>(null);
   const feedRef = useRef<HTMLDivElement>(null);
 
@@ -77,7 +77,7 @@ const Write = (): JSX.Element => {
     setFileUrl(videoUrl);
   };
 
-  const handleFileOnChange = async file => {
+  const handleFileOnChange = async (file: File) => {
     const options = { maxSizeMB: 10, maxWidthOrHeight: 600 };
     try {
       const compressedFile = await imageCompression(file, options);
@@ -90,7 +90,7 @@ const Write = (): JSX.Element => {
     }
   };
 
-  const handleUrlOnChange = async compressedFile => {
+  const handleUrlOnChange = async (compressedFile: File) => {
     try {
       const url = await imageCompression.getDataUrlFromFile(compressedFile);
       return url;
@@ -124,7 +124,7 @@ const Write = (): JSX.Element => {
     }
   };
 
-  const onShortsSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onShortsSubmit = (): void => {
     if (title.length === 0) {
       sweetAlert(1000, 'error', '제목을 확인해주세요(공백제거)');
       return;
@@ -159,7 +159,7 @@ const Write = (): JSX.Element => {
       });
   };
 
-  const onFeedSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onFeedSubmit = (): void => {
     if (title.length === 0) {
       return sweetAlert(1000, 'error', '제목을 확인해주세요(공백제거)');
     }

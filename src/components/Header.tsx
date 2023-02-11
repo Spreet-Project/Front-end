@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import '../assets/styles/scss/header.scss';
 import { useNavigate } from 'react-router-dom';
 import sweetAlert from '../core/utils/sweetAlert';
@@ -10,10 +10,10 @@ const Header = (): JSX.Element => {
   const [isShowAlarm, setIsShowAlarm] = useState<boolean>(false);
   const [alarmList, setAlarmList] = useState([]);
   const userRole: string = localStorage.getItem('userRole');
-  const alarmRef = useRef<any>();
+  const alarmRef = useRef<HTMLButtonElement>();
 
   const eventId = () =>
-    document.addEventListener('click', e => {
+    document.addEventListener('click', (e: any) => {
       if (alarmRef.current && !alarmRef.current.contains(e.target)) {
         setIsShowAlarm(false);
       }

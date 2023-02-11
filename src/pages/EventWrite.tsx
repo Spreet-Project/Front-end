@@ -126,15 +126,15 @@ const EventWrite = () => {
   ///다음 검색 주소 검색결과
   const handleComplete = data => {
     const fullAddress = data.address;
-    let extraAddress = '';
+    // let extraAddress = '';
     if (data.addressType === 'R') {
-      if (data.bname !== '') {
-        extraAddress += data.bname;
-      }
-      if (data.buildingName !== '') {
-        extraAddress +=
-          extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
-      }
+      // if (data.bname !== '') {
+      //   extraAddress += data.bname;
+      // }
+      // if (data.buildingName !== '') {
+      //   extraAddress +=
+      //     extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName;
+      // }
       // fullAddress += extraAddress !== '' ? ` (${extraAddress})` : '';
       setLocation(fullAddress);
     }
