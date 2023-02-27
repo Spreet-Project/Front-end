@@ -6,11 +6,6 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-// import GlobalStyle from './assets/styles/global-styles';
-// import { theme } from './assets/styles/theme';
-// import { ThemeProvider } from 'styled-components';
-
-// import reportWebVitals from "./reportWebVitals";
 
 const queryClient = new QueryClient();
 
