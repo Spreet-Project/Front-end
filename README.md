@@ -24,7 +24,7 @@
 
 ## :calendar: 전체 프로젝트 개발기간 | Project Period
 
-:pushpin: 2022. 12.30 ~ 2022. 2.3
+:pushpin: 2022. 12.30 ~ 2023. 2.3
 
 ---
 
